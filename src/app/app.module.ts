@@ -7,11 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdminManagementComponent } from './admin/admin-management/admin-management.component';
+import { UserManagementComponent } from './admin/content/user-management/user-management.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminManagementComponent
+    AdminManagementComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,

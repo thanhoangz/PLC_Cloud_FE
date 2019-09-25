@@ -5,7 +5,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: [
+    './login.component.css',
+    '../../assets/admin/plugins/fontawesome-free/css/all.min.css',
+    '../../assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css',
+    '../../assets/admin/dist/css/adminlte.min.css'
+
+  ]
 })
 
 export class LoginComponent implements OnInit {
@@ -38,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.httpClient.get(`localhost:62602/api/Users`).subscribe(data => {
       this.listUser = data;
 
-      for (var i = 0; this.listUser.length; i++) {
+      for (let i = 0; this.listUser.length; i++) {
         if (this.listUser[i].username === this.username) {
           alert('đúng username !');
           break;
@@ -55,7 +61,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  //phương thức 
+
 
   post() {
     this.httpClient.post(`http://localhost:62602/api/Users`, this.user).subscribe(data => {
