@@ -5,15 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AdminManagementComponent } from './admin/admin-management/admin-management.component';
-import { UserManagementComponent } from './admin/content/user-management/user-management.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { Router } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    AdminManagementComponent,
-    UserManagementComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +23,19 @@ import { UserManagementComponent } from './admin/content/user-management/user-ma
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent
+  ],
   entryComponents: [
   ]
 
 })
-export class AppModule { }
+export class AppModule {
+  // Diagnostic only: inspect router configuration
+  constructor(router: Router) {
+    // Use a custom replacer to display function names in the route configs
+    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
+
+    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  }
+}
