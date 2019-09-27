@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminServicesService } from '../../services/admin-services.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-course',
@@ -12,22 +13,19 @@ import { AdminServicesService } from '../../services/admin-services.service';
 
 export class CourseComponent implements OnInit {
 
-  public courses = [
-    //{ Name: 'xx', TraingTime: 'xxx', Status: 1, Price: 1000000 }
-  ];
-
+  public courses = [];
+  public status = [];
   constructor(private adminServies: AdminServicesService) { }
-
+  public statusSelected;
+  
   ngOnInit() {
     this.getCourses();
-    //this.loadTables();
+    this.getAllStatus();
   }
 
   public getCourses() {
     this.adminServies.getAllCourses().subscribe((result: []) => {
       this.courses = result;
-
-      console.log(this.courses);
       this.loadTables();
     });
   }
@@ -37,7 +35,7 @@ export class CourseComponent implements OnInit {
   }
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['select', 'Name', 'TraingTime', 'Status', 'Price'];
+  public displayedColumns: string[] = ['select', 'name', 'traingTime', 'status', 'price', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSource = new MatTableDataSource(this.courses);
   // tslint:disable-next-line: member-ordering
@@ -65,4 +63,19 @@ export class CourseComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.Name + 1}`;
   }
 
+  private getAllStatus() {
+    this.status = [
+      {
+        Name: 'Hoạt động',
+        code: 0
+      },
+      {
+        Name: 'Khóa',
+        code: 1
+      },
+      {
+        Name: 'Tất cả',
+        code: 2
+      }];
+  }
 }
