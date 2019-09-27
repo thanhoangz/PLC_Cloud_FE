@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MatTableModule } from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
 
 import { Router } from '@angular/router';
 @NgModule({
@@ -20,7 +21,9 @@ import { Router } from '@angular/router';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [
