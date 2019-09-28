@@ -17,7 +17,7 @@ export class CourseComponent implements OnInit {
   public status = [];
   constructor(private adminServies: AdminServicesService) { }
   public statusSelected;
-  
+
   ngOnInit() {
     this.getCourses();
     this.getAllStatus();
