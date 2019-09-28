@@ -30,6 +30,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatDialogModule} from '@angular/material/dialog';
+
+import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -59,12 +62,14 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatTabsModule,
     MatTreeModule,
     MatButtonToggleModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule
   ],
   declarations: [
     AdminManagementComponent,
     UserManagementComponent,
-    CourseComponent
+    CourseComponent,
+    AddCourseDialogComponent
   ]
 })
 export class AdminModule { }
