@@ -20,7 +20,7 @@ export class CourseComponent implements OnInit {
   public status = [];
 
   constructor(
-    private adminServies: AdminService,
+    private dataServies: AdminService,
     private toastr: ToastrService,
     public matDialog: MatDialog
   ) { }
@@ -34,7 +34,7 @@ export class CourseComponent implements OnInit {
   }
 
   public getCourses() {
-    this.adminServies.getAllCourses().subscribe((result: []) => {
+    this.dataServies.getAllCourses().subscribe((result: []) => {
       this.courses = result;
       this.loadTables();
     });
@@ -45,20 +45,21 @@ export class CourseComponent implements OnInit {
   }
 
   public openCreateDialog() {
-    this.toastr.success('xxx', 'qqq');
-
     const createDialog = this.matDialog.open(AddCourseDialogComponent, {
-      width: '1000px',
+      width: '50%',
       data: {
-
       }
+    }).afterClosed().subscribe(result => {
+      this.getCourses();
     });
 
-    createDialog.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('đã đóng');
-        this.dataSource = new MatTableDataSource(this.courses);
-      }
+  }
+
+  public deleteCourse(courseId: number) {
+    console.log(courseId);
+    this.dataServies.deleteCourse(courseId).subscribe(result => {
+      setTimeout(() => this.toastr.success('Xóa khóa học thành công !', 'Dữ liệu khóa học'));
+      this.getCourses();
     });
   }
 

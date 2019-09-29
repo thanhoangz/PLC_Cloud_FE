@@ -105,7 +105,7 @@
                         <button mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button>
+                        <button mat-icon-button (click)="deleteCourse(element.id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
@@ -115,6 +115,8 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
                 </tr>
             </table>
+            <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
         </mat-card-content>
     </mat-card>
 

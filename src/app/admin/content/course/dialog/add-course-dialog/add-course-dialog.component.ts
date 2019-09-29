@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { AdminService } from 'src/app/admin/services/admin.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-course-dialog',
   templateUrl: './add-course-dialog.component.html',
@@ -31,6 +31,7 @@ export class AddCourseDialogComponent implements OnInit {
     private dataService: AdminService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -48,5 +49,11 @@ export class AddCourseDialogComponent implements OnInit {
         value: 1
       }
     ];
+  }
+
+  public createCourse() {
+    this.dataService.postCourse(this.course).subscribe(result => {
+      setTimeout(() => this.toastrService.success('Thêm mới thành công !', 'Dữ liệu khóa học'));
+    });
   }
 }

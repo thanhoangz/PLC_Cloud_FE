@@ -11,8 +11,18 @@ export class AdminService {
 
   /* Processing ... */
   getAllCourses() {
-    return this.httpClient.get(`${environment.PLCServicesDomain}/api/courses`);
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/courses`);
   }
 
+  postCourse(course: any) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Courses`, course);
+  }
+
+  deleteCourse(courseId: number) {
+    return this.httpClient
+      .delete(`${environment.PLCServicesDomain}/api/Courses/${courseId}`);
+  }
 
 }
