@@ -11,7 +11,15 @@ import { AdminServicesService } from 'src/app/admin/services/admin-services.serv
 })
 export class AddCourseDialogComponent implements OnInit {
 
-  public course;
+  public course = {
+    name: '',
+    price: 0,
+    content: '',
+    traingTime: 0,
+    numberOfSession: 0,
+    status: 0,
+    note: ''
+  };
   public status = [];
   public statusSelected;
 

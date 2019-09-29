@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminServicesService } from '../../services/admin-services.service';
 import { ThrowStmt } from '@angular/compiler';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -15,12 +15,17 @@ export class CourseComponent implements OnInit {
 
   public courses = [];
   public status = [];
-  constructor(private adminServies: AdminServicesService) { }
+  constructor(
+    private adminServies: AdminServicesService,
+    private toastr: ToastrService
+  ) { }
   public statusSelected;
 
   ngOnInit() {
+    setTimeout(() => this.toastr.success('Thêm thành công !', 'Căng củ cọt'));
     this.getCourses();
     this.getAllStatus();
+
   }
 
   public getCourses() {
@@ -34,6 +39,9 @@ export class CourseComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.courses);
   }
 
+  public openCreateDialog() {
+    this.toastr.success('xxx', 'qqq');
+  }
   // tslint:disable-next-line: member-ordering
   public displayedColumns: string[] = ['select', 'name', 'traingTime', 'status', 'price', 'controls'];
   // tslint:disable-next-line: member-ordering
