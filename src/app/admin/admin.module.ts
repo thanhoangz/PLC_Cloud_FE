@@ -1,8 +1,9 @@
+import { AdminManagementComponent } from './admin-management/admin-management.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserManagementComponent } from './content/user-management/user-management.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminManagementComponent } from './admin-management/admin-management.component';
+
 import { CourseComponent } from './content/course/course.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -30,13 +31,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-
-
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -67,18 +69,18 @@ import { AddCourseDialogComponent } from './content/course/dialog/add-course-dia
     MatTreeModule,
     MatButtonToggleModule,
     MatBadgeModule,
-    MatDialogModule,
     FormsModule,
+    MatDialogModule
 
 
 
 
   ],
   declarations: [
-    AdminManagementComponent,
     UserManagementComponent,
     CourseComponent,
     AddCourseDialogComponent,
+    AdminManagementComponent
   ]
 })
 export class AdminModule { }

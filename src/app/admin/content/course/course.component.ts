@@ -2,9 +2,11 @@ import { Course } from './../../model/course';
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminServicesService } from '../../services/admin-services.service';
+import { AdminService } from '../../services/admin.service';
 import { ThrowStmt } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddCourseDialogComponent } from './dialog/add-course-dialog/add-course-dialog.component';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -14,18 +16,21 @@ import { ToastrService } from 'ngx-toastr';
 export class CourseComponent implements OnInit {
 
   public courses = [];
+
   public status = [];
+
   constructor(
-    private adminServies: AdminServicesService,
-    private toastr: ToastrService
+    private adminServies: AdminService,
+    private toastr: ToastrService,
+    public matDialog: MatDialog
   ) { }
+
   public statusSelected;
 
   ngOnInit() {
     setTimeout(() => this.toastr.success('Thêm thành công !', 'Căng củ cọt'));
     this.getCourses();
     this.getAllStatus();
-
   }
 
   public getCourses() {
@@ -41,7 +46,22 @@ export class CourseComponent implements OnInit {
 
   public openCreateDialog() {
     this.toastr.success('xxx', 'qqq');
+
+    const createDialog = this.matDialog.open(AddCourseDialogComponent, {
+      width: '1000px',
+      data: {
+
+      }
+    });
+
+    createDialog.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('đã đóng');
+        this.dataSource = new MatTableDataSource(this.courses);
+      }
+    });
   }
+
   // tslint:disable-next-line: member-ordering
   public displayedColumns: string[] = ['select', 'name', 'traingTime', 'status', 'price', 'controls'];
   // tslint:disable-next-line: member-ordering
