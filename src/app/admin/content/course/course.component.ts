@@ -7,6 +7,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddCourseDialogComponent } from './dialog/add-course-dialog/add-course-dialog.component';
+import { EditCourseDialogComponent } from './dialog/edit-course-dialog/edit-course-dialog.component';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -53,6 +54,15 @@ export class CourseComponent implements OnInit {
       this.getCourses();
     });
 
+  }
+
+
+  public editCourse(course: any) {
+    this.matDialog.open(EditCourseDialogComponent,
+      {
+        width: '50%',
+        data: {_course : course }
+      });
   }
 
   public deleteCourse(courseId: number) {

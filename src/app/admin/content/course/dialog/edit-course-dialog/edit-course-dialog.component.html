@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Cập nhập khóa học</h1>
+
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field>
+                <input [(ngModel)]="course.name" name="name" matInput placeholder="Tên khóa học">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="course.price" name="price" matInput placeholder="Giá" numbersOnly>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea [(ngModel)]="course.content" matInput placeholder="Nội dung khóa học"
+                    name="content"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+            <mat-form-field>
+                <input [(ngModel)]="course.traingTime" name="traingTime" matInput
+                    placeholder="Thời gian học theo tháng" numbersOnly>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="course.numberOfSession" name="numberOfSession" matInput 
+                    placeholder="Số lượng buổi học" numbersOnly>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Chọn trạng thái</mat-label>
+                <mat-select [(ngModel)]="statusSelected">
+                    <mat-option *ngFor="let item of status" [value]="item.value">
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea [(ngModel)]="course.note" matInput placeholder="Ghi chú" name="note"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<mat-dialog-actions align="end">
+    <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="updateCourse()">
+        Update
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">Hủy</button>
+</mat-dialog-actions>

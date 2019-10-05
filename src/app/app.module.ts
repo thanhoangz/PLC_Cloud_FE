@@ -1,3 +1,6 @@
+import { OnlyNumberDirective } from './admin/services/only-number.directive';
+
+
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,10 +43,12 @@ import { MatBadgeModule } from '@angular/material/badge';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminModule } from './admin/admin.module';
+import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-course-dialog/edit-course-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    OnlyNumberDirective
   ],
   imports: [
     AdminModule,
@@ -88,7 +93,8 @@ import { AdminModule } from './admin/admin.module';
     AppComponent
   ],
   entryComponents: [
-    AddCourseDialogComponent
+    AddCourseDialogComponent,
+    EditCourseDialogComponent
   ]
 
 })

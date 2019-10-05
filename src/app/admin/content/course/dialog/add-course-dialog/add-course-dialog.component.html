@@ -8,7 +8,7 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input [(ngModel)]="course.price" name="price" matInput placeholder="Giá">
+                <input OnlyNumber  [(ngModel)]="course.price" name="price" matInput placeholder="Giá" maxlength="3" >
             </mat-form-field>
 
             <mat-form-field>

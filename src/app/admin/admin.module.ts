@@ -37,6 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
+import { DeleteCourseDialogComponent } from './content/course/dialog/delete-course-dialog/delete-course-dialog.component';
+
 
 
 @NgModule({
@@ -71,7 +74,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatBadgeModule,
     FormsModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
 
 
 
@@ -81,7 +84,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     UserManagementComponent,
     CourseComponent,
     AddCourseDialogComponent,
-    AdminManagementComponent
+    AdminManagementComponent,
+    EditCourseDialogComponent,
+    DeleteCourseDialogComponent
   ]
 })
 export class AdminModule { }
