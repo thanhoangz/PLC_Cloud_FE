@@ -37,11 +37,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminModule } from './admin/admin.module';
-import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-course-dialog/edit-course-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +80,6 @@ import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-co
     MatTreeModule,
     MatButtonToggleModule,
     MatBadgeModule,
-    MatProgressBarModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
@@ -91,9 +88,7 @@ import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-co
     AppComponent
   ],
   entryComponents: [
-    AddCourseDialogComponent,
-    EditCourseDialogComponent
-
+    AddCourseDialogComponent
   ]
 
 })

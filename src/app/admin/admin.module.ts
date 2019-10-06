@@ -37,9 +37,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-
 
 
 @NgModule({
@@ -74,8 +71,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatBadgeModule,
     FormsModule,
     MatDialogModule,
-    MatPaginatorModule,
-    MatProgressBarModule
+    MatPaginatorModule
 
 
 
@@ -85,8 +81,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     UserManagementComponent,
     CourseComponent,
     AddCourseDialogComponent,
-    AdminManagementComponent,
-    EditCourseDialogComponent
+    AdminManagementComponent
   ]
 })
 export class AdminModule { }
