@@ -7,6 +7,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddCourseDialogComponent } from './dialog/add-course-dialog/add-course-dialog.component';
+import { EditCourseDialogComponent } from './dialog/edit-course-dialog/edit-course-dialog.component';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -15,6 +16,11 @@ import { AddCourseDialogComponent } from './dialog/add-course-dialog/add-course-
 
 export class CourseComponent implements OnInit {
 
+  public pageSize = 10;
+  public length = 100;
+  public pageSizeOptions = [6, 10, 20];
+
+  public isShow = true;
   public courses = [];
 
   public status = [];
@@ -28,11 +34,14 @@ export class CourseComponent implements OnInit {
   public statusSelected;
 
   ngOnInit() {
-    setTimeout(() => this.toastr.success('Thêm thành công !', 'Căng củ cọt'));
+    //setTimeout(() => this.toastr.success('Thêm thành công !', 'Căng củ cọt'));
     this.getCourses();
     this.getAllStatus();
   }
 
+  public Find() {
+    this.isShow = !this.isShow;
+  }
   public getCourses() {
     this.dataServies.getAllCourses().subscribe((result: []) => {
       this.courses = result;
@@ -54,7 +63,17 @@ export class CourseComponent implements OnInit {
     });
 
   }
+  public editCourse(course: any) {
+    this.matDialog.open(EditCourseDialogComponent,
+      {
+        width: '50%',
+        data: { _course: course }
 
+      }).afterClosed().subscribe(result => {
+        this.getCourses();
+      });
+
+  }
   public deleteCourse(courseId: number) {
     console.log(courseId);
     this.dataServies.deleteCourse(courseId).subscribe(result => {
@@ -107,4 +126,20 @@ export class CourseComponent implements OnInit {
         code: 2
       }];
   }
+
+  course = [];
+
+  getPaginatorData(event) {
+    this.pageSize = event.pageSize;
+    this.length = this.courses.length;
+    this.course = [];
+    for (let i = this.pageSize * event.pageIndex; i < this.pageSize * event.pageIndex + this.pageSize; i++) {
+      if (i <= (this.length - 1))
+        this.course.push(this.courses[i]);
+    }
+
+    this.dataSource = new MatTableDataSource(this.course);
+
+  }
+
 }

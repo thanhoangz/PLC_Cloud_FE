@@ -1,4 +1,6 @@
 <!-- Content Header (Page header) -->
+<mat-progress-bar mode="indeterminate" *ngIf="isShow"></mat-progress-bar>
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -19,13 +21,13 @@
 <section class="content" style="margin-top: 1%">
     <mat-card>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <mat-form-field>
                     <input matInput placeholder="Tên Khóa học">
                     <mat-hint>Tên khóa học muốn tìm kiếm</mat-hint>
                 </mat-form-field>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-2">
                 <mat-form-field>
                     <mat-label>Chọn trạng thái</mat-label>
                     <mat-select>
@@ -35,9 +37,9 @@
                 </mat-form-field>
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-7">
                 <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
-                    (click)="showTable()">Tìm kiếm</button>
+                    (click)="Find()">Tìm kiếm</button>
             </div>
         </div>
     </mat-card>
@@ -102,7 +104,7 @@
                         <button mat-icon-button>
                             <mat-icon>list_alt</mat-icon>
                         </button>
-                        <button mat-icon-button>
+                        <button mat-icon-button (click)="editCourse(element)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button (click)="deleteCourse(element.id)">
@@ -115,7 +117,8 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
                 </tr>
             </table>
-            <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="getPaginatorData($event)">
             </mat-paginator>
         </mat-card-content>
     </mat-card>
