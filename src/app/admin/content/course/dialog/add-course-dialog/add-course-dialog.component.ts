@@ -15,11 +15,11 @@ export class AddCourseDialogComponent implements OnInit {
 
   public course = {
     name: '',
-    price: 0,
+    price: null,
     content: '',
-    traingTime: 0,
-    numberOfSession: 0,
-    status: 0,
+    traingTime: null,
+    numberOfSession: null,
+    status: null,
     note: ''
   };
 

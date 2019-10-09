@@ -44,6 +44,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AdminModule } from './admin/admin.module';
 import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-course-dialog/edit-course-dialog.component';
+import { DetailCourseDialogComponent } from './admin/content/course/dialog/detail-course-dialog/detail-course-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,7 +95,8 @@ import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-co
   ],
   entryComponents: [
     AddCourseDialogComponent,
-    EditCourseDialogComponent
+    EditCourseDialogComponent,
+    DetailCourseDialogComponent
   ]
 
 })

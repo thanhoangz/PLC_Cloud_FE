@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Chi tiết khóa học</h1>
+
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-12">
+            <mat-form-field>
+                <input [(ngModel)]="this.data._course.name" name="name" matInput placeholder="Tên khóa học" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input OnlyNumber [(ngModel)]="this.data._course.price" name="price" matInput placeholder="Giá"
+                    maxlength="3" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea [(ngModel)]="this.data._course.content" matInput placeholder="Nội dung khóa học"
+                    name="content" disabled></textarea>
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <input [(ngModel)]="this.data._course.traingTime" name="traingTime" matInput
+                    placeholder="Thời gian học theo tháng" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="this.data._course.numberOfSession" name="numberOfSession" matInput
+                    placeholder="Số lượng buổi học" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="this.data._course.status" name="status" matInput placeholder="Trạng thái" disabled>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea [(ngModel)]="this.data._course.note" matInput placeholder="Ghi chú" name="note"
+                    disabled></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">Đóng</button>
+</mat-dialog-actions>

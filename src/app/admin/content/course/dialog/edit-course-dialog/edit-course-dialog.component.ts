@@ -13,14 +13,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditCourseDialogComponent implements OnInit {
 
+
   public course = {
     id: 0,
     name: '',
-    price: 0,
+    price: null,
     content: '',
-    traingTime: 0,
-    numberOfSession: 0,
-    status: 0,
+    traingTime: null,
+    numberOfSession: null,
+    status: null,
     note: ''
   };
 
@@ -53,13 +54,12 @@ export class EditCourseDialogComponent implements OnInit {
   }
 
   public updateCourse() {
-    console.log(this.course);
-    console.log(this.course.id);
 
-    this.httpClient.put(`http://localhost:61616/api/Courses/${this.course.id}`, this.course)
-      .subscribe(result => {
-        setTimeout(() => this.toastrService.success('Sua thành công !', 'Dữ liệu khóa học'));
-      });
+    this.dataService.putCourse(this.course).subscribe(result => {
+      setTimeout(() => this.toastrService.success('Cập nhập thành công !', 'Dữ liệu khóa học'));
+    }, error => {
+
+    });
   }
 
   public getAllStatus() {

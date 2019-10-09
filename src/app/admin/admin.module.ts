@@ -39,6 +39,7 @@ import { AddCourseDialogComponent } from './content/course/dialog/add-course-dia
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
 import { DeleteCourseDialogComponent } from './content/course/dialog/delete-course-dialog/delete-course-dialog.component';
+import { DetailCourseDialogComponent } from './content/course/dialog/detail-course-dialog/detail-course-dialog.component';
 
 
 
@@ -86,7 +87,8 @@ import { DeleteCourseDialogComponent } from './content/course/dialog/delete-cour
     AddCourseDialogComponent,
     AdminManagementComponent,
     EditCourseDialogComponent,
-    DeleteCourseDialogComponent
+    DeleteCourseDialogComponent,
+    DetailCourseDialogComponent
   ]
 })
 export class AdminModule { }
