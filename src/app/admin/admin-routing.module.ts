@@ -4,6 +4,7 @@ import { AdminManagementComponent } from './admin-management/admin-management.co
 import { UserManagementComponent } from './content/user-management/user-management.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './content/course/course.component';
+import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.component';
 
 
 const adminRoutes: Routes = [
@@ -16,6 +17,7 @@ const adminRoutes: Routes = [
         children: [
           { path: 'user', component: UserManagementComponent },
           { path: 'course', component: CourseComponent },
+          { path: 'loaichi', component: PaySlipTypesComponent },
           { path: '', component: CourseComponent }
         ]
       }

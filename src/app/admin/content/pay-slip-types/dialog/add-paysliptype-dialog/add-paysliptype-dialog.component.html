@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Thêm mới loại chi</h1>
+
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field>
+                <input [(ngModel)]="Paysliptype.name" name="name" matInput placeholder="Tên loại chi">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Chọn trạng thái</mat-label>
+                <mat-select [(ngModel)]="statusSelected">
+                    <mat-option *ngFor="let item of status" [value]="item.value">
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea [(ngModel)]="Paysliptype.note" matInput placeholder="Ghi chú" name="note"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<mat-dialog-actions align="end">
+    <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="create_Paysliptype()">
+        Thêm
+    </button>
+    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">Hủy</button>
+</mat-dialog-actions>

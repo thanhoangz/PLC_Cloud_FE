@@ -41,6 +41,7 @@ import { DetailCourseDialogComponent } from './content/course/dialog/detail-cour
 import {BidiModule} from '@angular/cdk/bidi';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import { ConfirmDialogComponent } from './extension-dialog/confirm-dialog/confirm-dialog.component';
+import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.component';
 
 @NgModule({
   imports: [
@@ -87,7 +88,8 @@ import { ConfirmDialogComponent } from './extension-dialog/confirm-dialog/confir
     DeleteCourseDialogComponent,
     DetailCourseDialogComponent,
     AddCourseDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PaySlipTypesComponent
 
   ]
 })
