@@ -1,3 +1,5 @@
+import { EditClassRoomComponent } from './admin/content/class-room/dialog/edit-class-room/edit-class-room.component';
+import { EditReceiptTypeComponent } from './admin/content/receipt-types/dialog/edit-receipt-type/edit-receipt-type.component';
 import { OnlyNumberDirective } from './admin/services/only-number.directive';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
@@ -42,6 +44,8 @@ import { DetailCourseDialogComponent } from './admin/content/course/dialog/detai
 import { DatePipe, CurrencyPipe, CommonModule } from '@angular/common';
 import { AdminModule } from './admin/admin.module';
 import { ConfirmDialogComponent } from './admin/extension-dialog/confirm-dialog/confirm-dialog.component';
+import { AddReceiptTypeComponent } from './admin/content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
+import { AddClassRoomComponent } from './admin/content/class-room/dialog/add-class-room/add-class-room.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +104,11 @@ import { ConfirmDialogComponent } from './admin/extension-dialog/confirm-dialog/
     AddCourseDialogComponent,
     EditCourseDialogComponent,
     DetailCourseDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    AddReceiptTypeComponent,
+    EditReceiptTypeComponent,
+    AddClassRoomComponent,
+    EditClassRoomComponent
   ]
 
 })

@@ -1,3 +1,4 @@
+import { AddReceiptTypeComponent } from './content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
 import { AdminManagementComponent } from './admin-management/admin-management.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserManagementComponent } from './content/user-management/user-management.component';
@@ -38,10 +39,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
 import { DeleteCourseDialogComponent } from './content/course/dialog/delete-course-dialog/delete-course-dialog.component';
 import { DetailCourseDialogComponent } from './content/course/dialog/detail-course-dialog/detail-course-dialog.component';
-import {BidiModule} from '@angular/cdk/bidi';
-import {TextFieldModule} from '@angular/cdk/text-field';
+import { BidiModule } from '@angular/cdk/bidi';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { ConfirmDialogComponent } from './extension-dialog/confirm-dialog/confirm-dialog.component';
 import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.component';
+import { ClassRoomComponent } from './content/class-room/class-room.component';
+import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.component';
+import { EditReceiptTypeComponent } from './content/receipt-types/dialog/edit-receipt-type/edit-receipt-type.component';
+import { AddClassRoomComponent } from './content/class-room/dialog/add-class-room/add-class-room.component';
+import { EditClassRoomComponent } from './content/class-room/dialog/edit-class-room/edit-class-room.component';
 
 @NgModule({
   imports: [
@@ -89,7 +95,13 @@ import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.c
     DetailCourseDialogComponent,
     AddCourseDialogComponent,
     ConfirmDialogComponent,
-    PaySlipTypesComponent
+    PaySlipTypesComponent,
+    ClassRoomComponent,
+    ReceiptTypesComponent,
+    AddReceiptTypeComponent,
+    EditReceiptTypeComponent,
+    AddClassRoomComponent,
+    EditClassRoomComponent
 
   ]
 })
