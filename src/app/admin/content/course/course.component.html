@@ -1,44 +1,31 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Khóa học</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Khóa học</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
 <!-- Main content -->
 <section class="content" style="margin-top: 1%">
     <div class="container-fluid">
         <mat-card>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <mat-form-field>
                         <input matInput placeholder="Tên Khóa học" [(ngModel)]="keyWord">
                         <mat-hint>Tên khóa học muốn tìm kiếm</mat-hint>
                     </mat-form-field>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <mat-form-field>
                         <mat-label>Chọn trạng thái</mat-label>
                         <mat-select [(ngModel)]="statusSelected">
-                            <mat-option *ngFor="let s of status; let i = index" value="{{s.code}}">{{s.Name}}
+                            <mat-option *ngFor="let s of status" value="{{s.code}}">{{s.Name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-
+                <div class="col-md-5">
+                </div>
                 <div class="col-md-1">
                     <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
-                        (click)="findCourse()">Tìm kiếm</button>
+                        (click)="searchCourses()">
+                        <mat-icon>search</mat-icon>
+                        Tìm kiếm
+                    </button>
                 </div>
             </div>
         </mat-card>
@@ -47,8 +34,10 @@
         <mat-card style="margin-top: 1%">
             <mat-card-header style="float: right;">
                 <mat-card-title>
-                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()">Thêm khóa
-                        học</button>
+                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()">
+                        <mat-icon>add</mat-icon>
+                        Thêm khóa học
+                    </button>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -72,8 +61,7 @@
                     <ng-container matColumnDef="status">
                         <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
                         <td mat-cell *matCellDef="let element">
-                            <span [class]="(element.status == 0?'badge badge-danger':'badge badge-success')"
-                                style="width: 40%">
+                            <span [class]="(element.status == 0?'badge badge-danger':'badge badge-success')">
                                 {{(element.status == 1)?"Hoạt động":"Khóa"}}
                             </span>
                         </td>
@@ -81,7 +69,7 @@
 
                     <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef> Học phí </th>
-                        <td mat-cell *matCellDef="let element"> {{element.price | currency:'JPY':'' }} VNĐ </td>
+                        <td mat-cell *matCellDef="let element"> {{element.price | currency:'JPY':'' }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="controls">
@@ -103,7 +91,8 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;">
                     </tr>
                 </table>
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"  (page)="getPaginatorData($event)">
+                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                    (page)="getPaginatorData($event)">
                 </mat-paginator>
             </mat-card-content>
         </mat-card>

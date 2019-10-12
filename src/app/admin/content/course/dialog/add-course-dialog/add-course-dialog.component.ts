@@ -1,19 +1,22 @@
+import { NotificationService } from './../../../../services/extension/notification.service';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { SelectionModel } from '@angular/cdk/collections';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { AdminService } from 'src/app/admin/services/admin.service';
-import { ToastrService } from 'ngx-toastr';
-
+import { CourseService } from 'src/app/admin/services/course.service';
+import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-add-course-dialog',
   templateUrl: './add-course-dialog.component.html',
   styleUrls: ['./add-course-dialog.component.css']
 })
+
 export class AddCourseDialogComponent implements OnInit {
 
-  public course = {
+  screenHeight: any;
+  screenWidth: any;
+
+  private course = {
     name: '',
     price: null,
     content: '',
@@ -30,11 +33,13 @@ export class AddCourseDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<AddCourseDialogComponent>,
-    private dataService: AdminService,
+    private courseService: CourseService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private toastrService: ToastrService,
-  ) { }
+    private notificationService: NotificationService,
+  ) {
+   
+  }
 
   ngOnInit() {
     this.getAllStatus();
@@ -54,10 +59,12 @@ export class AddCourseDialogComponent implements OnInit {
   }
 
   public createCourse() {
-    this.dataService.postCourse(this.course).subscribe(result => {
-      setTimeout(() => this.toastrService.success('Thêm mới thành công !', 'Dữ liệu khóa học'));
+    this.courseService.postCourse(this.course).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Tạo thành công khóa học!'); });
+      this.dialogRef.close(true);
+    }, error => {
+      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không tạo thành công!');
     });
   }
-
 
 }

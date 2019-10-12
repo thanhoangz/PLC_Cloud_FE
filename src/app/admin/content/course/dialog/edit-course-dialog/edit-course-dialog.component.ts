@@ -1,9 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { AdminService } from 'src/app/admin/services/admin.service';
 import { FormBuilder } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
+import { CourseService } from 'src/app/admin/services/course.service';
+import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 
 
 @Component({
@@ -13,18 +12,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditCourseDialogComponent implements OnInit {
 
-
-  public course = {
-    id: 0,
-    name: '',
-    price: null,
-    content: '',
-    traingTime: null,
-    numberOfSession: null,
-    status: null,
-    note: ''
-  };
-
   public status = [];
 
   public statusSelected;
@@ -32,33 +19,22 @@ export class EditCourseDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<EditCourseDialogComponent>,
-    private dataService: AdminService,
+    private courseService: CourseService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private toastrService: ToastrService,
-    private httpClient: HttpClient
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
     this.getAllStatus();
-
-    this.course.name = this.data._course.name;
-    this.course.price = this.data._course.price;
-    this.course.content = this.data._course.content;
-    this.course.traingTime = this.data._course.traingTime;
-    this.course.numberOfSession = this.data._course.numberOfSession;
-    this.course.status = this.data._course.status;
-    this.course.note = this.data._course.note;
-    this.statusSelected = this.data._course.status;
-    this.course.id = this.data._course.id;
   }
 
   public updateCourse() {
-
-    this.dataService.putCourse(this.course).subscribe(result => {
-      setTimeout(() => this.toastrService.success('Cập nhập thành công !', 'Dữ liệu khóa học'));
+    this.courseService.putCourse(this.data._course).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Cập nhật khóa học thành công!'); });
+      this.dialogRef.close(true);
     }, error => {
-
+      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không cập nhật thành công!');
     });
   }
 

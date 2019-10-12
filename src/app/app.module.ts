@@ -1,8 +1,5 @@
 import { OnlyNumberDirective } from './admin/services/only-number.directive';
-
-
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,11 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-
 import { Router } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { AddCourseDialogComponent } from './admin/content/course/dialog/add-course-dialog/add-course-dialog.component';
-
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,19 +35,22 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { BidiModule } from '@angular/cdk/bidi';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AdminModule } from './admin/admin.module';
 import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-course-dialog/edit-course-dialog.component';
 import { DetailCourseDialogComponent } from './admin/content/course/dialog/detail-course-dialog/detail-course-dialog.component';
+import { DatePipe, CurrencyPipe, CommonModule } from '@angular/common';
+import { AdminModule } from './admin/admin.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    OnlyNumberDirective
+    OnlyNumberDirective,
   ],
   imports: [
     AdminModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -86,9 +84,13 @@ import { DetailCourseDialogComponent } from './admin/content/course/dialog/detai
     MatTreeModule,
     MatButtonToggleModule,
     MatBadgeModule,
+    BidiModule,
+
+
   ],
   providers: [
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    DatePipe
   ],
   bootstrap: [
     AppComponent

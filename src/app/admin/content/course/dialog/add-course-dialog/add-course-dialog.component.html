@@ -2,43 +2,47 @@
 
 <div mat-dialog-content>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <mat-form-field>
-                <input [(ngModel)]="course.name" name="name" matInput placeholder="Tên khóa học">
+                <mat-label>Tên khóa học</mat-label>
+                <input [(ngModel)]="course.name" matInput placeholder="Nhập tên khóa học" required>
             </mat-form-field>
 
             <mat-form-field>
-                <input OnlyNumber  [(ngModel)]="course.price" name="price" matInput placeholder="Giá" maxlength="3" >
+                <mat-label>Học phí</mat-label>
+                <input [(ngModel)]="course.price" matInput placeholder="Nhập giá" required class="numberStyle">
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <mat-label>Thời gian học</mat-label>
+                <input [(ngModel)]="course.traingTime" matInput required class="numberStyle">
             </mat-form-field>
 
             <mat-form-field>
-                <textarea [(ngModel)]="course.content" matInput placeholder="Nội dung khóa học"
-                    name="content"></textarea>
-            </mat-form-field>
-        </div>
-
-        <div class="col-md-6">
-            <mat-form-field>
-                <input [(ngModel)]="course.traingTime" name="traingTime" matInput
-                    placeholder="Thời gian học theo tháng">
+                <mat-label>Số lượng buổi học</mat-label>
+                <input [(ngModel)]="course.numberOfSession" matInput required class="numberStyle">
             </mat-form-field>
 
             <mat-form-field>
-                <input [(ngModel)]="course.numberOfSession" name="numberOfSession" matInput
-                    placeholder="Số lượng buổi học">
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Chọn trạng thái</mat-label>
-                <mat-select [(ngModel)]="statusSelected">
-                    <mat-option *ngFor="let item of status" [value]="item.value">
+                <mat-label>Trạng thái</mat-label>
+                <mat-select [(ngModel)]="course.status" required style="text-align: center;">
+                    <mat-option *ngFor="let item of status" [value]="item.value" style="text-align: center;">
                         {{item.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field>
-                <textarea [(ngModel)]="course.note" matInput placeholder="Ghi chú" name="note"></textarea>
+                <mat-label>Nội dung khóa học</mat-label>
+                <textarea [(ngModel)]="course.content" matInput placeholder="Nhập nội dung cho khóa học"
+                    cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Ghi chú</mat-label>
+                <textarea [(ngModel)]="course.note" matInput placeholder="Nhập chi chú"
+                cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"></textarea>
             </mat-form-field>
         </div>
     </div>
@@ -46,7 +50,11 @@
 
 <mat-dialog-actions align="end">
     <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="createCourse()">
+        <mat-icon>add_circle</mat-icon>
         Thêm
     </button>
-    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">Hủy</button>
+    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">
+        <mat-icon>cancel</mat-icon>
+        Hủy
+    </button>
 </mat-dialog-actions>

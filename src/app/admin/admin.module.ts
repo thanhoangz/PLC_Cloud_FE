@@ -31,17 +31,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
 import { DeleteCourseDialogComponent } from './content/course/dialog/delete-course-dialog/delete-course-dialog.component';
 import { DetailCourseDialogComponent } from './content/course/dialog/detail-course-dialog/detail-course-dialog.component';
-
-
+import {BidiModule} from '@angular/cdk/bidi';
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 @NgModule({
   imports: [
@@ -76,19 +74,19 @@ import { DetailCourseDialogComponent } from './content/course/dialog/detail-cour
     FormsModule,
     MatDialogModule,
     MatPaginatorModule,
-
-
-
+    BidiModule,
+    TextFieldModule
 
   ],
   declarations: [
     UserManagementComponent,
     CourseComponent,
-    AddCourseDialogComponent,
     AdminManagementComponent,
     EditCourseDialogComponent,
     DeleteCourseDialogComponent,
-    DetailCourseDialogComponent
+    DetailCourseDialogComponent,
+    AddCourseDialogComponent
+
   ]
 })
 export class AdminModule { }
