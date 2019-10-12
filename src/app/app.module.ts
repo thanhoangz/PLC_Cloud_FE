@@ -41,6 +41,7 @@ import { EditCourseDialogComponent } from './admin/content/course/dialog/edit-co
 import { DetailCourseDialogComponent } from './admin/content/course/dialog/detail-course-dialog/detail-course-dialog.component';
 import { DatePipe, CurrencyPipe, CommonModule } from '@angular/common';
 import { AdminModule } from './admin/admin.module';
+import { ConfirmDialogComponent } from './admin/extension-dialog/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { AdminModule } from './admin/admin.module';
   entryComponents: [
     AddCourseDialogComponent,
     EditCourseDialogComponent,
-    DetailCourseDialogComponent
+    DetailCourseDialogComponent,
+    ConfirmDialogComponent
   ]
 
 })
