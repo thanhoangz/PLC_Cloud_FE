@@ -36,6 +36,9 @@ export class CourseComponent implements OnInit {
   public keyWord = '';
   public statusSelected = null;
 
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
   constructor(
     private courseService: CourseService,
     private toastr: ToastrService,
@@ -50,6 +53,7 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
     this.getCourses();
     this.getAllStatus();
+    this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
   public getCourses() {
@@ -61,6 +65,7 @@ export class CourseComponent implements OnInit {
 
   public loadTables(data: any) {
     this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
   }
 
   public openCreateDialog() {

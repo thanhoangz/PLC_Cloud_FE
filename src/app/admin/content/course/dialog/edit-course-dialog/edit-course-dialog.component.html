@@ -40,8 +40,8 @@
 
             <mat-form-field>
                 <mat-label>Ghi chú</mat-label>
-                <textarea [(ngModel)]="course.note" matInput placeholder="Nhập chi chú"
-                cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"></textarea>
+                <textarea [(ngModel)]="course.note" matInput placeholder="Nhập chi chú" cdkTextareaAutosize
+                    cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"></textarea>
             </mat-form-field>
         </div>
     </div>
@@ -49,7 +49,11 @@
 
 <mat-dialog-actions align="end">
     <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="updateCourse()">
-        Cập nhật
+        <mat-icon>check</mat-icon>
+        Thêm
     </button>
-    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">Hủy</button>
+    <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">
+        <mat-icon>cancel</mat-icon>
+        Hủy
+    </button>
 </mat-dialog-actions>

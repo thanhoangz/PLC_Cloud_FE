@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminService } from '../../services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddReceiptTypeComponent } from './dialog/add-receipt-type/add-receipt-type.component';
-import { from } from 'rxjs';
 import { EditReceiptTypeComponent } from './dialog/edit-receipt-type/edit-receipt-type.component';
 import { ReceiptTypeService } from '../../services/receipt-type.service';
 

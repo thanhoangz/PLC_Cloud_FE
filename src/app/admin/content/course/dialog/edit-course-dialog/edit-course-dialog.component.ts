@@ -53,11 +53,11 @@ export class EditCourseDialogComponent implements OnInit {
     this.status = [
       {
         name: 'Hoạt động',
-        value: 0
+        value: 1
       },
       {
         name: 'Ngừng hoạt động',
-        value: 1
+        value: 0
       }
     ];
   }

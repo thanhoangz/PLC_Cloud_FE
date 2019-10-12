@@ -1,16 +1,21 @@
 .mat-column-select {
-    overflow: initial;
-  }
-  
-  mat-form-field {
-    width: 100%;
-  }
+  overflow: initial;
+}
 
-  table {
-    text-align: center !important;
-    width: 100%;
-  }
-  
-  .mat-header-cell {
-    text-align: center;
-  }
+mat-form-field {
+  width: 100%;
+}
+
+table {
+  text-align: center !important;
+  width: 100%;
+}
+
+.mat-header-cell {
+  text-align: center;
+}
+
+.mat-header-cell {
+  font-size: 16px;
+  font: bold;
+}

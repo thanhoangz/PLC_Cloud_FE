@@ -6,17 +6,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NotificationService {
 
-constructor( private toastrService: ToastrService) { }
+  constructor(private toastrService: ToastrService) { }
 
-public showNotification(isSuccess, title, content) {
-  if (isSuccess === 1) {
-    this.toastrService.success(content, title);
-    return;
+  public showNotification(type, title, content) {
+    if (type === 1) {
+      this.toastrService.success(content, title);
+      return;
+    }
+    if (type === 2) {
+      this.toastrService.warning(content, title);
+      return;
+    }
+    this.toastrService.error(content, title);
   }
-  if (isSuccess === 2) {
-    this.toastrService.warning(content, title);
-    return;
-  }
-  this.toastrService.error(content, title);
-}
 }

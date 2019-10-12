@@ -5,6 +5,8 @@ import { UserManagementComponent } from './content/user-management/user-manageme
 import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './content/course/course.component';
 import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.component';
+import { ClassRoomComponent } from './content/class-room/class-room.component';
+import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.component';
 
 
 const adminRoutes: Routes = [
@@ -17,7 +19,9 @@ const adminRoutes: Routes = [
         children: [
           { path: 'user', component: UserManagementComponent },
           { path: 'course', component: CourseComponent },
-          { path: 'loaichi', component: PaySlipTypesComponent },
+          { path: 'pay-slip-type', component: PaySlipTypesComponent },
+          { path: 'classroom', component: ClassRoomComponent },
+          { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: '', component: CourseComponent }
         ]
       }
