@@ -43,8 +43,6 @@ export class CourseComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-    console.log(this.screenWidth);
-    console.log(this.screenHeight);
   }
 
   ngOnInit() {
@@ -83,9 +81,10 @@ export class CourseComponent implements OnInit {
   public openEditCourse(course: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
       this.matDialog.open(EditCourseDialogComponent,
         {
-          width: '25%',
+          width: `${widthMachine}px`,
           data: { _course: course }
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
@@ -97,9 +96,10 @@ export class CourseComponent implements OnInit {
   public openDetailCourse(course: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
       this.matDialog.open(DetailCourseDialogComponent,
         {
-          width: '25%',
+          width: `${widthMachine}px`,
           data: { _course: course }
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
