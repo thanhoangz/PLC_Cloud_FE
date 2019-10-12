@@ -3,7 +3,6 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { CourseService } from 'src/app/admin/services/course.service';
-import { HostListener } from "@angular/core";
 
 @Component({
   selector: 'app-add-course-dialog',
@@ -38,7 +37,6 @@ export class AddCourseDialogComponent implements OnInit {
     public dialog: MatDialog,
     private notificationService: NotificationService,
   ) {
-   
   }
 
   ngOnInit() {

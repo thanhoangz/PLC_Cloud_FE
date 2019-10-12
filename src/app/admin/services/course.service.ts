@@ -21,7 +21,7 @@ export class CourseService {
 
   putCourse(course: any) {
     return this.httpClient
-      .put(`${environment.PLCServicesDomain}/api/Courses/${course.Id}`, course);
+      .put(`${environment.PLCServicesDomain}/api/Courses/${course.id}`, course);
   }
 
   deleteCourse(courseId: number) {
