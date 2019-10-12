@@ -40,6 +40,7 @@ import { DeleteCourseDialogComponent } from './content/course/dialog/delete-cour
 import { DetailCourseDialogComponent } from './content/course/dialog/detail-course-dialog/detail-course-dialog.component';
 import {BidiModule} from '@angular/cdk/bidi';
 import {TextFieldModule} from '@angular/cdk/text-field';
+import { ConfirmDialogComponent } from './extension-dialog/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     EditCourseDialogComponent,
     DeleteCourseDialogComponent,
     DetailCourseDialogComponent,
-    AddCourseDialogComponent
+    AddCourseDialogComponent,
+    ConfirmDialogComponent
 
   ]
 })

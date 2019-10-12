@@ -9,6 +9,7 @@ import { EditCourseDialogComponent } from './dialog/edit-course-dialog/edit-cour
 import { MatPaginator } from '@angular/material/paginator';
 import { CourseService } from '../../services/course.service';
 import { NotificationService } from '../../services/extension/notification.service';
+import { ConfirmService } from '../../services/extension/confirm.service';
 
 @Component({
   selector: 'app-course',
@@ -39,7 +40,8 @@ export class CourseComponent implements OnInit {
     private courseService: CourseService,
     private toastr: ToastrService,
     public matDialog: MatDialog,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private confirmService: ConfirmService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
