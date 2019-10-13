@@ -19,23 +19,31 @@ import { ConfirmService } from '../../services/extension/confirm.service';
 
 export class CourseComponent implements OnInit {
 
+  public showProgressBar = true;
+
   public screenHeight: any;
   public screenWidth: any;
 
-  public courses = [];
+  public courses;
 
   public status = [];
 
   public isOpenDialog = false;
 
   public length = 100;
-  public pageSize = 5;
+  public pageSize = 10;
   public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20];
+  public pageSizeOptions = [10, 15, 20];
 
   public keyWord = '';
   public statusSelected = null;
 
+  // tslint:disable-next-line: member-ordering
+  public displayedColumns: string[] = ['index', 'name', 'traingTime', 'status', 'price', 'controls'];
+  // tslint:disable-next-line: member-ordering
+  public dataSource = new MatTableDataSource(this.courses);
+  // tslint:disable-next-line: member-ordering
+  public selection = new SelectionModel(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -56,96 +64,6 @@ export class CourseComponent implements OnInit {
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
-  public getCourses() {
-    this.courseService.getAllCourses().subscribe((result: []) => {
-      this.courses = result;
-      this.loadTables(result);
-    });
-  }
-
-  public loadTables(data: any) {
-    this.dataSource = new MatTableDataSource(data);
-    this.dataSource.paginator = this.paginator;
-  }
-
-  public openCreateDialog() {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      console.log(widthMachine);
-      this.matDialog.open(AddCourseDialogComponent, {
-        width: `${widthMachine}px`,
-        data: {
-        },
-        disableClose: false
-      }).afterClosed().subscribe(result => {
-        this.isOpenDialog = false;
-        this.getCourses();
-      });
-    }
-  }
-
-  public openEditCourse(course: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(EditCourseDialogComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _course: course }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          this.getCourses();
-        });
-    }
-  }
-
-  public openDetailCourse(course: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(DetailCourseDialogComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _course: course }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          this.getCourses();
-        });
-    }
-  }
-
-
-  public deleteCourse(courseId: number) {
-    this.courseService.deleteCourse(courseId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Xóa khóa học thành công!'); });
-      this.getCourses();
-    }, error => {
-      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không xóa thành công!');
-    });
-  }
-
-  // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['index', 'name', 'traingTime', 'status', 'price', 'controls'];
-  // tslint:disable-next-line: member-ordering
-  public dataSource = new MatTableDataSource(this.courses);
-  // tslint:disable-next-line: member-ordering
-  public selection = new SelectionModel(true, []);
-
-  public searchCourses() {
-    console.log(this.keyWord);
-    this.courseService.searchCourses(this.keyWord, this.statusSelected, this.pageSize, this.pageIndex).subscribe(result => {
-      console.log(result);
-
-    }, error => {
-
-    });
-  }
-
-  public getPaginatorData(event) {
-    console.log(event);
-  }
-
   private getAllStatus() {
     this.status = [
       {
@@ -162,4 +80,112 @@ export class CourseComponent implements OnInit {
       }];
   }
 
+  public getCourses() {
+    this.startProgressBar();
+    this.courseService.getAllCourses().subscribe(result => {
+      this.courses = result;
+      this.loadTables(result);
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
+
+  public loadTables(data: any) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+  }
+
+  public openCreateDialog() {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      this.matDialog.open(AddCourseDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+        disableClose: false
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+          this.getCourses();
+        }
+
+      });
+    }
+  }
+
+  public openEditCourse(course: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      this.matDialog.open(EditCourseDialogComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _course: course }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getCourses();
+          }
+        });
+    }
+  }
+
+  public openDetailCourse(course: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      this.matDialog.open(DetailCourseDialogComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _course: course }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getCourses();
+          }
+        });
+    }
+  }
+
+
+  public deleteCourse(courseId: number) {
+    this.courseService.deleteCourse(courseId).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Xóa khóa học thành công!'); });
+      this.getCourses();
+    }, error => {
+      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không xóa thành công!');
+      this.stopProgressBar();
+    });
+  }
+
+
+
+  public searchCourses() {
+    this.startProgressBar();
+    this.courseService.searchCourses(this.keyWord, this.statusSelected).subscribe(result => {
+      if (result) {
+        this.courses = result;
+        this.loadTables(result);
+        this.stopProgressBar();
+      }
+
+    }, error => {
+      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, tìm kiếm thất bại!');
+      this.stopProgressBar();
+    });
+  }
+
+  public getPaginatorData(event) {
+    console.log(event);
+  }
+
+
+  public startProgressBar() {
+    this.showProgressBar = true;
+  }
+  public stopProgressBar() {
+    this.showProgressBar = false;
+  }
 }

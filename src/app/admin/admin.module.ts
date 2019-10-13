@@ -48,6 +48,8 @@ import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.com
 import { EditReceiptTypeComponent } from './content/receipt-types/dialog/edit-receipt-type/edit-receipt-type.component';
 import { AddClassRoomComponent } from './content/class-room/dialog/add-class-room/add-class-room.component';
 import { EditClassRoomComponent } from './content/class-room/dialog/edit-class-room/edit-class-room.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -83,7 +85,9 @@ import { EditClassRoomComponent } from './content/class-room/dialog/edit-class-r
     MatDialogModule,
     MatPaginatorModule,
     BidiModule,
-    TextFieldModule
+    TextFieldModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
 
   ],
   declarations: [

@@ -29,9 +29,15 @@ export class CourseService {
       .delete(`${environment.PLCServicesDomain}/api/Courses/${courseId}`);
   }
 
-  searchCourses(keyWord, status, pageSize, pageIndex) {
+  pagingCourses(keyWord, status, pageSize, pageIndex) {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/Course/paging?keyword=${keyWord}&status=${status}&pageSize=${pageSize}&pageIndex=${pageIndex}`, keyWord);
+  }
+
+  searchCourses(keyWord, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/Courses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
   }
 }
