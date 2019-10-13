@@ -48,6 +48,10 @@ import { AddReceiptTypeComponent } from './admin/content/receipt-types/dialog/ad
 import { AddClassRoomComponent } from './admin/content/class-room/dialog/add-class-room/add-class-room.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+// tslint:disable-next-line: max-line-length
+import { EditPaysliptypeDialogComponent } from './admin/content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
+// tslint:disable-next-line: max-line-length
+import { AddPaysliptypeDialogComponent } from './admin/content/pay-slip-types/dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +113,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AddReceiptTypeComponent,
     EditReceiptTypeComponent,
     AddClassRoomComponent,
-    EditClassRoomComponent
+    EditClassRoomComponent,
+    EditPaysliptypeDialogComponent,
+    AddPaysliptypeDialogComponent
   ]
 
 })

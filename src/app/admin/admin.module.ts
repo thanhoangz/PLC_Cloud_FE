@@ -1,3 +1,4 @@
+import { EditPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 import { AddReceiptTypeComponent } from './content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
 import { AdminManagementComponent } from './admin-management/admin-management.component';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -50,6 +51,7 @@ import { AddClassRoomComponent } from './content/class-room/dialog/add-class-roo
 import { EditClassRoomComponent } from './content/class-room/dialog/edit-class-room/edit-class-room.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AddPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
 
 @NgModule({
   imports: [
@@ -105,8 +107,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AddReceiptTypeComponent,
     EditReceiptTypeComponent,
     AddClassRoomComponent,
-    EditClassRoomComponent
-
+    EditClassRoomComponent,
+    EditPaysliptypeDialogComponent,
+    AddPaysliptypeDialogComponent,
   ]
 })
 export class AdminModule { }
