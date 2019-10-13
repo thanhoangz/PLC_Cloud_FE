@@ -43,6 +43,8 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { ConfirmDialogComponent } from './extension-dialog/confirm-dialog/confirm-dialog.component';
 import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.component';
+import { AddPaysliptypeDialogComponent} from './content/pay-slip-types/dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
+import { EditPaysliptypeDialogComponent} from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 import { ClassRoomComponent } from './content/class-room/class-room.component';
 import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.component';
 import { EditReceiptTypeComponent } from './content/receipt-types/dialog/edit-receipt-type/edit-receipt-type.component';
@@ -96,12 +98,14 @@ import { EditClassRoomComponent } from './content/class-room/dialog/edit-class-r
     AddCourseDialogComponent,
     ConfirmDialogComponent,
     PaySlipTypesComponent,
+    AddPaysliptypeDialogComponent,
+    EditPaysliptypeDialogComponent,
     ClassRoomComponent,
     ReceiptTypesComponent,
     AddReceiptTypeComponent,
     EditReceiptTypeComponent,
     AddClassRoomComponent,
-    EditClassRoomComponent
+    EditClassRoomComponent,
 
   ]
 })

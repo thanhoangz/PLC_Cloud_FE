@@ -3,13 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { AddPaysliptypeDialogComponent } from './dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
 import { EditPaysliptypeDialogComponent } from './dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
-import { DetailPaysliptypeDialogComponent } from './dialog/detail-paysliptype-dialog/detail-paysliptype-dialog.component';
 
+import { ConfirmService } from '../../services/extension/confirm.service';
+import { NotificationService } from '../../services/extension/notification.service';
 import { PaySlipTypeService } from '../../services/pay-slip-type.service';
 
 @Component({
@@ -19,8 +19,10 @@ import { PaySlipTypeService } from '../../services/pay-slip-type.service';
 })
 export class PaySlipTypesComponent implements OnInit {
 
-  public paySlipType = [];
+  public screenHeight: any;
+  public screenWidth: any;
 
+  public paySlipType = [];
   public status = [];
 
   public isOpenDialog = false;
@@ -40,21 +42,25 @@ export class PaySlipTypesComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
-    private courseServies: PaySlipTypeService,
-    private toastr: ToastrService,
-    public matDialog: MatDialog
+    private paySlipTypesServies: PaySlipTypeService,
+    private notificationService: NotificationService,
+    public matDialog: MatDialog,
+    private confirmService: ConfirmService
   ) {
-
+    this.screenWidth = (window.screen.width);
+    this.screenHeight = (window.screen.height);
   }
 
   ngOnInit() {
     this.getPaySlipTypes();
     this.getAllStatus();
+    this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
   public getPaySlipTypes() {
-    this.courseServies.getAllPaySlipTypes().subscribe((result: []) => {
+    this.paySlipTypesServies.getAllPaySlipTypes().subscribe((result: []) => {
       this.paySlipType = result;
       this.loadTables();
     });
@@ -62,6 +68,7 @@ export class PaySlipTypesComponent implements OnInit {
 
   public loadTables() {
     this.dataSource = new MatTableDataSource(this.paySlipType);
+    this.dataSource.paginator = this.paginator;
   }
 
   private getAllStatus() {
@@ -84,10 +91,13 @@ export class PaySlipTypesComponent implements OnInit {
   public openCreate_PaySlipType() {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const createDialog = this.matDialog.open(AddPaysliptypeDialogComponent, {
-        width: '50%',
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      console.log(widthMachine);
+      this.matDialog.open(AddPaysliptypeDialogComponent, {
+        width:  `${widthMachine}px`,
         data: {
-        }
+        },
+        disableClose: false
       }).afterClosed().subscribe(result => {
         this.isOpenDialog = false;
         this.getPaySlipTypes();
@@ -98,9 +108,10 @@ export class PaySlipTypesComponent implements OnInit {
   public openEdit_PaySlipType(paySlipType: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
       this.matDialog.open(EditPaysliptypeDialogComponent,
         {
-          width: '50%',
+          width: `${widthMachine}px`,
           data: { _paySlipType: paySlipType }
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
@@ -110,30 +121,18 @@ export class PaySlipTypesComponent implements OnInit {
   }
 
   public delete_PaySlipType(paySlipTypeId: number) {
-    console.log(paySlipTypeId);
-    this.courseServies.deletePaySlipType(paySlipTypeId).subscribe(result => {
-      setTimeout(() => this.toastr.success('Xóa loại chi thành công !', 'Dữ liệu loại chi'));
+    this.paySlipTypesServies.deletePaySlipType(paySlipTypeId).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Xóa loại chi thành công!'); });
       this.getPaySlipTypes();
+    }, error => {
+      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
     });
   }
 
-  public openDetail_PaySlipType(paySlipType: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      this.matDialog.open(DetailPaysliptypeDialogComponent,
-        {
-          width: '50%',
-          data: { _paySlipType: paySlipType }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          this.getPaySlipTypes();
-        });
-    }
-  }
 
   public find_PaySlipType() {
     console.log(this.keyWord);
-    this.courseServies.searchPaySlipType(this.keyWord, this.statusSelected, this.pageSize, this.pageIndex).subscribe(result => {
+    this.paySlipTypesServies.searchPaySlipType(this.keyWord, this.statusSelected, this.pageSize, this.pageIndex).subscribe(result => {
       console.log(result);
     }, error => {
     });

@@ -46,6 +46,8 @@ import { AdminModule } from './admin/admin.module';
 import { ConfirmDialogComponent } from './admin/extension-dialog/confirm-dialog/confirm-dialog.component';
 import { AddReceiptTypeComponent } from './admin/content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
 import { AddClassRoomComponent } from './admin/content/class-room/dialog/add-class-room/add-class-room.component';
+import {AddPaysliptypeDialogComponent } from './admin/content/pay-slip-types/dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
+import { EditPaysliptypeDialogComponent} from './admin/content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,9 @@ import { AddClassRoomComponent } from './admin/content/class-room/dialog/add-cla
     AddReceiptTypeComponent,
     EditReceiptTypeComponent,
     AddClassRoomComponent,
-    EditClassRoomComponent
+    EditClassRoomComponent,
+    AddPaysliptypeDialogComponent,
+    EditPaysliptypeDialogComponent
   ]
 
 })
