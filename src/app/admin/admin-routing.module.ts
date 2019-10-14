@@ -7,6 +7,7 @@ import { CourseComponent } from './content/course/course.component';
 import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.component';
 import { ClassRoomComponent } from './content/class-room/class-room.component';
 import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.component';
+import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 
 
 const adminRoutes: Routes = [
@@ -22,6 +23,7 @@ const adminRoutes: Routes = [
           { path: 'pay-slip-type', component: PaySlipTypesComponent },
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
+          { path: 'languageClasses', component: LanguageClassesComponent },
           { path: '', component: CourseComponent }
         ]
       }

@@ -1,3 +1,5 @@
+import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
+import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { EditPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 import { AddReceiptTypeComponent } from './content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
 import { AdminManagementComponent } from './admin-management/admin-management.component';
@@ -52,6 +54,8 @@ import { EditClassRoomComponent } from './content/class-room/dialog/edit-class-r
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
+import { AddLanguageClassComponent } from './content/language-classes/dialog/add-language-class/add-language-class.component';
+import { DetailLanguageClassComponent } from './content/language-classes/dialog/detail-language-class/detail-language-class.component';
 
 @NgModule({
   imports: [
@@ -110,6 +114,10 @@ import { AddPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/a
     EditClassRoomComponent,
     EditPaysliptypeDialogComponent,
     AddPaysliptypeDialogComponent,
+    LanguageClassesComponent,
+    AddLanguageClassComponent,
+    EditLanguageClassComponent,
+    DetailLanguageClassComponent
   ]
 })
 export class AdminModule { }
