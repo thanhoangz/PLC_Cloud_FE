@@ -1,3 +1,5 @@
+import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
+import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { EditPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 import { AddReceiptTypeComponent } from './content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
 import { AdminManagementComponent } from './admin-management/admin-management.component';
@@ -56,6 +58,8 @@ import { PaySlipComponent } from './content/pay-slip/pay-slip.component';
 import { AddPayslipDialogComponent } from './content/pay-slip/dialog/add-payslip-dialog/add-payslip-dialog.component';
 import { EditPayslipDialogComponent } from './content/pay-slip/dialog/edit-payslip-dialog/edit-payslip-dialog.component';
 import { DetailPayslipDialogComponent } from './content/pay-slip/dialog/detail-payslip-dialog/detail-payslip-dialog.component';
+import { AddLanguageClassComponent } from './content/language-classes/dialog/add-language-class/add-language-class.component';
+import { DetailLanguageClassComponent } from './content/language-classes/dialog/detail-language-class/detail-language-class.component';
 
 @NgModule({
   imports: [
@@ -118,6 +122,10 @@ import { DetailPayslipDialogComponent } from './content/pay-slip/dialog/detail-p
     AddPayslipDialogComponent,
     EditPayslipDialogComponent,
     DetailPayslipDialogComponent,
+    LanguageClassesComponent,
+    AddLanguageClassComponent,
+    EditLanguageClassComponent,
+    DetailLanguageClassComponent
   ]
 })
 export class AdminModule { }
