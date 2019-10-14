@@ -57,6 +57,11 @@ import { PaySlipComponent } from './admin/content/pay-slip/pay-slip.component';
 import { AddPayslipDialogComponent } from './admin/content/pay-slip/dialog/add-payslip-dialog/add-payslip-dialog.component';
 import { EditPayslipDialogComponent } from './admin/content/pay-slip/dialog/edit-payslip-dialog/edit-payslip-dialog.component';
 import { DetailPayslipDialogComponent } from './admin/content/pay-slip/dialog/detail-payslip-dialog/detail-payslip-dialog.component';
+import { AddLanguageClassComponent } from './admin/content/language-classes/dialog/add-language-class/add-language-class.component';
+import { EditLanguageClassComponent } from './admin/content/language-classes/dialog/edit-language-class/edit-language-class.component';
+// tslint:disable-next-line: max-line-length
+import { DetailLanguageClassComponent } from './admin/content/language-classes/dialog/detail-language-class/detail-language-class.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -102,7 +107,8 @@ import { DetailPayslipDialogComponent } from './admin/content/pay-slip/dialog/de
     MatBadgeModule,
     BidiModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatNativeDateModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
@@ -126,6 +132,9 @@ import { DetailPayslipDialogComponent } from './admin/content/pay-slip/dialog/de
     AddPayslipDialogComponent,
     EditPayslipDialogComponent,
     DetailPayslipDialogComponent,
+    AddLanguageClassComponent,
+    EditLanguageClassComponent,
+    DetailLanguageClassComponent
   ]
 
 })
