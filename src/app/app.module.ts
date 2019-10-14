@@ -52,6 +52,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { EditPaysliptypeDialogComponent } from './admin/content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 // tslint:disable-next-line: max-line-length
 import { AddPaysliptypeDialogComponent } from './admin/content/pay-slip-types/dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
+
+import { PaySlipComponent } from './admin/content/pay-slip/pay-slip.component';
+import { AddPayslipDialogComponent } from './admin/content/pay-slip/dialog/add-payslip-dialog/add-payslip-dialog.component';
+import { EditPayslipDialogComponent } from './admin/content/pay-slip/dialog/edit-payslip-dialog/edit-payslip-dialog.component';
+import { DetailPayslipDialogComponent } from './admin/content/pay-slip/dialog/detail-payslip-dialog/detail-payslip-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +121,11 @@ import { AddPaysliptypeDialogComponent } from './admin/content/pay-slip-types/di
     AddClassRoomComponent,
     EditClassRoomComponent,
     EditPaysliptypeDialogComponent,
-    AddPaysliptypeDialogComponent
+    AddPaysliptypeDialogComponent,
+    PaySlipComponent,
+    AddPayslipDialogComponent,
+    EditPayslipDialogComponent,
+    DetailPayslipDialogComponent,
   ]
 
 })

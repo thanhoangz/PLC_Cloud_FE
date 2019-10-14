@@ -3,25 +3,26 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddPaysliptypeDialogComponent } from './dialog/add-paysliptype-dialog/add-paysliptype-dialog.component';
-import { EditPaysliptypeDialogComponent } from './dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
+import { AddPayslipDialogComponent } from './dialog/add-payslip-dialog/add-payslip-dialog.component';
+import { EditPayslipDialogComponent } from './dialog/edit-payslip-dialog/edit-payslip-dialog.component';
+import { DetailPayslipDialogComponent } from './dialog/detail-payslip-dialog/detail-payslip-dialog.component';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
-import { PaySlipTypeService } from '../../services/pay-slip-type.service';
+import { PaySlipService } from '../../services/pay-slip.service';
 
 @Component({
-  selector: 'app-pay-slip-types',
-  templateUrl: './pay-slip-types.component.html',
-  styleUrls: ['./pay-slip-types.component.css']
+  selector: 'app-pay-slip',
+  templateUrl: './pay-slip.component.html',
+  styleUrls: ['./pay-slip.component.css']
 })
-export class PaySlipTypesComponent implements OnInit {
+export class PaySlipComponent implements OnInit {
 
   public showProgressBar = true;
   public screenHeight: any;
   public screenWidth: any;
 
-  public paySlipType ;
+  public paySlip ;
   public status = [];
 
   public isOpenDialog = false;
@@ -35,15 +36,15 @@ export class PaySlipTypesComponent implements OnInit {
   public statusSelected = null;
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['index', 'name', 'status', 'note', 'controls'];
+  public displayedColumns: string[] = ['index', 'PaySlipTypeName', 'date', 'receiver', 'total', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
-  public dataSource = new MatTableDataSource(this.paySlipType);
+  public dataSource = new MatTableDataSource(this.paySlip);
   // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
-    private paySlipTypesServies: PaySlipTypeService,
+    private paySlipServies: PaySlipService,
     private notificationService: NotificationService,
     private toastr: ToastrService,
     public matDialog: MatDialog,
@@ -51,23 +52,12 @@ export class PaySlipTypesComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-  }
+   }
 
   ngOnInit() {
-    this.getPaySlipTypes();
+    this.getPaySlips();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
-  }
-
-  public getPaySlipTypes() {
-    this.startProgressBar();
-    this.paySlipTypesServies.getAllPaySlipTypes().subscribe(result => {
-      this.paySlipType = result;
-      this.loadTables(result);
-      this.stopProgressBar();
-    }, error => {
-      this.stopProgressBar();
-    });
   }
 
   public loadTables(data: any) {
@@ -75,14 +65,25 @@ export class PaySlipTypesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  public getPaySlips() {
+    this.startProgressBar();
+    this.paySlipServies.getAllPaySlip().subscribe(result => {
+      this.paySlip = result;
+      this.loadTables(result);
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
+
   private getAllStatus() {
     this.status = [
       {
-        Name: 'Hoạt động',
+        Name: 'Hoàn thành',
         code: 1
       },
       {
-        Name: 'Khóa',
+        Name: 'Chờ xử lý',
         code: 0
       },
       {
@@ -91,75 +92,90 @@ export class PaySlipTypesComponent implements OnInit {
       }];
   }
 
-
-  public openCreate_PaySlipType() {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      console.log(widthMachine);
-      this.matDialog.open(AddPaysliptypeDialogComponent, {
-        width:  `${widthMachine}px`,
-        data: {
-        },
-        disableClose: false
-      }).afterClosed().subscribe(result => {
-        this.isOpenDialog = false;
-        this.getPaySlipTypes();
-      });
-    }
-  }
-
-  public openEdit_PaySlipType(paySlipType: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(EditPaysliptypeDialogComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _paySlipType: paySlipType }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.getPaySlipTypes();
-          }
-        });
-    }
-  }
-
-  public delete_PaySlipType(paySlipTypeId: number) {
-    this.startProgressBar();
-    this.paySlipTypesServies.deletePaySlipType(paySlipTypeId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Xóa loại chi thành công!'); });
-      this.getPaySlipTypes();
-    }, error => {
-      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
-      this.stopProgressBar();
-    });
-  }
-
-
-  public find_PaySlipType() {
-
-    this.startProgressBar();
-    this.paySlipTypesServies.searchPaySlipType(this.keyWord, this.statusSelected).subscribe(result => {
-      if (result) {
-        this.paySlipType = result;
-        this.loadTables(result);
-        this.stopProgressBar();
-      }
-
-    }, error => {
-      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, tìm kiếm thất bại!');
-      this.stopProgressBar();
-    });
-  }
-
   public startProgressBar() {
     this.showProgressBar = true;
   }
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+  /////////////////////////////////////////////////////////////////
+  /* Control */
+  public openCreate_PaySlip() {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      console.log(widthMachine);
+      this.matDialog.open(AddPayslipDialogComponent, {
+        width:  `${widthMachine}px`,
+        data: {
+        },
+        disableClose: false
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        this.getPaySlips();
+      });
+    }
+  }
 
+  public openEdit_PaySlip(paySlip: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      this.matDialog.open(EditPayslipDialogComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _paySlip: paySlip }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getPaySlips();
+          }
+        });
+    }
+  }
+
+  public delete_PaySlip(paySlipId: number) {
+    this.startProgressBar();
+    this.paySlipServies.deletePaySlip(paySlipId).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Xóa phiếu chi thành công!'); });
+      this.getPaySlips();
+    }, error => {
+      this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Xóa không thành công!');
+      this.stopProgressBar();
+    });
+  }
+
+  public openDetail_PaySlip(paySlip: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      this.matDialog.open(DetailPayslipDialogComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _paySlip: paySlip }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getPaySlips();
+          }
+        });
+    }
+  }
+
+  public find_PaySlip() {
+
+    this.startProgressBar();
+    this.paySlipServies.searchPaySlip(this.keyWord, this.statusSelected).subscribe(result => {
+      if (result) {
+        this.paySlip = result;
+        this.loadTables(result);
+        this.stopProgressBar();
+      }
+
+    }, error => {
+      this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, tìm kiếm thất bại!');
+      this.stopProgressBar();
+    });
+  }
 
 }

@@ -1,11 +1,8 @@
-
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { HttpClient } from '@angular/common/http';
 import { PaySlipTypeService } from 'src/app/admin/services/pay-slip-type.service';
-
+import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 @Component({
   selector: 'app-edit-paysliptype-dialog',
   templateUrl: './edit-paysliptype-dialog.component.html',
@@ -22,47 +19,48 @@ export class EditPaysliptypeDialogComponent implements OnInit {
 
   public status = [];
 
-  public statusSelected;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<EditPaysliptypeDialogComponent>,
-    private paySlipTypeService: PaySlipTypeService,
+    private paySliptypeService: PaySlipTypeService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private toastrService: ToastrService,
-    private httpClient: HttpClient
-  ) { }
+    private notificationService: NotificationService
 
-  ngOnInit() {
-    this.getAllStatus();
+  ) {
+    this.setData();
+  }
 
+  public setData() {
+    this.paysliptype.id = this.data._paySlipType.id;
     this.paysliptype.name = this.data._paySlipType.name;
     this.paysliptype.status = this.data._paySlipType.status;
     this.paysliptype.note = this.data._paySlipType.note;
-    this.statusSelected = this.data._paySlipType.status;
-    this.paysliptype.id = this.data._paySlipType.id;
+  }
+
+  ngOnInit() {
+    this.getAllStatus();
   }
 
   public getAllStatus() {
     this.status = [
       {
         name: 'Hoạt động',
-        value: 0
+        value: 1
       },
       {
         name: 'Ngừng hoạt động',
-        value: 1
+        value: 0
       }
     ];
   }
 
   public update_Paysliptype() {
-
-    this.paySlipTypeService.putPaySlipType(this.paysliptype).subscribe(result => {
-      setTimeout(() => this.toastrService.success('Cập nhật thành công !', 'Dữ liệu loại chi'));
+    this.paySliptypeService.putPaySlipType(this.paysliptype).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Cập nhật loại chi thành công!'); });
+      this.dialogRef.close(true);
     }, error => {
-
+      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Cập nhật không thành công!');
     });
   }
 }

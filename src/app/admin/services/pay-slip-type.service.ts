@@ -32,10 +32,16 @@ export class PaySlipTypeService {
       .delete(`${environment.PLCServicesDomain}/api/PaySlipTypes/${PaySlipTypeId}`);
   }
 
-  searchPaySlipType(keyWord, status, pageSize, pageIndex) {
+  pagingPaySlipType(keyWord, status, pageSize, pageIndex) {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/PaySlipType/paging?keyword=${keyWord}&status=${status}&pageSize=${pageSize}&pageIndex=${pageIndex}`, keyWord);
   }
+
+  searchPaySlipType(keyWord, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/PaySlipTypes/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
+    }
 
 }

@@ -1,19 +1,19 @@
 
 <mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
-<!-- Main content -->
+
 <section class="content" style="margin-top: 1%">
     <div class="container-fluid">
         <mat-card>
             <mat-card-header class="card-container">
-                <mat-card-title>Loại chi</mat-card-title>
-                <mat-card-subtitle>Danh mục loại chi</mat-card-subtitle>
+                <mat-card-title>Phiếu chi</mat-card-title>
+                <mat-card-subtitle>Danh mục Phiếu chi</mat-card-subtitle>
             </mat-card-header>
             <div class="row">
                 <div class="col-md-3">
                     <mat-form-field>
-                        <mat-label>Tên loại chi</mat-label>
-                        <input matInput placeholder="Tên loại chi" [(ngModel)]="keyWord">
-                        <mat-hint>Tên loại chi muốn tìm kiếm</mat-hint>
+                        <mat-label>Mã phiếu chi</mat-label>
+                        <input matInput placeholder="Mã phiếu chi" [(ngModel)]="keyWord">
+                        <mat-hint>Nhập mã chi</mat-hint>
                     </mat-form-field>
                 </div>
                 <div class="col-md-3">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-1">
                     <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
-                        (click)="find_PaySlipType()">
+                        (click)="find_PaySlip()">
                         <mat-icon>search</mat-icon>
                         Tìm kiếm
                     </button>
@@ -40,9 +40,9 @@
         <mat-card style="margin-top: 0.5%">
             <mat-card-header style="float: right;">
                 <mat-card-title>
-                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_PaySlipType()">
+                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_PaySlip()">
                         <mat-icon>add</mat-icon>
-                        Thêm loại chi
+                        Thêm phiếu chi
                     </button>
                 </mat-card-title>
             </mat-card-header>
@@ -54,33 +54,47 @@
                         <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> Tên loại chi</th>
-                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    <ng-container matColumnDef="PaySlipTypeName">
+                        <th mat-header-cell *matHeaderCellDef> Tên loại chi </th>
+                        <td mat-cell *matCellDef="let element"> {{element.paySlipTypeName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Ngày chi</th>
+                        <td mat-cell *matCellDef="let element"> {{element.date}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="receiver">
+                        <th mat-header-cell *matHeaderCellDef> Người nhận</th>
+                        <td mat-cell *matCellDef="let element"> {{element.receiver}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef> Tổng tiền</th>
+                        <td mat-cell *matCellDef="let element"> {{element.total}} VNĐ</td>
                     </ng-container>
 
                     <ng-container matColumnDef="status">
                         <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
                         <td mat-cell *matCellDef="let element">
-                            <span [class]="(element.status == 0?'badge badge-danger':'badge badge-success')">
-                                {{(element.status == 1)?"Hoạt động":"Khóa"}}
+                            <span [class]="(element.status == 1?'badge badge-success':'badge badge-danger')">
+                                {{(element.status == 1)?"Hoàn thành":"Chờ xử lý"}}
                             </span>
                         </td>
                     </ng-container>
-                   
-                    <ng-container matColumnDef="note">
-                        <th mat-header-cell *matHeaderCellDef width="22%"> Ghi chú </th>
-                        <td mat-cell *matCellDef="let element"> {{element.note}} </td>
-                    </ng-container>
+
+                    
 
                     <ng-container matColumnDef="controls">
                         <th mat-header-cell *matHeaderCellDef> Chức năng </th>
                         <td mat-cell *matCellDef="let element">
-                            
-                            <button mat-icon-button (click)="openEdit_PaySlipType(element)">
+                            <button mat-icon-button (click)="openDetail_PaySlip(element)">
+                                <mat-icon>list_alt</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="openEdit_PaySlip(element)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button (click)="delete_PaySlipType(element.id)">
+                            <button mat-icon-button (click)="delete_PaySlip(element.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </td>
@@ -97,4 +111,3 @@
         </mat-card>
     </div>
 </section>
-<!-- /.content -->
