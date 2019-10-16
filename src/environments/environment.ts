@@ -4,11 +4,8 @@
 
 export const environment = {
   production: false,
-<<<<<<< HEAD
   PLCServicesDomain: 'http://localhost:5000'
-=======
-  PLCServicesDomain: 'http://192.168.1.7:5001'
->>>>>>> a251c291dfce2c71375d037753166507a42a2cd9
+
 };
 
 /*
