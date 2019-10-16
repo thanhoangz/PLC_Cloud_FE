@@ -8,15 +8,11 @@ import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.c
 import { ClassRoomComponent } from './content/class-room/class-room.component';
 import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.component';
 import { PaySlipComponent } from './content/pay-slip/pay-slip.component';
-<<<<<<< HEAD
-import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
-=======
 import { LanguageClassesComponent} from './content/language-classes/language-classes.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddLearnerComponent} from './content/add-learner/add-learner.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
->>>>>>> 71fd8714a65fb67dd422f52b72cd60efefb6a3f5
 
 const adminRoutes: Routes = [
   {
@@ -32,19 +28,13 @@ const adminRoutes: Routes = [
           { path: 'pay-slip', component: PaySlipComponent },
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
-<<<<<<< HEAD
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
 
-          { path: '', component: TimeSheetComponent }
-=======
-          { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'study-process', component: StudyProcessComponent },
-          { path: 'add-learner', component: AddLearnerComponent },
           { path: 'learner', component: AddPageLearnerComponent },
 
           { path: '', component: CourseComponent }
->>>>>>> 71fd8714a65fb67dd422f52b72cd60efefb6a3f5
         ]
       }
     ]

@@ -60,16 +60,12 @@ import { EditPayslipDialogComponent } from './content/pay-slip/dialog/edit-paysl
 import { DetailPayslipDialogComponent } from './content/pay-slip/dialog/detail-payslip-dialog/detail-payslip-dialog.component';
 import { AddLanguageClassComponent } from './content/language-classes/dialog/add-language-class/add-language-class.component';
 import { DetailLanguageClassComponent } from './content/language-classes/dialog/detail-language-class/detail-language-class.component';
-<<<<<<< HEAD
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
-=======
-import { AddLearnerComponent } from './content/add-learner/add-learner.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 
 
 
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
->>>>>>> 71fd8714a65fb67dd422f52b72cd60efefb6a3f5
 
 @NgModule({
   imports: [
@@ -136,13 +132,9 @@ import { AddPageLearnerComponent } from './content/learner/pages/add-page-learne
     AddLanguageClassComponent,
     EditLanguageClassComponent,
     DetailLanguageClassComponent,
-<<<<<<< HEAD
-    TimeSheetComponent
-=======
-    AddLearnerComponent,
+    TimeSheetComponent,
     StudyProcessComponent,
     AddPageLearnerComponent
->>>>>>> 71fd8714a65fb67dd422f52b72cd60efefb6a3f5
   ]
 })
 export class AdminModule { }
