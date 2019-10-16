@@ -11,7 +11,7 @@ import { PaySlipComponent } from './content/pay-slip/pay-slip.component';
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { LanguageClassesComponent} from './content/language-classes/language-classes.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
-import { AddLearnerComponent} from './content/add-learner/add-learner.component';
+import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 
 const adminRoutes: Routes = [
@@ -32,6 +32,7 @@ const adminRoutes: Routes = [
           { path: 'language-classes', component: LanguageClassesComponent },
 
           { path: 'study-process', component: StudyProcessComponent },
+          { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
 
           { path: '', component: CourseComponent }

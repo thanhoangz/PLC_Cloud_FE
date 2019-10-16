@@ -63,10 +63,10 @@ import { AddLanguageClassComponent } from './content/language-classes/dialog/add
 import { DetailLanguageClassComponent } from './content/language-classes/dialog/detail-language-class/detail-language-class.component';
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
-
-
-
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
+import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
+
+
 
 @NgModule({
   imports: [
@@ -134,9 +134,11 @@ import { AddPageLearnerComponent } from './content/learner/pages/add-page-learne
     AddLanguageClassComponent,
     EditLanguageClassComponent,
     DetailLanguageClassComponent,
+
     TimeSheetComponent,
     StudyProcessComponent,
-    AddPageLearnerComponent
+    AddPageLearnerComponent,
+    AddStudyProcessComponent
   ]
 })
 export class AdminModule { }
