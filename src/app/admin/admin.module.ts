@@ -1,3 +1,4 @@
+import { CKEditorModule } from 'ngx-ckeditor';
 import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
 import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { EditPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
@@ -60,6 +61,10 @@ import { EditPayslipDialogComponent } from './content/pay-slip/dialog/edit-paysl
 import { DetailPayslipDialogComponent } from './content/pay-slip/dialog/detail-payslip-dialog/detail-payslip-dialog.component';
 import { AddLanguageClassComponent } from './content/language-classes/dialog/add-language-class/add-language-class.component';
 import { DetailLanguageClassComponent } from './content/language-classes/dialog/detail-language-class/detail-language-class.component';
+<<<<<<< HEAD
+=======
+import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
+>>>>>>> 8fc8590a78b30f03265fe3d2037ec00caf081fd1
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
@@ -102,7 +107,8 @@ import { AddStudyProcessComponent } from './content/add-study-process/add-study-
     BidiModule,
     TextFieldModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CKEditorModule
 
   ],
   declarations: [
@@ -131,7 +137,11 @@ import { AddStudyProcessComponent } from './content/add-study-process/add-study-
     AddLanguageClassComponent,
     EditLanguageClassComponent,
     DetailLanguageClassComponent,
+<<<<<<< HEAD
 
+=======
+    TimeSheetComponent,
+>>>>>>> 8fc8590a78b30f03265fe3d2037ec00caf081fd1
     StudyProcessComponent,
     AddPageLearnerComponent,
     AddStudyProcessComponent
