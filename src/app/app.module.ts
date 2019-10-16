@@ -63,6 +63,7 @@ import { EditLanguageClassComponent } from './admin/content/language-classes/dia
 import { DetailLanguageClassComponent } from './admin/content/language-classes/dialog/detail-language-class/detail-language-class.component';
 import { MatNativeDateModule } from '@angular/material/core';
 
+
 @NgModule({
   declarations: [
     AppComponent,
