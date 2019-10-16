@@ -37,6 +37,7 @@ export class CourseComponent implements OnInit {
 
   public keyWord = '';
   public statusSelected = null;
+  public showTrainingTime = false;
 
   // tslint:disable-next-line: member-ordering
   public displayedColumns: string[] = ['index', 'name', 'traingTime', 'status', 'price', 'controls'];
@@ -56,6 +57,9 @@ export class CourseComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    if (this.screenWidth > 500) {
+      this.showTrainingTime = true;
+    }
   }
 
   ngOnInit() {

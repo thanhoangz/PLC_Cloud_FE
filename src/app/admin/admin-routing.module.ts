@@ -8,6 +8,7 @@ import { PaySlipTypesComponent } from './content/pay-slip-types/pay-slip-types.c
 import { ClassRoomComponent } from './content/class-room/class-room.component';
 import { ReceiptTypesComponent } from './content/receipt-types/receipt-types.component';
 import { PaySlipComponent } from './content/pay-slip/pay-slip.component';
+import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 
 const adminRoutes: Routes = [
   {
@@ -23,6 +24,8 @@ const adminRoutes: Routes = [
           { path: 'pay-slip', component: PaySlipComponent },
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
+          { path: 'learner', component: AddPageLearnerComponent },
+
           { path: '', component: CourseComponent }
         ]
       }
