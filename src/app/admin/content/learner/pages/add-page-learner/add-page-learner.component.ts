@@ -8,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class AddPageLearnerComponent implements OnInit {
   public floatLabel = 'always';
 
+  public guestType;
   public learner = {
     id: null,
     cardId: null,
-    FirstName: null,
+    firstName: null,
     lastName: null,
     sex: null,
     birthday: null,
@@ -58,6 +59,10 @@ export class AddPageLearnerComponent implements OnInit {
         name: 'Tất cả',
         code: 2
       }];
+  }
+
+  public changeDate(event) {
+
   }
 
   ngOnInit() {

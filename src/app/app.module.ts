@@ -62,7 +62,7 @@ import { EditLanguageClassComponent } from './admin/content/language-classes/dia
 // tslint:disable-next-line: max-line-length
 import { DetailLanguageClassComponent } from './admin/content/language-classes/dialog/detail-language-class/detail-language-class.component';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { CKEditorModule } from 'ngx-ckeditor';
 
 @NgModule({
   declarations: [
@@ -110,6 +110,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
+    CKEditorModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },

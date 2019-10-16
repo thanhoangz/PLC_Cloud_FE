@@ -1,3 +1,4 @@
+import { CKEditorModule } from 'ngx-ckeditor';
 import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
 import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { EditPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
@@ -103,7 +104,8 @@ import { AddPageLearnerComponent } from './content/learner/pages/add-page-learne
     BidiModule,
     TextFieldModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CKEditorModule
 
   ],
   declarations: [
