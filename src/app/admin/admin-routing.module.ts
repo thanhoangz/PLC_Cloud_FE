@@ -32,10 +32,7 @@ const adminRoutes: Routes = [
           { path: 'language-classes', component: LanguageClassesComponent },
 
           { path: 'study-process', component: StudyProcessComponent },
-<<<<<<< HEAD
           { path: 'add-study-process', component: AddStudyProcessComponent },
-=======
->>>>>>> 8fc8590a78b30f03265fe3d2037ec00caf081fd1
           { path: 'learner', component: AddPageLearnerComponent },
 
           { path: '', component: CourseComponent }
