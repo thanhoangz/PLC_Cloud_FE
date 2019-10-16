@@ -1,0 +1,146 @@
+<mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
+
+<section class="content">
+  <div class="container-fluid">
+    <mat-card>
+      <mat-card-header style="text-align: center;">
+        <h3 style="text-align: center; width: 100%;">Thông tin hồ sơ học viên</h3>
+      </mat-card-header>
+      <div class="row">
+        <!-- Column 1: phần ảnh -->
+        <div class="col-md-2">
+          <!-- Profile Image -->
+          <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+              <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle"
+                  src="../../../../../../assets/admin/dist/img/admin.jpg" alt="User profile picture">
+              </div>
+
+              <h3 class="profile-username text-center">Nguyễn Xuân Hoàng</h3>
+
+              <p class="text-muted text-center">Học viên</p>
+
+              <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                  <b>Facebook</b> <a class="float-right">www.facebook.com/thanhoangz</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Email</b> <a class="float-right">xuanhoang.ks6@gmail.com</a>
+                </li>
+                <li class="list-group-item">
+                  <b>SĐT</b> <a class="float-right">0929 433 883</a>
+                </li>
+              </ul>
+
+              <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_PaySlip()"
+                style="width: 100%;">
+                <mat-icon>add_photo_alternate</mat-icon>
+              </button>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+          <!-- Thông tin thêm -->
+          <mat-card class="card card-primary">
+            <mat-card-header [style.backgroundColor]="''">
+              <mat-card-title>Thông tin thêm</mat-card-title>
+            </mat-card-header>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <strong><i class="fas fa-book mr-1"></i> Bậc học</strong>
+
+              <p class="text-muted">
+                THPT Hải Am
+              </p>
+
+              <hr>
+
+              <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa chỉ</strong>
+
+              <p class="text-muted">4c26 Cầu Tre, Ngô Quyền, Hải Phòng</p>
+
+              <hr>
+
+              <strong><i class="far fa-file-alt mr-1"></i> Ghi chú</strong>
+
+              <p class="text-muted">Kĩ năng còn yếu chưa, cần bổ sung kĩ năng A, B, C....
+              </p>
+            </div>
+            <!-- /.card-body -->
+          </mat-card>
+        </div>
+
+        <!-- Column 2: phần thông tin -->
+        <div class="col-md-10">
+          <mat-card>
+            <div class="row">
+              <div class="col-md-5">
+                <mat-form-field [floatLabel]='floatLabel'>
+                  <mat-label>Mã học viên</mat-label>
+                  <input matInput placeholder="Mã học viên" required>
+                </mat-form-field>
+
+                <mat-form-field [floatLabel]='floatLabel'>
+                  <mat-label>Họ</mat-label>
+                  <input matInput placeholder="Nhập họ..." required>
+                </mat-form-field>
+
+                <mat-form-field [floatLabel]='floatLabel'>
+                  <mat-label>Tên</mat-label>
+                  <input matInput placeholder="Nhập tên..." required>
+                </mat-form-field>
+
+                <label>Giới tính: </label>
+                <mat-radio-group>
+                  <mat-radio-button value="1">Nam</mat-radio-button>
+                  <mat-radio-button value="0">Nữ</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-form-field [floatLabel]='floatLabel'>
+                  <mat-label>Địa chỉ</mat-label>
+                  <textarea matInput placeholder="Nhập địa chỉ..." cdkTextareaAutosize cdkAutosizeMinRows="3"
+                    cdkAutosizeMaxRows="3" required></textarea>
+                </mat-form-field>
+
+                <mat-form-field [floatLabel]='floatLabel'>
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="plc@vimaru.edu.vn" [(ngModel)]="learner.email" name="myEmail"
+                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+
+
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-1">
+
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>Trạng thái</mat-label>
+                  <mat-select [(ngModel)]="learner.status" required style="text-align: center;">
+                    <mat-option *ngFor="let item of status" [value]="item.code" style="text-align: center;">
+                      {{item.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-card-footer align="end">
+              <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="createCourse()">
+                <mat-icon>add_circle</mat-icon>
+                Thêm
+              </button>
+              <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">
+                <mat-icon>cancel</mat-icon>
+                Hủy
+              </button>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+      </div>
+
+    </mat-card>
+  </div>
+</section>

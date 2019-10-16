@@ -10,6 +10,9 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { PaySlipService } from '../../services/pay-slip.service';
+import { formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-pay-slip',
@@ -17,12 +20,13 @@ import { PaySlipService } from '../../services/pay-slip.service';
   styleUrls: ['./pay-slip.component.css']
 })
 export class PaySlipComponent implements OnInit {
-
+  public startDate;
+  public endDate;
   public showProgressBar = true;
   public screenHeight: any;
   public screenWidth: any;
 
-  public paySlip ;
+  public paySlip;
   public status = [];
 
   public isOpenDialog = false;
@@ -36,7 +40,7 @@ export class PaySlipComponent implements OnInit {
   public statusSelected = null;
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['index', 'PaySlipTypeName', 'date', 'receiver', 'total', 'status', 'controls'];
+  public displayedColumns: string[] = ['index', 'paySlipTypeName', 'date', 'receiver', 'total', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSource = new MatTableDataSource(this.paySlip);
   // tslint:disable-next-line: member-ordering
@@ -48,16 +52,19 @@ export class PaySlipComponent implements OnInit {
     private notificationService: NotificationService,
     private toastr: ToastrService,
     public matDialog: MatDialog,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private datePipe: DatePipe
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-   }
+  }
 
   ngOnInit() {
     this.getPaySlips();
     this.getAllStatus();
+    this.statusSelected = this.status[3].code;
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
+
   }
 
   public loadTables(data: any) {
@@ -84,12 +91,18 @@ export class PaySlipComponent implements OnInit {
       },
       {
         Name: 'Chờ xử lý',
+        code: 2
+      },
+      {
+        Name: 'Đã hủy',
         code: 0
       },
       {
         Name: 'Tất cả',
-        code: 2
+        code: 3
       }];
+
+    this.statusSelected = this.status[3].code;
   }
 
   public startProgressBar() {
@@ -103,10 +116,10 @@ export class PaySlipComponent implements OnInit {
   public openCreate_PaySlip() {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
       console.log(widthMachine);
       this.matDialog.open(AddPayslipDialogComponent, {
-        width:  `${widthMachine}px`,
+        width: `${widthMachine}px`,
         data: {
         },
         disableClose: false
@@ -120,7 +133,7 @@ export class PaySlipComponent implements OnInit {
   public openEdit_PaySlip(paySlip: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
       this.matDialog.open(EditPayslipDialogComponent,
         {
           width: `${widthMachine}px`,
@@ -148,7 +161,7 @@ export class PaySlipComponent implements OnInit {
   public openDetail_PaySlip(paySlip: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
       this.matDialog.open(DetailPayslipDialogComponent,
         {
           width: `${widthMachine}px`,
@@ -165,7 +178,9 @@ export class PaySlipComponent implements OnInit {
   public find_PaySlip() {
 
     this.startProgressBar();
-    this.paySlipServies.searchPaySlip(this.keyWord, this.statusSelected).subscribe(result => {
+    let start_date = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
+    let end_date = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
+    this.paySlipServies.searchPaySlip(start_date, end_date, this.keyWord, this.statusSelected).subscribe(result => {
       if (result) {
         this.paySlip = result;
         this.loadTables(result);
@@ -178,4 +193,18 @@ export class PaySlipComponent implements OnInit {
     });
   }
 
+  public styleOfStatus(element) {
+    // tslint:disable-next-line: triple-equals
+    if (element.status == 1) {
+      return 'badge badge-success';
+    }
+    // tslint:disable-next-line: triple-equals
+    if (element.status == 0) {
+      return 'badge badge-danger';
+    }
+    // tslint:disable-next-line: triple-equals
+    if (element.status == 2) {
+      return 'badge badge-warning';
+    }
+  }
 }
