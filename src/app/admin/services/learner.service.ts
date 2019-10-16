@@ -14,6 +14,12 @@ export class LearnerService {
       .get(`${environment.PLCServicesDomain}/api/Learners`);
   }
 
+  getById(id) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/${id}`);
+  }
+
+
   postLearner(learner: any) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/Learners`, learner);

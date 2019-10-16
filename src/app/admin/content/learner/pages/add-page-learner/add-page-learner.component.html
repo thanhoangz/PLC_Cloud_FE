@@ -124,7 +124,8 @@
 
                 <mat-form-field [floatLabel]='floatLabel'>
                   <mat-label>Facebook</mat-label>
-                  <input matInput placeholder="https://www.facebook.com/plc-center || plc-center" [(ngModel)]="learner.facebook">
+                  <input matInput placeholder="https://www.facebook.com/plc-center || plc-center"
+                    [(ngModel)]="learner.facebook">
                 </mat-form-field>
               </div>
 
@@ -135,9 +136,18 @@
 
               <div class="col-md-5">
 
+                <mat-form-field>
+                  <mat-label>Đối tượng</mat-label>
+                  <mat-select [(ngModel)]="learner.guestTypeId" required style="text-align: center;" required>
+                    <mat-option *ngFor="let item of guestTypes" [value]="item.code" style="text-align: center;">
+                      {{item.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
 
                 <mat-form-field [floatLabel]='floatLabel'>
-                  <input matInput [matDatepicker]="picker" placeholder="Chọn ngày sinh" [(ngModel)]="learner.birthday" required>
+                  <input matInput [matDatepicker]="picker" placeholder="Chọn ngày sinh" [(ngModel)]="learner.birthday"
+                    required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker touchUi #picker></mat-datepicker>
                 </mat-form-field>

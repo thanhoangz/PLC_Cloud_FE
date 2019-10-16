@@ -1,4 +1,9 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'src/app/admin/services/extension/notification.service';
+import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
+import { LearnerService } from 'src/app/admin/services/learner.service';
+import { GuestTypeService } from 'src/app/admin/services/guest-type.service';
 
 @Component({
   selector: 'app-add-page-learner',
@@ -7,8 +12,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPageLearnerComponent implements OnInit {
   public floatLabel = 'always';
-
-  public guestType;
+  public showProgressBar = false;
+  public guestTypes;
   public learner = {
     id: null,
     cardId: null,
@@ -43,7 +48,13 @@ export class AddPageLearnerComponent implements OnInit {
 
   public status;
 
-  constructor() { }
+  constructor(
+    private learnerService: LearnerService,
+    private guestTypeService: GuestTypeService,
+    public matDialog: MatDialog,
+    private notificationService: NotificationService,
+    private confirmService: ConfirmService
+  ) { }
 
   private getAllStatus() {
     this.status = [
@@ -61,12 +72,35 @@ export class AddPageLearnerComponent implements OnInit {
       }];
   }
 
+  public startProgressBar() {
+    this.showProgressBar = true;
+  }
+
+  public stopProgressBar() {
+    this.showProgressBar = false;
+  }
+
+  public getGuestType() {
+    this.startProgressBar();
+    this.guestTypeService.getAllGuestTypes().subscribe(result => {
+      this.guestTypes = result;
+      console.log(result);
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
+
   public changeDate(event) {
 
   }
 
   ngOnInit() {
     this.getAllStatus();
+    this.getGuestType();
   }
 
+  public createLearner() {
+
+  }
 }
