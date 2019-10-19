@@ -34,7 +34,7 @@ const adminRoutes: Routes = [
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
 
-          { path: '', component: CourseComponent }
+          { path: '', component: TimeSheetComponent }
         ]
       }
     ]
