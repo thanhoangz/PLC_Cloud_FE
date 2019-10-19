@@ -63,6 +63,8 @@ import { EditLanguageClassComponent } from './admin/content/language-classes/dia
 import { DetailLanguageClassComponent } from './admin/content/language-classes/dialog/detail-language-class/detail-language-class.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CKEditorModule } from 'ngx-ckeditor';
+import { AddGuestDialogComponent } from './admin/content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
+import { EditGuestDialogComponent } from './admin/content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +138,9 @@ import { CKEditorModule } from 'ngx-ckeditor';
     DetailPayslipDialogComponent,
     AddLanguageClassComponent,
     EditLanguageClassComponent,
-    DetailLanguageClassComponent
+    DetailLanguageClassComponent,
+    AddGuestDialogComponent,
+    EditGuestDialogComponent
   ]
 
 })

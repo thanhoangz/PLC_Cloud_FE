@@ -74,10 +74,7 @@ export class AddPageLearnerComponent implements OnInit {
         name: 'Khóa',
         code: 0
       },
-      {
-        name: 'Tất cả',
-        code: 2
-      }];
+    ];
   }
 
   public startProgressBar() {

@@ -13,11 +13,11 @@ import { LanguageClassesComponent} from './content/language-classes/language-cla
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
-import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
+import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 
 const adminRoutes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: AdminManagementComponent,
     children: [
       {
@@ -31,11 +31,10 @@ const adminRoutes: Routes = [
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
-
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
-
+          { path: 'guest-type', component: GuestTypeComponent },
           { path: '', component: CourseComponent }
         ]
       }

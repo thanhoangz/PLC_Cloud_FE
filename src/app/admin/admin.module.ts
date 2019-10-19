@@ -1,3 +1,4 @@
+import { AddGuestDialogComponent } from './content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
 import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
@@ -66,6 +67,8 @@ import { StudyProcessComponent } from './content/study-process/study-process.com
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
+import { GuestTypeComponent } from './content/guest-type/guest-type.component';
+import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 
 
 
@@ -141,7 +144,10 @@ import { MaterialFileUploadComponent } from './extension-dialog/material-file-up
     StudyProcessComponent,
     AddPageLearnerComponent,
     AddStudyProcessComponent,
-    MaterialFileUploadComponent
+    MaterialFileUploadComponent,
+    GuestTypeComponent,
+    AddGuestDialogComponent,
+    EditGuestDialogComponent
   ]
 })
 export class AdminModule { }
