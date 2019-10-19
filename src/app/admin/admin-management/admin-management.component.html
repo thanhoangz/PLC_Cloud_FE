@@ -9,7 +9,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-      
+
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
@@ -22,7 +22,8 @@
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="../../../assets/admin/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <img src="../../../assets/admin/dist/img/user1-128x128.jpg" alt="User Avatar"
+                  class="img-size-50 mr-3 img-circle">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Brad Diesel
@@ -38,7 +39,8 @@
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="../../../assets/admin/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                <img src="../../../assets/admin/dist/img/user8-128x128.jpg" alt="User Avatar"
+                  class="img-size-50 img-circle mr-3">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     John Pierce
@@ -54,7 +56,8 @@
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="../../../assets/admin/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                <img src="../../../assets/admin/dist/img/user3-128x128.jpg" alt="User Avatar"
+                  class="img-size-50 img-circle mr-3">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Nora Silvester
@@ -112,8 +115,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="../../index3.html" class="brand-link">
-        <img src="../../../assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="../../../assets/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+          class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
       </a>
 
@@ -135,87 +138,61 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a outerLink="./" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Dashboard
+                  Trang chủ
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a routerLink="./user" routerLinkActive="active" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v1</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="./course" routerLinkActive="active" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v2</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item">
-              <a href="../widgets.html" class="nav-link">
+              <a routerLink="./language-classes" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Widgets
+                  Danh sách lớp
                   <span class="right badge badge-danger">New</span>
                 </p>
               </a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+              <a class="nav-link">
+                <i class="nav-icon fas fa-cogs"></i>
                 <p>
-                  Layout Options
+                  Cấu hình trung tâm
                   <i class="fas fa-angle-left right"></i>
                   <span class="badge badge-info right">6</span>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../layout/top-nav.html" class="nav-link">
+                  <a routerLink="./language-classes" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Top Navigation</p>
+                    <p>Lớp học</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../layout/boxed.html" class="nav-link">
+                  <a routerLink="./classroom" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Boxed</p>
+                    <p>Phòng học</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../layout/fixed-sidebar.html" class="nav-link">
+                  <a routerLink="./language-classes" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Fixed Sidebar</p>
+                    <p>Đối tượng</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../layout/fixed-topnav.html" class="nav-link">
+                  <a routerLink="./course" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Fixed Navbar</p>
+                    <p>Khóa học</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="../layout/fixed-footer.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Fixed Footer</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../layout/collapsed-sidebar.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Collapsed Sidebar</p>
+                    <p>Loại phiếu thu/chi</p>
                   </a>
                 </li>
               </ul>
@@ -224,7 +201,7 @@
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>
-                  Charts
+                  Báo cáo, thống kê
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
@@ -232,19 +209,43 @@
                 <li class="nav-item">
                   <a href="../charts/chartjs.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>ChartJS</p>
+                    <p>Báo cáo chấm công</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="../charts/flot.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Flot</p>
+                    <p>Báo cáo điểm cuối khóa</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="../charts/inline.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Inline</p>
+                    <p>Báo cáo điểm định kì</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../charts/inline.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Báo cáo đóng học phí</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../charts/inline.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Báo cáo điểm danh</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../charts/inline.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thống kê danh sách lớp</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../charts/inline.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thống kê học phí</p>
                   </a>
                 </li>
               </ul>
@@ -524,7 +525,7 @@
                 <p>Documentation</p>
               </a>
             </li>
-            <li class="nav-header">LABELS</li>
+            <li class="nav-header">Chú thích</li>
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon far fa-circle text-danger"></i>
@@ -602,4 +603,3 @@
   <!-- AdminLTE for demo purposes -->
   <script src="../../../assets/admin/dist/js/demo.js"></script>
 </body>
-

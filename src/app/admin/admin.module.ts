@@ -1,3 +1,5 @@
+import { AddGuestDialogComponent } from './content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
+import { CKEditorModule } from 'ngx-ckeditor';
 import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
 import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { EditPaysliptypeDialogComponent } from './content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
@@ -36,7 +38,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
@@ -62,10 +64,13 @@ import { AddLanguageClassComponent } from './content/language-classes/dialog/add
 import { DetailLanguageClassComponent } from './content/language-classes/dialog/detail-language-class/detail-language-class.component';
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
-
-
-
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
+import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
+import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
+import { GuestTypeComponent } from './content/guest-type/guest-type.component';
+import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
+
+
 
 @NgModule({
   imports: [
@@ -103,7 +108,9 @@ import { AddPageLearnerComponent } from './content/learner/pages/add-page-learne
     BidiModule,
     TextFieldModule,
     MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CKEditorModule,
+    ReactiveFormsModule
 
   ],
   declarations: [
@@ -132,9 +139,15 @@ import { AddPageLearnerComponent } from './content/learner/pages/add-page-learne
     AddLanguageClassComponent,
     EditLanguageClassComponent,
     DetailLanguageClassComponent,
+
     TimeSheetComponent,
     StudyProcessComponent,
-    AddPageLearnerComponent
+    AddPageLearnerComponent,
+    AddStudyProcessComponent,
+    MaterialFileUploadComponent,
+    GuestTypeComponent,
+    AddGuestDialogComponent,
+    EditGuestDialogComponent
   ]
 })
 export class AdminModule { }

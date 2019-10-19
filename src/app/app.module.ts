@@ -62,7 +62,9 @@ import { EditLanguageClassComponent } from './admin/content/language-classes/dia
 // tslint:disable-next-line: max-line-length
 import { DetailLanguageClassComponent } from './admin/content/language-classes/dialog/detail-language-class/detail-language-class.component';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { CKEditorModule } from 'ngx-ckeditor';
+import { AddGuestDialogComponent } from './admin/content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
+import { EditGuestDialogComponent } from './admin/content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
+    CKEditorModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
@@ -135,7 +138,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     DetailPayslipDialogComponent,
     AddLanguageClassComponent,
     EditLanguageClassComponent,
-    DetailLanguageClassComponent
+    DetailLanguageClassComponent,
+    AddGuestDialogComponent,
+    EditGuestDialogComponent
   ]
 
 })

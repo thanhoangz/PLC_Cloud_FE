@@ -181,10 +181,6 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  public getPaginatorData(event) {
-    console.log(event);
-  }
-
 
   public startProgressBar() {
     this.showProgressBar = true;
