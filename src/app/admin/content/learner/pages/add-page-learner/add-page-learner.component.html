@@ -13,30 +13,26 @@
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle"
-                  src="../../../../../../assets/admin/dist/img/admin.jpg" alt="User profile picture">
+                <img style="border-radius:50%;" [(src)]="learner.image" alt="User profile picture"
+                  [width]="getImageWidth()" [height]="getImageHeigth()">
               </div>
 
-              <h3 class="profile-username text-center">Nguyễn Xuân Hoàng</h3>
+              <h3 class="profile-username text-center">{{ learner.name }}</h3>
 
               <p class="text-muted text-center">Học viên</p>
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Facebook</b> <a class="float-right">www.facebook.com/thanhoangz</a>
+                  <b>Facebook</b> <a class="float-right">{{ learner.facebook }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Email</b> <a class="float-right">xuanhoang.ks6@gmail.com</a>
+                  <b>Email</b> <a class="float-right">{{ learner.email }}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>SĐT</b> <a class="float-right">0929 433 883</a>
+                  <b>SĐT</b> <a class="float-right">{{ learner.phone }}</a>
                 </li>
               </ul>
-
-              <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_PaySlip()"
-                style="width: 100%;">
-                <mat-icon>add_photo_alternate</mat-icon>
-              </button>
+              <app-material-file-upload (complete)="onFileComplete($event)"></app-material-file-upload>
             </div>
             <!-- /.card-body -->
           </div>
@@ -58,13 +54,13 @@
 
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa chỉ</strong>
 
-              <p class="text-muted">4c26 Cầu Tre, Ngô Quyền, Hải Phòng</p>
+              <p class="text-muted">{{ learner.address }}</p>
 
               <hr>
 
               <strong><i class="far fa-file-alt mr-1"></i> Ghi chú</strong>
 
-              <p class="text-muted">Kĩ năng còn yếu chưa, cần bổ sung kĩ năng A, B, C....
+              <p class="text-muted">{{ learner.note }}
               </p>
             </div>
             <!-- /.card-body -->
@@ -73,130 +69,168 @@
 
         <!-- Column 2: phần thông tin -->
         <div class="col-md-10">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title align="start">
-                <mat-icon>assignment_ind</mat-icon>
-                Thông tin chung
-              </mat-card-title>
-            </mat-card-header>
+          <form novalidate [formGroup]="learnerFormGroup" (ngSubmit)="createLearner()">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title align="start">
+                  <mat-icon>assignment_ind</mat-icon>
+                  Thông tin chung
+                </mat-card-title>
+              </mat-card-header>
 
-            <hr>
-            <div class="row">
-              <div class="col-md-5">
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Mã học viên</mat-label>
-                  <input matInput placeholder="Mã học viên" required [(ngModel)]="learner.id">
-                </mat-form-field>
+              <hr>
+              <div class="row">
+                <div class="col-md-5">
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Mã học viên</mat-label>
+                    <input matInput placeholder="Mã học viên" required [(ngModel)]="learner.id" formControlName="id">
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng nhập mã học viên!
+                    </mat-error>
+                  </mat-form-field>
 
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Họ</mat-label>
-                  <input matInput placeholder="Nhập họ..." required [(ngModel)]="learner.firstName">
-                </mat-form-field>
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Họ</mat-label>
+                    <input matInput placeholder="Nhập họ..." required [(ngModel)]="learner.firstName"
+                      formControlName="firstName">
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng nhập họ!
+                    </mat-error>
+                  </mat-form-field>
 
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Tên</mat-label>
-                  <input matInput placeholder="Nhập tên..." required [(ngModel)]="learner.lastName">
-                </mat-form-field>
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Tên</mat-label>
+                    <input matInput placeholder="Nhập tên..." required [(ngModel)]="learner.lastName"
+                      formControlName="lastName">
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng nhập tên!
+                    </mat-error>
+                  </mat-form-field>
 
-                <label>Giới tính: </label>
-                <mat-radio-group>
-                  <mat-radio-button value="1">Nam</mat-radio-button>
-                  <mat-radio-button value="0">Nữ</mat-radio-button>
-                </mat-radio-group>
+                  <label>Giới tính: </label>
+                  <mat-radio-group [(ngModel)]="learner.sex" formControlName="sex">
+                    <mat-radio-button value="true">Nam</mat-radio-button>
+                    <mat-radio-button value="false">Nữ</mat-radio-button>
+                  </mat-radio-group>
 
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Địa chỉ</mat-label>
-                  <textarea matInput placeholder="Nhập địa chỉ..." cdkTextareaAutosize cdkAutosizeMinRows="3"
-                    cdkAutosizeMaxRows="3" required [(ngModel)]="learner.address"></textarea>
-                </mat-form-field>
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Địa chỉ</mat-label>
+                    <textarea matInput placeholder="Nhập địa chỉ..." cdkTextareaAutosize cdkAutosizeMinRows="3"
+                      cdkAutosizeMaxRows="3" required [(ngModel)]="learner.address"
+                      formControlName="address"></textarea>
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng nhập địa chỉ!
+                    </mat-error>
+                  </mat-form-field>
 
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Email</mat-label>
-                  <input matInput placeholder="plc@vimaru.edu.vn" [(ngModel)]="learner.email" name="myEmail"
-                    pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required [(ngModel)]="learner.email">
-                </mat-form-field>
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="plc@vimaru.edu.vn" [(ngModel)]="learner.email" required
+                      [(ngModel)]="learner.email" formControlName="email">
+                    <mat-error *ngIf="!learnerFormGroup.hasError('email') || !learnerFormGroup.hasError('required')">
+                      Vui lòng nhập email, có dạng "abc@xyz.com"!
+                    </mat-error>
+                  </mat-form-field>
 
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Số liên lạc</mat-label>
-                  <input matInput placeholder="09xx xxx xxx" required [(ngModel)]="learner.phone">
-                </mat-form-field>
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Số liên lạc</mat-label>
+                    <input matInput placeholder="09xx xxx xxx" required [(ngModel)]="learner.phone"
+                      formControlName="phone">
+                    <mat-error
+                      *ngIf="!learnerFormGroup.hasError('required') || !learnerFormGroup.hasError('minLength') || !learnerFormGroup.hasError('pattern')">
+                      Vui lòng nhập số điện thoại, độ dài từ 10!
+                    </mat-error>
+                  </mat-form-field>
 
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Facebook</mat-label>
-                  <input matInput placeholder="https://www.facebook.com/plc-center || plc-center"
-                    [(ngModel)]="learner.facebook">
-                </mat-form-field>
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Facebook</mat-label>
+                    <input matInput placeholder="https://www.facebook.com/plc-center || plc-center"
+                      [(ngModel)]="learner.facebook" formControlName="facebook">
+                  </mat-form-field>
+                </div>
+
+
+                <div class="col-md-1">
+
+                </div>
+
+                <div class="col-md-5">
+
+                  <mat-form-field>
+                    <mat-label>Đối tượng</mat-label>
+                    <mat-select [(ngModel)]="learner.guestTypeId" style="text-align: center;" required
+                      formControlName="guestTypeId">
+                      <mat-option *ngFor="let item of guestTypes" [value]="item.id" style="text-align: center;">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng chọn nhóm đối tượng cho học viên!
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <input matInput [matDatepicker]="picker" placeholder="Chọn ngày sinh" [(ngModel)]="learner.birthday"
+                      required required formControlName="birthday">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker></mat-datepicker>
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng chọn ngày sinh!
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Trạng thái</mat-label>
+                    <mat-select [(ngModel)]="learner.status" required style="text-align: center;" required
+                      formControlName="status">
+                      <mat-option *ngFor="let item of status" [value]="item.code" style="text-align: center;">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!learnerFormGroup.hasError('required')">
+                      Vui lòng chọn trạng thái!
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Tên phụ huynh</mat-label>
+                    <input matInput placeholder="Nhập họ và tên phụ huynh" [(ngModel)]="learner.parentFullName"
+                      formControlName="parentFullName">
+                  </mat-form-field>
+
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>SĐT phụ huynh</mat-label>
+                    <input matInput placeholder="09xx xxx xxx" [(ngModel)]="learner.parentPhone"
+                      formControlName="parentPhone">
+                  </mat-form-field>
+
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Ghi chú</mat-label>
+                    <textarea matInput placeholder="Nhập ghi chú liên quan..." cdkTextareaAutosize
+                      cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" [(ngModel)]="learner.note"
+                      formControlName="note"></textarea>
+                  </mat-form-field>
+
+
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
               </div>
-
-
-              <div class="col-md-1">
-
-              </div>
-
-              <div class="col-md-5">
-
-                <mat-form-field>
-                  <mat-label>Đối tượng</mat-label>
-                  <mat-select [(ngModel)]="learner.guestTypeId" required style="text-align: center;" required>
-                    <mat-option *ngFor="let item of guestTypes" [value]="item.code" style="text-align: center;">
-                      {{item.name}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <input matInput [matDatepicker]="picker" placeholder="Chọn ngày sinh" [(ngModel)]="learner.birthday"
-                    required>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker touchUi #picker></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field>
-                  <mat-label>Trạng thái</mat-label>
-                  <mat-select [(ngModel)]="learner.status" required style="text-align: center;" required>
-                    <mat-option *ngFor="let item of status" [value]="item.code" style="text-align: center;">
-                      {{item.name}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Tên phụ huynh</mat-label>
-                  <input matInput placeholder="Nhập họ và tên phụ huynh" required [(ngModel)]="learner.parentFullName">
-                </mat-form-field>
-
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>SĐT phụ huynh</mat-label>
-                  <input matInput placeholder="09xx xxx xxx" required [(ngModel)]="learner.parentPhone">
-                </mat-form-field>
-
-                <mat-form-field [floatLabel]='floatLabel'>
-                  <mat-label>Ghi chú</mat-label>
-                  <textarea matInput placeholder="Nhập ghi chú liên quan..." cdkTextareaAutosize cdkAutosizeMinRows="5"
-                    cdkAutosizeMaxRows="5" required [(ngModel)]="learner.note"></textarea>
-                </mat-form-field>
-
-
-              </div>
-
-              <div class="col-md-1">
-
-              </div>
-            </div>
-            <hr>
-            <mat-card-footer align="end">
-              <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="createLearner()"
-                style="margin: 1%;">
-                <mat-icon>add_circle</mat-icon>
-                Thêm
-              </button>
-              <button mat-raised-button color="warn" mat-dialog-close tabindex="-1" style="margin: 1%;">
-                <mat-icon>cancel</mat-icon>
-                Hủy
-              </button>
-            </mat-card-footer>
-          </mat-card>
+              <hr>
+              <mat-card-footer align="end">
+                <button type="submit" mat-raised-button color="primary" tabindex="-1" style="margin: 1%;">
+                  <mat-icon>add_circle</mat-icon>
+                  Thêm
+                </button>
+                <button mat-raised-button color="warn" mat-dialog-close tabindex="-1" style="margin: 1%;">
+                  <mat-icon>cancel</mat-icon>
+                  Hủy
+                </button>
+              </mat-card-footer>
+            </mat-card>
+          </form>
         </div>
       </div>
 

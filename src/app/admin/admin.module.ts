@@ -37,7 +37,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
@@ -65,6 +65,7 @@ import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
+import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
 
 
 
@@ -105,7 +106,8 @@ import { AddStudyProcessComponent } from './content/add-study-process/add-study-
     TextFieldModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    CKEditorModule
+    CKEditorModule,
+    ReactiveFormsModule
 
   ],
   declarations: [
@@ -138,7 +140,8 @@ import { AddStudyProcessComponent } from './content/add-study-process/add-study-
     TimeSheetComponent,
     StudyProcessComponent,
     AddPageLearnerComponent,
-    AddStudyProcessComponent
+    AddStudyProcessComponent,
+    MaterialFileUploadComponent
   ]
 })
 export class AdminModule { }

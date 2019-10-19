@@ -13,6 +13,7 @@ import { LanguageClassesComponent} from './content/language-classes/language-cla
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
+import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
 
 const adminRoutes: Routes = [
   {
