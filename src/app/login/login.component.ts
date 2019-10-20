@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoginService } from '../admin/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +10,12 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-  username = '22';
-  passwork = 'xx';
+  public user = {
+    userName: '',
+    password: ''
+  };
 
-  listUser;
-  value: string;
-
-  user = { FullName: 'yyyy', Username: 'iemP', Password: 'Piem', Status: 1 };
-
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     if (localStorage.getItem('token') != null) {
@@ -25,7 +23,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
-    console.log('xxx');
+  public login() {
+    this.loginService.login(this.user).subscribe(result => {
+
+    }, error => {
+
+    });
   }
 }
