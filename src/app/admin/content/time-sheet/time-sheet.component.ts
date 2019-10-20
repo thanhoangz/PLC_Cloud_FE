@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LanguageClassesService } from './../../services/language-classes.service';
@@ -48,16 +49,17 @@ export class TimeSheetComponent implements OnInit {
 
   constructor(
     private timeSheetService: TimeSheetService,
-    private toastr: ToastrService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getDateOfMonth();
     this.getAllYear();
 
