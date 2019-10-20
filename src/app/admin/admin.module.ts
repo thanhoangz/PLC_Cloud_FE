@@ -66,7 +66,6 @@ import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
-import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
 import { AddLearnerToClassComponent } from './content/add-learner-to-class/add-learner-to-class.component';
 import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
 import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
@@ -148,7 +147,6 @@ import { HomeComponent } from './content/home/home.component';
     StudyProcessComponent,
     AddPageLearnerComponent,
     AddStudyProcessComponent,
-    TestAutocompleteComponent,
     AddLearnerToClassComponent,
     AddLearnerClassComponent,
     MaterialFileUploadComponent,
