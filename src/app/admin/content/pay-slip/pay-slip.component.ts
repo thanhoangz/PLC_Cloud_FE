@@ -12,6 +12,7 @@ import { NotificationService } from '../../services/extension/notification.servi
 import { PaySlipService } from '../../services/pay-slip.service';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -53,13 +54,15 @@ export class PaySlipComponent implements OnInit {
     private toastr: ToastrService,
     public matDialog: MatDialog,
     private confirmService: ConfirmService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private loginService: LoginService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getPaySlips();
     this.getAllStatus();
     this.statusSelected = this.status[3].code;

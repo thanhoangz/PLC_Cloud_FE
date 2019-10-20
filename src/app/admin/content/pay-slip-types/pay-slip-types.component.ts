@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { PaySlipTypeService } from '../../services/pay-slip-type.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-pay-slip-types',
@@ -47,13 +48,15 @@ export class PaySlipTypesComponent implements OnInit {
     private notificationService: NotificationService,
     private toastr: ToastrService,
     public matDialog: MatDialog,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getPaySlipTypes();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';

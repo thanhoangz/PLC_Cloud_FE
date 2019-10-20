@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { LanguageClassesService } from './../../services/language-classes.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -51,13 +52,15 @@ export class LanguageClassesComponent implements OnInit {
     private toastr: ToastrService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
    }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getLanguageClass();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';

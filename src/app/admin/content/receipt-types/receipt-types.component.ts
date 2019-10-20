@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -31,10 +32,12 @@ export class ReceiptTypesComponent implements OnInit {
   constructor(
     private receiptTypeService: ReceiptTypeService,
     private toastr: ToastrService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getReceiptTypes();
     this.getAllStatus();
   }
