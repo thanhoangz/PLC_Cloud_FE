@@ -9,9 +9,9 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login() {
+  login(user: any) {
     return this.httpClient
-      .delete(`${environment.PLCServicesDomain}/api/AppUsers/Login/${courseId}`);
+      .delete(`${environment.PLCServicesDomain}/api/AppUsers/Login`, user);
   }
 
 }
