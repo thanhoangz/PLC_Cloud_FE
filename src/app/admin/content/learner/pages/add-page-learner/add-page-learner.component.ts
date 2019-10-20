@@ -126,16 +126,19 @@ export class AddPageLearnerComponent implements OnInit {
   }
 
   public createLearner() {
-    this.learner.birthday = this.fomatDateService.transformDate(this.learner.birthday);
-    console.log(this.learner);
-    this.startProgressBar();
-    this.learnerService.postLearner(this.learner).subscribe(result => {
-      this.notificationService.showNotification(1, 'Người học', 'Thêm người học thành công!');
-      this.stopProgressBar();
-    }, error => {
-      this.stopProgressBar();
-      this.notificationService.showNotification(3, 'Người học', 'Lỗi, thêm người học thất bại!');
-    });
+    if (this.learnerFormGroup.valid) {
+      this.learner.birthday = this.fomatDateService.transformDate(this.learner.birthday);
+      console.log(this.learner);
+      this.startProgressBar();
+      this.learnerService.postLearner(this.learner).subscribe(result => {
+        this.notificationService.showNotification(1, 'Người học', 'Thêm người học thành công!');
+        this.stopProgressBar();
+      }, error => {
+        this.stopProgressBar();
+        this.notificationService.showNotification(3, 'Người học', 'Lỗi, thêm người học thất bại!');
+      });
+    }
+
   }
 
   /*Update image => success => save to learner object*/

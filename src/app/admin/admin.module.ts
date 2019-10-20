@@ -72,6 +72,7 @@ import { AddLearnerClassComponent } from './content/add-learner-class/add-learne
 import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
+import { HomeComponent } from './content/home/home.component';
 
 
 
@@ -153,7 +154,8 @@ import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest
     MaterialFileUploadComponent,
     GuestTypeComponent,
     AddGuestDialogComponent,
-    EditGuestDialogComponent
+    EditGuestDialogComponent,
+    HomeComponent
   ]
 })
 export class AdminModule { }
