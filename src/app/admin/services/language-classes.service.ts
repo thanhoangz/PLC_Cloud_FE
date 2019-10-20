@@ -40,4 +40,9 @@ searchLanguageClass(keyWord, status) {
     // tslint:disable-next-line: max-line-length
     .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
 }
+
+getById(id) {
+  return this.httpClient
+    .get(`${environment.PLCServicesDomain}/api/LanguageClasses/${id}`);
+}
 }

@@ -9,7 +9,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { UserManagementComponent } from './content/user-management/user-management.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {MatChipsModule} from '@angular/material/chips';
 import { CourseComponent } from './content/course/course.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -66,9 +66,13 @@ import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
+import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
+import { AddLearnerToClassComponent } from './content/add-learner-to-class/add-learner-to-class.component';
+import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
 import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
+import { HomeComponent } from './content/home/home.component';
 
 
 
@@ -144,10 +148,14 @@ import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest
     StudyProcessComponent,
     AddPageLearnerComponent,
     AddStudyProcessComponent,
+    TestAutocompleteComponent,
+    AddLearnerToClassComponent,
+    AddLearnerClassComponent,
     MaterialFileUploadComponent,
     GuestTypeComponent,
     AddGuestDialogComponent,
-    EditGuestDialogComponent
+    EditGuestDialogComponent,
+    HomeComponent
   ]
 })
 export class AdminModule { }

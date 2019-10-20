@@ -5,13 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [
-    './login.component.css',
-    '../../assets/admin/plugins/fontawesome-free/css/all.min.css',
-    '../../assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css',
-    '../../assets/admin/dist/css/adminlte.min.css'
-
-  ]
+  styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -26,53 +20,12 @@ export class LoginComponent implements OnInit {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit() {
-  }
-
-  changeUsername(event: Event) {
-    let element = event.currentTarget as HTMLInputElement;
-    this.username = element.value;
-
-  }
-
-  changePassword(event: Event) {
-    let element = event.currentTarget as HTMLInputElement;
-    this.passwork = element.value;
-
+    if (localStorage.getItem('token') != null) {
+      this.router.navigateByUrl('/admin/home');
+    }
   }
 
   login() {
-    this.httpClient.get(`localhost:62602/api/Users`).subscribe(data => {
-      this.listUser = data;
-
-      for (let i = 0; this.listUser.length; i++) {
-        if (this.listUser[i].username === this.username) {
-          alert('đúng username !');
-          break;
-        }
-      }
-    });
+    console.log('xxx');
   }
-
-  delete() {
-    this.httpClient.delete(`http://localhost:62602/api/Users/4`).subscribe(data => {
-      console.log('deleted');
-
-
-    });
-  }
-
-
-
-  post() {
-    this.httpClient.post(`http://localhost:62602/api/Users`, this.user).subscribe(data => {
-      alert('Đã post được');
-    });
-  }
-
-  put(id) {
-    this.httpClient.put(`http://localhost:62602/api/Users/${id}`, this.user).subscribe(data => {
-      alert('Đã put được');
-    });
-  }
-
 }
