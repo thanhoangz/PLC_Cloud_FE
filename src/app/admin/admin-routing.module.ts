@@ -35,7 +35,7 @@ const adminRoutes: Routes = [
           { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
-          { path: '', component: CourseComponent }
+          { path: '', component: TimeSheetComponent }
         ]
       }
     ]
