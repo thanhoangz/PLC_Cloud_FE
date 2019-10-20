@@ -1,3 +1,4 @@
+import { AddGuestDialogComponent } from './content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
 import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
@@ -65,9 +66,17 @@ import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
+<<<<<<< HEAD
 import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
 import { AddLearnerToClassComponent } from './content/add-learner-to-class/add-learner-to-class.component';
 import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
+=======
+import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
+import { GuestTypeComponent } from './content/guest-type/guest-type.component';
+import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
+
+
+>>>>>>> effe0924a278fbb164f249572d3a5e3b16f8f355
 
 @NgModule({
   imports: [
@@ -108,6 +117,10 @@ import { AddLearnerClassComponent } from './content/add-learner-class/add-learne
     MatProgressSpinnerModule,
     CKEditorModule,
     ReactiveFormsModule
+<<<<<<< HEAD
+=======
+
+>>>>>>> effe0924a278fbb164f249572d3a5e3b16f8f355
   ],
   declarations: [
     UserManagementComponent,
@@ -140,9 +153,16 @@ import { AddLearnerClassComponent } from './content/add-learner-class/add-learne
     StudyProcessComponent,
     AddPageLearnerComponent,
     AddStudyProcessComponent,
+<<<<<<< HEAD
     TestAutocompleteComponent,
     AddLearnerToClassComponent,
     AddLearnerClassComponent,
+=======
+    MaterialFileUploadComponent,
+    GuestTypeComponent,
+    AddGuestDialogComponent,
+    EditGuestDialogComponent
+>>>>>>> effe0924a278fbb164f249572d3a5e3b16f8f355
   ]
 })
 export class AdminModule { }

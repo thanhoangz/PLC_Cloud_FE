@@ -14,18 +14,25 @@ export class GuestTypeService {
       .get(`${environment.PLCServicesDomain}/api/GuestTypes`);
   }
 
-  postLearner(guestType: any) {
+  postGuestType(guestType: any) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/GuestTypes`, guestType);
   }
 
-  putLearner(guestType: any) {
+  putGuestType(guestType: any) {
     return this.httpClient
       .put(`${environment.PLCServicesDomain}/api/GuestTypes/${guestType.id}`, guestType);
   }
 
-  deleteLearner(guestTypeId) {
+  deleteGuestType(guestTypeId) {
     return this.httpClient
       .delete(`${environment.PLCServicesDomain}/api/GuestTypes/${guestTypeId}`);
   }
+
+  searchGuestType(keyWord, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/GuestTypes/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
+  }
+
 }
