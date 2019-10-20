@@ -13,7 +13,9 @@ import { LanguageClassesComponent} from './content/language-classes/language-cla
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
-
+import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
+import { AddLearnerToClassComponent  } from './content/add-learner-to-class/add-learner-to-class.component';
+import { AddLearnerClassComponent  } from './content/add-learner-class/add-learner-class.component';
 const adminRoutes: Routes = [
   {
     path: '',
@@ -30,7 +32,9 @@ const adminRoutes: Routes = [
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
-
+          { path: 'test', component: TestAutocompleteComponent },
+          { path: 'add-learner-to-class', component: AddLearnerToClassComponent },
+          { path: 'add-learner-class', component: AddLearnerClassComponent },
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },

@@ -4,25 +4,25 @@
     <div class="container-fluid">
         <mat-card>
             <mat-card-header class="card-container">
-                <mat-card-title>Thêm học viên</mat-card-title>
-                <mat-card-subtitle>Quản lý thêm học viên</mat-card-subtitle>
+                <mat-card-title>Danh sách lớp</mat-card-title>
+
             </mat-card-header>
             <div class="row">
                 <div class="col-md-2">
                     <mat-form-field>
                         <mat-label>Chọn lớp</mat-label>
-                        <mat-select [(ngModel)]="studyprocess.languageClassId">
+                        <mat-select [(ngModel)]="languageClassId">
                             <mat-option *ngFor="let item of languageClass" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>              
+                </div>
 
                 <div class="col-md-2">
                     <mat-form-field>
                         <mat-label>Mã học viên</mat-label>
-                        <input matInput placeholder="Nhập mã học viên" [(ngModel)]="keyWord">                        
+                        <input matInput placeholder="Nhập mã học viên" [(ngModel)]="keyWord">
                     </mat-form-field>
                 </div>
 
@@ -36,107 +36,108 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                
                 <div class="col-md-5">
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-label>Mã học viên</mat-label>
+                            <input [(ngModel)]="learnerId" matInput placeholder="Nhập mã học viên"
+                                (keyup)="setLearner($event.target.value)">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-10">
+                        <div>
+                            <mat-label><b>Thông tin học viên</b></mat-label>
+                        </div>
+
+                        <mat-form-field>
+                            <mat-label>Tên học viên : {{ learner.lastName }} </mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Giới tính : </mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Ngày sinh : </mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Số điện thoại : </mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-md-4">
+                    <div class="col-md-6">
+                        <mat-form-field>
+                            <mat-label>Chọn lớp</mat-label>
+                            <mat-select [(ngModel)]="languageClassId"
+                                (change)="load_infor_languageClasses($event.target.value)">
+                                <mat-option *ngFor="let item of languageClass" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-10">
+                        <div>
+                            <mat-label><b>Thông tin lớp học</b></mat-label>
+                        </div>
+                        <mat-form-field>
+                            <mat-label>Khóa học</mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Sĩ số lớp : {{  languageClassSiSo}}</mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Ngày bắt đầu : {{  languageClassStartDay}}</mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Ngày kết thúc : {{  languageClassEnDay}}</mat-label>
+                            <input matInput disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Chọn trạng thái</mat-label>
+                        <mat-select [(ngModel)]="statusSelected">
+                            <mat-option *ngFor="let s of status" value="{{s.code}}">
+                                {{s.Name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="col-md-1">
                     <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
-                        (click)="find_PaySlip()">
+                        (click)="load_infor_languageClasses()">
                         <mat-icon>search</mat-icon>
                         Tìm kiếm
                     </button>
                 </div>
-            </div>                   
-        </mat-card>
 
-
-        <mat-card style="margin-top: 0.5%">
-            <div class="col-md-4"> 
-                    <mat-form-field>
-                        <mat-label>Mã học viên</mat-label>
-                        <input [(ngModel)]="learnerId" matInput placeholder="Nhập mã học viên" >
-                    </mat-form-field>    
-                    <mat-label>Thông tin học viên</mat-label>      
             </div>
-            <div class="col-md-4">              
-            </div>
-            <div class="col-md-4">              
-            </div>
-        </mat-card>
-
-
-
-        <mat-card style="margin-top: 0.5%">
-            <mat-card-header style="float: right;">
-                <mat-card-title>
-                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_PaySlip()">
-                        <mat-icon>add</mat-icon>
-                        Thêm phiếu chi
-                    </button>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <table mat-table [dataSource]="dataSource">
-
-                    <ng-container matColumnDef="index">
-                        <th mat-header-cell *matHeaderCellDef> STT</th>
-                        <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="paySlipTypeName">
-                        <th mat-header-cell *matHeaderCellDef> Tên loại chi </th>
-                        <td mat-cell *matCellDef="let element"> {{element.paySlipTypeName}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="date">
-                        <th mat-header-cell *matHeaderCellDef> Ngày chi</th>
-                        <td mat-cell *matCellDef="let element"> {{element.date}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="receiver">
-                        <th mat-header-cell *matHeaderCellDef> Người nhận</th>
-                        <td mat-cell *matCellDef="let element"> {{element.receiver}}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="total">
-                        <th mat-header-cell *matHeaderCellDef> Tổng tiền</th>
-                        <td mat-cell *matCellDef="let element"> {{element.total}} VNĐ</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
-                        <td mat-cell *matCellDef="let element">
-                            <span [class]='styleOfStatus(element)'>
-                                {{ (element.status == 1)?"Hoàn thành":((element.status == 2)?"Chờ xử lý":"Đã hủy") }}
-                            </span>
-                        </td>
-                    </ng-container>
-
-
-
-                    <ng-container matColumnDef="controls">
-                        <th mat-header-cell *matHeaderCellDef> Chức năng </th>
-                        <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button (click)="openDetail_PaySlip(element)">
-                                <mat-icon>list_alt</mat-icon>
-                            </button>
-                            <button mat-icon-button (click)="openEdit_PaySlip(element)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                            <button mat-icon-button (click)="delete_PaySlip(element.id)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                    </tr>
-                </table>
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    (page)="getPaginatorData($event)" showFirstLastButtons>
-                </mat-paginator>
-            </mat-card-content>
         </mat-card>
     </div>
 </section>

@@ -8,7 +8,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { UserManagementComponent } from './content/user-management/user-management.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {MatChipsModule} from '@angular/material/chips';
 import { CourseComponent } from './content/course/course.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -37,7 +37,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditCourseDialogComponent } from './content/course/dialog/edit-course-dialog/edit-course-dialog.component';
@@ -65,8 +65,9 @@ import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
-
-
+import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
+import { AddLearnerToClassComponent } from './content/add-learner-to-class/add-learner-to-class.component';
+import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
 
 @NgModule({
   imports: [
@@ -105,8 +106,8 @@ import { AddStudyProcessComponent } from './content/add-study-process/add-study-
     TextFieldModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    CKEditorModule
-
+    CKEditorModule,
+    ReactiveFormsModule
   ],
   declarations: [
     UserManagementComponent,
@@ -138,7 +139,10 @@ import { AddStudyProcessComponent } from './content/add-study-process/add-study-
     TimeSheetComponent,
     StudyProcessComponent,
     AddPageLearnerComponent,
-    AddStudyProcessComponent
+    AddStudyProcessComponent,
+    TestAutocompleteComponent,
+    AddLearnerToClassComponent,
+    AddLearnerClassComponent,
   ]
 })
 export class AdminModule { }
