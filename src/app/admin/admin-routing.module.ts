@@ -13,14 +13,11 @@ import { LanguageClassesComponent} from './content/language-classes/language-cla
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
-<<<<<<< HEAD
 import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
 import { AddLearnerToClassComponent  } from './content/add-learner-to-class/add-learner-to-class.component';
 import { AddLearnerClassComponent  } from './content/add-learner-class/add-learner-class.component';
-=======
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 
->>>>>>> effe0924a278fbb164f249572d3a5e3b16f8f355
 const adminRoutes: Routes = [
   {
     path: 'admin',
@@ -37,12 +34,9 @@ const adminRoutes: Routes = [
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
-<<<<<<< HEAD
           { path: 'test', component: TestAutocompleteComponent },
           { path: 'add-learner-to-class', component: AddLearnerToClassComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
-=======
->>>>>>> effe0924a278fbb164f249572d3a5e3b16f8f355
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
