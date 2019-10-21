@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { CourseService } from '../../services/course.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { ConfirmService } from '../../services/extension/confirm.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-course',
@@ -50,10 +51,10 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private toastr: ToastrService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
@@ -63,6 +64,7 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getCourses();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';

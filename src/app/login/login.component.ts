@@ -1,78 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoginService } from '../admin/services/login.service';
+import { NotificationService } from '../admin/services/extension/notification.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [
-    './login.component.css',
-    '../../assets/admin/plugins/fontawesome-free/css/all.min.css',
-    '../../assets/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css',
-    '../../assets/admin/dist/css/adminlte.min.css'
-
-  ]
+  styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
-  username = '22';
-  passwork = 'xx';
 
-  listUser;
-  value: string;
+  public loginFormGroup: FormGroup;
 
-  user = { FullName: 'yyyy', Username: 'iemP', Password: 'Piem', Status: 1 };
+  public user = {
+    userName: '',
+    password: ''
+  };
 
-  constructor(private httpClient: HttpClient, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) { }
 
   ngOnInit() {
+    if (localStorage.getItem('token') != null) {
+      this.router.navigateByUrl('/admin');
+    }
+    this.initLoginForm();
+  }
+  private initLoginForm() {
+    this.loginFormGroup = new FormGroup({
+      username: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required])
+    });
   }
 
-  changeUsername(event: Event) {
-    let element = event.currentTarget as HTMLInputElement;
-    this.username = element.value;
 
-  }
+  public login() {
+    if (this.loginFormGroup.valid) {
+      this.loginService.login(this.user).subscribe((result: any) => {
+        localStorage.setItem('token', result.token);
+        this.router.navigateByUrl('/admin');
 
-  changePassword(event: Event) {
-    let element = event.currentTarget as HTMLInputElement;
-    this.passwork = element.value;
-
-  }
-
-  login() {
-    this.httpClient.get(`localhost:62602/api/Users`).subscribe(data => {
-      this.listUser = data;
-
-      for (let i = 0; this.listUser.length; i++) {
-        if (this.listUser[i].username === this.username) {
-          alert('đúng username !');
-          break;
+      }, error => {
+        // tslint:disable-next-line: triple-equals
+        if (error.status == 400) {
+          this.notificationService.showNotification(3, 'Login', 'Sai tên đăng nhập hoặc mật khẩu!');
+        } else {
+          console.log(error);
         }
-      }
-    });
+      });
+    } else {
+      setTimeout(() => {
+        this.notificationService.showNotification(3, 'Login', 'Yêu cầu nhập đầy đủ tài khoản!');
+      });
+    }
+
   }
-
-  delete() {
-    this.httpClient.delete(`http://localhost:62602/api/Users/4`).subscribe(data => {
-      console.log('deleted');
-
-
-    });
-  }
-
-
-
-  post() {
-    this.httpClient.post(`http://localhost:62602/api/Users`, this.user).subscribe(data => {
-      alert('Đã post được');
-    });
-  }
-
-  put(id) {
-    this.httpClient.put(`http://localhost:62602/api/Users/${id}`, this.user).subscribe(data => {
-      alert('Đã put được');
-    });
-  }
-
 }

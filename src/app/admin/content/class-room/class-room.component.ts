@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddClassRoomComponent } from './dialog/add-class-room/add-class-room.component';
 import { EditClassRoomComponent } from './dialog/edit-class-room/edit-class-room.component';
 import { ClassroomService } from '../../services/classroom.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-class-room',
@@ -34,10 +35,12 @@ export class ClassRoomComponent implements OnInit {
   constructor(
     private classroomService: ClassroomService,
     private toastr: ToastrService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
+    this.loginService.islogged();
     this.getClassRooms();
     this.getAllStatus();
   }

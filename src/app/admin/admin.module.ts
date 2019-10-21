@@ -70,6 +70,7 @@ import { MaterialFileUploadComponent } from './extension-dialog/material-file-up
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 import { DetailStudyprocessComponent } from './content/study-process/dialog/detail-studyprocess/detail-studyprocess.component';
+import { HomeComponent } from './content/home/home.component';
 
 
 
@@ -150,6 +151,7 @@ import { DetailStudyprocessComponent } from './content/study-process/dialog/deta
     AddGuestDialogComponent,
     EditGuestDialogComponent,
     DetailStudyprocessComponent,
+    HomeComponent
   ]
 })
 export class AdminModule { }
