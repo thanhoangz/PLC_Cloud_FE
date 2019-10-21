@@ -11,10 +11,7 @@ import { PaySlipComponent } from './content/pay-slip/pay-slip.component';
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { LanguageClassesComponent} from './content/language-classes/language-classes.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
-import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
-import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
-import { AddLearnerToClassComponent  } from './content/add-learner-to-class/add-learner-to-class.component';
 import { AddLearnerClassComponent  } from './content/add-learner-class/add-learner-class.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 
@@ -34,11 +31,8 @@ const adminRoutes: Routes = [
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
-          { path: 'test', component: TestAutocompleteComponent },
-          { path: 'add-learner-to-class', component: AddLearnerToClassComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
           { path: 'study-process', component: StudyProcessComponent },
-          { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
           { path: '', component: CourseComponent }

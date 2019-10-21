@@ -3,7 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NotificationService } from '../../services/extension/notification.service';
+import { DatePipe } from '@angular/common';
 
+import { CourseService } from '../../services/course.service';
+import { LanguageClassesService } from '../../services/language-classes.service';
 import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
 
@@ -25,10 +28,20 @@ export class AddLearnerClassComponent implements OnInit {
 
   public learnerOutClass;
   public learnerInClass;
-  public class;
   public classId;
   public learnerId;
 
+
+  public class = {
+    id: null,
+    name: null,
+    startDay: null,
+    endDay: null,
+    status: null,
+    courseId: null,
+    courseName: null,
+    total: null,
+  };
   public studyProcess = {
     languageClassId: null,
     learnerId: null,
@@ -50,7 +63,9 @@ export class AddLearnerClassComponent implements OnInit {
   constructor(
     private learnerService: LearnerService,
     private studyProcessService: StudyProcessService,
-
+    private languageClassesService: LanguageClassesService,
+    private courseService: CourseService,
+    private datePipe: DatePipe,
     private notificationService: NotificationService,
   ) {
     this.screenWidth = (window.screen.width);
@@ -59,9 +74,10 @@ export class AddLearnerClassComponent implements OnInit {
 
   ngOnInit() {
     this.classId = 'LC1';
-    this.studyProcess.languageClassId = this.classId;
+    this.load_infor_languageClasses(this.classId);
     this.getLearnerOutClass();
     this.getLearnerInClass();
+    this.studyProcess.languageClassId = this.classId;
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
@@ -100,17 +116,58 @@ export class AddLearnerClassComponent implements OnInit {
 
   public createStudyProcess(learnerId: any) {
     this.studyProcess.learnerId = learnerId;
-    console.log(this.studyProcess);
     this.studyProcessService.post_studyProcess(this.studyProcess).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Thêm vào lớp thành công!'); });
+      setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Thêm học viên thành công!'); });
+      this.getLearnerOutClass();
+      this.getLearnerInClass();
     }, error => {
-      this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Thêm vào lớp không thành công!');
+      this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Thêm học viên không thành công!');
     });
   }
-  public testId() {
-    console.log();
+
+  public deleteStudyProcess(learnerId: any) {
+    this.studyProcessService.delete_studyProcess_byLearnerId(this.studyProcess.languageClassId, learnerId).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Xóa học viên thành công!'); });
+      this.getLearnerOutClass();
+      this.getLearnerInClass();
+    }, error => {
+      this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Xóa không thành công!');
+      this.stopProgressBar();
+    });
   }
 
+ ////////////// Infor lớp học
+ public load_infor_languageClasses(classId) {
+  // tslint:disable-next-line: triple-equals
+  this.languageClassesService.getById(classId).subscribe((result: any) => {
+    this.class.name = result.name;
+    let start_date = this.datePipe.transform( result.startDay, 'dd-MM-yyyy');
+    let end_date = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
+    this.class.startDay = start_date;
+    this.class.endDay = end_date;
+    this.class.status = result.status;
+    this.class.courseId = result.courseId;
+    this.load_total(classId);
+    this.load_CourseName(result.courseId);
+  }, error => {
+  });
+}
+
+public load_total(classId) {
+  // tslint:disable-next-line: triple-equals
+  this.studyProcessService.search_studyProcess(classId, '', 1).subscribe((result: any) => {
+    this.class.total = result.length;
+  }, error => {
+  });
+}
+
+public load_CourseName(courseId: number) {
+  // tslint:disable-next-line: triple-equals
+  this.courseService.findCourseId(courseId).subscribe((result: any) => {
+    this.class.courseName = result.name;
+  }, error => {
+  });
+}
 
 
 

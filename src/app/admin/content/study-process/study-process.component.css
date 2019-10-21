@@ -1,0 +1,29 @@
+
+  .mat-column-select {
+    overflow: initial;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  table {
+    text-align: center !important;
+    width: 100%;
+  }
+  
+  .mat-header-cell {
+    text-align: center;
+  }
+  
+  .mat-header-cell {
+    font-size: 16px;
+    font: bold; 
+  }
+
+  #khung_thongtinlop {
+    padding-top: 20px;
+    padding-left: 15px;
+    border:solid 2px royalblue;
+    border-radius: 10px;
+  }

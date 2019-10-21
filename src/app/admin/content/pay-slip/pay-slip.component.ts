@@ -178,9 +178,9 @@ export class PaySlipComponent implements OnInit {
   public find_PaySlip() {
 
     this.startProgressBar();
-    let start_date = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
-    let end_date = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
-    this.paySlipServies.searchPaySlip(start_date, end_date, this.keyWord, this.statusSelected).subscribe(result => {
+    const startDate = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
+    const endDate = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
+    this.paySlipServies.searchPaySlip(startDate, endDate, this.keyWord, this.statusSelected).subscribe(result => {
       if (result) {
         this.paySlip = result;
         this.loadTables(result);

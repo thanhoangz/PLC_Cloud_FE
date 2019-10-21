@@ -40,4 +40,9 @@ export class CourseService {
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/Courses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
   }
+
+  findCourseId(courseId: number) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/courses/${courseId}`);
+  }
 }

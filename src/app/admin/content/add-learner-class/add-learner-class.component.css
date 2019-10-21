@@ -18,5 +18,16 @@
   
   .mat-header-cell {
     font-size: 16px;
-    font: bold;
+    font: bold; 
+  }
+
+  #khung_thongtinlop {
+    padding-top: 20px;
+    padding-left: 15px;
+    border:solid 2px royalblue;
+    border-radius: 10px;
+  }
+  .khungvien {
+    border:solid 2px royalblue;
+    border-radius: 20px;
   }

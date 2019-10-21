@@ -14,10 +14,16 @@ export class StudyProcessService {
       .get(`${environment.PLCServicesDomain}/api/StudyProcesses`);
   }
 
+  get_studyProcess_by_classId_learnerId(classId: string, learnerId: string) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/get-by-classId-learnerId?classId=${classId}&learnerId=${learnerId}`);
+  }
+
   post_studyProcess(StudyProcess: any) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses`, StudyProcess);
   }
+
 
   put_studyProcess(StudyProcess: any) {
     return this.httpClient
@@ -27,6 +33,11 @@ export class StudyProcessService {
   delete_studyProcess(StudyProcessId: number) {
     return this.httpClient
       .delete(`${environment.PLCServicesDomain}/api/StudyProcesses/${StudyProcessId}`);
+  }
+
+  delete_studyProcess_byLearnerId(classId: string, learnerId: string) {
+    return this.httpClient
+      .delete(`${environment.PLCServicesDomain}/api/StudyProcesses/delete-by-classId-learnerId?classId=${classId}&learnerId=${learnerId}`);
   }
 
   paging_studyProcess(keyWord, status, pageSize, pageIndex) {
@@ -39,6 +50,12 @@ export class StudyProcessService {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-all-with-conditions?LanguageClassId=${LanguageClassId}`, null);
+  }
+
+  getAll_byClassId(ClassId, status ) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-by-classId?classId=${ClassId}&status=${status}`, null);
   }
 
 }
