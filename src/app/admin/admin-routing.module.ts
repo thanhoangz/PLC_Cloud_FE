@@ -18,6 +18,7 @@ import { AddLearnerToClassComponent } from './content/add-learner-to-class/add-l
 import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { HomeComponent } from './content/home/home.component';
+import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
 
 const adminRoutes: Routes = [
   {
@@ -42,7 +43,9 @@ const adminRoutes: Routes = [
           { path: 'add-study-process', component: AddStudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
-          { path: '', component: TimeSheetComponent }
+          { path: 'lecture', component: AddPageLectureComponent },
+          { path: '', component: HomeComponent },
+          { path: 'home', component: HomeComponent }
         ]
       }
     ]

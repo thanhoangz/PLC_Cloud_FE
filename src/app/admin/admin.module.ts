@@ -73,6 +73,8 @@ import { MaterialFileUploadComponent } from './extension-dialog/material-file-up
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 import { HomeComponent } from './content/home/home.component';
+import { LecturersComponent } from './content/lecturers/lecturers.component';
+import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
 
 
 
@@ -155,7 +157,9 @@ import { HomeComponent } from './content/home/home.component';
     GuestTypeComponent,
     AddGuestDialogComponent,
     EditGuestDialogComponent,
-    HomeComponent
+    HomeComponent,
+    LecturersComponent,
+    AddPageLectureComponent
   ]
 })
 export class AdminModule { }
