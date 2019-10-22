@@ -60,11 +60,11 @@ export class CourseComponent implements OnInit {
     this.screenHeight = (window.screen.height);
     if (this.screenWidth > 500) {
       this.showTrainingTime = true;
+      this.loginService.islogged();
     }
   }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getCourses();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';

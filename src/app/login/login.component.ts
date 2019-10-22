@@ -19,12 +19,14 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-  constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) { }
-
-  ngOnInit() {
+  constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) {
     if (localStorage.getItem('token') != null) {
       this.router.navigateByUrl('/admin');
     }
+  }
+
+  ngOnInit() {
+
     this.initLoginForm();
   }
   private initLoginForm() {

@@ -20,8 +20,8 @@ export class LoginService {
     - Nếu chưa đăng nhập thì sẽ auto cho bay về trang login
    */
   islogged() {
-    if (localStorage.getItem('token') != null) {
-      this.router.navigateByUrl('/admin/home');
+    if (localStorage.getItem('token') == null) {
+      this.router.navigateByUrl('login');
     }
   }
 

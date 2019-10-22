@@ -57,12 +57,12 @@ export class PaySlipComponent implements OnInit {
     private datePipe: DatePipe,
     private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getPaySlips();
     this.getAllStatus();
     this.statusSelected = this.status[3].code;

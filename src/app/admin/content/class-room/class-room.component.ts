@@ -37,10 +37,12 @@ export class ClassRoomComponent implements OnInit {
     private toastr: ToastrService,
     public matDialog: MatDialog,
     private loginService: LoginService
-  ) { }
+  ) {
+    this.loginService.islogged();
+  }
 
   ngOnInit() {
-    this.loginService.islogged();
+
     this.getClassRooms();
     this.getAllStatus();
   }

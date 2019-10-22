@@ -24,7 +24,7 @@ const adminRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: 'login', component: UserManagementComponent },
+          { path: 'user', component: UserManagementComponent },
           { path: 'course', component: CourseComponent },
           { path: 'pay-slip-type', component: PaySlipTypesComponent },
           { path: 'pay-slip', component: PaySlipComponent },

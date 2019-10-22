@@ -9,6 +9,7 @@ import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
+import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-study-process',
   templateUrl: './study-process.component.html',
@@ -57,7 +58,9 @@ export class StudyProcessComponent implements OnInit {
     private courseService: CourseService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
