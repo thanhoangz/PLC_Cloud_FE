@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -31,8 +32,11 @@ export class ReceiptTypesComponent implements OnInit {
   constructor(
     private receiptTypeService: ReceiptTypeService,
     private toastr: ToastrService,
-    public matDialog: MatDialog
-  ) { }
+    public matDialog: MatDialog,
+    private loginService: LoginService
+  ) {
+    this.loginService.islogged();
+  }
 
   ngOnInit() {
     this.getReceiptTypes();
@@ -108,11 +112,11 @@ export class ReceiptTypesComponent implements OnInit {
 
   public findReceiptType() {
 
-      console.log(this.keyWord);
-      this.receiptTypeService.searchReceiptType(this.keyWord, this.pageSize, this.pageIndex).subscribe(result => {
-        console.log(result);
-      }, error => {
-      });
+    console.log(this.keyWord);
+    this.receiptTypeService.searchReceiptType(this.keyWord, this.pageSize, this.pageIndex).subscribe(result => {
+      console.log(result);
+    }, error => {
+    });
 
   }
 

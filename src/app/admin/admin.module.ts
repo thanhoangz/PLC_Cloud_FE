@@ -65,13 +65,11 @@ import { DetailLanguageClassComponent } from './content/language-classes/dialog/
 import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
-import { AddStudyProcessComponent } from './content/add-study-process/add-study-process.component';
-import { TestAutocompleteComponent } from './content/test-autocomplete/test-autocomplete.component';
-import { AddLearnerToClassComponent } from './content/add-learner-to-class/add-learner-to-class.component';
 import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
 import { MaterialFileUploadComponent } from './extension-dialog/material-file-upload/material-file-upload.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
+import { DetailStudyprocessComponent } from './content/study-process/dialog/detail-studyprocess/detail-studyprocess.component';
 import { HomeComponent } from './content/home/home.component';
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
@@ -149,9 +147,6 @@ import { AddPageLectureComponent } from './content/lecturers/page/add-page-lectu
     TimeSheetComponent,
     StudyProcessComponent,
     AddPageLearnerComponent,
-    AddStudyProcessComponent,
-    TestAutocompleteComponent,
-    AddLearnerToClassComponent,
     AddLearnerClassComponent,
     MaterialFileUploadComponent,
     GuestTypeComponent,
@@ -159,7 +154,9 @@ import { AddPageLectureComponent } from './content/lecturers/page/add-page-lectu
     EditGuestDialogComponent,
     HomeComponent,
     LecturersComponent,
-    AddPageLectureComponent
+    AddPageLectureComponent,
+    DetailStudyprocessComponent,
+
   ]
 })
 export class AdminModule { }

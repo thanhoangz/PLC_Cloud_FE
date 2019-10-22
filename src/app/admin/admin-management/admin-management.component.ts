@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NotificationService } from '../services/extension/notification.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-admin-management',
@@ -9,9 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminManagementComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) { }
 
   ngOnInit() {
+    this.loginService.islogged();
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }

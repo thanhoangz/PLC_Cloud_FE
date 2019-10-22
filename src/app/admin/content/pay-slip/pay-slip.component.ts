@@ -12,6 +12,7 @@ import { NotificationService } from '../../services/extension/notification.servi
 import { PaySlipService } from '../../services/pay-slip.service';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 
 @Component({
@@ -53,8 +54,10 @@ export class PaySlipComponent implements OnInit {
     private toastr: ToastrService,
     public matDialog: MatDialog,
     private confirmService: ConfirmService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
@@ -178,9 +181,9 @@ export class PaySlipComponent implements OnInit {
   public find_PaySlip() {
 
     this.startProgressBar();
-    let start_date = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
-    let end_date = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
-    this.paySlipServies.searchPaySlip(start_date, end_date, this.keyWord, this.statusSelected).subscribe(result => {
+    const startDate = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
+    const endDate = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
+    this.paySlipServies.searchPaySlip(startDate, endDate, this.keyWord, this.statusSelected).subscribe(result => {
       if (result) {
         this.paySlip = result;
         this.loadTables(result);

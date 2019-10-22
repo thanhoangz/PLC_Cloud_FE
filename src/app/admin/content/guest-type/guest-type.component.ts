@@ -7,6 +7,7 @@ import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { GuestTypeService } from '../../services/guest-type.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-guest-type',
@@ -37,8 +38,10 @@ export class GuestTypeComponent implements OnInit {
     private guestTypeService: GuestTypeService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }

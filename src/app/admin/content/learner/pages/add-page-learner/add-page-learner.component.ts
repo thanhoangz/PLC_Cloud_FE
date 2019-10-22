@@ -6,6 +6,7 @@ import { LearnerService } from 'src/app/admin/services/learner.service';
 import { GuestTypeService } from 'src/app/admin/services/guest-type.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
+import { LoginService } from 'src/app/admin/services/login.service';
 
 @Component({
   selector: 'app-add-page-learner',
@@ -58,8 +59,11 @@ export class AddPageLearnerComponent implements OnInit {
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
-    private fomatDateService: FomatDateService
+    private fomatDateService: FomatDateService,
+    private loginService: LoginService
+
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }

@@ -1,16 +1,11 @@
-import { formatDate } from '@angular/common';
+import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
-import { LanguageClassesService } from './../../services/language-classes.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material/paginator';
-import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '../../services/extension/notification.service';
 import { ConfirmService } from '../../services/extension/confirm.service';
 import { TimeSheetService } from '../../services/time-sheet.service';
-import { formatRange } from '@fullcalendar/core';
-import { DateClickApi } from '@fullcalendar/core/Calendar';
 
 @Component({
   selector: 'app-time-sheet',
@@ -48,11 +43,12 @@ export class TimeSheetComponent implements OnInit {
 
   constructor(
     private timeSheetService: TimeSheetService,
-    private toastr: ToastrService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }

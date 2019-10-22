@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-learner',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LearnerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() {
+    this.loginService.islogged();
   }
 
 }

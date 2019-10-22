@@ -1,3 +1,4 @@
+import { LoginService } from './../../services/login.service';
 import { LanguageClassesService } from './../../services/language-classes.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -37,25 +38,27 @@ export class LanguageClassesComponent implements OnInit {
   public keyWord = '';
   public statusSelected = null;
 
-   // tslint:disable-next-line: member-ordering
-   public displayedColumns: string[] = ['index', 'name', 'status', 'controls'];
-   // tslint:disable-next-line: member-ordering
-   public dataSource = new MatTableDataSource(this.languageClasses);
-   // tslint:disable-next-line: member-ordering
-   public selection = new SelectionModel(true, []);
+  // tslint:disable-next-line: member-ordering
+  public displayedColumns: string[] = ['index', 'name', 'status', 'controls'];
+  // tslint:disable-next-line: member-ordering
+  public dataSource = new MatTableDataSource(this.languageClasses);
+  // tslint:disable-next-line: member-ordering
+  public selection = new SelectionModel(true, []);
 
-   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private languageClassesService: LanguageClassesService,
     private toastr: ToastrService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-   }
+  }
 
   ngOnInit() {
     this.getLanguageClass();
