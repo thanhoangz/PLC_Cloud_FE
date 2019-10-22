@@ -34,10 +34,11 @@ export class ReceiptTypesComponent implements OnInit {
     private toastr: ToastrService,
     public matDialog: MatDialog,
     private loginService: LoginService
-  ) { }
+  ) {
+    this.loginService.islogged();
+  }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getReceiptTypes();
     this.getAllStatus();
   }
@@ -111,11 +112,11 @@ export class ReceiptTypesComponent implements OnInit {
 
   public findReceiptType() {
 
-      console.log(this.keyWord);
-      this.receiptTypeService.searchReceiptType(this.keyWord, this.pageSize, this.pageIndex).subscribe(result => {
-        console.log(result);
-      }, error => {
-      });
+    console.log(this.keyWord);
+    this.receiptTypeService.searchReceiptType(this.keyWord, this.pageSize, this.pageIndex).subscribe(result => {
+      console.log(result);
+    }, error => {
+    });
 
   }
 

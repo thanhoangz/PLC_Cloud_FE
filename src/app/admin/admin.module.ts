@@ -73,6 +73,8 @@ import { DetailStudyprocessComponent } from './content/study-process/dialog/deta
 import { HomeComponent } from './content/home/home.component';
 import { EditStudyprocessComponent } from './content/study-process/dialog/edit-studyprocess/edit-studyprocess.component';
 import { ChangeClassComponent } from './content/study-process/dialog/change-class/change-class.component';
+import { LecturersComponent } from './content/lecturers/lecturers.component';
+import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
 
 
 
@@ -152,10 +154,14 @@ import { ChangeClassComponent } from './content/study-process/dialog/change-clas
     GuestTypeComponent,
     AddGuestDialogComponent,
     EditGuestDialogComponent,
+    HomeComponent,
+    LecturersComponent,
+    AddPageLectureComponent,
     DetailStudyprocessComponent,
     HomeComponent,
     EditStudyprocessComponent,
     ChangeClassComponent
+
   ]
 })
 export class AdminModule { }

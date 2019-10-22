@@ -15,6 +15,7 @@ export class AdminManagementComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) { }
 
   ngOnInit() {
+    this.loginService.islogged();
   }
 
   logout() {

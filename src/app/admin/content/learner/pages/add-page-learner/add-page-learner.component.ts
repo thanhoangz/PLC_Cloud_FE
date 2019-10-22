@@ -63,6 +63,7 @@ export class AddPageLearnerComponent implements OnInit {
     private loginService: LoginService
 
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
@@ -122,7 +123,6 @@ export class AddPageLearnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getAllStatus();
     this.getGuestType();
     this.initLearnerForm();

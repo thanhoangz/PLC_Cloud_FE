@@ -15,6 +15,7 @@ import { AddPageLearnerComponent } from './content/learner/pages/add-page-learne
 import { AddLearnerClassComponent  } from './content/add-learner-class/add-learner-class.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { HomeComponent } from './content/home/home.component';
+import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
 
 const adminRoutes: Routes = [
   {
@@ -24,7 +25,7 @@ const adminRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: 'login', component: UserManagementComponent },
+          { path: 'user', component: UserManagementComponent },
           { path: 'course', component: CourseComponent },
           { path: 'pay-slip-type', component: PaySlipTypesComponent },
           { path: 'pay-slip', component: PaySlipComponent },
@@ -36,7 +37,9 @@ const adminRoutes: Routes = [
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
-          { path: '', component: HomeComponent }
+          { path: 'lecture', component: AddPageLectureComponent },
+          { path: '', component: HomeComponent },
+          { path: 'home', component: HomeComponent }
         ]
       }
     ]

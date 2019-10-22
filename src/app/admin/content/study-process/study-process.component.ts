@@ -17,6 +17,7 @@ import { EditStudyprocessComponent } from './dialog/edit-studyprocess/edit-study
 import { ChangeClassComponent } from './dialog/change-class/change-class.component';
 
 
+import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-study-process',
   templateUrl: './study-process.component.html',
@@ -69,7 +70,9 @@ export class StudyProcessComponent implements OnInit {
     private datePipe: DatePipe,
     private notificationService: NotificationService,
     public matDialog: MatDialog,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
     this.getAllStatus();

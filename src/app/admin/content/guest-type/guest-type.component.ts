@@ -41,6 +41,7 @@ export class GuestTypeComponent implements OnInit {
     private confirmService: ConfirmService,
     private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
@@ -138,7 +139,6 @@ export class GuestTypeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getAllStatus();
     this.getGuestTypes();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';

@@ -38,14 +38,14 @@ export class LanguageClassesComponent implements OnInit {
   public keyWord = '';
   public statusSelected = null;
 
-   // tslint:disable-next-line: member-ordering
-   public displayedColumns: string[] = ['index', 'name', 'status', 'controls'];
-   // tslint:disable-next-line: member-ordering
-   public dataSource = new MatTableDataSource(this.languageClasses);
-   // tslint:disable-next-line: member-ordering
-   public selection = new SelectionModel(true, []);
+  // tslint:disable-next-line: member-ordering
+  public displayedColumns: string[] = ['index', 'name', 'status', 'controls'];
+  // tslint:disable-next-line: member-ordering
+  public dataSource = new MatTableDataSource(this.languageClasses);
+  // tslint:disable-next-line: member-ordering
+  public selection = new SelectionModel(true, []);
 
-   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private languageClassesService: LanguageClassesService,
@@ -55,12 +55,12 @@ export class LanguageClassesComponent implements OnInit {
     private confirmService: ConfirmService,
     private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-   }
+  }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getLanguageClass();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';

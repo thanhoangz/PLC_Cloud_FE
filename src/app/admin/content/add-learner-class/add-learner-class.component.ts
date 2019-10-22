@@ -9,6 +9,7 @@ import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-add-learner-class',
@@ -67,7 +68,9 @@ export class AddLearnerClassComponent implements OnInit {
     private courseService: CourseService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
+    private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
@@ -138,13 +141,13 @@ export class AddLearnerClassComponent implements OnInit {
 
  ////////////// Infor lớp học
  public load_infor_languageClasses(classId) {
-  // tslint:disable-next-line: triple-equals
   this.languageClassesService.getById(classId).subscribe((result: any) => {
     this.class.name = result.name;
-    let start_date = this.datePipe.transform( result.startDay, 'dd-MM-yyyy');
-    let end_date = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
-    this.class.startDay = start_date;
-    this.class.endDay = end_date;
+
+    const startDate = this.datePipe.transform( result.startDay, 'dd-MM-yyyy');
+    const endDate = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
+    this.class.startDay = startDate;
+    this.class.endDay = endDate;
     this.class.status = result.status;
     this.class.courseId = result.courseId;
     this.load_total(classId);

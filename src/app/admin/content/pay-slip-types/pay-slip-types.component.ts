@@ -51,12 +51,12 @@ export class PaySlipTypesComponent implements OnInit {
     private confirmService: ConfirmService,
     private loginService: LoginService
   ) {
+    this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
 
   ngOnInit() {
-    this.loginService.islogged();
     this.getPaySlipTypes();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
