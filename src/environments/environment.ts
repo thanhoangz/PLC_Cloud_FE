@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  PLCServicesDomain: 'https://localhost:5001'
+  PLCServicesDomain: 'http://localhost:5000'
 };
 
 /*

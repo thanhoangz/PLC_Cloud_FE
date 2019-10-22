@@ -71,6 +71,8 @@ import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 import { DetailStudyprocessComponent } from './content/study-process/dialog/detail-studyprocess/detail-studyprocess.component';
 import { HomeComponent } from './content/home/home.component';
+import { EditStudyprocessComponent } from './content/study-process/dialog/edit-studyprocess/edit-studyprocess.component';
+import { ChangeClassComponent } from './content/study-process/dialog/change-class/change-class.component';
 
 
 
@@ -151,7 +153,9 @@ import { HomeComponent } from './content/home/home.component';
     AddGuestDialogComponent,
     EditGuestDialogComponent,
     DetailStudyprocessComponent,
-    HomeComponent
+    HomeComponent,
+    EditStudyprocessComponent,
+    ChangeClassComponent
   ]
 })
 export class AdminModule { }

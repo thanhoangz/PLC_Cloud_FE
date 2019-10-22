@@ -82,7 +82,7 @@
                                 <ng-container matColumnDef="index">
                                     <th mat-header-cell *matHeaderCellDef> STT</th>
                                     <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
-                                </ng-container>
+                                </ng-container>                              
 
                                 <ng-container matColumnDef="learnerId">
                                     <th mat-header-cell *matHeaderCellDef> Mã HV</th>
@@ -120,20 +120,26 @@
                                 <ng-container matColumnDef="controls">
                                     <th mat-header-cell *matHeaderCellDef> Chức năng </th>
                                     <td mat-cell *matCellDef="let element">
-                                        <button mat-icon-button>
+                                        <button mat-icon-button (click)="openEditStudyProcess(element)">
                                             <mat-icon>edit</mat-icon>
                                         </button>
-                                        <button mat-icon-button>
+                                        <button mat-icon-button (click)="deleteStudyProcess(element.learner.id)">
                                             <mat-icon>delete</mat-icon>
                                         </button>
-                                        <button mat-icon-button>
+                                        <button mat-icon-button (click)="openChangeClass(element.id)">
                                             <mat-icon>swap_vert</mat-icon>
                                         </button>
                                     </td>
                                 </ng-container>
 
+                                <ng-container matColumnDef="studyProcessId">
+                                        <th mat-header-cell *matHeaderCellDef> Mã QTHT</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.id}}</td>
+                                </ng-container>
+
                                 <tr mat-header-row *matHeaderRowDef="displayedColumnsInClass"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumnsInClass;">
+                                <tr mat-row (click)="openDetailStudyProcess(row)"
+                                    *matRowDef="let row; columns: displayedColumnsInClass;">
                                 </tr>
                             </table>
                             <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
