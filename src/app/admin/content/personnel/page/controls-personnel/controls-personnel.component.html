@@ -68,7 +68,7 @@
 
                 <!-- Column 2: phần thông tin -->
                 <div class="col-md-10">
-                    <form novalidate [formGroup]="personnelFormGroup" (ngSubmit)="createPersonnel()">
+                    <form novalidate [formGroup]="personnelFormGroup" (ngSubmit)="updatePersonnel()">
                         <mat-card>
                             <mat-card-header>
                                 <mat-card-title align="start">
@@ -82,8 +82,8 @@
                                 <div class="col-md-5">
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Mã nhân viên</mat-label>
-                                        <input matInput placeholder="Nhập mã nhân viên" required [(ngModel)]="personnel.id"
-                                            formControlName="id">
+                                        <input matInput  required [(ngModel)]="personnel.id"
+                                            formControlName="id" disabled>
                                     </mat-form-field>
 
                                     <mat-form-field [floatLabel]='floatLabel'>
@@ -239,15 +239,20 @@
                             </div>
                             <hr>
                             <mat-card-footer align="end">
-                                <button type="submit" mat-raised-button color="accent" tabindex="-1"
+                                <button type="submit" mat-raised-button color="primary" tabindex="-1"
                                     style="margin: 1%;">
                                     <mat-icon>create</mat-icon>
                                     Lưu thay đổi
                                 </button>
-                                <button mat-raised-button color="warn" mat-dialog-close tabindex="-1"
-                                    style="margin: 1%;">
+                                <button type="button" mat-raised-button color="warn"  tabindex="-1"
+                                    style="margin: 1%;" (click)="delete()">
+                                    <mat-icon>delete</mat-icon>
+                                    Xóa nhân viên
+                                </button>
+                                <button type="button" mat-raised-button  tabindex="-1"
+                                    style="margin: 1%; background-color: dimgrey;" (click)="back()">
                                     <mat-icon>cancel</mat-icon>
-                                    Hủy
+                                    Quay về
                                 </button>
                             </mat-card-footer>
                         </mat-card>

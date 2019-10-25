@@ -55,7 +55,7 @@ export class StudyProcessComponent implements OnInit {
   };
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumnsInClass: string[] = ['index', 'studyProcessId', 'learnerId', 'name', 'sex', 'birthday', 'status', 'controls'];
+  public displayedColumnsInClass: string[] = ['index', 'learnerId', 'name', 'sex', 'birthday', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSourceInClass = new MatTableDataSource(this.learnerInClass);
   // tslint:disable-next-line: member-ordering

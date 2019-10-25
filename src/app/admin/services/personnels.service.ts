@@ -29,4 +29,14 @@ export class PersonnelsService {
       .delete(`${environment.PLCServicesDomain}/api/Personnels/${personnelId}`);
   }
 
+  getPersonnelId(id) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Personnels/${id}`);
+  }
+
+  getPersonnelWithCondition(keyword, status, personnel: any) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Personnels/get-all-with-conditions?keyword=${keyword}&status=${status}`, personnel);
+  }
+
 }

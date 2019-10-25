@@ -5,6 +5,8 @@ import { NotificationService } from 'src/app/admin/services/extension/notificati
 import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-controls-personnel',
@@ -61,13 +63,15 @@ export class ControlsPersonnelComponent implements OnInit {
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
-    private fomatDateService: FomatDateService
+    private fomatDateService: FomatDateService,
+    private exchangeDataService: ExchangeDataService,
+    private router: Router,
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-   }
+  }
 
-   private initLectureForm() {          // bắt lỗi : edit thuộc tính
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
     this.personnelFormGroup = new FormGroup({
       id: new FormControl(null, [Validators.required]),
       cardId: new FormControl(),
@@ -94,27 +98,79 @@ export class ControlsPersonnelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.exchangeDataService.idSource.subscribe(message => {
+      this.personnel.id = message;
+      console.log(this.personnel.id);
+
+    });
+
     this.getAllStatus();
     this.getAllMarritalStatus();
+    this.getPersonnelId();
     this.initLectureForm();
   }
 
-  public createPersonnel() {      // hàm sửa
+  public getPersonnelId() {
+    this.personnel.birthday = this.fomatDateService.transformDate(this.personnel.birthday);
+    this.startProgressBar();
+    this.personnelsService.getPersonnelId(this.personnel.id).subscribe((result: any) => {
+      this.personnel.cardId = result.cardId;
+      this.personnel.cardId = result.cardId;
+      this.personnel.firstName = result.firstName;
+      this.personnel.lastName = result.lastName;
+      this.personnel.sex = String(result.sex);
+      this.personnel.birthday = result.birthday;
+      this.personnel.address = result.address;
+      this.personnel.nationality = result.nationality;
+      this.personnel.marritalStatus = result.marritalStatus;
+      this.personnel.experienceRecord = result.experienceRecord;
+      this.personnel.email = result.email;
+      this.personnel.facebook = result.facebook;
+      this.personnel.phone = result.phone;
+      this.personnel.position = result.position;
+      this.personnel.certificate = result.certificate;
+      this.personnel.image = result.image;
+      this.personnel.basicSalary = result.basicSalary;
+      this.personnel.allowance = result.allowance;
+      this.personnel.bonus = result.bonus;
+      this.personnel.insurancePremium = result.insurancePremium;
+      this.personnel.status = result.status;
+      this.personnel.note = result.note;
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
+
+  public updatePersonnel() {      // hàm sửa
     if (this.personnelFormGroup.valid) {
       this.personnel.birthday = this.fomatDateService.transformDate(this.personnel.birthday);
       this.startProgressBar();
-      this.personnelsService.postPersonnel(this.personnel).subscribe(result => {
-        this.notificationService.showNotification(1, 'Nhân viên', 'Thêm nhân viên thành công!');
+      this.personnelsService.putPersonnel(this.personnel).subscribe(result => {
+        this.notificationService.showNotification(1, 'Nhân viên', 'Cập nhật thành công!');
+        this.getPersonnelId();
         this.stopProgressBar();
       }, error => {
         this.stopProgressBar();
-        this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, thêm nhân viên thất bại!');
+        this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Cập nhật thất bại!');
       });
     } else {
       this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
     }
   }
-    // hàm xóa
+
+  public delete() {
+    this.personnelsService.deletePersonnel(this.personnel.id).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Nhân viên', 'Đã xóa nhân viên!'); });
+      this.router.navigateByUrl('admin/personnels');
+    }, error => {
+      this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Không xóa được!');
+      this.stopProgressBar();
+    });
+  }
+  public back() {
+    this.router.navigateByUrl('admin/personnels');
+  }
 
   /*Update image => success => save to personnel object*/
   onFileComplete(data: any) {

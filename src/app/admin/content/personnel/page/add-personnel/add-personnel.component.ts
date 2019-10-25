@@ -5,6 +5,7 @@ import { NotificationService } from 'src/app/admin/services/extension/notificati
 import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-personnel',
@@ -63,7 +64,8 @@ export class AddPersonnelComponent implements OnInit {
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
-    private fomatDateService: FomatDateService
+    private fomatDateService: FomatDateService,
+    private router: Router,
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
@@ -108,6 +110,7 @@ export class AddPersonnelComponent implements OnInit {
       this.startProgressBar();
       this.personnelsService.postPersonnel(this.personnel).subscribe(result => {
         this.notificationService.showNotification(1, 'Nhân viên', 'Thêm nhân viên thành công!');
+        this.router.navigateByUrl('admin/personnels');
         this.stopProgressBar();
       }, error => {
         this.stopProgressBar();
@@ -118,6 +121,9 @@ export class AddPersonnelComponent implements OnInit {
     }
   }
 
+  public back() {
+    this.router.navigateByUrl('admin/personnels');
+  }
 
   /*Update image => success => save to personnel object*/
   onFileComplete(data: any) {
