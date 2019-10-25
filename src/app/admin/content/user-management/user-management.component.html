@@ -2,89 +2,82 @@
 
 <section class="content" style="margin-top: 1%">
     <div class="container-fluid">
-        <mat-card>
-            <mat-card-header class="card-container">
-                <mat-card-title>Quản lý người dùng</mat-card-title>
-                <mat-card-subtitle>Phân quyền tài khoản</mat-card-subtitle>
-            </mat-card-header>
-            <div class="row">
-                <div class="col-md-3">
-                    <mat-form-field>
-                        <mat-label>Tên khóa học</mat-label>
-                        <input matInput placeholder="Tên Khóa học" [(ngModel)]="keyWord">
-                        <mat-hint>Tên khóa học muốn tìm kiếm</mat-hint>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field>
-                        <mat-label>Chọn trạng thái</mat-label>
-                        <mat-select [(ngModel)]="statusSelected">
-                            <mat-option *ngFor="let s of status" value="{{s.code}}">
-                                {{s.Name}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-md-5">
-                </div>
-                <div class="col-md-1">
-                    <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
-                        (click)="searchCourses()">
-                        <mat-icon>search</mat-icon>
-                        Tìm kiếm
-                    </button>
-                </div>
-            </div>
-        </mat-card>
-        <mat-card style="margin-top: 0.5%">
-            <mat-card-header style="float: right;">
-                <mat-card-title>
-                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()">
-                        <mat-icon>add</mat-icon>
-                        Thêm khóa học
-                    </button>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                
-                <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-                    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-                    </ng-container>
+        <mat-tab-group color="primary" backgroundColor="primary">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>supervised_user_circle</mat-icon>
+                    Tài khoản
+                </ng-template>
 
-                    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                    <ng-container matColumnDef="expandedDetail">
-                        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                            <div class="example-element-detail"
-                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                <div class="example-element-diagram">
-                                    <div class="example-element-position"> {{element.position}} </div>
-                                    <div class="example-element-symbol"> {{element.symbol}} </div>
-                                    <div class="example-element-name"> {{element.name}} </div>
-                                    <div class="example-element-weight"> {{element.weight}} </div>
-                                </div>
-                                <div class="example-element-description">
-                                    {{element.description}}
-                                    <span class="example-element-description-attribution"> -- Wikipedia </span>
-                                </div>
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
-                        [class.example-expanded-row]="expandedElement === element"
-                        (click)="expandedElement = expandedElement === element ? null : element">
-                    </tr>
-                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-                </table>
+                <mat-card style="margin-top: 0.5%">
+                    <mat-card-header style="float: right;">
+                        <mat-card-title>
+                            <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()">
+                                <mat-icon>add</mat-icon>
+                                Thêm tài khoản
+                            </button>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
 
 
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    (page)="getPaginatorData($event)" showFirstLastButtons>
-                </mat-paginator>
-            </mat-card-content>
-        </mat-card>
+
+                        <mat-drawer-container class="example-container" hasBackdrop="true">
+                            <mat-drawer #drawer mode="over">I'm a drawer</mat-drawer>
+                            <mat-drawer-content>
+
+                                <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+                                    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                                    </ng-container>
+
+                                    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                                    <ng-container matColumnDef="expandedDetail">
+                                        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                            <div class="example-element-detail"
+                                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                            </div>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                                    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+                                        class="example-element-row"
+                                        [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = expandedElement === element ? null : element">
+                                    </tr>
+                                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+                                        class="example-detail-row">
+                                    </tr>
+                                </table>
+
+
+                                <mat-paginator [pageSizeOptions]="pageSizeOptions">
+                                </mat-paginator>
+
+
+                                <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>
+                            </mat-drawer-content>
+                        </mat-drawer-container>
+
+
+
+
+
+                    </mat-card-content>
+                </mat-card>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>supervised_user_circle</mat-icon>
+                    Quyền
+                </ng-template>
+                Content 2
+            </mat-tab>
+            <mat-tab label="Third">Content 3</mat-tab>
+        </mat-tab-group>
+
+
     </div>
 </section>
