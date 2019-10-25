@@ -55,29 +55,27 @@ export class LecturersComponent implements OnInit {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
-  
   ngOnInit() {
     this.getAllStatus();
     this.getAllMarritalStatus();
     this.getLecture();
-    this.items = Array(150).fill(0);
-    //this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
-   onChangePage(pageOfItems: Array<any>) {
-    // update current page of items
-    this.pageOfItems = pageOfItems;
-}
+
   public getLecture() {
     this.startProgressBar();
     this.lecturersService.getAllLecturers().subscribe((result: any) => {
       this.lecture = result;
-      console.log(this.lecture);
-      this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
     });
   }
-  private getAllStatus() {
+
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+}
+
+  public getAllStatus() {
     this.status = [
       {
         name: 'Hoạt động',
@@ -90,7 +88,7 @@ export class LecturersComponent implements OnInit {
     ];
   }
 
-  private getAllMarritalStatus() {
+  public getAllMarritalStatus() {
     this.marritalStatus = [
       {
         name: 'Đã kết hôn',
