@@ -65,6 +65,7 @@ export class LecturersComponent implements OnInit {
     this.startProgressBar();
     this.lecturersService.getAllLecturers().subscribe((result: any) => {
       this.lecture = result;
+      this.items = Array(this.lecture.length).fill(0).map((x, i) => (result[i]));
     }, error => {
       this.stopProgressBar();
     });

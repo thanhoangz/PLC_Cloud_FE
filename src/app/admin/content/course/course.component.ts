@@ -60,8 +60,8 @@ export class CourseComponent implements OnInit {
     this.screenHeight = (window.screen.height);
     if (this.screenWidth > 500) {
       this.showTrainingTime = true;
-      this.loginService.islogged();
     }
+    this.loginService.islogged();
   }
 
   ngOnInit() {

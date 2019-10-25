@@ -4,7 +4,7 @@ import { OnlyNumberDirective } from './admin/services/only-number.directive';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -68,6 +68,8 @@ import { EditGuestDialogComponent } from './admin/content/guest-type/dialog/edit
 import { DetailStudyprocessComponent } from './admin/content/study-process/dialog/detail-studyprocess/detail-studyprocess.component';
 import { EditStudyprocessComponent } from './admin/content/study-process/dialog/edit-studyprocess/edit-studyprocess.component';
 import { ChangeClassComponent } from './admin/content/study-process/dialog/change-class/change-class.component';
+import { BlockUIModule } from 'ng-block-ui';
+import { InterceptorService } from './auth/interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,10 +118,12 @@ import { ChangeClassComponent } from './admin/content/study-process/dialog/chang
     MatProgressSpinnerModule,
     MatNativeDateModule,
     CKEditorModule,
+    BlockUIModule.forRoot()
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
-    DatePipe
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
   bootstrap: [
     AppComponent

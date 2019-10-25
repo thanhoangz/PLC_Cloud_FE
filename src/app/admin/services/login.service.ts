@@ -17,7 +17,7 @@ export class LoginService {
 
   /*
     - Kiểm tra nếu đã đăng nhập rồi thì tiếp các tác vụ khác
-    - Nếu chưa đăng nhập thì sẽ auto cho bay về trang login
+    - Nếu chưa đăng nhập thì sẽ auto cho bay về trang login, token phải còn hạn
    */
   islogged() {
     if (localStorage.getItem('token') == null) {
