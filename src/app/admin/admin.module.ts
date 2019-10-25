@@ -73,8 +73,11 @@ import { DetailStudyprocessComponent } from './content/study-process/dialog/deta
 import { HomeComponent } from './content/home/home.component';
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
+import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
 
-
+import { BrowserModule } from '@angular/platform-browser';
+import { JwPaginationComponent } from 'jw-angular-pagination';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   imports: [
@@ -114,10 +117,12 @@ import { AddPageLectureComponent } from './content/lecturers/page/add-page-lectu
     MatProgressBarModule,
     MatProgressSpinnerModule,
     CKEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule
 
   ],
   declarations: [
+    JwPaginationComponent,
     UserManagementComponent,
     CourseComponent,
     AdminManagementComponent,
@@ -156,6 +161,8 @@ import { AddPageLectureComponent } from './content/lecturers/page/add-page-lectu
     LecturersComponent,
     AddPageLectureComponent,
     DetailStudyprocessComponent,
+    EditPageLectureComponent,
+    ConfirmationDialogComponent,
 
   ]
 })

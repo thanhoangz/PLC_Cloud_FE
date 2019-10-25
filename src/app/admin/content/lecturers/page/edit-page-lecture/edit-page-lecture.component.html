@@ -68,7 +68,7 @@
 
         <!-- Column 2: phần thông tin -->
         <div class="col-md-10">
-          <form novalidate [formGroup]="lectureFormGroup" (ngSubmit)="createLecture()">
+          <form novalidate [formGroup]="lectureFormGroup" (ngSubmit)="updateLecture()">
             <mat-card>
               <mat-card-header>
                 <mat-card-title align="start">
@@ -118,8 +118,8 @@
                   </mat-form-field>
                   <label>Giới tính: </label>
                   <mat-radio-group [(ngModel)]="lecture.sex" formControlName="sex">
-                    <mat-radio-button value="true">Nam</mat-radio-button>
-                    <mat-radio-button value="false">Nữ</mat-radio-button>
+                    <mat-radio-button value= "true">Nam</mat-radio-button>
+                    <mat-radio-button value= "false">Nữ</mat-radio-button>
                   </mat-radio-group>
 
 
@@ -279,8 +279,8 @@
               <hr>
               <mat-card-footer align="end">
                 <button type="submit" mat-raised-button color="primary" tabindex="-1" style="margin: 1%;">
-                  <mat-icon>add_circle</mat-icon>
-                  Thêm
+                  <mat-icon>edit_circle</mat-icon>
+                  Sửa
                 </button>
                 <button mat-raised-button color="warn" mat-dialog-close tabindex="-1" style="margin: 1%;">
                   <mat-icon>cancel</mat-icon>
