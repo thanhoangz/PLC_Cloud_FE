@@ -33,6 +33,10 @@ export class LearnerService {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/Learners`, learner);
   }
+  getOutClassWithCondition(classId, keyword) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/get-out-class-with-condition/${classId}/${keyword}`);
+  }
 
   putLearner(learner: any) {
     return this.httpClient

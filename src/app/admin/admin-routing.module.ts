@@ -16,6 +16,8 @@ import { AddLearnerClassComponent  } from './content/add-learner-class/add-learn
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { HomeComponent } from './content/home/home.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
+import { AddPersonnelComponent } from './content/personnel/page/add-personnel/add-personnel.component';
+import { ControlsPersonnelComponent } from './content/personnel/page/controls-personnel/controls-personnel.component';
 
 const adminRoutes: Routes = [
   {
@@ -38,6 +40,8 @@ const adminRoutes: Routes = [
           { path: 'learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
           { path: 'lecture', component: AddPageLectureComponent },
+          { path: 'add-personnel', component: AddPersonnelComponent },
+          { path: 'control-personnel', component: ControlsPersonnelComponent },
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent }
         ]

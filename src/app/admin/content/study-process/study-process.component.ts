@@ -75,14 +75,14 @@ export class StudyProcessComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-    this.getAllStatus();
 
   }
   /////////////////////// trạng thái của bảng là của studyProcess : 1.đang học : nghỉ :  tạm nghỉ : chuyển lớp : kết thúc
   ngOnInit() {
     this.showId = false;
     this.classId = 'LC1';
-
+    this.tempstatus = 1;
+    this.getAllStatus();
     this.getLearnerInClass();
     this.load_infor_Classes(this.classId);
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
@@ -93,7 +93,6 @@ export class StudyProcessComponent implements OnInit {
   }
 
   public getLearnerInClass() {
-    this.tempstatus = 1;
     this.startProgressBar();
     this.studyProcessService.getAll_byClassId(this.classId, this.tempstatus).subscribe((result: any) => {
       this.learnerInClass = result;
@@ -131,7 +130,6 @@ export class StudyProcessComponent implements OnInit {
         Name: 'Chuyển lớp',
         code: 3
       }];
-    this.tempstatus = 1;
   }
 
   public loadTable() {
@@ -205,14 +203,14 @@ export class StudyProcessComponent implements OnInit {
     }
   }
 
-  public openChangeClass(studyProcessId: any) {
+  public openChangeClass(learnerInClass: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.7 * this.screenWidth;
       this.matDialog.open(ChangeClassComponent,
         {
           width: `${widthMachine}px`,
-          data: { _studyProcessId: studyProcessId }
+          data: { _learnerInClass: learnerInClass }
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
           if (result) {

@@ -31,6 +31,7 @@ export class AddLearnerClassComponent implements OnInit {
   public learnerInClass;
   public classId;
   public learnerId;
+  public keyword;
 
 
   public class = {
@@ -123,6 +124,7 @@ export class AddLearnerClassComponent implements OnInit {
       setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Thêm học viên thành công!'); });
       this.getLearnerOutClass();
       this.getLearnerInClass();
+      this.load_infor_languageClasses(this.classId);
     }, error => {
       this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Thêm học viên không thành công!');
     });
@@ -133,6 +135,7 @@ export class AddLearnerClassComponent implements OnInit {
       setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Xóa học viên thành công!'); });
       this.getLearnerOutClass();
       this.getLearnerInClass();
+      this.load_infor_languageClasses(this.classId);
     }, error => {
       this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Xóa không thành công!');
       this.stopProgressBar();
@@ -172,9 +175,25 @@ public load_CourseName(courseId: number) {
   });
 }
 
+  public loadFind() {
+    // tslint:disable-next-line: triple-equals
+    if ( this.keyword == '') {
+      this.getLearnerOutClass();
+    } else {
+      this.findOutClass();
+    }
+  }
 
-
-
+  public findOutClass() {
+    this.startProgressBar();
+    this.learnerService.getOutClassWithCondition(this.classId, this.keyword).subscribe((result: any) => {
+      this.learnerOutClass = result;
+      this.loadTablesOutClass(result);
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
 
 
 

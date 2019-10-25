@@ -17,14 +17,9 @@
 
                     <div class="col-md-9">
                         <div class="col-md-6">
-                            <mat-form-field class="example-full-width">
-                                <input type="text" placeholder="Chọn học viên" aria-label="Number" matInput [formControl]="myControl"
-                                    [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option *ngFor="let item of learnerOutClass" [value]="item.id">
-                                        {{item.firstName + " "+ item.lastName + " - " + item.id }}
-                                    </mat-option>
-                                </mat-autocomplete>
+                            <mat-form-field>
+                                <mat-label>Tìm kiếm học viên</mat-label>
+                                <input matInput placeholder="Nhập mã, tên cần tìm kiếm" [(ngModel)]="keyword" (keyup)="loadFind()">                        
                             </mat-form-field>
                         </div>
                     </div>
