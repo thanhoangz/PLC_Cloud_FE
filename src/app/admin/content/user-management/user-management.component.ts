@@ -61,6 +61,7 @@ export class UserManagementComponent implements OnInit {
     this.startProgressBar();
     this.userService.getAllUser().subscribe(result => {
       this.users = result;
+      console.log(result);
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
+
 @Component({
   selector: 'app-lecturers',
   templateUrl: './lecturers.component.html',
@@ -55,23 +56,21 @@ export class LecturersComponent implements OnInit {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
   }
-  
+
   ngOnInit() {
     this.getAllStatus();
     this.getAllMarritalStatus();
     this.getLecture();
-    this.items = Array(150).fill(0);
-    //this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
+
+
   }
-   onChangePage(pageOfItems: Array<any>) {
-    // update current page of items
-    this.pageOfItems = pageOfItems;
-}
+
   public getLecture() {
     this.startProgressBar();
     this.lecturersService.getAllLecturers().subscribe((result: any) => {
       this.lecture = result;
-      console.log(this.lecture);
+      this.items = Array(result.length).fill(0).map((y, i) => (result[i]));
+      console.log(this.items);
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
@@ -88,6 +87,12 @@ export class LecturersComponent implements OnInit {
         code: 0
       },
     ];
+  }
+
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    console.log(pageOfItems);
+    this.pageOfItems = pageOfItems;
   }
 
   private getAllMarritalStatus() {
@@ -134,15 +139,15 @@ export class LecturersComponent implements OnInit {
     this.createExchangeId(id);
     this.router.navigateByUrl('admin/editlecture');
   }
-public deleteLecture(id) {
-  this.lecturersService.deleteLectureId(id).subscribe(result => {
-    setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
-    this.getLecture();
-  }, error => {
-    this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
-    this.stopProgressBar();
-  });
-}
+  public deleteLecture(id) {
+    this.lecturersService.deleteLectureId(id).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
+      this.getLecture();
+    }, error => {
+      this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
+      this.stopProgressBar();
+    });
+  }
   creatLecture() {
     this.router.navigateByUrl('admin/addlecture');
   }
