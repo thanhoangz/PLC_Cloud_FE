@@ -75,9 +75,18 @@ import { EditStudyprocessComponent } from './content/study-process/dialog/edit-s
 import { ChangeClassComponent } from './content/study-process/dialog/change-class/change-class.component';
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
+<<<<<<< HEAD
 import { AddPersonnelComponent } from './content/personnel/page/add-personnel/add-personnel.component';
 import { PersonnelComponent } from './content/personnel/personnel.component';
 import { ControlsPersonnelComponent } from './content/personnel/page/controls-personnel/controls-personnel.component';
+=======
+import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { JwPaginationComponent } from 'jw-angular-pagination';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+
+>>>>>>> 641bd5ac0f6343ab3f037aa1178a4104523cc46f
 @NgModule({
   imports: [
     CommonModule,
@@ -116,10 +125,12 @@ import { ControlsPersonnelComponent } from './content/personnel/page/controls-pe
     MatProgressBarModule,
     MatProgressSpinnerModule,
     CKEditorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule
 
   ],
   declarations: [
+    JwPaginationComponent,
     UserManagementComponent,
     CourseComponent,
     AdminManagementComponent,
@@ -158,7 +169,8 @@ import { ControlsPersonnelComponent } from './content/personnel/page/controls-pe
     LecturersComponent,
     AddPageLectureComponent,
     DetailStudyprocessComponent,
-    HomeComponent,
+    EditPageLectureComponent,
+    ConfirmationDialogComponent,
     EditStudyprocessComponent,
     ChangeClassComponent,
     AddPersonnelComponent,

@@ -73,6 +73,7 @@ import { ChangeClassComponent } from './admin/content/study-process/dialog/chang
     AppComponent,
     LoginComponent,
     OnlyNumberDirective,
+
   ],
   imports: [
     AdminModule,

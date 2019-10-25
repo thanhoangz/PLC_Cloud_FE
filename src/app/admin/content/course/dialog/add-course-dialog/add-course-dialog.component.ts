@@ -57,6 +57,7 @@ export class AddCourseDialogComponent implements OnInit {
   }
 
   public createCourse() {
+    console.log(this.course);
     this.courseService.postCourse(this.course).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Tạo thành công khóa học!'); });
       this.dialogRef.close(true);
