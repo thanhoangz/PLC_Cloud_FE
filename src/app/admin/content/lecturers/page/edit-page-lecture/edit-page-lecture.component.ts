@@ -5,15 +5,16 @@ import { NotificationService } from 'src/app/admin/services/extension/notificati
 import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
+import { stringify } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
-import { LecturersComponent } from '../../lecturers.component';
 
 @Component({
-  selector: 'app-add-page-lecture',
-  templateUrl: './add-page-lecture.component.html',
-  styleUrls: ['./add-page-lecture.component.css']
+  selector: 'app-edit-page-lecture',
+  templateUrl: './edit-page-lecture.component.html',
+  styleUrls: ['./edit-page-lecture.component.css']
 })
-export class AddPageLectureComponent implements OnInit {
+export class EditPageLectureComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
@@ -34,6 +35,7 @@ export class AddPageLectureComponent implements OnInit {
     }
   ];
   public lecture = {
+    id: null,
     cardId: null,
     firstName: null,
     lastName: null,
@@ -60,12 +62,14 @@ export class AddPageLectureComponent implements OnInit {
     status: 1,
     note: null,
   };
+
   constructor(
     private lecturersService: LecturersService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
     private fomatDateService: FomatDateService,
+    private exchangeDataService: ExchangeDataService,
     private router: Router,
 
   ) {
@@ -86,7 +90,7 @@ export class AddPageLectureComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       facebook: new FormControl(),
       phone: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.pattern(/[0-9\+\-\ ]/)]),
-      position : new FormControl(),
+      position: new FormControl(),
       certificate: new FormControl(),
       basicSalary: new FormControl(),
       allowance: new FormControl(),
@@ -101,10 +105,18 @@ export class AddPageLectureComponent implements OnInit {
     });
   }
   ngOnInit() {
+
+    this.exchangeDataService.idSource.subscribe(message => {
+      this.lecture.id = message;
+      console.log(this.lecture.id);
+
+    });
+
+
     this.getAllStatus();
     this.getAllMarritalStatus();
+    this.getLectureId();
     this.initLectureForm();
-    this.lecture.sex = String(this.genderes[0].value);
   }
 
   private getAllStatus() {
@@ -132,20 +144,56 @@ export class AddPageLectureComponent implements OnInit {
       },
     ];
   }
-  public createLecture() {
-      this.lecture.birthday = this.fomatDateService.transformDate(this.lecture.birthday);
+  public getLectureId() {
+    this.lecture.birthday = this.fomatDateService.transformDate(this.lecture.birthday);
+    console.log(this.lecture);
+    this.startProgressBar();
+    this.lecturersService.getLectureId(this.lecture.id).subscribe((result: any) => {
+      this.lecture.cardId = result.cardId;
+      this.lecture.cardId = result.cardId;
+      this.lecture.firstName = result.firstName;
+      this.lecture.lastName = result.lastName;
+      this.lecture.sex = String(result.sex);
+      this.lecture.birthday = result.birthday;
+      this.lecture.address = result.address;
+      this.lecture.nationality = result.nationality;
+      this.lecture.marritalStatus = result.marritalStatus;
+      this.lecture.experienceRecord = result.experienceRecord;
+      this.lecture.email = result.email;
+      this.lecture.facebook = result.facebook;
+      this.lecture.phone = result.phone;
+      this.lecture.position = result.position;
+      this.lecture.certificate = result.certificate;
+      this.lecture.image = result.image;
+      this.lecture.basicSalary = result.basicSalary;
+      this.lecture.allowance = result.allowance;
+      this.lecture.bonus = result.bonus;
+      this.lecture.insurancePremium = result.insurancePremium;
+      this.lecture.wageOfLecturer = result.wageOfLecturer;
+      this.lecture.wageOfTutor = result.wageOfTutor;
+      this.lecture.isVisitingLecturer = result.isVisitingLecturer;
+      this.lecture.isTutor = result.isTutor;
+      this.lecture.status = result.status;
+      this.lecture.note = result.note;
       console.log(this.lecture);
-      this.lecturersService.postLecturers(this.lecture).subscribe(result => {
-        this.notificationService.showNotification(1, 'Giáo viên', 'Thêm giáo viên thành công!');
-        this.router.navigateByUrl('admin/lecture');
-      }, error => {
-        this.stopProgressBar();
-        this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, thêm giáo viên thất bại!');
-      });
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
+  public updateLecture() {
+    this.lecture.birthday = this.fomatDateService.transformDate(this.lecture.birthday);
+    console.log(this.lecture);
+    this.lecturersService.putLecture(this.lecture).subscribe(result => {
+      this.notificationService.showNotification(1, 'Giáo viên', 'Update giáo viên thành công!');
       this.router.navigateByUrl('admin/lecture');
+    }, error => {
+      this.stopProgressBar();
+      this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Update giáo viên thất bại!');
+    });
   }
 
-   /*Update image => success => save to learner object*/
+  /*Update image => success => save to learner object*/
   onFileComplete(data: any) {
     this.lecture.image = data.link;
   }
@@ -167,4 +215,7 @@ export class AddPageLectureComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+
+
+
 }
