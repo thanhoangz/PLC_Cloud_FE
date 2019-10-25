@@ -57,8 +57,6 @@ export class EditLanguageClassComponent implements OnInit {
     this.languageClass.status = this.data._languageClass.status;
     this.languageClass.note = this.data._languageClass.note;
     this.languageClass.courseId = this.data._languageClass.courseId;
-
-
   }
 
   public getCourses() {

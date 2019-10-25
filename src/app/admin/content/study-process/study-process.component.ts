@@ -4,11 +4,19 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NotificationService } from '../../services/extension/notification.service';
 import { DatePipe } from '@angular/common';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 
 import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
+
+import { DetailStudyprocessComponent } from './dialog/detail-studyprocess/detail-studyprocess.component';
+import { EditStudyprocessComponent } from './dialog/edit-studyprocess/edit-studyprocess.component';
+import { ChangeClassComponent } from './dialog/change-class/change-class.component';
+
+
 import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-study-process',
@@ -21,10 +29,13 @@ export class StudyProcessComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
+  public showId;
   public length = 100;
   public pageSize = 5;
   public pageIndex = 1;
   public pageSizeOptions = [5, 10, 15, 20];
+
+  public isOpenDialog = false;
 
   public status = [];
   public tempstatus: number;
@@ -44,7 +55,7 @@ export class StudyProcessComponent implements OnInit {
   };
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumnsInClass: string[] = ['index', 'learnerId', 'name', 'sex', 'birthday', 'status', 'controls'];
+  public displayedColumnsInClass: string[] = ['index', 'studyProcessId', 'learnerId', 'name', 'sex', 'birthday', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSourceInClass = new MatTableDataSource(this.learnerInClass);
   // tslint:disable-next-line: member-ordering
@@ -58,18 +69,21 @@ export class StudyProcessComponent implements OnInit {
     private courseService: CourseService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
+    public matDialog: MatDialog,
     private loginService: LoginService
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    this.getAllStatus();
+
   }
   /////////////////////// trạng thái của bảng là của studyProcess : 1.đang học : nghỉ :  tạm nghỉ : chuyển lớp : kết thúc
   ngOnInit() {
+    this.showId = false;
     this.classId = 'LC1';
-    this.tempstatus = 1;
+
     this.getLearnerInClass();
-    this.getAllStatus();
     this.load_infor_Classes(this.classId);
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
@@ -79,6 +93,7 @@ export class StudyProcessComponent implements OnInit {
   }
 
   public getLearnerInClass() {
+    this.tempstatus = 1;
     this.startProgressBar();
     this.studyProcessService.getAll_byClassId(this.classId, this.tempstatus).subscribe((result: any) => {
       this.learnerInClass = result;
@@ -116,6 +131,7 @@ export class StudyProcessComponent implements OnInit {
         Name: 'Chuyển lớp',
         code: 3
       }];
+    this.tempstatus = 1;
   }
 
   public loadTable() {
@@ -155,7 +171,65 @@ export class StudyProcessComponent implements OnInit {
     });
   }
 
+  public openDetailStudyProcess(learnerInClass: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
+      this.matDialog.open(DetailStudyprocessComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _learnerInClass: learnerInClass }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getLearnerInClass();
+          }
+        });
+    }
+  }
 
+  public openEditStudyProcess(learnerInClass: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
+      this.matDialog.open(EditStudyprocessComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _learnerInClass: learnerInClass }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getLearnerInClass();
+          }
+        });
+    }
+  }
+
+  public openChangeClass(studyProcessId: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.7 * this.screenWidth;
+      this.matDialog.open(ChangeClassComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _studyProcessId: studyProcessId }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.getLearnerInClass();
+          }
+        });
+    }
+  }
+
+  public deleteStudyProcess(learnerId: any) {
+    this.studyProcessService.delete_studyProcess_byLearnerId(this.classId, learnerId).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa học viên thành công!'); });
+      this.getLearnerInClass();
+    }, error => {
+      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, Xóa không thành công!');
+    });
+  }
 
   public startProgressBar() {
     this.showProgressBar = true;

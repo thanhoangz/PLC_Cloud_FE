@@ -65,7 +65,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { AddGuestDialogComponent } from './admin/content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
 import { EditGuestDialogComponent } from './admin/content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
-import { JwPaginationComponent } from 'jw-angular-pagination';
+import { DetailStudyprocessComponent } from './admin/content/study-process/dialog/detail-studyprocess/detail-studyprocess.component';
+import { EditStudyprocessComponent } from './admin/content/study-process/dialog/edit-studyprocess/edit-studyprocess.component';
+import { ChangeClassComponent } from './admin/content/study-process/dialog/change-class/change-class.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,7 +143,10 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
     EditLanguageClassComponent,
     DetailLanguageClassComponent,
     AddGuestDialogComponent,
-    EditGuestDialogComponent
+    EditGuestDialogComponent,
+    DetailStudyprocessComponent,
+    EditStudyprocessComponent,
+    ChangeClassComponent,
   ]
 
 })

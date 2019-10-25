@@ -71,6 +71,8 @@ import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { EditGuestDialogComponent } from './content/guest-type/dialog/edit-guest-dialog/edit-guest-dialog.component';
 import { DetailStudyprocessComponent } from './content/study-process/dialog/detail-studyprocess/detail-studyprocess.component';
 import { HomeComponent } from './content/home/home.component';
+import { EditStudyprocessComponent } from './content/study-process/dialog/edit-studyprocess/edit-studyprocess.component';
+import { ChangeClassComponent } from './content/study-process/dialog/change-class/change-class.component';
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
 import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
@@ -163,6 +165,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     DetailStudyprocessComponent,
     EditPageLectureComponent,
     ConfirmationDialogComponent,
+    EditStudyprocessComponent,
+    ChangeClassComponent
 
   ]
 })
