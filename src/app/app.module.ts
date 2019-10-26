@@ -46,8 +46,8 @@ import { AdminModule } from './admin/admin.module';
 import { ConfirmDialogComponent } from './admin/extension-dialog/confirm-dialog/confirm-dialog.component';
 import { AddReceiptTypeComponent } from './admin/content/receipt-types/dialog/add-receipt-type/add-receipt-type.component';
 import { AddClassRoomComponent } from './admin/content/class-room/dialog/add-class-room/add-class-room.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // tslint:disable-next-line: max-line-length
 import { EditPaysliptypeDialogComponent } from './admin/content/pay-slip-types/dialog/edit-paysliptype-dialog/edit-paysliptype-dialog.component';
 // tslint:disable-next-line: max-line-length
@@ -70,6 +70,9 @@ import { EditStudyprocessComponent } from './admin/content/study-process/dialog/
 import { ChangeClassComponent } from './admin/content/study-process/dialog/change-class/change-class.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { InterceptorService } from './auth/interceptor.service';
+import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
+import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,7 +124,7 @@ import { InterceptorService } from './auth/interceptor.service';
     BlockUIModule.forRoot()
   ],
   providers: [
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
   ],
@@ -151,6 +154,8 @@ import { InterceptorService } from './auth/interceptor.service';
     DetailStudyprocessComponent,
     EditStudyprocessComponent,
     ChangeClassComponent,
+    AddUserDialogComponent,
+    UpdateUserDialogComponent
   ]
 
 })

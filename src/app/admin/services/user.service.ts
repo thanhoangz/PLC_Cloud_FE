@@ -19,13 +19,13 @@ export class UserService {
       .post(`${environment.PLCServicesDomain}/api/AppUsers/Register`, user);
   }
 
-  putCourse(course: any) {
+  putUser(user: any) {
     return this.httpClient
-      .put(`${environment.PLCServicesDomain}/api/Courses/${course.id}`, course);
+      .put(`${environment.PLCServicesDomain}/api/AppUsers/Update`, user);
   }
 
-  deleteCourse(courseId: number) {
+  deleteUser(userId: any) {
     return this.httpClient
-      .delete(`${environment.PLCServicesDomain}/api/Courses/${courseId}`);
+      .delete(`${environment.PLCServicesDomain}/api/AppUsers/${userId}`);
   }
 }

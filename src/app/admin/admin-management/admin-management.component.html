@@ -137,7 +137,7 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview">
+            <li class="nav-item">
               <a outerLink="./" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -240,17 +240,88 @@
                 <li class="nav-item">
                   <a href="../charts/inline.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Thống kê danh sách lớp</p>
+                    <p>Thống kê lớp</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-balance-scale-left"></i>
+                <p>
+                  Quản lý Học viên
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a routerLink="add-learner" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thêm mới học viên</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a href="../charts/flot.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Thống kê học phí</p>
+                    <p>Điểm danh</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="fas fa-id-card-alt nav-icon"></i>
+                <p>
+                  Quản lý nhân sự
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a routerLink="lecture" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Giáo viên</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="personnels" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Nhân viên</p>
                   </a>
                 </li>
               </ul>
             </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-balance-scale-left"></i>
+                <p>
+                  Quản lý thu chi
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="../charts/chartjs.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Phiếu thu</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../charts/flot.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Phiếu chi</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -310,27 +381,36 @@
 
             <li class="nav-header">Khung quản trị viên</li>
             <li class="nav-item">
-              <a routerLink="user" routerLinkActive="active"  class="nav-link">
+              <a routerLink="user" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-user-tie"></i>
                 <p>Quản lý người dùng</p>
               </a>
             </li>
 
+            <li class="nav-header">Tiện tích mở rộng</li>
+            <li class="nav-item">
+              <a routerLink="user" routerLinkActive="active" class="nav-link">
+                <i class="nav-icon fas fa-paper-plane"></i>
+                <p>Gửi email</p>
+              </a>
+            </li>
+
+
             <li class="nav-header">Chú thích</li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon far fa-circle text-danger"></i>
                 <p class="text">Important</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon far fa-circle text-warning"></i>
                 <p>Warning</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon far fa-circle text-info"></i>
                 <p>Informational</p>
               </a>

@@ -106,12 +106,17 @@ export class CourseComponent implements OnInit {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(AddCourseDialogComponent, {
+      const dialogRef = this.matDialog.open(AddCourseDialogComponent, {
         width: `${widthMachine}px`,
         data: {
         },
-        disableClose: false
-      }).afterClosed().subscribe(result => {
+      });
+      dialogRef.backdropClick().subscribe(_ => {
+        // Close the dialog
+        dialogRef.close();
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
         this.isOpenDialog = false;
         if (result) {
           this.getCourses();

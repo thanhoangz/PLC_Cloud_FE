@@ -20,7 +20,7 @@ export class LecturersComponent implements OnInit {
   // dùng để tìm kiếm
   public cardId = '';
   public nameLecture = '';
-  public statusGenderes = '' ;
+  public statusGenderes = '';
   public statusSelected = -1;
 
   public lecture;
@@ -56,8 +56,6 @@ export class LecturersComponent implements OnInit {
     this.getstatusGenderes();
     this.getAllMarritalStatus();
     this.getLecture();
-    // this.statusGenderes = String(this.genderes[3].value);
-
   }
 
   public getLecture() {
@@ -108,6 +106,7 @@ export class LecturersComponent implements OnInit {
       }
     ];
   }
+
   public getAllMarritalStatus() {
     this.marritalStatus = [
       {
@@ -120,6 +119,7 @@ export class LecturersComponent implements OnInit {
       },
     ];
   }
+
   /*Update image => success => save to learner object*/
   onFileComplete(data: any) {
     this.lecture.image = data.link;
@@ -175,7 +175,7 @@ export class LecturersComponent implements OnInit {
         console.log(this.lecture);
       }
       // tslint:disable-next-line: one-line
-      else{
+      else {
         this.notificationService.showNotification(3, 'Giáo viên', 'Không tìm thấy!');
       }
     }, error => {
