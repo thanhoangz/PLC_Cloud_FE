@@ -30,7 +30,7 @@
             <input matInput placeholder="Tên Khóa học" [(ngModel)]="nameLecture">
             <mat-hint>Tên giáo viên muốn tìm kiếm</mat-hint>
           </mat-form-field>
-        </div>      
+        </div>
         <div class="col-md-2">
           <mat-form-field>
             <mat-label>Giới tính</mat-label>
@@ -45,7 +45,7 @@
           <mat-form-field>
             <mat-label>Chọn trạng thái</mat-label>
             <mat-select [(ngModel)]="statusSelected">
-              <mat-option *ngFor="let s of status" [value] ="s.code">
+              <mat-option *ngFor="let s of status" [value]="s.code">
                 {{s.name}}
               </mat-option>
             </mat-select>
@@ -64,8 +64,8 @@
     </mat-card>
   </div>
   <!-- Default box -->
-  <div class="card card-solid">
-    <div class="card-body pb-0">
+  <div class="container-fluid">
+    <mat-card style="margin-top: 0.5%;">
       <div class="row d-flex align-items-stretch">
 
 
@@ -115,17 +115,17 @@
 
 
       </div>
-    </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-      <nav aria-label="Contacts Page Navigation">
-        <ul class="pagination justify-content-center m-0">
-          <jw-pagination [items]="items" (changePage)="onChangePage($event)" [pageSize]="6"></jw-pagination>
-        </ul>
-      </nav>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+          <ul class="pagination justify-content-center m-0">
+            <jw-pagination [items]="items" (changePage)="onChangePage($event)" [pageSize]="6"></jw-pagination>
+          </ul>
+        </nav>
 
-    </div>
-    <!-- /.card-footer -->
+      </div>
+      <!-- /.card-footer -->
+    </mat-card>
   </div>
   <!-- /.card -->
 
