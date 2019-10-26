@@ -1,3 +1,5 @@
+<mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
+
 <section class="content">
   <div class="container-fluid">
     <mat-card>
@@ -25,17 +27,10 @@
         <div class="col-md-2">
           <mat-form-field>
             <mat-label>Tên giáo viên</mat-label>
-            <input matInput placeholder="Tên Khóa học" [(ngModel)]="keyWord">
+            <input matInput placeholder="Tên Khóa học" [(ngModel)]="nameLecture">
             <mat-hint>Tên giáo viên muốn tìm kiếm</mat-hint>
           </mat-form-field>
-        </div>
-        <div class="col-md-2">
-          <mat-form-field>
-            <mat-label>Số điện thoại</mat-label>
-            <input matInput placeholder="Tên Khóa học" [(ngModel)]="phoneSelected">
-            <mat-hint>Số điện thoại muốn tìm kiếm</mat-hint>
-          </mat-form-field>
-        </div>
+        </div>      
         <div class="col-md-2">
           <mat-form-field>
             <mat-label>Giới tính</mat-label>
@@ -50,13 +45,13 @@
           <mat-form-field>
             <mat-label>Chọn trạng thái</mat-label>
             <mat-select [(ngModel)]="statusSelected">
-              <mat-option *ngFor="let s of status" value="{{s.code}}">
+              <mat-option *ngFor="let s of status" [value] ="s.code">
                 {{s.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-3">
         </div>
         <div class="col-md-1">
           <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
@@ -83,17 +78,17 @@
               <div class="row">
                 <div class="col-7">
                   <h2 class="lead"><b>{{item.firstName + " " + item.lastName}}</b></h2>
-                  <p class="text-muted text-sm"><b>CardID: </b> {{item.cardId}} </p>
-                  <p class="text-muted text-sm"><b>About: </b> {{item.position}} </p>
-                  <p class="text-muted text-sm"><b>Sex: </b> {{(item.sex)==true?"Nam":"Nữ"}} </p>
-                  <p class="text-muted text-sm"><b>Satus: </b><span
+                  <p class="text-muted text-sm"><b>Mã thẻ: </b> {{item.cardId}} </p>
+                  <p class="text-muted text-sm"><b>Vị trí: </b> {{item.position}} </p>
+                  <p class="text-muted text-sm"><b>Giới tính: </b> {{(item.sex)==true?"Nam":"Nữ"}} </p>
+                  <p class="text-muted text-sm"><b>Trạng thái: </b><span
                       [class]="(item.status == 1?'badge badge-success':'badge badge-danger')">
                       {{(item.status)==1?"Hoạt động":"Khóa"}}
                     </span></p>
                   <ul class="ml-4 mb-0 fa-ul text-muted">
-                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address:
+                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Địa chỉ:
                       {{item.address}}</li>
-                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #:
+                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> SĐT #:
                       {{item.phone}}</li>
                   </ul>
                 </div>
@@ -102,7 +97,7 @@
                 </div>
               </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" style="background-color: lightgray;">
               <div class="text-right">
                 <a (click)="updateLecture(item.id)" class="btn btn-sm bg-teal">
                   <i class="fas fa-edit"></i> Sửa

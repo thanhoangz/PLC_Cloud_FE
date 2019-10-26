@@ -7,28 +7,34 @@ import { environment } from '../../../environments/environment';
 })
 export class LecturersService {
 
-constructor(private httpClient: HttpClient) { }
-getAllLecturers() {
-  return this.httpClient
-    .get(`${environment.PLCServicesDomain}/api/Lecturers`);
-}
-getLectureId(id) {
-  return this.httpClient
-    .get(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);
-}
+  constructor(private httpClient: HttpClient) { }
+  getAllLecturers() {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Lecturers`);
+  }
+  getLectureId(id) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);
+  }
 
-postLecturers(lecture: any) {
-  return this.httpClient
-    .post(`${environment.PLCServicesDomain}/api/Lecturers`, lecture);
-}
+  postLecturers(lecture: any) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Lecturers`, lecture);
+  }
 
-putLecture(lecture: any) {
-  return this.httpClient
-    .put(`${environment.PLCServicesDomain}/api/Lecturers/${lecture.id}`, lecture);
-}
+  putLecture(lecture: any) {
+    return this.httpClient
+      .put(`${environment.PLCServicesDomain}/api/Lecturers/${lecture.id}`, lecture);
+  }
 
-deleteLectureId(id) {
-  return this.httpClient
-    .delete(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);
-}
+  deleteLectureId(id) {
+    return this.httpClient
+      .delete(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);
+  }
+
+  SearchLecturers(cardId, name, sex, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/Lecturers/get-all-with-conditions?cardId=${cardId}&name=${name}&sex=${sex}&status=${status}`, null);
+  }
 }
