@@ -1,51 +1,42 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NotificationService } from 'src/app/admin/services/extension/notification.service';
-import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
-import { LoginService } from 'src/app/admin/services/login.service';
-import { UserService } from 'src/app/admin/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/app/admin/services/user.service';
+import { NotificationService } from 'src/app/admin/services/extension/notification.service';
+import { LoginService } from 'src/app/admin/services/login.service';
+import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
 
 @Component({
-  selector: 'app-add-user-dialog',
-  templateUrl: './add-user-dialog.component.html',
-  styleUrls: ['./add-user-dialog.component.css']
+  selector: 'app-update-user-dialog',
+  templateUrl: './update-user-dialog.component.html',
+  styleUrls: ['./update-user-dialog.component.css']
 })
-export class AddUserDialogComponent implements OnInit {
+export class UpdateUserDialogComponent implements OnInit {
 
   public accountFormGroup: FormGroup;
 
+  public user;
   screenHeight: any;
   screenWidth: any;
   public status = [];
 
-  public user = {
-    userName: '',
-    email: '',
-    fullName: '',
-    phoneNumber: '',
-    birthDay: new Date(),
-    balance: 0,
-    avatar: '',
-    dateCreated: new Date(),
-    dateModified: new Date(),
-    status: 1,
-    password: ''
-  };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<AddUserDialogComponent>,
+    private dialogRef: MatDialogRef<UpdateUserDialogComponent>,
     private userService: UserService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
     private loginService: LoginService
-  ) { }
+  ) {
+    this.user = this.data._user;
+    console.log(this.data._user);
+  }
 
   ngOnInit() {
-    this.getAllStatus();
     this.initAccountForm();
+    this.getAllStatus();
   }
 
   public getAllStatus() {
@@ -60,7 +51,6 @@ export class AddUserDialogComponent implements OnInit {
       }
     ];
   }
-
   private initAccountForm() {
     this.accountFormGroup = new FormGroup({
       userName: new FormControl(null, [Validators.required]),
@@ -74,13 +64,13 @@ export class AddUserDialogComponent implements OnInit {
   }
 
 
-  public createAccount() {
+  public updateAccount() {
     if (this.accountFormGroup.valid) {
-      this.userService.postUser(this.user).subscribe(result => {
-        setTimeout(() => { this.notificationService.showNotification(1, 'Tài khoản', 'Tạo thành công tài khoản mới!'); });
+      this.userService.putUser(this.user).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Tài khoản', 'Cập nhật thành công tài khoản!'); });
         this.dialogRef.close(true);
       }, error => {
-        this.notificationService.showNotification(3, 'Tài khoản', 'Lỗi, tạo mới thất bại!');
+        this.notificationService.showNotification(3, 'Tài khoản', 'Lỗi, cập nhật thất bại!');
       });
     }
   }

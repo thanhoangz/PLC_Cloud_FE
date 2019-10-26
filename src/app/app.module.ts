@@ -71,6 +71,7 @@ import { ChangeClassComponent } from './admin/content/study-process/dialog/chang
 import { BlockUIModule } from 'ng-block-ui';
 import { InterceptorService } from './auth/interceptor.service';
 import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
+import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +154,8 @@ import { AddUserDialogComponent } from './admin/content/user-management/dialog/a
     DetailStudyprocessComponent,
     EditStudyprocessComponent,
     ChangeClassComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    UpdateUserDialogComponent
   ]
 
 })

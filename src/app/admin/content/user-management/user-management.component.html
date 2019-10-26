@@ -55,7 +55,7 @@
                             </ng-container>
 
                             <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
-                            <tr mat-row (click)="drawer.toggle(row)" *matRowDef="let row; columns: userColumns;"></tr>
+                            <tr mat-row (click)="openUpdateDialog(row)" *matRowDef="let row; columns: userColumns;"></tr>
                         </table>
 
                         <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>

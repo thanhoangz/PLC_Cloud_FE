@@ -84,6 +84,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { JwPaginationComponent } from 'jw-angular-pagination';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AddUserDialogComponent } from './content/user-management/dialog/add-user-dialog/add-user-dialog.component';
+import { UpdateUserDialogComponent } from './content/user-management/dialog/update-user-dialog/update-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -174,7 +175,8 @@ import { AddUserDialogComponent } from './content/user-management/dialog/add-use
     AddPersonnelComponent,
     PersonnelComponent,
     ControlsPersonnelComponent,
-    AddUserDialogComponent
+    AddUserDialogComponent,
+    UpdateUserDialogComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

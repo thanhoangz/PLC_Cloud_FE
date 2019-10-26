@@ -7,6 +7,8 @@ import { ConfirmService } from '../../services/extension/confirm.service';
 import { UserService } from '../../services/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { AddUserDialogComponent } from './dialog/add-user-dialog/add-user-dialog.component';
+import { UpdateUserDialogComponent } from './dialog/update-user-dialog/update-user-dialog.component';
 
 @Component({
   selector: 'app-user-management',
@@ -33,6 +35,7 @@ export class UserManagementComponent implements OnInit {
 
   public screenHeight: any;
   public screenWidth: any;
+  public isOpenDialog = false;
 
   constructor(
     private userService: UserService,
@@ -69,30 +72,59 @@ export class UserManagementComponent implements OnInit {
   }
 
 
-  // public openCreateDialog() {
-  //   if (!this.isOpenDialog) {
-  //     this.isOpenDialog = true;
-  //     const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-  //     const dialogRef = this.matDialog.open(AddCourseDialogComponent, {
-  //       width: `${widthMachine}px`,
-  //       data: {
-  //       },
-  //       disableClose: false
-  //     });
-  //     dialogRef.backdropClick().subscribe(_ => {
-  //       // Close the dialog
-  //       dialogRef.close();
-  //     });
+  public openCreateDialog() {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      const dialogRef = this.matDialog.open(AddUserDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+        disableClose: false
+      });
+      dialogRef.backdropClick().subscribe(_ => {
+        // Close the dialog
+        dialogRef.close();
+      });
 
-  //     dialogRef.afterClosed().subscribe(result => {
-  //       this.isOpenDialog = false;
-  //       if (result) {
-  //         this.getCourses();
-  //       }
+      dialogRef.afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+          this.getAllUsers();
+        }
 
-  //     });
-  //   }
-  // }
+      });
+    }
+  }
+
+
+
+  public openUpdateDialog(user) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+      const dialogRef = this.matDialog.open(UpdateUserDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+          _user: user
+        },
+        disableClose: false
+      });
+      dialogRef.backdropClick().subscribe(_ => {
+        // Close the dialog
+        dialogRef.close();
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+          this.getAllUsers();
+        }
+
+      });
+    }
+  }
+
 
   public startProgressBar() {
     this.showProgressBar = true;
