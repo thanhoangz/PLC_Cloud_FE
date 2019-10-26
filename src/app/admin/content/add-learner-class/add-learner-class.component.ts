@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { NotificationService } from '../../services/extension/notification.service';
 import { DatePipe } from '@angular/common';
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
+import { Router } from '@angular/router';
 
 import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
@@ -23,9 +25,9 @@ export class AddLearnerClassComponent implements OnInit {
   public screenWidth: any;
 
   public length = 100;
-  public pageSize = 5;
+  public pageSize = 10;
   public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20];
+  public pageSizeOptions = [5, 10, 15, 20, 30, 50];
 
   public learnerOutClass;
   public learnerInClass;
@@ -37,12 +39,16 @@ export class AddLearnerClassComponent implements OnInit {
   public class = {
     id: null,
     name: null,
+    courseFee: null,
+    monthlyFee: null,
+    lessonFee: null,
     startDay: null,
     endDay: null,
     status: null,
     courseId: null,
     courseName: null,
     total: null,
+    note: null,
   };
   public studyProcess = {
     languageClassId: null,
@@ -69,7 +75,9 @@ export class AddLearnerClassComponent implements OnInit {
     private courseService: CourseService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private exchangeDataService: ExchangeDataService,
+    private router: Router,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -77,7 +85,12 @@ export class AddLearnerClassComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.classId = 'LC1';
+
+    this.exchangeDataService.idSource.subscribe(message => {
+      this.classId = message;
+    });
+
+    //  this.classId = 'LC1';
     this.load_infor_languageClasses(this.classId);
     this.getLearnerOutClass();
     this.getLearnerInClass();
@@ -142,42 +155,46 @@ export class AddLearnerClassComponent implements OnInit {
     });
   }
 
- ////////////// Infor lớp học
- public load_infor_languageClasses(classId) {
-  this.languageClassesService.getById(classId).subscribe((result: any) => {
-    this.class.name = result.name;
+  ////////////// Infor lớp học
+  public load_infor_languageClasses(classId) {
+    this.languageClassesService.getById(classId).subscribe((result: any) => {
+      this.class.name = result.name;
 
-    const startDate = this.datePipe.transform( result.startDay, 'dd-MM-yyyy');
-    const endDate = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
-    this.class.startDay = startDate;
-    this.class.endDay = endDate;
-    this.class.status = result.status;
-    this.class.courseId = result.courseId;
-    this.load_total(classId);
-    this.load_CourseName(result.courseId);
-  }, error => {
-  });
-}
+      const startDate = this.datePipe.transform(result.startDay, 'dd-MM-yyyy');
+      const endDate = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
+      this.class.courseFee = result.courseFee;
+      this.class.monthlyFee = result.monthlyFee;
+      this.class.lessonFee = result.lessonFee;
+      this.class.startDay = startDate;
+      this.class.endDay = endDate;
+      this.class.status = result.status;
+      this.class.courseId = result.courseId;
+      this.class.note = result.note;
+      this.load_total(classId);
+      this.load_CourseName(result.courseId);
+    }, error => {
+    });
+  }
 
-public load_total(classId) {
-  // tslint:disable-next-line: triple-equals
-  this.studyProcessService.search_studyProcess(classId, '', 1).subscribe((result: any) => {
-    this.class.total = result.length;
-  }, error => {
-  });
-}
+  public load_total(classId) {
+    // tslint:disable-next-line: triple-equals
+    this.studyProcessService.search_studyProcess(classId, '', 1).subscribe((result: any) => {
+      this.class.total = result.length;
+    }, error => {
+    });
+  }
 
-public load_CourseName(courseId: number) {
-  // tslint:disable-next-line: triple-equals
-  this.courseService.findCourseId(courseId).subscribe((result: any) => {
-    this.class.courseName = result.name;
-  }, error => {
-  });
-}
+  public load_CourseName(courseId: number) {
+    // tslint:disable-next-line: triple-equals
+    this.courseService.findCourseId(courseId).subscribe((result: any) => {
+      this.class.courseName = result.name;
+    }, error => {
+    });
+  }
 
   public loadFind() {
     // tslint:disable-next-line: triple-equals
-    if ( this.keyword == '') {
+    if (this.keyword == '') {
       this.getLearnerOutClass();
     } else {
       this.findOutClass();

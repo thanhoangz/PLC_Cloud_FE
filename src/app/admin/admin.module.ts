@@ -83,6 +83,9 @@ import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lec
 import { BrowserModule } from '@angular/platform-browser';
 import { JwPaginationComponent } from 'jw-angular-pagination';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ClassComponent } from './content/class/class.component';
+import { AddClassComponent } from './content/class/dialog/add-class/add-class.component';
+import { EditClassComponent } from './content/class/dialog/edit-class/edit-class.component';
 
 @NgModule({
   imports: [
@@ -173,6 +176,9 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     AddPersonnelComponent,
     PersonnelComponent,
     ControlsPersonnelComponent,
+    ClassComponent,
+    AddClassComponent,
+    EditClassComponent,
   ]
 })
 export class AdminModule { }

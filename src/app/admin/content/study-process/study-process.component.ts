@@ -5,7 +5,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { NotificationService } from '../../services/extension/notification.service';
 import { DatePipe } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
+import { Router } from '@angular/router';
 
 import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
@@ -29,11 +30,10 @@ export class StudyProcessComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public showId;
   public length = 100;
-  public pageSize = 5;
+  public pageSize = 20;
   public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20];
+  public pageSizeOptions = [5, 10, 15, 20, 30, 50];
 
   public isOpenDialog = false;
 
@@ -46,12 +46,16 @@ export class StudyProcessComponent implements OnInit {
   public class = {
     id: null,
     name: null,
+    courseFee: null,
+    monthlyFee: null,
+    lessonFee: null,
     startDay: null,
     endDay: null,
     status: null,
     courseId: null,
     courseName: null,
     total: null,
+    note: null,
   };
 
   // tslint:disable-next-line: member-ordering
@@ -70,7 +74,10 @@ export class StudyProcessComponent implements OnInit {
     private datePipe: DatePipe,
     private notificationService: NotificationService,
     public matDialog: MatDialog,
-    private loginService: LoginService
+    private loginService: LoginService,
+
+    private exchangeDataService: ExchangeDataService,
+    private router: Router,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -79,8 +86,12 @@ export class StudyProcessComponent implements OnInit {
   }
   /////////////////////// trạng thái của bảng là của studyProcess : 1.đang học : nghỉ :  tạm nghỉ : chuyển lớp : kết thúc
   ngOnInit() {
-    this.showId = false;
-    this.classId = 'LC1';
+
+    this.exchangeDataService.idSource.subscribe(message => {
+      this.classId = message;
+    });
+
+    // this.classId = 'LC1';
     this.tempstatus = 1;
     this.getAllStatus();
     this.getLearnerInClass();
@@ -145,8 +156,12 @@ export class StudyProcessComponent implements OnInit {
       const endDate = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
       this.class.startDay = startDate;                                                      // ngày bắt đầu
       this.class.endDay = endDate;
+      this.class.courseFee = result.courseFee;
+      this.class.monthlyFee = result.monthlyFee;
+      this.class.lessonFee = result.lessonFee;
       this.class.status = result.status;  // tình trạng
       this.class.courseId = result.courseId;  // mã khóa học
+      this.class.note = result.note;
       this.load_total(classId);
       this.load_CourseName(result.courseId);
     }, error => {
@@ -167,6 +182,16 @@ export class StudyProcessComponent implements OnInit {
       this.class.courseName = result.name;
     }, error => {
     });
+  }
+
+  // hàm ném dữ liệu
+  createExchangeId(id) {
+    this.exchangeDataService.changeId(id);
+  }
+
+  public XepLop() {
+    this.createExchangeId(this.classId);  // truyền
+    this.router.navigateByUrl('admin/add-learner-class');
   }
 
   public openDetailStudyProcess(learnerInClass: any) {

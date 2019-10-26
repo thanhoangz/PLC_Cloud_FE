@@ -76,7 +76,7 @@ export class EditStudyprocessComponent implements OnInit {
     this.status1 = [
       {
         Name: 'Tất cả',
-        code: 4
+        code: -1
       },
       {
         Name: 'Hoạt động',

@@ -6,16 +6,15 @@ import { FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 
 @Component({
-  selector: 'app-add-language-class',
-  templateUrl: './add-language-class.component.html',
-  styleUrls: ['./add-language-class.component.css']
+  selector: 'app-add-class',
+  templateUrl: './add-class.component.html',
+  styleUrls: ['./add-class.component.css']
 })
-export class AddLanguageClassComponent implements OnInit {
+export class AddClassComponent implements OnInit {
   screenHeight: any;
   screenWidth: any;
 
-  public languageClass = {
-    id: '',
+  public Class = {
     name: '',
     courseFee: null,
     monthlyFee: null,
@@ -33,7 +32,7 @@ export class AddLanguageClassComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<AddLanguageClassComponent>,
+    private dialogRef: MatDialogRef<AddClassComponent>,
     private languageClassesService: LanguageClassesService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -52,6 +51,7 @@ export class AddLanguageClassComponent implements OnInit {
     }, error => {
     });
   }
+
   public getAllStatus() {
     this.status = [
       {
@@ -59,18 +59,28 @@ export class AddLanguageClassComponent implements OnInit {
         value: 1
       },
       {
-        name: 'Ngừng hoạt động',
-        value: 0
+        name: 'Sắp mở',
+        value: 2
       }
     ];
   }
 
-  public createLanguageClass() {
-    this.languageClassesService.postLanguageClass(this.languageClass).subscribe(result => {
+  public createClass() {
+    this.languageClassesService.postLanguageClass(this.Class).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Tạo thành công lớp học!'); });
       this.dialogRef.close(true);
     }, error => {
       this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, không tạo thành công!');
     });
   }
+
+  /*Chỉ cho phép nhập số */
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
 }

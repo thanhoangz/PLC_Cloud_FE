@@ -21,6 +21,7 @@ import { ControlsPersonnelComponent } from './content/personnel/page/controls-pe
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
 import { PersonnelComponent } from './content/personnel/personnel.component';
+import { ClassComponent } from './content/class/class.component';
 
 const adminRoutes: Routes = [
   {
@@ -48,6 +49,7 @@ const adminRoutes: Routes = [
           { path: 'addlecture', component: AddPageLectureComponent },
           { path: 'editlecture', component: EditPageLectureComponent },
           { path: 'lecture', component: LecturersComponent },
+          { path: 'class', component: ClassComponent },
 
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent }

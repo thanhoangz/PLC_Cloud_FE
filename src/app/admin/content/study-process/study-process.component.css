@@ -27,3 +27,16 @@
     border:solid 2px royalblue;
     border-radius: 10px;
   }
+
+  .tencot {
+    background-color:#2466B0;
+    color: white;
+  }
+
+
+table.table-style-three tr:hover td {
+  cursor: pointer;
+}
+table.table-style-three tr:nth-child(even) td{
+  background-color: #DAE7F7;
+}

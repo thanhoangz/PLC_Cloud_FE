@@ -70,6 +70,8 @@ import { EditStudyprocessComponent } from './admin/content/study-process/dialog/
 import { ChangeClassComponent } from './admin/content/study-process/dialog/change-class/change-class.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { InterceptorService } from './auth/interceptor.service';
+import { AddClassComponent } from './admin/content/class/dialog/add-class/add-class.component';
+import { EditClassComponent } from './admin/content/class/dialog/edit-class/edit-class.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -151,6 +153,8 @@ import { InterceptorService } from './auth/interceptor.service';
     DetailStudyprocessComponent,
     EditStudyprocessComponent,
     ChangeClassComponent,
+    AddClassComponent,
+    EditClassComponent,
   ]
 
 })
