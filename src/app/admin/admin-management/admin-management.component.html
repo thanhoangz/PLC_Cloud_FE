@@ -137,7 +137,7 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview">
+            <li class="nav-item">
               <a outerLink="./" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -240,12 +240,38 @@
                 <li class="nav-item">
                   <a href="../charts/inline.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Thống kê danh sách lớp</p>
+                    <p>Thống kê lớp</p>
                   </a>
                 </li>
 
               </ul>
             </li>
+
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-balance-scale-left"></i>
+                <p>
+                  Quản lý Học viên
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a routerLink="add-learner" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thêm mới học viên</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../charts/flot.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Điểm danh</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
@@ -257,13 +283,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../charts/chartjs.html" class="nav-link">
+                  <a routerLink="lecture" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Giáo viên</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/flot.html" class="nav-link">
+                  <a routerLink="personnels" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Nhân viên</p>
                   </a>
@@ -295,6 +321,7 @@
 
               </ul>
             </li>
+
 
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
