@@ -16,8 +16,11 @@ import { AddLearnerClassComponent  } from './content/add-learner-class/add-learn
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { HomeComponent } from './content/home/home.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
+import { AddPersonnelComponent } from './content/personnel/page/add-personnel/add-personnel.component';
+import { ControlsPersonnelComponent } from './content/personnel/page/controls-personnel/controls-personnel.component';
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
+import { PersonnelComponent } from './content/personnel/personnel.component';
 
 const adminRoutes: Routes = [
   {
@@ -39,9 +42,11 @@ const adminRoutes: Routes = [
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
+          { path: 'personnels', component: PersonnelComponent },
+          { path: 'add-personnel', component: AddPersonnelComponent },
+          { path: 'control-personnel', component: ControlsPersonnelComponent },
           { path: 'addlecture', component: AddPageLectureComponent },
           { path: 'editlecture', component: EditPageLectureComponent },
-
           { path: 'lecture', component: LecturersComponent },
 
           { path: '', component: HomeComponent },

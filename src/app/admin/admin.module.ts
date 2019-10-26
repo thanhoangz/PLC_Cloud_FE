@@ -75,6 +75,9 @@ import { EditStudyprocessComponent } from './content/study-process/dialog/edit-s
 import { ChangeClassComponent } from './content/study-process/dialog/change-class/change-class.component';
 import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
+import { AddPersonnelComponent } from './content/personnel/page/add-personnel/add-personnel.component';
+import { PersonnelComponent } from './content/personnel/personnel.component';
+import { ControlsPersonnelComponent } from './content/personnel/page/controls-personnel/controls-personnel.component';
 import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -166,8 +169,10 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     EditPageLectureComponent,
     ConfirmationDialogComponent,
     EditStudyprocessComponent,
-    ChangeClassComponent
-
+    ChangeClassComponent,
+    AddPersonnelComponent,
+    PersonnelComponent,
+    ControlsPersonnelComponent,
   ]
 })
 export class AdminModule { }
