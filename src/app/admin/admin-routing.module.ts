@@ -41,7 +41,7 @@ const adminRoutes: Routes = [
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
           { path: 'study-process', component: StudyProcessComponent },
-          { path: 'learner', component: AddPageLearnerComponent },
+          { path: 'add-learner', component: AddPageLearnerComponent },
           { path: 'guest-type', component: GuestTypeComponent },
           { path: 'personnels', component: PersonnelComponent },
           { path: 'add-personnel', component: AddPersonnelComponent },

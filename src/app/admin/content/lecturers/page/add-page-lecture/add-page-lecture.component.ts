@@ -7,6 +7,7 @@ import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.ser
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LecturersComponent } from '../../lecturers.component';
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
 
 @Component({
   selector: 'app-add-page-lecture',
@@ -21,6 +22,7 @@ export class AddPageLectureComponent implements OnInit {
   public lectureFormGroup: FormGroup;
   public floatLabel = 'always';
 
+  public check;
   public status;
   public marritalStatus;
   public genderes = [
@@ -67,6 +69,8 @@ export class AddPageLectureComponent implements OnInit {
     private confirmService: ConfirmService,
     private fomatDateService: FomatDateService,
     private router: Router,
+    private exchangeDataService: ExchangeDataService,
+
 
   ) {
     this.screenWidth = (window.screen.width);
@@ -101,6 +105,10 @@ export class AddPageLectureComponent implements OnInit {
     });
   }
   ngOnInit() {
+    // đéo cần biết nó gửi cái noằn j
+    this.exchangeDataService.idSource.subscribe(message => {
+      this.check = message;
+    });
     this.getAllStatus();
     this.getAllMarritalStatus();
     this.initLectureForm();

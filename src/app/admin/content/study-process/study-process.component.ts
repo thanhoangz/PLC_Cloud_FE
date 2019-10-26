@@ -123,7 +123,7 @@ export class StudyProcessComponent implements OnInit {
     this.status = [
       {
         Name: 'Tất cả',
-        code: 4
+        code: -1
       },
       {
         Name: 'Hoạt động',
