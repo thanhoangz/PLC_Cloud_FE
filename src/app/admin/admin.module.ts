@@ -8,8 +8,8 @@ import { AdminManagementComponent } from './admin-management/admin-management.co
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserManagementComponent } from './content/user-management/user-management.component';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {MatChipsModule} from '@angular/material/chips';
+import { CommonModule, DatePipe } from '@angular/common';
+import { MatChipsModule } from '@angular/material/chips';
 import { CourseComponent } from './content/course/course.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -37,7 +37,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCourseDialogComponent } from './content/course/dialog/add-course-dialog/add-course-dialog.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -83,6 +83,7 @@ import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lec
 import { BrowserModule } from '@angular/platform-browser';
 import { JwPaginationComponent } from 'jw-angular-pagination';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { AddUserDialogComponent } from './content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -173,6 +174,11 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     AddPersonnelComponent,
     PersonnelComponent,
     ControlsPersonnelComponent,
+    AddUserDialogComponent
+  ],
+  providers: [
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
+    DatePipe,
   ]
 })
 export class AdminModule { }

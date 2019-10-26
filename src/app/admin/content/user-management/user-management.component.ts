@@ -24,8 +24,8 @@ export class UserManagementComponent implements OnInit {
 
   public users = null;
 
-  dataSource = this.users;
-  columnsToDisplay = ['STT', 'Tên tài khoản', 'Trạng thái', 'Ngày tạo'];
+  userSource = this.users;
+  userColumns = ['index', 'userName', 'status', 'dateCreated'];
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -50,9 +50,9 @@ export class UserManagementComponent implements OnInit {
     this.getAllUsers();
   }
 
-  public loadTables(data: any) {
-    this.dataSource = new MatTableDataSource(data);
-    this.dataSource.paginator = this.paginator;
+  public loadUserTables(data: any) {
+    this.userSource = new MatTableDataSource(data);
+    this.userSource.paginator = this.paginator;
   }
 
 
@@ -61,12 +61,38 @@ export class UserManagementComponent implements OnInit {
     this.startProgressBar();
     this.userService.getAllUser().subscribe(result => {
       this.users = result;
-      console.log(result);
+      this.loadUserTables(result);
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
     });
   }
+
+
+  // public openCreateDialog() {
+  //   if (!this.isOpenDialog) {
+  //     this.isOpenDialog = true;
+  //     const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+  //     const dialogRef = this.matDialog.open(AddCourseDialogComponent, {
+  //       width: `${widthMachine}px`,
+  //       data: {
+  //       },
+  //       disableClose: false
+  //     });
+  //     dialogRef.backdropClick().subscribe(_ => {
+  //       // Close the dialog
+  //       dialogRef.close();
+  //     });
+
+  //     dialogRef.afterClosed().subscribe(result => {
+  //       this.isOpenDialog = false;
+  //       if (result) {
+  //         this.getCourses();
+  //       }
+
+  //     });
+  //   }
+  // }
 
   public startProgressBar() {
     this.showProgressBar = true;
