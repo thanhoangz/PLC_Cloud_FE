@@ -142,12 +142,12 @@
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Trang chủ
-                  <i class="right fas fa-angle-left"></i>
+
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="language-classes" routerLinkActive="active" class="nav-link">
+              <a routerLink="class-list" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Danh sách lớp
@@ -208,37 +208,38 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../charts/chartjs.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Xếp lịch học</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/flot.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Thông tin học viên</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Quản lý điểm định kỳ</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Quản lý điểm cuối khóa</p>
                   </a>
                 </li>
+
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo điểm danh</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Thống kê lớp</p>
                   </a>
@@ -248,7 +249,7 @@
             </li>
 
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon fas fa-balance-scale-left"></i>
                 <p>
                   Quản lý Học viên
@@ -263,18 +264,30 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/flot.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Điểm danh</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a routerLink="add-learner-class" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Xếp vào lớp</p>
+                  </a>
+                </li>
 
+                <li class="nav-item">
+                  <a routerLink="study-process" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Quá trình học tập</p>
+                  </a>
+                </li>
               </ul>
             </li>
 
 
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="fas fa-id-card-alt nav-icon"></i>
                 <p>
                   Quản lý nhân sự
@@ -283,7 +296,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a routerLink="lecture" routerLinkActive="active" class="nav-link">
+                  <a routerLink="lecturer" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Giáo viên</p>
                   </a>
@@ -294,11 +307,17 @@
                     <p>Nhân viên</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a routerLink="time-sheet" routerLinkActive="active" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Chấm công nhân viên</p>
+                  </a>
+                </li>
               </ul>
             </li>
 
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon fas fa-balance-scale-left"></i>
                 <p>
                   Quản lý thu chi
@@ -307,13 +326,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../charts/chartjs.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Phiếu thu</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/flot.html" class="nav-link">
+                  <a routerLink="pay-slip" routerLinkActive="active" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Phiếu chi</p>
                   </a>
@@ -324,7 +343,7 @@
 
 
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a class="nav-link">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>
                   Báo cáo, thống kê
@@ -333,43 +352,43 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../charts/chartjs.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo chấm công</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/flot.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo điểm cuối khóa</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo điểm định kì</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo đóng học phí</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo điểm danh</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Thống kê danh sách lớp</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../charts/inline.html" class="nav-link">
+                  <a class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Thống kê học phí</p>
                   </a>
@@ -425,8 +444,11 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <router-outlet></router-outlet>
+
+
     </div>
     <!-- /.content-wrapper -->
+
 
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">

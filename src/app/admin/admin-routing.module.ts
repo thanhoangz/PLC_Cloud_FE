@@ -46,10 +46,10 @@ const adminRoutes: Routes = [
           { path: 'personnels', component: PersonnelComponent },
           { path: 'add-personnel', component: AddPersonnelComponent },
           { path: 'control-personnel', component: ControlsPersonnelComponent },
-          { path: 'addlecture', component: AddPageLectureComponent },
-          { path: 'editlecture', component: EditPageLectureComponent },
-          { path: 'lecture', component: LecturersComponent },
-          { path: 'class', component: ClassComponent },
+          { path: 'addlecturer', component: AddPageLectureComponent },
+          { path: 'editlecturer', component: EditPageLectureComponent },
+          { path: 'lecturer', component: LecturersComponent },
+          { path: 'class-list', component: ClassComponent },
 
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent }
