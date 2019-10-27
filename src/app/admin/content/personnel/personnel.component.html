@@ -65,7 +65,7 @@
                     <!-- nội dung cạnh ảnh -->
                     <div class="col-7">
                       <h2 class="lead"><b>{{item.firstName + " " + item.lastName}}</b></h2>
-                      <p class="text-muted text-sm"><b>Mã nhân viên: </b> {{item.id}} </p>
+                      <p class="text-muted text-sm"><b>Số thẻ: </b> {{item.cardId}} </p>
                       <p class="text-muted text-sm"><b>Vị trí: </b> {{item.position}} </p>
                       <p class="text-muted text-sm"><b>Giới tính: </b> {{(item.sex)==true?"Nam":"Nữ"}} </p>
                       <p class="text-muted text-sm"><b>Trạng thái: </b><span [class]="(item.status == 1?'badge badge-success':'badge badge-danger')">
