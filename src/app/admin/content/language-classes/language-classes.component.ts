@@ -163,7 +163,7 @@ export class LanguageClassesComponent implements OnInit {
 
   public searchClassRoom() {
     this.startProgressBar();
-    this.languageClassesService.searchLanguageClass(this.keyWord, this.statusSelected).subscribe(result => {
+    this.languageClassesService.searchLanguageClass(this.keyWord, '', this.statusSelected).subscribe(result => {
       if (result) {
         this.languageClasses = result;
         this.loadTables(result);

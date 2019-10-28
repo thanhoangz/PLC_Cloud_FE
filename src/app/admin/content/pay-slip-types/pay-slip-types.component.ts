@@ -33,7 +33,7 @@ export class PaySlipTypesComponent implements OnInit {
   public pageSizeOptions = [5, 10, 15, 20];
 
   public keyWord = '';
-  public statusSelected = null;
+  public statusSelected = 2;
 
   // tslint:disable-next-line: member-ordering
   public displayedColumns: string[] = ['index', 'name', 'status', 'note', 'controls'];

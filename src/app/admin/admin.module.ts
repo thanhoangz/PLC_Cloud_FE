@@ -88,6 +88,7 @@ import { AddClassComponent } from './content/class/dialog/add-class/add-class.co
 import { EditClassComponent } from './content/class/dialog/edit-class/edit-class.component';
 import { AddUserDialogComponent } from './content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './content/user-management/dialog/update-user-dialog/update-user-dialog.component';
+import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 
 @NgModule({
   imports: [
@@ -182,7 +183,8 @@ import { UpdateUserDialogComponent } from './content/user-management/dialog/upda
     AddClassComponent,
     EditClassComponent,
     AddUserDialogComponent,
-    UpdateUserDialogComponent
+    UpdateUserDialogComponent,
+    SearchStudyprocessComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

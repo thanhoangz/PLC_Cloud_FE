@@ -22,6 +22,7 @@ import { LecturersComponent } from './content/lecturers/lecturers.component';
 import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lecture/edit-page-lecture.component';
 import { PersonnelComponent } from './content/personnel/personnel.component';
 import { ClassComponent } from './content/class/class.component';
+import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 
 const adminRoutes: Routes = [
   {
@@ -50,7 +51,7 @@ const adminRoutes: Routes = [
           { path: 'editlecturer', component: EditPageLectureComponent },
           { path: 'lecturer', component: LecturersComponent },
           { path: 'class-list', component: ClassComponent },
-
+          { path: 'search-learner', component: SearchStudyprocessComponent },
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent }
         ]

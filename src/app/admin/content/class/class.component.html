@@ -10,11 +10,22 @@
             <!-- Content -->
             <div class="row">
                 <!-- Text tìm kiếm tổng hợp -->
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <mat-form-field class="col-md-12">
                         <mat-label>Thông tin tìm kiếm</mat-label>
                         <input matInput [(ngModel)]="keyWord">
                         <mat-hint>nhập thông tin tìm kiếm: ...</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- Chọn khóa học  -->
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Chọn khóa học</mat-label>
+                        <mat-select [(ngModel)]="courseKeyword">
+                            <mat-option *ngFor="let s of courseList" value="{{s.id}}">
+                                {{s.name}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <!-- Chọn trạng thái -->
@@ -36,7 +47,7 @@
                         Tìm kiếm
                     </button>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
                         style="float: right; margin-right: 20px" (click)="createClass()">
                         <mat-icon>add</mat-icon>
@@ -60,7 +71,8 @@
                         <div class="card-body box-profile">
                             <div
                                 style="background-color: #0099FF; height: 165px; padding-top: 10px; border-radius: 5px;">
-                                <h3 class="profile-username text-center" style="color: white;"> <b>{{item.name}} </b></h3>
+                                <h3 class="profile-username text-center" style="color: white;"> <b>{{item.name}} </b>
+                                </h3>
                             </div>
                         </div>
 
@@ -88,12 +100,13 @@
                                     <b>Học phí</b> <a class="float-right"> {{item.courseFee}} VNĐ</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Sĩ số</b> <a class="float-right"> chưa thêm trong BE</a>
+                                    <b>Sĩ số</b> <a class="float-right"> {{item.maxNumber}}</a>
                                 </li>
                                 <li class="list-group-item"><b>Trạng thái</b>
                                     <a class="float-right" style="font-size: 20px;">
-                                        <a [class]="(item.status == 1?'badge badge-success':(item.status == 0?'badge badge-danger':(item.status == 2?'badge badge-warning':'badge badge-primary')))">
-                                            {{(item.status)==1?"Hoạt động":((item.status)==0?"Kết thúc":((item.status)==2?"Sắp mở":"Đã đầy"))}}
+                                        <a
+                                            [class]="(item.status == 1?'badge badge-success':(item.status == 0?'badge badge-danger':'badge badge-primary'))">
+                                            {{(item.status)==1?"Hoạt động":((item.status)==0?"Kết thúc":"Đã đầy")}}
                                         </a>
                                     </a>
                                 </li>
@@ -101,35 +114,35 @@
                         </div>
 
                         <div class="card-body box-profile" style="background-color: lightgrey;">
-                            <div class="col-md-12">
-                                <a class="btn btn-sm bg-primary col-md-12" style="font-size: 17px;"
+                            <div class=" row col-md-11" style="margin-left: 4%;">
+                                <button class="btn btn-sm bg-primary col-md-12" style="font-size: 17px;"
                                     (click)="ClassId(item.id)">
                                     <i class="fas fa-list"></i> <b> Danh sách lớp</b>
-                                </a>
+                                </button>
                             </div>
-                            <div class="col-md-12" style="margin-top: 10px;">
-                                <a class="btn btn-sm bg-orange" (click)="editClass(item)"
-                                    style=" width: 45%;">
+
+                            <div class=" row col-md-12" style="margin-top: 10px; margin-left: 4%;">
+                                <button class="col-md-6 btn btn-sm bg-orange" (click)="editClass(item)"
+                                    style="width:100%">
                                     <i class="fas fa-edit"></i> Cập nhật
-                                </a>
+                                </button>
 
-                                <a class="btn btn-sm bg-danger" (click)="deleteClass(item.id)"
-                                    style="margin-left: 9%; width: 45%">
+                                <button class="col-md-5 btn btn-sm bg-danger" (click)="deleteClass(item.id)"
+                                    style="width:100%; float: right;">
                                     <i class="fas fa-trash-alt"></i> Xóa
-                                </a>
+                                </button>
+
                             </div>
-
                         </div>
-                        <!-- /.card-body -->
-                    </div>
 
+                    </div>
+                    <!-- /.card-body -->
                 </div>
+
             </div>
         </div>
-
-
-
-
     </div>
+
+
 
 </section>

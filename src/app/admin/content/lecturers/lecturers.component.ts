@@ -162,7 +162,7 @@ export class LecturersComponent implements OnInit {
     });
   }
   creatLecture() {
-    this.router.navigateByUrl('admin/addlecture');
+    this.router.navigateByUrl('admin/addlecturer');
   }
 
   public searchLecture() {

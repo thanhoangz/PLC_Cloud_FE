@@ -7,7 +7,7 @@ import { PaySlipTypeService } from './../../../../services/pay-slip-type.service
 import { PaySlipService } from './../../../../services/pay-slip.service';
 import { PaySlipComponent } from '../../pay-slip.component';
 import { dateToLocalArray } from '@fullcalendar/core/datelib/marker';
-
+import {PersonnelsService  } from './../../../../services/personnels.service';
 @Component({
   selector: 'app-edit-payslip-dialog',
   templateUrl: './edit-payslip-dialog.component.html',
@@ -31,6 +31,7 @@ export class EditPayslipDialogComponent implements OnInit {
     personnelId: '',
     sendPersonnelId: ''
   };
+  public personnel;
   public paySlipType;
   public status = [];
   public statusSelected;
@@ -42,7 +43,8 @@ export class EditPayslipDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-    private paySlipTypeService: PaySlipTypeService
+    private paySlipTypeService: PaySlipTypeService,
+    private personnelComponent: PersonnelsService,
   ) {
     this.setData();
    }
@@ -50,7 +52,7 @@ export class EditPayslipDialogComponent implements OnInit {
   ngOnInit() {
     this.getAllStatus();
     this.getPaySlipTypes();
-
+    this.getPersonnel();
   }
 
   public getAllStatus() {
@@ -68,6 +70,12 @@ export class EditPayslipDialogComponent implements OnInit {
         code: 0
       }
     ];
+  }
+  public getPersonnel() {
+    this.personnelComponent.getAllPersonnels().subscribe(result => {
+      this.personnel = result;
+    }, error => {
+    });
   }
 
   public getPaySlipTypes() {

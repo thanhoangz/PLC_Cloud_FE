@@ -11,6 +11,7 @@ import { ConfirmationDialogService } from '../../confirmation-dialog/confirmatio
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { AddClassComponent } from './dialog/add-class/add-class.component';
 import { EditClassComponent } from './dialog/edit-class/edit-class.component';
+import { CourseService} from '../../services/course.service';
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
@@ -23,13 +24,14 @@ export class ClassComponent implements OnInit {
   public showProgressBar = false;
 
   public isOpenDialog = false;
-
+  public courseList;
   public classes;
-  public image = '../../../../assets/admin/dist/img/test1.png';
+  public image = '../../../../assets/admin/dist/img/best1.png';
 
   public status;
   public keyWord = '';
-  public statusSelected = 2;
+  public courseKeyword = -1;
+  public statusSelected = -1;
   constructor(
     private languageClassesService: LanguageClassesService,
     public matDialog: MatDialog,
@@ -38,7 +40,8 @@ export class ClassComponent implements OnInit {
     private fomatDateService: FomatDateService,
     private router: Router,
     private exchangeDataService: ExchangeDataService,
-    private confirmDialogService: ConfirmationDialogService
+    private confirmDialogService: ConfirmationDialogService,
+    private courseService: CourseService ,
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
@@ -47,6 +50,7 @@ export class ClassComponent implements OnInit {
   ngOnInit() {
     this.getAllStatus();
     this.getClasses();
+    this.getAllCourse();
   }
 
   public getClasses() {
@@ -56,6 +60,13 @@ export class ClassComponent implements OnInit {
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
+    });
+  }
+
+  public getAllCourse() {
+    this.courseService.getAllCourses().subscribe((result: any) => {
+      this.courseList = result;
+    }, error => {
     });
   }
 
@@ -112,7 +123,7 @@ export class ClassComponent implements OnInit {
 
   public findClass() {
     this.startProgressBar();
-    this.languageClassesService.searchLanguageClass(this.keyWord, this.statusSelected).subscribe(result => {
+    this.languageClassesService.searchLanguageClass(this.keyWord, this.courseKeyword, this.statusSelected).subscribe(result => {
       if (result) {
         this.classes = result;
         this.stopProgressBar();
@@ -145,12 +156,8 @@ export class ClassComponent implements OnInit {
         code: 0
       },
       {
-        name: 'Sắp mở',
-        code: 2
-      },
-      {
         name: 'Đã đầy',
-        code: 3
+        code: 2
       },
       {
         name: 'Tất cả',

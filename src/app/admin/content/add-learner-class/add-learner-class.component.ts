@@ -24,20 +24,22 @@ export class AddLearnerClassComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public length = 100;
-  public pageSize = 10;
-  public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20, 30, 50];
+  public pageSizeOptions1 = [5, 10, 15, 20, 30, 50];
+  public pageSizeOptions2 = [5, 10, 15, 20, 30, 50];
 
   public learnerOutClass;
   public learnerInClass;
   public classId;
   public learnerId;
   public keyword;
+  public classList;
 
-
+  //  public sisomax = 0; ////
+  // public l1 = 1;      //
+  // public initialstate;
   public class = {
     id: null,
+    cardId: null,
     name: null,
     courseFee: null,
     monthlyFee: null,
@@ -48,7 +50,10 @@ export class AddLearnerClassComponent implements OnInit {
     courseId: null,
     courseName: null,
     total: null,
+    maxNumber: null,
     note: null,
+    dateCreated: null,
+    dateModified: null,
   };
   public studyProcess = {
     languageClassId: null,
@@ -57,8 +62,8 @@ export class AddLearnerClassComponent implements OnInit {
 
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumnsOutClass: string[] = ['index', 'learnerId', 'name', 'sex', 'birthday', 'controls'];
-  public displayedColumnsInClass: string[] = ['index', 'learnerId', 'name', 'sex', 'birthday', 'controls'];
+  public displayedColumnsOutClass: string[] = ['index', 'cardId', 'name', 'sex', 'birthday', 'controls'];
+  public displayedColumnsInClass: string[] = ['index', 'cardId', 'name', 'sex', 'birthday', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSourceOutClass = new MatTableDataSource(this.learnerOutClass);
   public dataSourceInClass = new MatTableDataSource(this.learnerInClass);
@@ -66,7 +71,8 @@ export class AddLearnerClassComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator1: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator2: MatPaginator;
 
   constructor(
     private learnerService: LearnerService,
@@ -92,12 +98,27 @@ export class AddLearnerClassComponent implements OnInit {
 
     //  this.classId = 'LC1';
     this.load_infor_languageClasses(this.classId);
+    this.getAllClass();
     this.getLearnerOutClass();
     this.getLearnerInClass();
     this.studyProcess.languageClassId = this.classId;
-    this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
+    this.paginator1._intl.itemsPerPageLabel = 'Kích thước trang';
+    this.paginator2._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
+  public loadForm() {
+    this.load_infor_languageClasses(this.classId);
+    this.getLearnerOutClass();
+    this.getLearnerInClass();
+    this.studyProcess.languageClassId = this.classId;
+  }
+
+  public getAllClass() {
+    this.languageClassesService.getAllLanguageClasses().subscribe((result: any) => {
+      this.classList = result;
+    }, error => {
+    });
+  }
 
   public getLearnerOutClass() {
     this.startProgressBar();
@@ -123,16 +144,18 @@ export class AddLearnerClassComponent implements OnInit {
 
   public loadTablesOutClass(data: any) {
     this.dataSourceOutClass = new MatTableDataSource(data);
-    this.dataSourceOutClass.paginator = this.paginator;
+    this.dataSourceOutClass.paginator = this.paginator1;
   }
 
   public loadTablesInClass(data: any) {
     this.dataSourceInClass = new MatTableDataSource(data);
-    this.dataSourceInClass.paginator = this.paginator;
+    this.dataSourceInClass.paginator = this.paginator2;
   }
 
-  public createStudyProcess(learnerId: any) {
+
+  public createStudyProcess(learnerId: any) {   // cập nhật tình trạng lớp nếu full
     this.studyProcess.learnerId = learnerId;
+    // tslint:disable-next-line: triple-equals
     this.studyProcessService.post_studyProcess(this.studyProcess).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Thêm học viên thành công!'); });
       this.getLearnerOutClass();
@@ -143,7 +166,7 @@ export class AddLearnerClassComponent implements OnInit {
     });
   }
 
-  public deleteStudyProcess(learnerId: any) {
+  public deleteStudyProcess(learnerId: any) { // cập nhật tình trạng lớp nếu k full
     this.studyProcessService.delete_studyProcess_byLearnerId(this.studyProcess.languageClassId, learnerId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Xóa học viên thành công!'); });
       this.getLearnerOutClass();
@@ -155,11 +178,34 @@ export class AddLearnerClassComponent implements OnInit {
     });
   }
 
+  /*
+  public updateClass() {
+    this.languageClassesService.putLanguageClass({
+      id: this.class.id,      // đủ 13 thuộc tính
+      name: this.class.name,
+      courseFee: this.class.courseFee,
+      monthlyFee: this.class.monthlyFee,
+      lessonFee: this.class.lessonFee,
+      startDay: this.class.startDay,
+      endDay: this.class.endDay,
+      maxNumber: this.class.maxNumber,
+      dateCreated: this.class.dateCreated,    //
+      dateModified: this.class.dateModified,  //
+      note: this.class.note,
+      courseId: this.class.courseId,
+      status: this.class.status,
+    }).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Cập nhật trạng thái thành công!'); });
+    }, error => {
+    });
+  }
+  */
+
   ////////////// Infor lớp học
   public load_infor_languageClasses(classId) {
     this.languageClassesService.getById(classId).subscribe((result: any) => {
       this.class.name = result.name;
-
+      this.class.id = result.id;
       const startDate = this.datePipe.transform(result.startDay, 'dd-MM-yyyy');
       const endDate = this.datePipe.transform(result.endDay, 'dd-MM-yyyy');
       this.class.courseFee = result.courseFee;
@@ -170,6 +216,9 @@ export class AddLearnerClassComponent implements OnInit {
       this.class.status = result.status;
       this.class.courseId = result.courseId;
       this.class.note = result.note;
+      this.class.maxNumber = result.maxNumber;
+      this.class.dateCreated = result.dateCreated;
+      this.class.dateModified = result.dateModified;
       this.load_total(classId);
       this.load_CourseName(result.courseId);
     }, error => {
@@ -180,6 +229,13 @@ export class AddLearnerClassComponent implements OnInit {
     // tslint:disable-next-line: triple-equals
     this.studyProcessService.search_studyProcess(classId, '', 1).subscribe((result: any) => {
       this.class.total = result.length;
+      // tslint:disable-next-line: triple-equals
+      if (this.class.maxNumber <= this.class.total) {     //  1. hoạt động,  0 : kết thúc, 2 đã đầy
+        this.class.status = 2;
+        this.notificationService.showNotification(2, 'Xếp lớp', 'Thông báo, Lớp đã đầy!');
+      } else {
+        this.class.status = 1;
+      }
     }, error => {
     });
   }

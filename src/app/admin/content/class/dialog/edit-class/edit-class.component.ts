@@ -86,12 +86,8 @@ export class EditClassComponent implements OnInit {
         value: 0
       },
       {
-        name: 'Sắp mở',
-        value: 2
-      },
-      {
         name: 'Đã đầy',
-        value: 3
+        value: 2
       }
     ];
   }

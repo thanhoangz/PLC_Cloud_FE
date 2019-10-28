@@ -34,9 +34,10 @@ export class PersonnelsService {
       .get(`${environment.PLCServicesDomain}/api/Personnels/${id}`);
   }
 
-  getPersonnelWithCondition(keyword, status, personnel: any) {
+  getPersonnelWithCondition(keyword, position, status, personnel: any) {
     return this.httpClient
-      .post(`${environment.PLCServicesDomain}/api/Personnels/get-all-with-conditions?keyword=${keyword}&status=${status}`, personnel);
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/Personnels/get-all-with-conditions?keyword=${keyword}&position=${position}&status=${status}`, personnel);
   }
 
 }

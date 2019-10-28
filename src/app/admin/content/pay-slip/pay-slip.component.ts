@@ -13,6 +13,7 @@ import { PaySlipService } from '../../services/pay-slip.service';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import { PaySlipTypeService } from '../../services/pay-slip-type.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class PaySlipComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
+  public paySlipType;
   public paySlip;
   public status = [];
 
@@ -39,6 +41,7 @@ export class PaySlipComponent implements OnInit {
 
   public keyWord = '';
   public statusSelected = null;
+  public keywordPhieuChi = null;
 
   // tslint:disable-next-line: member-ordering
   public displayedColumns: string[] = ['index', 'paySlipTypeName', 'date', 'receiver', 'total', 'status', 'controls'];
@@ -55,7 +58,8 @@ export class PaySlipComponent implements OnInit {
     public matDialog: MatDialog,
     private confirmService: ConfirmService,
     private datePipe: DatePipe,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private paySlipTypeService: PaySlipTypeService,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -65,6 +69,7 @@ export class PaySlipComponent implements OnInit {
   ngOnInit() {
     this.getPaySlips();
     this.getAllStatus();
+    this.getPaySlipTypes();
     this.statusSelected = this.status[3].code;
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
 
@@ -73,6 +78,13 @@ export class PaySlipComponent implements OnInit {
   public loadTables(data: any) {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
+  }
+
+  public getPaySlipTypes() {
+    this.paySlipTypeService.getAllPaySlipTypes().subscribe(result => {
+      this.paySlipType = result;
+    }, error => {
+    });
   }
 
   public getPaySlips() {
@@ -183,7 +195,7 @@ export class PaySlipComponent implements OnInit {
     this.startProgressBar();
     const startDate = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
     const endDate = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
-    this.paySlipServies.searchPaySlip(startDate, endDate, this.keyWord, this.statusSelected).subscribe(result => {
+    this.paySlipServies.searchPaySlip(startDate, endDate, this.keyWord, this.keywordPhieuChi, this.statusSelected).subscribe(result => {
       if (result) {
         this.paySlip = result;
         this.loadTables(result);

@@ -35,10 +35,10 @@ pagingCourses(keyWord, status, pageSize, pageIndex) {
     .post(`${environment.PLCServicesDomain}/api/LanguageClasses/paging?keyword=${keyWord}&status=${status}&pageSize=${pageSize}&pageIndex=${pageIndex}`, keyWord);
 }
 
-searchLanguageClass(keyWord, status) {
+searchLanguageClass(keyWord, courseKeyword, status) {
   return this.httpClient
     // tslint:disable-next-line: max-line-length
-    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
+    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&courseKeyword=${courseKeyword}&status=${status}`, null);
 }
 
 findByStatus(status) {
@@ -50,5 +50,10 @@ findByStatus(status) {
 getById(id) {
   return this.httpClient
     .get(`${environment.PLCServicesDomain}/api/LanguageClasses/${id}`);
+}
+
+getClassStatus12( classId) {
+  return this.httpClient
+    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-status12?classId=${classId}`, null);
 }
 }

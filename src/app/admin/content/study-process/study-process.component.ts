@@ -42,7 +42,7 @@ export class StudyProcessComponent implements OnInit {
   public learnerInClass;
   public classId;
   public learnerId;
-
+  public classList;
   public class = {
     id: null,
     name: null,
@@ -55,11 +55,12 @@ export class StudyProcessComponent implements OnInit {
     courseId: null,
     courseName: null,
     total: null,
+    maxNumber: null,
     note: null,
   };
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumnsInClass: string[] = ['index', 'learnerId', 'name', 'sex', 'birthday', 'status', 'controls'];
+  public displayedColumnsInClass: string[] = ['index', 'cardId', 'name', 'sex', 'birthday', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSourceInClass = new MatTableDataSource(this.learnerInClass);
   // tslint:disable-next-line: member-ordering
@@ -94,14 +95,23 @@ export class StudyProcessComponent implements OnInit {
     // this.classId = 'LC1';
     this.tempstatus = 1;
     this.getAllStatus();
+    this.getAllClass();
     this.getLearnerInClass();
-    this.load_infor_Classes(this.classId);
+    this.load_infor_Classes(this.classId);  //
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
   applyFilter(filterValue: any) {
     this.dataSourceInClass.filter = filterValue.trim().toLowerCase();
   }
+
+  public getAllClass() {
+    this.languageClassesService.getAllLanguageClasses().subscribe((result: any) => {
+      this.classList = result;
+    }, error => {
+    });
+  }
+
 
   public getLearnerInClass() {
     this.startProgressBar();
@@ -117,6 +127,13 @@ export class StudyProcessComponent implements OnInit {
   public loadTablesInClass(data: any) {
     this.dataSourceInClass = new MatTableDataSource(data);
     this.dataSourceInClass.paginator = this.paginator;
+  }
+
+  public loadForm() {
+    this.tempstatus = 1;
+    this.getAllStatus();
+    this.getLearnerInClass();
+    this.load_infor_Classes(this.classId);
   }
 
   private getAllStatus() {
@@ -162,6 +179,7 @@ export class StudyProcessComponent implements OnInit {
       this.class.status = result.status;  // tình trạng
       this.class.courseId = result.courseId;  // mã khóa học
       this.class.note = result.note;
+      this.class.maxNumber = result.maxNumber;
       this.load_total(classId);
       this.load_CourseName(result.courseId);
     }, error => {

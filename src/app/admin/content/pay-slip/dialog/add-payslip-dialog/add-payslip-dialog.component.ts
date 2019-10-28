@@ -7,6 +7,7 @@ import { PaySlipTypeService } from './../../../../services/pay-slip-type.service
 import { PaySlipService } from './../../../../services/pay-slip.service';
 import { PaySlipComponent } from '../../pay-slip.component';
 import { dateToLocalArray } from '@fullcalendar/core/datelib/marker';
+import {PersonnelsService  } from './../../../../services/personnels.service';
 
 @Component({
   selector: 'app-add-payslip-dialog',
@@ -33,6 +34,7 @@ export class AddPayslipDialogComponent implements OnInit {
   };
 
   public paySlipType;
+  public personnel;
   public status = [];
   public statusSelected;
 
@@ -43,16 +45,26 @@ export class AddPayslipDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-    private paySlipTypeService: PaySlipTypeService
+    private paySlipTypeService: PaySlipTypeService,
+    private personnelComponent: PersonnelsService
   ) { }
 
   ngOnInit() {
     this.getAllStatus();
     this.getPaySlipTypes();
+    this.getPersonnel();
     this.paySlip.date = new Date();
-    this.paySlip.appUserId = '4b900a74-e2d9-4837-b9a4-9e828752716e';
-    this.paySlip.personnelId = 'hhhhh';
-    this.paySlip.sendPersonnelId = 'hhhhh';
+    this.paySlip.id = 'CCCC';
+    this.paySlip.appUserId = '750da7c1-d22b-4f9f-9459-08d75a840c22';
+    this.paySlip.personnelId = '7f8KNHlBL5F5Kp1qWB31wriscmgwpmNpngUFbyJZGWbfananjE';
+    this.paySlip.sendPersonnelId = '7f8KNHlBL5F5Kp1qWB31wriscmgwpmNpngUFbyJZGWbfananjE';
+  }
+/////////////////////////
+  public getPersonnel() {
+    this.personnelComponent.getAllPersonnels().subscribe(result => {
+      this.personnel = result;
+    }, error => {
+    });
   }
 
   public getPaySlipTypes() {

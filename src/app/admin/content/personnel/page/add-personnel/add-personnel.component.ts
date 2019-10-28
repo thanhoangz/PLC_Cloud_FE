@@ -21,6 +21,7 @@ export class AddPersonnelComponent implements OnInit {
   public floatLabel = 'always';
 
   public status;
+  public position;
   public marritalStatus;
   public genderes = [
     {
@@ -34,8 +35,6 @@ export class AddPersonnelComponent implements OnInit {
   ];
 
   public personnel = {    // edit thuộc tính
-    id: null,
-    cardId: null,
     firstName: null,
     lastName: null,
     sex: null,
@@ -47,7 +46,7 @@ export class AddPersonnelComponent implements OnInit {
     email: null,
     facebook: null,
     phone: null,
-    position: null,
+    position: 'Nhân viên',
     certificate: null,
     image: '../../../../../../assets/admin/dist/img/user_def.png',
     basicSalary: null,
@@ -73,8 +72,6 @@ export class AddPersonnelComponent implements OnInit {
 
   private initLectureForm() {          // bắt lỗi : edit thuộc tính
     this.personnelFormGroup = new FormGroup({
-      id: new FormControl(null, [Validators.required]),
-      cardId: new FormControl(),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       sex: new FormControl(),
@@ -100,6 +97,7 @@ export class AddPersonnelComponent implements OnInit {
   ngOnInit() {
     this.getAllStatus();
     this.getAllMarritalStatus();
+    this.getAllPosition();
     this.initLectureForm();
     this.personnel.sex = this.genderes[0].value;
   }
@@ -149,6 +147,23 @@ export class AddPersonnelComponent implements OnInit {
       {
         name: 'Nghỉ việc',
         code: 0
+      },
+    ];
+  }
+
+  public getAllPosition() {
+    this.position = [
+      {
+        name: 'Nhân viên',
+        code: 0
+      },
+      {
+        name: 'Quản lý',
+        code: 1
+      },
+      {
+        name: 'Kế toán',
+        code: 2
       },
     ];
   }
