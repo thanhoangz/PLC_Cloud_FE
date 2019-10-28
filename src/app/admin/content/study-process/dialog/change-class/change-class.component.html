@@ -26,7 +26,7 @@
                             <span><b>Mã HV</b></span>
                         </div>
                         <div class="col-md-7" id="row_row">
-                            <span [class]="'badge badge-primary'"> {{data._learnerInClass.learner.id}} </span>
+                            <span [class]="'badge badge-primary'"> {{data._learnerInClass.learner.cardId}} </span>
                         </div>
                     </div>
 
@@ -130,7 +130,7 @@
                             <span><b>Mã HV</b></span>
                         </div>
                         <div class="col-md-7" id="row_row">
-                            <span [class]="'badge badge-primary'"> {{this.data._learnerInClass.learner.id}} </span>
+                            <span [class]="'badge badge-primary'"> {{this.data._learnerInClass.learner.cardId}} </span>
                         </div>
                     </div>
 
@@ -184,7 +184,7 @@
                             <span><b>Ngày bắt đầu</b></span>
                         </div>
                         <div class="col-md-7" id="row_row">
-                            <span [class]="'badge badge-warning'">{{newClass.startDay}}</span>
+                            <span [class]="'badge badge-warning'">{{newClass.startDay | date:'dd-MM-yyyy'}}</span>
                         </div>
                     </div>
 

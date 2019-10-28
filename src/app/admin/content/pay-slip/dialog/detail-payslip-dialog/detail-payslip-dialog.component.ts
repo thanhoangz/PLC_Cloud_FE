@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 import { FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 import { PaySlipTypeService } from 'src/app/admin/services/pay-slip-type.service';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-detail-payslip-dialog',
   templateUrl: './detail-payslip-dialog.component.html',
@@ -14,7 +14,7 @@ export class DetailPayslipDialogComponent implements OnInit {
 
   public paySlipType;
   public status = [];
-
+  public date;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<DetailPayslipDialogComponent>,
@@ -22,13 +22,17 @@ export class DetailPayslipDialogComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-    private paySlipTypeService: PaySlipTypeService
+    private paySlipTypeService: PaySlipTypeService,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit() {
     this.getAllStatus();
     this.getPaySlipType();
-    console.log(this.data);
+    this.formatDate();
+  }
+  public formatDate() {
+    this.date = this.datePipe.transform(this.data._paySlip.date, 'dd-MM-yyyy');
   }
 
   public getAllStatus() {

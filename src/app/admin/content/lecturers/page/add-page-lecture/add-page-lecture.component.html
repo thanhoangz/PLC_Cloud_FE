@@ -80,15 +80,7 @@
               <hr>
               <div class="row">
                 <div class="col-md-5">
-                  <mat-form-field [floatLabel]='floatLabel'>
-                    <mat-label>Card ID</mat-label>
-                    <input matInput placeholder="Card ID" required [(ngModel)]="lecture.cardId"
-                      formControlName="cardId">
-                    <mat-error *ngIf="!lectureFormGroup.hasError('required')">
-                      Vui lòng nhập card id!
-                    </mat-error>
-                  </mat-form-field>
-
+                  
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Họ</mat-label>
                     <input matInput placeholder="Nhập họ..." required [(ngModel)]="lecture.firstName"

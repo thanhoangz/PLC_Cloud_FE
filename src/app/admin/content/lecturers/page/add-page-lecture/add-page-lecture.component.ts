@@ -36,7 +36,6 @@ export class AddPageLectureComponent implements OnInit {
     }
   ];
   public lecture = {
-    cardId: null,
     firstName: null,
     lastName: null,
     sex: null,
@@ -78,7 +77,6 @@ export class AddPageLectureComponent implements OnInit {
   }
   private initLectureForm() {
     this.lectureFormGroup = new FormGroup({
-      cardId: new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       sex: new FormControl(),

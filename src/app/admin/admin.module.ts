@@ -89,6 +89,8 @@ import { EditClassComponent } from './content/class/dialog/edit-class/edit-class
 import { AddUserDialogComponent } from './content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './content/user-management/dialog/update-user-dialog/update-user-dialog.component';
 import { CommonPointComponent } from './content/common-point/common-point.component';
+import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
+import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
 
 @NgModule({
   imports: [
@@ -184,7 +186,9 @@ import { CommonPointComponent } from './content/common-point/common-point.compon
     EditClassComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
-    CommonPointComponent
+    CommonPointComponent,
+    SearchStudyprocessComponent,
+    PermissionsForUserComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

@@ -1,0 +1,161 @@
+<mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
+<!-- Main content -->
+<section class="content" style="margin-top: 1%">
+    <div class="container-fluid">
+        <mat-card>
+
+            <mat-card-header class="card-container">
+                <mat-card-title>Quá trình học tập</mat-card-title>
+                <mat-card-subtitle>Tra cứu thông tin sinh viên</mat-card-subtitle>
+            </mat-card-header>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Mã học viên</mat-label>
+                        <input matInput placeholder="Nhập mã học viên" [(ngModel)]="keyWord">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1" style="margin-left:1% ;">
+                    <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px">
+                        <mat-icon>search</mat-icon>
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+
+        </mat-card>
+        <mat-card>
+
+            <div class="row col-md-12" style=" padding-top: 8px; background-color: burlywood;">
+                <div class="col-md-3" style="float: left;">
+                    <mat-card-header class="card-container">
+                        <mat-card-title style="font-size: 24px;"><b>Thông tin học viên</b></mat-card-title>
+                    </mat-card-header>
+                </div>
+                <div class=" row col-md-12" style="background-color: cadetblue;">
+                    <div class="col-md-5">
+
+                        <div class="row">
+                            <div class="col-md-5" id="row_row">
+                                <span><b>Học viên</b></span>
+                            </div>
+                            <div class="col-md-7" id="row_row">
+                                <span [class]="'badge badge-primary'">
+                                    Nguyễn Viết Phương
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5" id="row_row">
+                                <span><b>Mã học viên</b></span>
+                            </div>
+                            <div class="col-md-7" id="row_row">
+                                <span [class]="'badge badge-primary'">
+                                    63615
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5" id="row_row">
+                                <span><b>Ngày sinh</b></span>
+                            </div>
+                            <div class="col-md-7" id="row_row">
+                                <span [class]="'badge badge-primary'">
+                                    10-10-1997
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5" id="row_row">
+                                <span><b>Giới tính</b></span>
+                            </div>
+                            <div class="col-md-7" id="row_row">
+                                <span [class]="'badge badge-primary'">
+                                    10-10-1997
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <mat-tab-group>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">playlist_add_check</mat-icon>
+                        <b style="font-size: 18px; color: blue;">Quá trình học tập</b>
+                    </ng-template>
+
+                    <mat-card-content>
+                        <table mat-table [dataSource]="dataSource">
+
+                            <ng-container matColumnDef="index">
+                                <th mat-header-cell *matHeaderCellDef> STT</th>
+                                <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef> Ngày thực hiện</th>
+                                <td mat-cell *matCellDef="let element">{{element.date}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="classId">
+                                <th mat-header-cell *matHeaderCellDef> Mã lớp</th>
+                                <td mat-cell *matCellDef="let element"> {{element.classId}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="courseId">
+                                <th mat-header-cell *matHeaderCellDef> Khóa học</th>
+                                <td mat-cell *matCellDef="let element"> {{element.courseId}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="className">
+                                <th mat-header-cell *matHeaderCellDef> Tên lớp</th>
+                                <td mat-cell *matCellDef="let element">{{element.className}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="manipulation">
+                                <th mat-header-cell *matHeaderCellDef> Hình thức</th>
+                                <td mat-cell *matCellDef="let element"> {{element.manipulation}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="note">
+                                <th mat-header-cell *matHeaderCellDef width="22%"> Ghi chú </th>
+                                <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </tr>
+                        </table>
+                    </mat-card-content>
+
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                        Bảng điểm
+                    </ng-template>
+                    Content 3
+                </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                        Học phí
+                    </ng-template>
+                    Content 3
+                </mat-tab>
+
+            </mat-tab-group>
+        </mat-card>
+
+    </div>
+</section>
+<!-- /.content -->

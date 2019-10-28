@@ -12,7 +12,6 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./common-point.component.css']
 })
 export class CommonPointComponent implements OnInit {
-  public showProgressBar = true;
 
   public screenHeight: any;
   public screenWidth: any;
@@ -27,7 +26,7 @@ export class CommonPointComponent implements OnInit {
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
     private loginService: LoginService
-  ) { 
+  ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);

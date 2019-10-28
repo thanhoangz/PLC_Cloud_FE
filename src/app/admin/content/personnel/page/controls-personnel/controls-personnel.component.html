@@ -80,16 +80,16 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <mat-form-field [floatLabel]='floatLabel'>
+                                    <mat-form-field [floatLabel]='floatLabel' disable>
                                         <mat-label>Mã nhân viên</mat-label>
-                                        <input matInput  required [(ngModel)]="personnel.id"
-                                            formControlName="id" disabled>
+                                        <input matInput  disable [(ngModel)]="personnel.id"
+                                            formControlName="id" >
                                     </mat-form-field>
 
-                                    <mat-form-field [floatLabel]='floatLabel'>
+                                    <mat-form-field [floatLabel]='floatLabel' disable>
                                         <mat-label>Card ID</mat-label>
                                         <input matInput placeholder="Card ID" [(ngModel)]="personnel.cardId"
-                                            formControlName="cardId">
+                                            formControlName="cardId" disable>
                                     </mat-form-field>
 
                                     <mat-form-field [floatLabel]='floatLabel'>

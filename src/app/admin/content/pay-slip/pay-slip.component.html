@@ -10,6 +10,13 @@
             <div class="row">
                 <div class="col-md-2">
                     <mat-form-field>
+                        <mat-label>Mã phiếu chi</mat-label>
+                        <input matInput placeholder="Nhập mã phiếu chi" [(ngModel)]="keyWord">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-2">
+                    <mat-form-field>
                         <mat-label>Từ ngày</mat-label>
                         <input [(ngModel)]="startDate" [matDatepicker]="picker1" matInput placeholder="Từ ngày">
                         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -36,11 +43,16 @@
                 </div>
                 <div class="col-md-2">
                     <mat-form-field>
-                        <mat-label>Mã phiếu chi</mat-label>
-                        <input matInput placeholder="Nhập mã phiếu chi" [(ngModel)]="keyWord">                        
+                        <mat-label>Chọn phiếu chi</mat-label>
+                        <mat-select [(ngModel)]="keywordPhieuChi">
+                            <mat-option *ngFor="let s of paySlipType" value="{{s.id}}">
+                                {{s.name}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-3">
+
+                <div class="col-md-1">
                 </div>
                 <div class="col-md-1">
                     <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
@@ -69,13 +81,13 @@
                     </ng-container>
 
                     <ng-container matColumnDef="paySlipTypeName">
-                        <th mat-header-cell *matHeaderCellDef> Tên loại chi </th>
+                        <th mat-header-cell *matHeaderCellDef> Loại phiếu chi </th>
                         <td mat-cell *matCellDef="let element"> {{element.paySlipTypeName}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="date">
                         <th mat-header-cell *matHeaderCellDef> Ngày chi</th>
-                        <td mat-cell *matCellDef="let element"> {{element.date}}</td>
+                        <td mat-cell *matCellDef="let element"> {{element.date | date : 'dd-MM-yyyy'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="receiver">

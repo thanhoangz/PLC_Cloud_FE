@@ -23,6 +23,7 @@ import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lec
 import { PersonnelComponent } from './content/personnel/personnel.component';
 import { ClassComponent } from './content/class/class.component';
 import { CommonPointComponent } from './content/common-point/common-point.component';
+import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 
 const adminRoutes: Routes = [
   {
@@ -53,6 +54,7 @@ const adminRoutes: Routes = [
           { path: 'class-list', component: ClassComponent },
           { path: 'commin-point', component: CommonPointComponent },
 
+          { path: 'search-learner', component: SearchStudyprocessComponent },
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent }
         ]

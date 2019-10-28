@@ -24,6 +24,9 @@ export class PersonnelComponent implements OnInit {
   public pageIndex = 1;
   public pageSizeOptions = [6, 9, 12, 15];
 
+  public items = [];
+  public pageOfItems: Array<any>;
+
   public personnel;
 
   public status;
@@ -41,6 +44,8 @@ export class PersonnelComponent implements OnInit {
 
   public keyWord = '';
   public statusSelected = 2;
+  public positionKeyword = 'Tất cả';
+  public position;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private personnelsService: PersonnelsService,
@@ -59,6 +64,7 @@ export class PersonnelComponent implements OnInit {
   ngOnInit() {
     this.getAllStatus();
     this.getAllMarritalStatus();
+    this.getAllPosition();
     this.getPersonnels();
   }
 
@@ -66,10 +72,15 @@ export class PersonnelComponent implements OnInit {
     this.startProgressBar();
     this.personnelsService.getAllPersonnels().subscribe((result: any) => {
       this.personnel = result;
+      this.items = Array(this.personnel.length).fill(0).map((x, i) => (result[i]));
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
     });
+  }
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
   }
 /*Update image => success => save to learner object*/
   onFileComplete(data: any) {
@@ -99,10 +110,12 @@ export class PersonnelComponent implements OnInit {
       this.stopProgressBar();
     });
   }
-  public searchPersonnel() {
+  public searchPersonnel() {            // truyền điều kiện
     this.startProgressBar();
-    this.personnelsService.getPersonnelWithCondition(this.keyWord, this.statusSelected, this.personnel).subscribe((result: any) => {
+    // tslint:disable-next-line: max-line-length
+    this.personnelsService.getPersonnelWithCondition(this.keyWord, this.positionKeyword, this.statusSelected, this.personnel).subscribe((result: any) => {
       this.personnel = result;
+      this.items = Array(this.personnel.length).fill(0).map((x, i) => (result[i]));
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
@@ -129,6 +142,31 @@ export class PersonnelComponent implements OnInit {
       {
         name: 'Độc thân',
         code: 0
+      },
+    ];
+  }
+
+  public getAllPosition() {
+    this.position = [
+      {
+        name: 'Nhân viên',
+        code: 0
+      },
+      {
+        name: 'Quản lý',
+        code: 1
+      },
+      {
+        name: 'Kế toán',
+        code: 2
+      },
+      {
+        name: 'Giáo viên',
+        code: 3
+      },
+      {
+        name: 'Tất cả',
+        code: 4
       },
     ];
   }

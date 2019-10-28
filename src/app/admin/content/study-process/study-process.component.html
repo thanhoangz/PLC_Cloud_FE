@@ -12,12 +12,24 @@
         <div class="row">
             <div class="col-md-12">
                 <mat-card>
-                    <div class="row col-md-12"
-                        style="margin-bottom: 10px; padding-top: 8px; border-bottom: solid 1px silver;">
-                        <div class="col-md-2" style="float: left;">
-                            <mat-card-header class="card-container">
-                                <mat-card-title style="font-size: 24px;"><b>Thông tin lớp học</b></mat-card-title>
-                            </mat-card-header>
+                    <div class="row col-md-12" style="border-bottom: solid 1px silver; margin-bottom: 10px;">
+                        <div class="row col-md-10" style=" padding-top: 8px;">
+                            <div class="col-md-3" style="float: left;">
+                                <mat-card-header class="card-container">
+                                    <mat-card-title style="font-size: 24px;"><b>Thông tin lớp học</b></mat-card-title>
+                                </mat-card-header>
+                            </div>
+                        </div>
+                        <!-- Chọn lớp học  -->
+                        <div class="col-md-2">
+                            <mat-form-field>
+                                <mat-label>Chọn lớp học</mat-label>
+                                <mat-select [(ngModel)]="classId" (ngModelChange)="loadForm()">
+                                    <mat-option *ngFor="let s of classList" value="{{s.id}}">
+                                        {{s.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
 
@@ -33,7 +45,7 @@
                                     <b>Khóa học :</b> <a class="float-right"> {{class.courseName}}</a>
                                 </li>
                                 <li class="list-group-item" style="background-color: #F5F5F5;">
-                                    <b>Sĩ số :</b> <a class="float-right"> {{class.total}}</a>
+                                    <b>Sĩ số :</b> <a class="float-right"> {{class.total + " / " + class.maxNumber}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -48,8 +60,9 @@
                                 <li class="list-group-item" style="background-color: #F5F5F5;">
                                     <b>Trạng thái :</b>
                                     <a class="float-right">
-                                        <span [class]="(class.status == 0?'badge badge-danger':'badge badge-success')">
-                                            {{(class.status == 1)?"Hoạt động":"Khóa"}}
+                                        <span
+                                            [class]="(class.status == 1?'badge badge-success':(class.status == 0?'badge badge-danger':'badge badge-primary'))">
+                                            {{(class.status)==1?"Hoạt động":((class.status)==0?"Kết thúc":"Đã đầy")}}
                                         </span>
                                     </a>
                                 </li>
@@ -135,9 +148,9 @@
                                     <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="learnerId">
+                                <ng-container matColumnDef="cardId">
                                     <th mat-header-cell *matHeaderCellDef class="tencot"><b> Mã HV</b></th>
-                                    <td mat-cell *matCellDef="let element"> {{element.learner.id}}</td>
+                                    <td mat-cell *matCellDef="let element"> {{element.learner.cardId}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="name">
@@ -172,6 +185,9 @@
                                 <ng-container matColumnDef="controls">
                                     <th mat-header-cell *matHeaderCellDef class="tencot"> <b>Chức năng </b></th>
                                     <td mat-cell *matCellDef="let element">
+                                        <button mat-icon-button (click)="openDetailStudyProcess(element)">
+                                            <mat-icon>list</mat-icon>
+                                        </button>
                                         <button mat-icon-button (click)="openEditStudyProcess(element)">
                                             <mat-icon>edit</mat-icon>
                                         </button>
@@ -186,8 +202,7 @@
 
 
                                 <tr mat-header-row *matHeaderRowDef="displayedColumnsInClass"></tr>
-                                <tr mat-row (click)="openDetailStudyProcess(row)"
-                                    *matRowDef="let row; columns: displayedColumnsInClass;">
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsInClass;">
                                 </tr>
                             </table>
                             <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

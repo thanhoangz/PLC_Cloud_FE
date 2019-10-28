@@ -80,18 +80,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <mat-form-field [floatLabel]='floatLabel'>
-                                        <mat-label>Mã nhân viên</mat-label>
-                                        <input matInput placeholder="Nhập mã nhân viên" required [(ngModel)]="personnel.id"
-                                            formControlName="id">
-                                    </mat-form-field>
-
-                                    <mat-form-field [floatLabel]='floatLabel'>
-                                        <mat-label>Card ID</mat-label>
-                                        <input matInput placeholder="Card ID" [(ngModel)]="personnel.cardId"
-                                            formControlName="cardId">
-                                    </mat-form-field>
-
+                                    
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Họ</mat-label>
                                         <input matInput placeholder="Nhập họ..." required
@@ -170,11 +159,15 @@
                                 </div>
 
                                 <div class="col-md-5">
-                                    <mat-form-field [floatLabel]='floatLabel'>
-                                        <mat-label>Chức vụ nhân viên</mat-label>
-                                        <input matInput placeholder="Nhập chức vụ" required
-                                            [(ngModel)]="personnel.position" formControlName="position">
-
+                                    
+                                    <mat-form-field>
+                                        <mat-label>Chức vụ</mat-label>
+                                        <mat-select [(ngModel)]="personnel.position" required style="text-align: center;"
+                                            required formControlName="position">
+                                            <mat-option *ngFor="let item of position" [value]="item.name" style="text-align: center;">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
                                     </mat-form-field>
 
                                     <mat-form-field>
@@ -197,7 +190,6 @@
                                                 {{item.name}}
                                             </mat-option>
                                         </mat-select>
-
                                     </mat-form-field>
 
                                     <mat-form-field [floatLabel]='floatLabel'>

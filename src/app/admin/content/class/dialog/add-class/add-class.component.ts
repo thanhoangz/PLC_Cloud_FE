@@ -19,6 +19,7 @@ export class AddClassComponent implements OnInit {
     courseFee: null,
     monthlyFee: null,
     lessonFee: null,
+    maxNumber: null,
     startDay: null,
     endDay: null,
     status: null,
@@ -58,10 +59,6 @@ export class AddClassComponent implements OnInit {
         name: 'Hoạt động',
         value: 1
       },
-      {
-        name: 'Sắp mở',
-        value: 2
-      }
     ];
   }
 
