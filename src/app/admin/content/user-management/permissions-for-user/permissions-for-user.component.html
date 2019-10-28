@@ -9,37 +9,38 @@
             {{item.name}}
           </mat-panel-title>
           <mat-panel-description>
-         
+
             <mat-icon>account_circle</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-card *ngFor="let childItem of item.childFunctionViewModels" class="mat-elevation-z8" style="margin-top: 0.5%;">
+        <mat-card *ngFor="let childItem of item.childFunctionViewModels" class="mat-elevation-z8"
+          style="margin-top: 0.5%;">
           <div class="row">
             <div class="col-md-3">
               <label>{{childItem.name}}</label>
             </div>
             <div class="col-md-2">
               <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after"
-                [disabled]="(item.status == 1)?false:true">
+                (change)="changeAdd($event.checked,childItem)" [disabled]="(item.status == 1)?false:true">
                 Thêm
               </mat-checkbox>
             </div>
-            <div class="col-md-2">
-              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after"
+            <div class="col-md-2"> 
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after" (change)="changeUpdate($event.checked,childItem)"
                 [disabled]="(item.status == 1)?false:true">
                 Cập nhật
               </mat-checkbox>
             </div>
             <div class="col-md-2">
-              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after"
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after" (change)="changeDelete($event.checked,childItem)"
                 [disabled]="(item.status == 1)?false:true">
                 Xóa
               </mat-checkbox>
             </div>
 
             <div class="col-md-2">
-              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after"
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after" (change)="changeRead($event.checked,childItem)"
                 [disabled]="(item.status == 1)?false:true">
                 Tìm kiếm/ đọc
               </mat-checkbox>

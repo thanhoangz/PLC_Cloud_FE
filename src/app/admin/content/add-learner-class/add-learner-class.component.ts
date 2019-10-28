@@ -24,9 +24,8 @@ export class AddLearnerClassComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public length = 100;
-  public pageSize = 10;
-  public pageIndex = 1;
+
+
   public pageSizeOptions = [5, 10, 15, 20, 30, 50];
 
   public learnerOutClass;
