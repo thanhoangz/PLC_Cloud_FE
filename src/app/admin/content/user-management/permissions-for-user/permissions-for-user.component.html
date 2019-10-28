@@ -1,0 +1,71 @@
+<mat-card>
+
+  <mat-card-content>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)"
+        *ngFor="let item of groupFunctions; let i= index" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{item.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-card *ngFor="let childItem of item.childFunctionViewModels" class="mat-elevation-z8"
+          style="margin-top: 0.5%;">
+          <div class="row">
+            <div class="col-md-3">
+              <label>{{childItem.name}}</label>
+            </div>
+            <div class="col-md-2">
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after"
+                (change)="changeAdd($event.checked,childItem)" [disabled]="(item.status == 1)?false:true">
+                Thêm
+              </mat-checkbox>
+            </div>
+            <div class="col-md-2"> 
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after" (change)="changeUpdate($event.checked,childItem)"
+                [disabled]="(item.status == 1)?false:true">
+                Cập nhật
+              </mat-checkbox>
+            </div>
+            <div class="col-md-2">
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after" (change)="changeDelete($event.checked,childItem)"
+                [disabled]="(item.status == 1)?false:true">
+                Xóa
+              </mat-checkbox>
+            </div>
+
+            <div class="col-md-2">
+              <mat-checkbox class="permission-margin" [(ngModel)]="checked" labelPosition="after" (change)="changeRead($event.checked,childItem)"
+                [disabled]="(item.status == 1)?false:true">
+                Tìm kiếm/ đọc
+              </mat-checkbox>
+            </div>
+
+            <div class="col-md-1">
+              <mat-slide-toggle></mat-slide-toggle>
+            </div>
+
+          </div>
+
+        </mat-card>
+
+        <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Quay lại</button>
+          <button mat-button color="primary" (click)="nextStep()">Tiếp theo</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+
+
+    </mat-accordion>
+  </mat-card-content>
+
+  <mat-card-footer>
+
+  </mat-card-footer>
+</mat-card>

@@ -55,7 +55,8 @@
                             </ng-container>
 
                             <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
-                            <tr mat-row (click)="openUpdateDialog(row)" *matRowDef="let row; columns: userColumns;"></tr>
+                            <tr mat-row (click)="openUpdateDialog(row)" *matRowDef="let row; columns: userColumns;">
+                            </tr>
                         </table>
 
                         <mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
@@ -72,9 +73,8 @@
                     Phân quyền
                 </ng-template>
 
-                Content 2
+                <app-permissions-for-user></app-permissions-for-user>
             </mat-tab>
-            <mat-tab label="Third">Content 3</mat-tab>
         </mat-tab-group>
 
 
