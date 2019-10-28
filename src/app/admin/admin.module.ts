@@ -88,6 +88,7 @@ import { AddClassComponent } from './content/class/dialog/add-class/add-class.co
 import { EditClassComponent } from './content/class/dialog/edit-class/edit-class.component';
 import { AddUserDialogComponent } from './content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './content/user-management/dialog/update-user-dialog/update-user-dialog.component';
+import { CommonPointComponent } from './content/common-point/common-point.component';
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
 
@@ -185,6 +186,7 @@ import { PermissionsForUserComponent } from './content/user-management/permissio
     EditClassComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
+    CommonPointComponent,
     SearchStudyprocessComponent,
     PermissionsForUserComponent
   ],

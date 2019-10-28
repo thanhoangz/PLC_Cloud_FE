@@ -150,7 +150,7 @@ export class LecturersComponent implements OnInit {
 
   public updateLecture(id) {
     this.createExchangeId(id);
-    this.router.navigateByUrl('admin/editlecture');
+    this.router.navigateByUrl('admin/editlecturer');
   }
   public deleteLecture(id) {
     this.lecturersService.deleteLectureId(id).subscribe(result => {
