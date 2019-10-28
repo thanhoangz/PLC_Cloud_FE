@@ -44,7 +44,7 @@ export class PermissionsForUserComponent implements OnInit {
 
   ngOnInit() {
     this.getAllGroupFunctions();
-    this.getPermissForUser('ec0d77ab-918a-4b45-8cac-08d75ac91ff8');
+
   }
 
   setStep(index: number) {
@@ -70,35 +70,67 @@ export class PermissionsForUserComponent implements OnInit {
   public getAllGroupFunctions() {
     this.functionService.getAllFunctionsByGroup().subscribe((result: [any]) => {
       this.groupFunctions = result;
-      console.log(result);
       result.forEach(element => {
         this.numberPer += element.childFunctionViewModels.length;
       });
-      this.getAllPermissionByUser(result, this.numberPer);
-      console.log(this.numberPer);
+      this.getPermissForUser(this.userId);
+
     }, errror => {
 
     });
   }
 
   public changeAdd(isChecked: boolean, funct: any) {
-    console.log(isChecked);
-    console.log(funct);
+    this.permissionsForUser.forEach(element => {
+      if (element.functionId === funct.id) {
+        element.canCreate = isChecked;
+        this.permissionService.putPermission(element).subscribe(result => {
+          return;
+        }, error => {
+          return;
+        });
+        return;
+      }
+    });
   }
   public changeUpdate(isChecked: boolean, funct: any) {
-    console.log(isChecked);
-    console.log(funct);
+    this.permissionsForUser.forEach(element => {
+      if (element.functionId === funct.id) {
+        element.canUpdate = isChecked;
+        this.permissionService.putPermission(element).subscribe(result => {
+          return;
+        }, error => {
+          return;
+        });
+        return;
+      }
+    });
   }
   public changeDelete(isChecked: boolean, funct: any) {
-    console.log(isChecked);
-    console.log(funct);
+    this.permissionsForUser.forEach(element => {
+      if (element.functionId === funct.id) {
+        element.canDelete = isChecked;
+        this.permissionService.putPermission(element).subscribe(result => {
+          return;
+        }, error => {
+          return;
+        });
+        return;
+      }
+    });
   }
   public changeRead(isChecked: boolean, funct: any) {
-    console.log(isChecked);
-    console.log(funct);
+    this.permissionsForUser.forEach(element => {
+      if (element.functionId === funct.id) {
+        element.canRead = isChecked;
+        this.permissionService.putPermission(element).subscribe(result => {
+          return;
+        }, error => {
+          return;
+        });
+        return;
+      }
+    });
   }
 
-  public getAllPermissionByUser(fun: [any], numb: any) {
-
-  }
 }
