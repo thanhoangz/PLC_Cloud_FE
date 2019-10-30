@@ -91,7 +91,8 @@ import { UpdateUserDialogComponent } from './content/user-management/dialog/upda
 import { CommonPointComponent } from './content/common-point/common-point.component';
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
-
+import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
   imports: [
     CommonModule,
@@ -131,7 +132,8 @@ import { PermissionsForUserComponent } from './content/user-management/permissio
     MatProgressSpinnerModule,
     CKEditorModule,
     ReactiveFormsModule,
-    BrowserModule
+    BrowserModule,
+    DragDropModule
 
   ],
   declarations: [
@@ -188,7 +190,8 @@ import { PermissionsForUserComponent } from './content/user-management/permissio
     UpdateUserDialogComponent,
     CommonPointComponent,
     SearchStudyprocessComponent,
-    PermissionsForUserComponent
+    PermissionsForUserComponent,
+    ScheduleForLearnerComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

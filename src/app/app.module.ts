@@ -75,6 +75,7 @@ import { EditClassComponent } from './admin/content/class/dialog/edit-class/edit
 import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -123,7 +124,7 @@ import { UpdateUserDialogComponent } from './admin/content/user-management/dialo
     MatProgressSpinnerModule,
     MatNativeDateModule,
     CKEditorModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
