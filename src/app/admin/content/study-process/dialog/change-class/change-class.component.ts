@@ -54,7 +54,7 @@ export class ChangeClassComponent implements OnInit {
   // find Class by id and Course
   public findOldClass() {
     this.languageClassesService.getById(this.studyProcess.languageClassId).subscribe((result: any) => {
-      this.oldClass = result;
+      this.oldClass = result; 
       this.courseId = result.courseId;
       this.newClass = result;
       this.findOldCourse();
