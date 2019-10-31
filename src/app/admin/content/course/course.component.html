@@ -94,8 +94,8 @@
                     <tr mat-row (click)="openDetailCourse(row)" *matRowDef="let row; columns: displayedColumns;">
                     </tr>
                 </table>
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    (page)="getPaginatorData($event)" showFirstLastButtons>
+                <mat-paginator  [pageSizeOptions]="pageSizeOptions"
+                     showFirstLastButtons>
                 </mat-paginator>
             </mat-card-content>
         </mat-card>

@@ -9,6 +9,9 @@ export class LogStudyProcessService {
 
   constructor(private httpClient: HttpClient) { }
 
-
+  getLogStudyProcess( keyword, logStudyProcess: any) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/LogStudyProcesses/GetAllConditions?keyword=${keyword}`, logStudyProcess);
+  }
 
 }

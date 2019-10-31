@@ -38,6 +38,11 @@ export class LearnerService {
       .get(`${environment.PLCServicesDomain}/api/Learners/get-out-class-with-condition/${classId}/${keyword}`);
   }
 
+  getByCarrdId(cardId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/get-by-cardid/${cardId}`);
+  }
+
   putLearner(learner: any) {
     return this.httpClient
       .put(`${environment.PLCServicesDomain}/api/Learners/${learner.id}`, learner);

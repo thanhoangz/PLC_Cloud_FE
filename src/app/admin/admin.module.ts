@@ -91,6 +91,7 @@ import { UpdateUserDialogComponent } from './content/user-management/dialog/upda
 import { CommonPointComponent } from './content/common-point/common-point.component';
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
+import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 
 @NgModule({
   imports: [
@@ -188,7 +189,8 @@ import { PermissionsForUserComponent } from './content/user-management/permissio
     UpdateUserDialogComponent,
     CommonPointComponent,
     SearchStudyprocessComponent,
-    PermissionsForUserComponent
+    PermissionsForUserComponent,
+    DetailReceiptComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
