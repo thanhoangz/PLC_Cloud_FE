@@ -75,6 +75,9 @@ import { EditClassComponent } from './admin/content/class/dialog/edit-class/edit
 import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
 import { DetailReceiptComponent } from './admin/content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
+// tslint:disable-next-line: max-line-length
+import { AddScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -124,7 +127,7 @@ import { DetailReceiptComponent } from './admin/content/search-studyprocess/dial
     MatProgressSpinnerModule,
     MatNativeDateModule,
     CKEditorModule,
-    BlockUIModule.forRoot()
+    BlockUIModule.forRoot(),
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -162,6 +165,7 @@ import { DetailReceiptComponent } from './admin/content/search-studyprocess/dial
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DetailReceiptComponent,
+    AddScheduleDialogComponent
   ]
 
 })

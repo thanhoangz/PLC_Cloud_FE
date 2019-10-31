@@ -93,6 +93,11 @@ import { SearchStudyprocessComponent } from './content/search-studyprocess/searc
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 
+import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
+// tslint:disable-next-line: max-line-length
+import { AddScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -132,7 +137,8 @@ import { DetailReceiptComponent } from './content/search-studyprocess/dialog/det
     MatProgressSpinnerModule,
     CKEditorModule,
     ReactiveFormsModule,
-    BrowserModule
+    BrowserModule,
+    DragDropModule
 
   ],
   declarations: [
@@ -190,7 +196,10 @@ import { DetailReceiptComponent } from './content/search-studyprocess/dialog/det
     CommonPointComponent,
     SearchStudyprocessComponent,
     PermissionsForUserComponent,
-    DetailReceiptComponent
+    DetailReceiptComponent,
+    ScheduleForLearnerComponent,
+    ScheduleInTableComponent,
+    AddScheduleDialogComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
