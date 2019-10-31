@@ -93,6 +93,9 @@ import { SearchStudyprocessComponent } from './content/search-studyprocess/searc
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
 import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
+// tslint:disable-next-line: max-line-length
+import { AddScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -191,7 +194,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     CommonPointComponent,
     SearchStudyprocessComponent,
     PermissionsForUserComponent,
-    ScheduleForLearnerComponent
+    ScheduleForLearnerComponent,
+    ScheduleInTableComponent,
+    AddScheduleDialogComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

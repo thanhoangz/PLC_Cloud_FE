@@ -7,9 +7,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./schedule-for-learner.component.css']
 })
 export class ScheduleForLearnerComponent implements OnInit {
-  public showProgressBar = true;
-  constructor() { }
-
   todo = [
     'Get to work',
     'Pick up groceries',
@@ -24,8 +21,16 @@ export class ScheduleForLearnerComponent implements OnInit {
     'Check e-mail',
     'Walk dog'
   ];
+  scheduledColumns: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  scheduledSource = this.todo;
+
+  public showProgressBar = true;
+  constructor() { }
+
+
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -35,6 +40,7 @@ export class ScheduleForLearnerComponent implements OnInit {
         event.currentIndex);
     }
   }
+
 
   ngOnInit() {
   }

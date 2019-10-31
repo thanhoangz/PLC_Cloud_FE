@@ -37,11 +37,9 @@ export class CourseComponent implements OnInit {
   public statusSelected = null;
   public showTrainingTime = false;
 
-  // tslint:disable-next-line: member-ordering
+
   public displayedColumns: string[] = ['index', 'name', 'traingTime', 'status', 'price', 'controls'];
-  // tslint:disable-next-line: member-ordering
   public dataSource = new MatTableDataSource(this.courses);
-  // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

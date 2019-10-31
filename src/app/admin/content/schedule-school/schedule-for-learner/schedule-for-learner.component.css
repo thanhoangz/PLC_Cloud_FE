@@ -1,5 +1,5 @@
 .example-container {
-  width: 400px;
+  width: 100px;
   max-width: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
@@ -8,15 +8,15 @@
 
 .example-list {
   border: solid 1px #ccc;
-  min-height: 60px;
+  min-height: 20px;
   background: white;
   border-radius: 4px;
   overflow: hidden;
   display: block;
 }
 
-.example-box {
-  padding: 20px 10px;
+.red-box {
+  padding: 1px 1px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
@@ -25,8 +25,8 @@
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
-  background: white;
-  font-size: 14px;
+  background: red;
+  font-size: 13px;
 }
 
 .cdk-drag-preview {
@@ -51,4 +51,79 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+table {
+  width: 100%;
+}
+
+
+.white-box {
+  padding: 1px 1px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 13px;
+}
+
+.green-box {
+  padding: 1px 1px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: green;
+  font-size: 13px;
+}
+
+.yellow-box {
+  padding: 1px 1px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: yellow;
+  font-size: 13px;
+}
+
+.purple-box {
+  padding: 1px 1px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: purple;
+  font-size: 13px;
+}
+
+.gray-box {
+  padding: 1px 1px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: gray;
+  font-size: 13px;
 }

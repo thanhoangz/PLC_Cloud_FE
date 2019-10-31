@@ -74,6 +74,7 @@ import { AddClassComponent } from './admin/content/class/dialog/add-class/add-cl
 import { EditClassComponent } from './admin/content/class/dialog/edit-class/edit-class.component';
 import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
+import { AddScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
 
 
 @NgModule({
@@ -160,7 +161,8 @@ import { UpdateUserDialogComponent } from './admin/content/user-management/dialo
     AddClassComponent,
     EditClassComponent,
     AddUserDialogComponent,
-    UpdateUserDialogComponent
+    UpdateUserDialogComponent,
+    AddScheduleDialogComponent
   ]
 
 })
