@@ -13,9 +13,9 @@ export class PeriodicPointDeltailService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/PeriodicPointDetails`);
   }
-  putPeriodicPointDeltail(periodicPointDeltail: any) {
+  putPeriodicPointDeltail(periodicPointDeltail: any, classId) {
     return this.httpClient
-      .put(`${environment.PLCServicesDomain}/api/PeriodicPointDetails/${periodicPointDeltail.id}`, periodicPointDeltail);
+      .put(`${environment.PLCServicesDomain}/api/PeriodicPointDetails/${periodicPointDeltail.id}?classId=${classId}`, periodicPointDeltail);
   }
 
   // lấy theo điều kiện id của điểm định kì
