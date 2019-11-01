@@ -18,7 +18,7 @@ export class EditStudyprocessComponent implements OnInit {
   public temp;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditStudyprocessComponent>,
     public dialog: MatDialog,
     private datePipe: DatePipe,
@@ -27,7 +27,7 @@ export class EditStudyprocessComponent implements OnInit {
 
   ) {
     this.setData();
-   }
+  }
 
   public format = {
     ngaysinh: null,
@@ -38,11 +38,12 @@ export class EditStudyprocessComponent implements OnInit {
   ngOnInit() {
     this.Date();
     this.getAllStatus();
+    console.log(this.learnerInClass);
   }
 
   public setData() {
-     this.learnerInClass = JSON.stringify(this.data._learnerInClass);
-     this.learnerInClass = JSON.parse(this.learnerInClass);
+    this.learnerInClass = JSON.stringify(this.data._learnerInClass);
+    this.learnerInClass = JSON.parse(this.learnerInClass);
   }
 
   public updateStudyProcess() {
@@ -55,6 +56,7 @@ export class EditStudyprocessComponent implements OnInit {
       dateModified: this.learnerInClass.dateModified,
       languageClassId: this.learnerInClass.languageClassId,
       learnerId: this.learnerInClass.learnerId,
+      note: this.learnerInClass.note,
     }).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Quá trình học tập', 'Cập nhật thành công!'); });
       this.dialogRef.close(true);
