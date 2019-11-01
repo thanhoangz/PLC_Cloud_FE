@@ -2,7 +2,6 @@ import { DetailCourseDialogComponent } from './dialog/detail-course-dialog/detai
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
-import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddCourseDialogComponent } from './dialog/add-course-dialog/add-course-dialog.component';
 import { EditCourseDialogComponent } from './dialog/edit-course-dialog/edit-course-dialog.component';
@@ -31,20 +30,16 @@ export class CourseComponent implements OnInit {
 
   public isOpenDialog = false;
 
-  public length = 100;
-  public pageSize = 10;
-  public pageIndex = 1;
+
   public pageSizeOptions = [10, 15, 20];
 
   public keyWord = '';
   public statusSelected = null;
   public showTrainingTime = false;
 
-  // tslint:disable-next-line: member-ordering
+
   public displayedColumns: string[] = ['index', 'name', 'traingTime', 'status', 'price', 'controls'];
-  // tslint:disable-next-line: member-ordering
   public dataSource = new MatTableDataSource(this.courses);
-  // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

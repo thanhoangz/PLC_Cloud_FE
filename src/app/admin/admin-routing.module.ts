@@ -24,6 +24,8 @@ import { PersonnelComponent } from './content/personnel/personnel.component';
 import { ClassComponent } from './content/class/class.component';
 import { CommonPointComponent } from './content/common-point/common-point.component';
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
+import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
+import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
 
 const adminRoutes: Routes = [
   {
@@ -53,6 +55,8 @@ const adminRoutes: Routes = [
           { path: 'lecturer', component: LecturersComponent },
           { path: 'class-list', component: ClassComponent },
           { path: 'commin-point', component: CommonPointComponent },
+          { path: 'schedule', component: ScheduleForLearnerComponent },
+          { path: 'schedule-table', component: ScheduleInTableComponent },
 
           { path: 'search-learner', component: SearchStudyprocessComponent },
           { path: '', component: HomeComponent },

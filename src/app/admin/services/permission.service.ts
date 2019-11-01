@@ -11,6 +11,11 @@ export class PermissionService {
 
   getPermissionForUser(userId) {
     return this.httpClient
-      .post(`${environment.PLCServicesDomain}/api/Permissions/get-permission-by-user/`, userId);
+      .get(`${environment.PLCServicesDomain}/api/Permissions/get-permission-by-user?Id=${userId}`, userId);
+  }
+
+  putPermission(permission: any) {
+    return this.httpClient
+      .put(`${environment.PLCServicesDomain}/api/Permissions/${permission.id}`, permission);
   }
 }

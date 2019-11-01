@@ -52,8 +52,8 @@ getById(id) {
     .get(`${environment.PLCServicesDomain}/api/LanguageClasses/${id}`);
 }
 
-getClassStatus12( classId) {
+getClassChuyenLop( classId, courseId) {
   return this.httpClient
-    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-status12?classId=${classId}`, null);
+    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-chuyen-lop?classId=${classId}&courseId=${courseId}`, null);
 }
 }

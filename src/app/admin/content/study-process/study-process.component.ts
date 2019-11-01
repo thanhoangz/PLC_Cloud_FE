@@ -147,16 +147,12 @@ export class StudyProcessComponent implements OnInit {
         code: 1
       },
       {
-        Name: 'Tạm nghỉ',
-        code: 2
-      },
-      {
         Name: 'Nghỉ',
         code: 0
       },
       {
         Name: 'Chuyển lớp',
-        code: 3
+        code: 2
       }];
   }
 
