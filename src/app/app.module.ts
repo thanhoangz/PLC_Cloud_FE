@@ -165,7 +165,7 @@ import { AddScheduleDialogComponent } from './admin/content/schedule-school/sche
     AddUserDialogComponent,
     UpdateUserDialogComponent,
     DetailReceiptComponent,
-    AddScheduleDialogComponent
+    AddScheduleDialogComponent,
   ]
 
 })
