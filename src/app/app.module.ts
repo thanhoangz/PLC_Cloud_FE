@@ -74,6 +74,7 @@ import { AddClassComponent } from './admin/content/class/dialog/add-class/add-cl
 import { EditClassComponent } from './admin/content/class/dialog/edit-class/edit-class.component';
 import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
+import { CreatPointComponent } from './admin/content/common-point/dialog/creat-point/creat-point.component';
 
 @NgModule({
   declarations: [
@@ -159,7 +160,8 @@ import { UpdateUserDialogComponent } from './admin/content/user-management/dialo
     AddClassComponent,
     EditClassComponent,
     AddUserDialogComponent,
-    UpdateUserDialogComponent
+    UpdateUserDialogComponent,
+    CreatPointComponent
   ]
 
 })

@@ -15,7 +15,7 @@ export class AddCourseDialogComponent implements OnInit {
   screenHeight: any;
   screenWidth: any;
 
-  private course = {
+  public course = {
     name: '',
     price: null,
     content: '',

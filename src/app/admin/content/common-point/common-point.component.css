@@ -1,184 +1,47 @@
-.example-container {
-    height: 500px;
+
+  .mat-column-select {
+    overflow: initial;
+  }
+  
+  mat-form-field {
     width: 100%;
-    overflow: auto;
   }
   
   table {
+    text-align: center !important;
     width: 100%;
+  }
+  
+  .mat-header-cell {
     text-align: center;
-    white-space: nowrap;
-  }
-  #id{
-    width: 100%;
-  }
-  .title{
-    width: 100%;
-    text-align: center;
-    font-size: 30px;
-    margin-top: 8px;
-  }
-  .chuyenThang{
-    width: 40px;
-    margin-left: 5px;
-  }
-  select{
-    width: 20px;
-    margin-left: 10px;
-  }
-  .tieude{
-    float: right;
-  }
-  th.mat-column-index, td.mat-column-index {
-    padding-left: 8px;
-  }
-  th.mat-column-personnelName, td.mat-column-personnelName {
-    padding-left: 50px;
-    text-align: left;
-    
-  
   }
   
-  th.mat-column-totalWorkday, td.mat-column-totalWorkday {
-    padding-left: 50px;
+  .mat-header-cell {
+    font-size: 16px;
+    font: bold; 
   }
-  
-  .mat-table-sticky:first-child {
-    border-right: 1px solid #e0e0e0;
+
+  #khung_thongtinlop {
+    padding-top: 20px;
+    padding-left: 15px;
+    border:solid 2px royalblue;
+    border-radius: 10px;
   }
-  
-  .mat-table-sticky:last-child {
-    border-left: 1px solid #e0e0e0;
+
+  .tencot {
+    background-color:#2466B0;
+    color: white;
   }
-  /* cột 1-9*/
-  th.mat-column-day_1, td.mat-column-day_1 {
-    padding-left: 50px; text-align: center;
-  }
-  th.mat-column-day_2, td.mat-column-day_2 {
-    padding-left: 50px; text-align: center;
-  
-  }
-  th.mat-column-day_3, td.mat-column-day_3 {
-    padding-left: 50px; text-align: center;
-  
-  }
-  th.mat-column-day_4, td.mat-column-day_4 {
-    padding-left: 50px;  text-align: center;
-    
-  }
-  th.mat-column-day_5, td.mat-column-day_5 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_6, td.mat-column-day_6 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_7, td.mat-column-day_7 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_8, td.mat-column-day_8 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  
-  th.mat-column-day_9, td.mat-column-day_9 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  
-  
-  /* cột 10-19*/
-  th.mat-column-day_10, td.mat-column-day_10 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_11, td.mat-column-day_11 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_12, td.mat-column-day_12 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_13, td.mat-column-day_13 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_14, td.mat-column-day_14 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_15, td.mat-column-day_15 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_16, td.mat-column-day_16 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_17, td.mat-column-day_17 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_18, td.mat-column-day_18 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  
-  th.mat-column-day_19, td.mat-column-day_19 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  
-  /* cột 20-31*/
-  th.mat-column-day_20, td.mat-column-day_20 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_21, td.mat-column-day_21 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_22, td.mat-column-day_22 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_23, td.mat-column-day_23 {
-    padding-left: 50px;  text-align: center;
-  }
-  th.mat-column-day_24, td.mat-column-day_24 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_25, td.mat-column-day_25 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_26, td.mat-column-day_26 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_27, td.mat-column-day_27 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_28, td.mat-column-day_28 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_29, td.mat-column-day_29 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_30, td.mat-column-day_30 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  th.mat-column-day_31, td.mat-column-day_31 {
-    padding-left: 50px;  text-align: center;
-  
-  }
-  
-  
+
+
+table.table-style-three tr:hover td {
+  cursor: pointer;
+}
+table.table-style-three tr:nth-child(even) td{
+  background-color: #DAE7F7;
+}
+
+.nameSubtitle {
+  float: left;
+  margin-left: 10px;
+}
