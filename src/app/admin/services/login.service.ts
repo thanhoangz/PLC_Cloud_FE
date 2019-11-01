@@ -15,6 +15,10 @@ export class LoginService {
       .post(`${environment.PLCServicesDomain}/api/AppUsers/Login`, user);
   }
 
+  getProfile() {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/UserProfile`);
+  }
   /*
     - Kiểm tra nếu đã đăng nhập rồi thì tiếp các tác vụ khác
     - Nếu chưa đăng nhập thì sẽ auto cho bay về trang login, token phải còn hạn

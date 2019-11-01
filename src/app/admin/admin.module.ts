@@ -199,7 +199,7 @@ import { AddScheduleDialogComponent } from './content/schedule-school/schedule-i
     DetailReceiptComponent,
     ScheduleForLearnerComponent,
     ScheduleInTableComponent,
-    AddScheduleDialogComponent
+    AddScheduleDialogComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
