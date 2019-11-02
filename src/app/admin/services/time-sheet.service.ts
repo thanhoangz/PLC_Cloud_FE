@@ -24,11 +24,12 @@ export class TimeSheetService {
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/Timesheets/get-all-with-conditions?month=${month}&year=${year}`, null);
   }
-  addTimeSheetCondition(month, year) {
+  addTimeSheetCondition(month, year, userId) {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
-      .post(`${environment.PLCServicesDomain}/api/Timesheets/post-timesheet-conditions?month=${month}&year=${year}`, null);
+      .post(`${environment.PLCServicesDomain}/api/Timesheets/post-timesheet-conditions?month=${month}&year=${year}&userId=${userId}`, null);
   }
+
 }
 
 
