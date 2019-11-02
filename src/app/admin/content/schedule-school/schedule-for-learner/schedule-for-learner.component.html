@@ -7,11 +7,24 @@
 
         <mat-card>
           <mat-card-header>
-            <mat-card-title>
-
-            </mat-card-title>
+            <b>Danh sách lớp</b>
           </mat-card-header>
+          <hr>
           <mat-card-content>
+
+            <mat-form-field>
+              <mat-label>Chọn khóa học</mat-label>
+              <mat-select [(ngModel)]="courseSelected" (valueChange)="changValueCourse($event)">
+                <mat-option *ngFor="let item of courses" [value]="item.id">{{ item.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Chọn lớp học</mat-label>
+              <mat-select [(ngModel)]="classSelected" (valueChange)="changValueClass($event)">
+                <mat-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
 
           </mat-card-content>
@@ -21,10 +34,9 @@
         <mat-card>
 
           <mat-card-header style="width: 100%">
-
             <div class="row">
               <div class="col-md-12">
-                <b>Tháng 11 - Năm 2019</b>
+                <b>Tháng {{ monthSelected +1 }} - Năm {{ yearSelected }}</b>
               </div>
             </div>
 
@@ -34,10 +46,10 @@
           <mat-card-content>
             <div class="row">
               <div class="col-md-3">
-                <button mat-icon-button>
+                <button mat-icon-button (click)="forwardMonth()">
                   <mat-icon>arrow_back_ios</mat-icon>
                 </button>
-                <button mat-icon-button>
+                <button mat-icon-button (click)="nextMonth()">
                   <mat-icon>arrow_forward_ios</mat-icon>
                 </button>
 
@@ -54,9 +66,22 @@
 
             </div>
 
-            <mat-grid-list cols="2" rowHeight="1:1">
-              <mat-grid-tile *ngFor="let item of fullDayOfMonth"></mat-grid-tile>
+            <hr>
+            <mat-grid-list cols="7" rowHeight="4:1">
+              <mat-grid-tile *ngFor="let item of daysOfWeek"><b>{{item}}</b></mat-grid-tile>
+            </mat-grid-list>
+            <hr>
+            <mat-grid-list cols="7" rowHeight="1:1">
+              <mat-grid-tile *ngFor="let item of dateOfweek">{{item}}</mat-grid-tile>
 
+              <!-- <div class="drag-container">
+
+                <div cdkDropList id="{{week.id}}" [cdkDropListData]="week.weeklist"
+                  [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
+                  <div class="item-box" *ngFor="let weekItem of week.weeklist" cdkDrag>Week {{week.id}} {{weekItem}}
+                  </div>
+                </div>
+              </div> -->
             </mat-grid-list>
 
           </mat-card-content>

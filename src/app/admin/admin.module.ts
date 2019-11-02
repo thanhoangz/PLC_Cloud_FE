@@ -91,6 +91,7 @@ import { UpdateUserDialogComponent } from './content/user-management/dialog/upda
 import { CommonPointComponent } from './content/common-point/common-point.component';
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
+import { CreatPointComponent } from './content/common-point/dialog/creat-point/creat-point.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 
 import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
@@ -196,6 +197,7 @@ import { AddScheduleDialogComponent } from './content/schedule-school/schedule-i
     CommonPointComponent,
     SearchStudyprocessComponent,
     PermissionsForUserComponent,
+    CreatPointComponent,
     DetailReceiptComponent,
     ScheduleForLearnerComponent,
     ScheduleInTableComponent,

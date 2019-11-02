@@ -1,4 +1,4 @@
-import { ControlsPersonnelComponent } from './../content/personnel/page/controls-personnel/controls-personnel.component';
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/extension/notification.service';
@@ -19,6 +19,8 @@ export class AdminManagementComponent implements OnInit {
   public user;
   public permissions;
 
+  public avatar = '';
+  public name = '';
   ngOnInit() {
     this.loginService.islogged();
     this.getPermissionByUser();
@@ -28,10 +30,10 @@ export class AdminManagementComponent implements OnInit {
     this.loginService.getProfile().subscribe((result: any) => {
       ConstService.user = result.user;
       ConstService.permissions = result.permission;
+      this.avatar = result.user.avatar;
+      this.name = result.user.fullName;
       this.user = result.user;
       this.permissions = result.permission;
-      console.log(ConstService.user);
-      console.log(this.permissions);
     }, error => {
       this.logout();
     });

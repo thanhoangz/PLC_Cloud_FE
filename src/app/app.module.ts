@@ -74,10 +74,11 @@ import { AddClassComponent } from './admin/content/class/dialog/add-class/add-cl
 import { EditClassComponent } from './admin/content/class/dialog/edit-class/edit-class.component';
 import { AddUserDialogComponent } from './admin/content/user-management/dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './admin/content/user-management/dialog/update-user-dialog/update-user-dialog.component';
+import { CreatPointComponent } from './admin/content/common-point/dialog/creat-point/creat-point.component';
 import { DetailReceiptComponent } from './admin/content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 // tslint:disable-next-line: max-line-length
 import { AddScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { AddScheduleDialogComponent } from './admin/content/schedule-school/sche
     MatNativeDateModule,
     CKEditorModule,
     BlockUIModule.forRoot(),
+    DragDropModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -164,6 +166,7 @@ import { AddScheduleDialogComponent } from './admin/content/schedule-school/sche
     EditClassComponent,
     AddUserDialogComponent,
     UpdateUserDialogComponent,
+    CreatPointComponent,
     DetailReceiptComponent,
     AddScheduleDialogComponent,
   ]
