@@ -267,7 +267,7 @@ export class CommonPointComponent implements OnInit {
   }
 
   public updatePeriodicPoint(periodicDetail) {
-    this.periodicPointDeltailService.putPeriodicPointDeltail(periodicDetail).subscribe(result => {
+    this.periodicPointDeltailService.putPeriodicPointDeltail(periodicDetail, this.classMessageId).subscribe(result => {
       console.log('success');
       this.getPeriodicDetail();
     }, error => {
