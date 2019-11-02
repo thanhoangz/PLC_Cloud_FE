@@ -20,7 +20,8 @@ export class ScheduleForLearnerComponent implements OnInit {
   public yearSelected = new Date().getFullYear();
 
   public fullDayOfMonth = [];
-  connectedTo = [];
+  public connectedTo = [];
+
   public lastDay: Date;
   public firstDayOfMonth;
 
@@ -140,6 +141,10 @@ export class ScheduleForLearnerComponent implements OnInit {
     }, error => {
 
     });
+  }
+
+  public changValueClass(classId) {
+    this.getScheduleMonthByClass(classId);
   }
 }
 

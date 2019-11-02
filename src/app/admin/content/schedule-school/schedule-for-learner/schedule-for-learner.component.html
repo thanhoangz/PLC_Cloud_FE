@@ -21,7 +21,7 @@
 
             <mat-form-field>
               <mat-label>Chọn lớp học</mat-label>
-              <mat-select [(ngModel)]="classSelected">
+              <mat-select [(ngModel)]="classSelected" (valueChange)="changValueClass($event)">
                 <mat-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</mat-option>
               </mat-select>
             </mat-form-field>
