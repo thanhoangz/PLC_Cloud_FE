@@ -41,7 +41,6 @@ export class LanguageClassesService {
       .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&courseKeyword=${courseKeyword}&status=${status}`, null);
   }
 
-<<<<<<< HEAD
 searchLanguageClass_new(keyWord, status) {
   return this.httpClient
     // tslint:disable-next-line: max-line-length
@@ -53,13 +52,6 @@ findByStatus(status) {
     // tslint:disable-next-line: max-line-length
     .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?status=${status}`, null);
 }
-=======
-  findByStatus(status) {
-    return this.httpClient
-      // tslint:disable-next-line: max-line-length
-      .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?status=${status}`, null);
-  }
->>>>>>> ab58e738bc51e1b719989829c5ca88ee1216f117
 
   getById(id) {
     return this.httpClient
