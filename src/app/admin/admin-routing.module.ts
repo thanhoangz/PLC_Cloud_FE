@@ -54,7 +54,7 @@ const adminRoutes: Routes = [
           { path: 'editlecturer', component: EditPageLectureComponent },
           { path: 'lecturer', component: LecturersComponent },
           { path: 'class-list', component: ClassComponent },
-          { path: 'commin-point', component: CommonPointComponent },
+          { path: 'periodic-points', component: CommonPointComponent },
           { path: 'schedule', component: ScheduleForLearnerComponent },
           { path: 'schedule-table', component: ScheduleInTableComponent },
 
