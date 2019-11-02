@@ -34,6 +34,6 @@ export class ScheduleService {
 
   getScheduleMonthByClass(classId: any) {
     return this.httpClient
-      .post(`${environment.PLCServicesDomain}/api​/TeachingSchedules​/get-classsecsion-by-id?classId=${classId}`, null);
+      .post(`${environment.PLCServicesDomain}/api/TeachingSchedules/getbyclass/${classId}`, classId);
   }
 }

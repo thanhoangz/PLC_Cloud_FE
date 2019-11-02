@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
 import { ScheduleService } from 'src/app/admin/services/schedule.service';
+import { CourseService } from 'src/app/admin/services/course.service';
+import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
 
 @Component({
   selector: 'app-schedule-for-learner',
@@ -10,6 +12,10 @@ import { ScheduleService } from 'src/app/admin/services/schedule.service';
 })
 export class ScheduleForLearnerComponent implements OnInit {
 
+  public courses;
+  public classes;
+  public courseSelected;
+  public classSelected;
   public monthSelected = new Date().getMonth();
   public yearSelected = new Date().getFullYear();
 
@@ -26,6 +32,9 @@ export class ScheduleForLearnerComponent implements OnInit {
   constructor(
     public datepipe: DatePipe,
     public scheduleService: ScheduleService,
+    public courseService: CourseService,
+    public languageClassesService: LanguageClassesService,
+
   ) {
     this.getDateOfMonth();
   }
@@ -34,8 +43,9 @@ export class ScheduleForLearnerComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getScheduleMonthByClass('5GcBkpaBM0');
+    this.setCourses();
   }
+
 
   public getDateOfMonth() {
 
@@ -109,6 +119,26 @@ export class ScheduleForLearnerComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
+  }
+
+  public setCourses() {
+    this.courseService.getAllCourses().subscribe(result => {
+      this.courses = result;
+      this.changValueCourse(result[0].id);
+    }, error => {
+
+    });
+  }
+  public setClasses() {
+
+  }
+  public changValueCourse(courseId) {
+    this.languageClassesService.getClassByCourse(courseId).subscribe(result => {
+      this.classes = result;
+      console.log(result);
+    }, error => {
+
+    });
   }
 }
 
