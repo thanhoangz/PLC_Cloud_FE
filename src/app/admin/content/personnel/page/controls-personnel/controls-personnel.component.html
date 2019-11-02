@@ -170,11 +170,14 @@
                                 </div>
 
                                 <div class="col-md-5">
-                                    <mat-form-field [floatLabel]='floatLabel'>
-                                        <mat-label>Chức vụ nhân viên</mat-label>
-                                        <input matInput placeholder="Nhập chức vụ" required
-                                            [(ngModel)]="personnel.position" formControlName="position">
-
+                                    <mat-form-field>
+                                        <mat-label>Chức vụ</mat-label>
+                                        <mat-select [(ngModel)]="personnel.position" required style="text-align: center;"
+                                            required formControlName="position">
+                                            <mat-option *ngFor="let item of position" [value]="item.name" style="text-align: center;">
+                                                {{item.name}}
+                                            </mat-option>
+                                        </mat-select>
                                     </mat-form-field>
 
                                     <mat-form-field>
@@ -250,7 +253,7 @@
                                     Xóa nhân viên
                                 </button>
                                 <button type="button" mat-raised-button  tabindex="-1"
-                                    style="margin: 1%; background-color: dimgrey;" (click)="back()">
+                                    style="margin: 1%; background-color: darkgoldenrod;" (click)="back()">
                                     <mat-icon>cancel</mat-icon>
                                     Quay về
                                 </button>

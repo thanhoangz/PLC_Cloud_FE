@@ -74,12 +74,8 @@
                     </ng-container>
 
                     <ng-container matColumnDef="controls">
-                        <th mat-header-cell *matHeaderCellDef> Chức năng </th>
-                        <td mat-cell *matCellDef="let element">
-                            
-                            <button mat-icon-button (click)="openEdit_PaySlipType(element)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+                        <th mat-header-cell *matHeaderCellDef> Xóa </th>
+                        <td mat-cell *matCellDef="let element">                                 
                             <button mat-icon-button (click)="delete_PaySlipType(element.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -87,11 +83,10 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                    <tr mat-row (click)="openEdit_PaySlipType(row)" *matRowDef="let row; columns: displayedColumns;">
                     </tr>
                 </table>
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    (page)="getPaginatorData($event)" showFirstLastButtons>
+                <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
                 </mat-paginator>
             </mat-card-content>
         </mat-card>

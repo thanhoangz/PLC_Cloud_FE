@@ -131,9 +131,11 @@ export class PaySlipTypesComponent implements OnInit {
 
   public delete_PaySlipType(paySlipTypeId: number) {
     this.startProgressBar();
+    this.isOpenDialog = true;
     this.paySlipTypesServies.deletePaySlipType(paySlipTypeId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Xóa loại chi thành công!'); });
       this.getPaySlipTypes();
+      this.isOpenDialog = false;
     }, error => {
       this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
       this.stopProgressBar();

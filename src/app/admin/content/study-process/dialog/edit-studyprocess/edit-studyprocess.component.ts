@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 
 import { StudyProcessService } from 'src/app/admin/services/study-process.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edit-studyprocess',
   templateUrl: './edit-studyprocess.component.html',
@@ -16,7 +16,7 @@ export class EditStudyprocessComponent implements OnInit {
 
   public status1 = [];
   public temp;
-
+  public editFormGroup: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EditStudyprocessComponent>,
@@ -35,10 +35,19 @@ export class EditStudyprocessComponent implements OnInit {
     ngayra: null,
   };
 
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.editFormGroup = new FormGroup({
+      inDate: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+    });
+  }
+
+
+
   ngOnInit() {
     this.Date();
     this.getAllStatus();
-    console.log(this.learnerInClass);
+    this.initLectureForm();
   }
 
   public setData() {
@@ -47,22 +56,26 @@ export class EditStudyprocessComponent implements OnInit {
   }
 
   public updateStudyProcess() {
-    this.studyProcessService.put_studyProcess({
-      id: this.learnerInClass.id,
-      inDate: this.learnerInClass.inDate,
-      outDate: this.learnerInClass.outDate,
-      status: this.learnerInClass.status,
-      dateCreated: this.learnerInClass.dateCreated,
-      dateModified: this.learnerInClass.dateModified,
-      languageClassId: this.learnerInClass.languageClassId,
-      learnerId: this.learnerInClass.learnerId,
-      note: this.learnerInClass.note,
-    }).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Quá trình học tập', 'Cập nhật thành công!'); });
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(3, 'Quá trình học tập', 'Lỗi, Cập nhật không thành công!');
-    });
+    if (this.editFormGroup.valid) {
+      this.studyProcessService.put_studyProcess({
+        id: this.learnerInClass.id,
+        inDate: this.learnerInClass.inDate,
+        outDate: this.learnerInClass.outDate,
+        status: this.learnerInClass.status,
+        dateCreated: this.learnerInClass.dateCreated,
+        dateModified: this.learnerInClass.dateModified,
+        languageClassId: this.learnerInClass.languageClassId,
+        learnerId: this.learnerInClass.learnerId,
+        note: this.learnerInClass.note,
+      }).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Quá trình học tập', 'Cập nhật thành công!'); });
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(3, 'Quá trình học tập', 'Lỗi, Cập nhật không thành công!');
+      });
+    } else {
+      this.notificationService.showNotification(2, 'Quá trình học tập', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 
   public Date() {
@@ -77,16 +90,8 @@ export class EditStudyprocessComponent implements OnInit {
   private getAllStatus() {
     this.status1 = [
       {
-        Name: 'Tất cả',
-        code: -1
-      },
-      {
         Name: 'Hoạt động',
         code: 1
-      },
-      {
-        Name: 'Tạm nghỉ',
-        code: 2
       },
       {
         Name: 'Nghỉ',
@@ -94,7 +99,7 @@ export class EditStudyprocessComponent implements OnInit {
       },
       {
         Name: 'Chuyển lớp',
-        code: 3
+        code: 2
       }];
   }
 }

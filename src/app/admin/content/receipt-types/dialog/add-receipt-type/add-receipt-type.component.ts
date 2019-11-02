@@ -4,7 +4,8 @@ import { AdminService } from 'src/app/admin/services/admin.service';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ReceiptTypeService } from 'src/app/admin/services/receipt-type.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NotificationService } from './../../../../services/extension/notification.service';
 @Component({
   selector: 'app-add-receipt-type',
   templateUrl: './add-receipt-type.component.html',
@@ -13,13 +14,13 @@ import { ReceiptTypeService } from 'src/app/admin/services/receipt-type.service'
 export class AddReceiptTypeComponent implements OnInit {
   public recepiptType = {
     name: '',
-    status: null,
-    note: ''
+    status: 1,
+    note: '',
   };
 
 
   public status = [];
-
+  public FormGroup: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<AddReceiptTypeComponent>,
@@ -27,10 +28,20 @@ export class AddReceiptTypeComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private toastrService: ToastrService,
+    private notificationService: NotificationService,
   ) { }
+
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.FormGroup = new FormGroup({
+      name: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
 
   ngOnInit() {
     this.getAllStatus();
+    this.initLectureForm();
   }
 
   public getAllStatus() {
@@ -47,8 +58,14 @@ export class AddReceiptTypeComponent implements OnInit {
   }
 
   public createReceiptType() {
-    this.receiptTypeService.postReceiptType(this.recepiptType).subscribe(result => {
-      setTimeout(() => this.toastrService.success('Thêm mới thành công !', 'Dữ liệu loại thu'));
-    });
+    if (this.FormGroup.valid) {
+      this.receiptTypeService.postReceiptType(this.recepiptType).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Loại thu', 'Tạo thành công loại thu!'); });
+        this.dialogRef.close(true);
+      }, error => {
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Loai phiếu thu', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 }

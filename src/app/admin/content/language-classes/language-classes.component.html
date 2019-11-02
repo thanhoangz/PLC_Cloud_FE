@@ -1,4 +1,3 @@
-
 <mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
 
 <section class="content" style="margin-top: 1%">
@@ -9,38 +8,51 @@
                 <mat-card-subtitle>Danh mục lớp học</mat-card-subtitle>
             </mat-card-header>
             <div class="row">
-                <div class="col-md-3">
-                    <mat-form-field>
-                        <mat-label>Tên lớp học</mat-label>
-                        <input matInput placeholder="Tên Khóa học" [(ngModel)]="keyWord">
-                        <mat-hint>Tên lớp học muốn tìm kiếm</mat-hint>
+                <!-- Text tìm kiếm tổng hợp -->
+                <div class="col-md-2">
+                    <mat-form-field class="col-md-12">
+                        <mat-label>Thông tin tìm kiếm</mat-label>
+                        <input matInput [(ngModel)]="keyWord">
+                        <mat-hint>nhập thông tin tìm kiếm: ...</mat-hint>
                     </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <!-- Chọn khóa học  -->
+                <div class="col-md-2">
                     <mat-form-field>
-                        <mat-label>Chọn trạng thái</mat-label>
-                        <mat-select [(ngModel)]="statusSelected">
-                            <mat-option *ngFor="let s of status" value="{{s.code}}">
-                                {{s.Name}}
+                        <mat-label>Chọn khóa học</mat-label>
+                        <mat-select [(ngModel)]="courseKeyword">
+                            <mat-option *ngFor="let s of courseList" value="{{s.id}}">
+                                {{s.name}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-md-5">
+                <!-- Chọn trạng thái -->
+                <div class="col-md-2">
+                    <mat-form-field>
+                        <mat-label>Chọn trạng thái</mat-label>
+                        <mat-select [(ngModel)]="statusSelected">
+                            <mat-option *ngFor="let s of status" value="{{s.code}}">
+                                {{s.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
-                <div class="col-md-1">
-                    <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px"
-                        (click)="searchLanguageClass()">
+                <!-- Tìm kiếm -->
+                <div class="col-md-2">
+                    <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
+                        style="float: right; margin-right: 20px" (click)="findClass()">
                         <mat-icon>search</mat-icon>
                         Tìm kiếm
                     </button>
                 </div>
             </div>
+
         </mat-card>
         <mat-card style="margin-top: 0.5%">
             <mat-card-header style="float: right;">
                 <mat-card-title>
-                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()">
+                    <button mat-raised-button color="primary" tabindex="-1" (click)="createClass()">
                         <mat-icon>add</mat-icon>
                         Thêm lớp học
                     </button>
@@ -58,25 +70,38 @@
                         <th mat-header-cell *matHeaderCellDef> Tên lớp học</th>
                         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                     </ng-container>
-                  
+
+                    <ng-container matColumnDef="maxNumber">
+                        <th mat-header-cell *matHeaderCellDef> Sĩ số</th>
+                        <td mat-cell *matCellDef="let element"> {{element.maxNumber}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="courseFee">
+                            <th mat-header-cell *matHeaderCellDef> Học phí</th>
+                            <td mat-cell *matCellDef="let element"> {{element.courseFee}} </td>
+                        </ng-container>
+
+                    <ng-container matColumnDef="startDay">
+                        <th mat-header-cell *matHeaderCellDef> Ngày bắt đầu</th>
+                        <td mat-cell *matCellDef="let element"> {{element.startDay | date: 'dd-MM-yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="endDay">
+                        <th mat-header-cell *matHeaderCellDef> Ngày kết thúc</th>
+                        <td mat-cell *matCellDef="let element"> {{element.endDay | date: 'dd-MM-yyyy'}} </td>
+                    </ng-container>
                     <ng-container matColumnDef="status">
                         <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
                         <td mat-cell *matCellDef="let element">
-                            <span [class]="(element.status == 1?'badge badge-success':'badge badge-danger')">
-                                {{(element.status == 1)?"Hoạt động":"Khóa"}}
+                            <span
+                                [class]="(element.status == 1?'badge badge-success':(element.status == 0?'badge badge-danger':'badge badge-primary'))">
+                                {{(element.status)==1?"Hoạt động":((element.status)==0?"Kết thúc":"Đã đầy")}}
                             </span>
                         </td>
-                    </ng-container>                    
+                    </ng-container>
 
                     <ng-container matColumnDef="controls">
-                        <th mat-header-cell *matHeaderCellDef> Chức năng </th>
+                        <th mat-header-cell *matHeaderCellDef> Xóa </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button (click)="openDetailLanguageClass(element)">
-                                <mat-icon>folder</mat-icon>
-                            </button>
-                            <button mat-icon-button (click)="openEditLanguageClass(element)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
                             <button mat-icon-button (click)="deleteLanguageClass(element.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -84,7 +109,7 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                    <tr mat-row (click)="editClass(row)" *matRowDef="let row; columns: displayedColumns;">
                     </tr>
                 </table>
                 <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

@@ -11,7 +11,9 @@ import { ConfirmService } from '../../services/extension/confirm.service';
 import { AddLanguageClassComponent } from './dialog/add-language-class/add-language-class.component';
 import { EditLanguageClassComponent } from './dialog/edit-language-class/edit-language-class.component';
 import { DetailLanguageClassComponent } from './dialog/detail-language-class/detail-language-class.component';
-
+import { EditClassComponent } from '../class/dialog/edit-class/edit-class.component';
+import { AddClassComponent } from '../class/dialog/add-class/add-class.component';
+import { CourseService} from '../../services/course.service';
 @Component({
   selector: 'app-language-classes',
   templateUrl: './language-classes.component.html',
@@ -23,7 +25,7 @@ export class LanguageClassesComponent implements OnInit {
 
   public screenHeight: any;
   public screenWidth: any;
-
+  public courseList;
   public languageClasses;
 
   public status = [];
@@ -35,11 +37,11 @@ export class LanguageClassesComponent implements OnInit {
   public pageIndex = 1;
   public pageSizeOptions = [5, 10, 15, 20];
 
+  public courseKeyword = -1;
   public keyWord = '';
-  public statusSelected = null;
-
+  public statusSelected = -1;
   // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['index', 'name', 'status', 'controls'];
+  public displayedColumns: string[] = ['index', 'name', 'maxNumber', 'courseFee', 'startDay', 'endDay', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSource = new MatTableDataSource(this.languageClasses);
   // tslint:disable-next-line: member-ordering
@@ -53,7 +55,8 @@ export class LanguageClassesComponent implements OnInit {
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private courseService: CourseService ,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -63,6 +66,7 @@ export class LanguageClassesComponent implements OnInit {
   ngOnInit() {
     this.getLanguageClass();
     this.getAllStatus();
+    this.getAllCourse();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
@@ -83,28 +87,38 @@ export class LanguageClassesComponent implements OnInit {
 
   }
 
+  public getAllCourse() {
+    this.courseService.getAllCourses().subscribe((result: any) => {
+      this.courseList = result;
+    }, error => {
+    });
+  }
+
   public getAllStatus() {
     this.status = [
       {
-        Name: 'Hoạt động',
+        name: 'Hoạt động',
         code: 1
       },
       {
-        Name: 'Khóa',
+        name: 'Kết thúc',
         code: 0
       },
       {
-        Name: 'Tất cả',
+        name: 'Đã đầy',
         code: 2
+      },
+      {
+        name: 'Tất cả',
+        code: -1
       }];
   }
 
-  public openCreateDialog() {
-    console.log(this.isOpenDialog);
+  public createClass() {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(AddLanguageClassComponent, {
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.6 * this.screenWidth;
+      this.matDialog.open(AddClassComponent, {
         width: `${widthMachine}px`,
         data: {
         },
@@ -118,14 +132,14 @@ export class LanguageClassesComponent implements OnInit {
     }
   }
 
-  public openEditLanguageClass(languageClass: any) {
+  public editClass(classes: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(EditLanguageClassComponent,
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
+      this.matDialog.open(EditClassComponent,
         {
           width: `${widthMachine}px`,
-          data: { _languageClass: languageClass }
+          data: { _class: classes }
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
           if (result) {
@@ -134,36 +148,22 @@ export class LanguageClassesComponent implements OnInit {
         });
     }
   }
-  public openDetailLanguageClass(languageClass: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(DetailLanguageClassComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _languageClass: languageClass }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.getLanguageClass();
-          }
-        });
-    }
-  }
+
   public deleteLanguageClass(languageClassId: number) {
+    this.isOpenDialog = true;
     this.languageClassesService.deleteLanguageClass(languageClassId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa lớp học thành công!'); });
       this.getLanguageClass();
+      this.isOpenDialog = false;
     }, error => {
       this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, xóa không thành công!');
       this.stopProgressBar();
     });
   }
 
-
-  public searchClassRoom() {
+  public findClass() {
     this.startProgressBar();
-    this.languageClassesService.searchLanguageClass(this.keyWord, '', this.statusSelected).subscribe(result => {
+    this.languageClassesService.searchLanguageClass(this.keyWord, this.courseKeyword, this.statusSelected).subscribe(result => {
       if (result) {
         this.languageClasses = result;
         this.loadTables(result);
@@ -175,6 +175,7 @@ export class LanguageClassesComponent implements OnInit {
       this.stopProgressBar();
     });
   }
+
 
   public getPaginatorData(event) {
     console.log(event);

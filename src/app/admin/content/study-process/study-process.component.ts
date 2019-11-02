@@ -33,7 +33,7 @@ export class StudyProcessComponent implements OnInit {
   public length = 100;
   public pageSize = 20;
   public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20, 30, 50];
+  public pageSizeOptions = [20, 30, 50];
 
   public isOpenDialog = false;
 
@@ -208,22 +208,6 @@ export class StudyProcessComponent implements OnInit {
     this.router.navigateByUrl('admin/add-learner-class');
   }
 
-  public openDetailStudyProcess(learnerInClass: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
-      this.matDialog.open(DetailStudyprocessComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _learnerInClass: learnerInClass }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.getLearnerInClass();
-          }
-        });
-    }
-  }
 
   public openEditStudyProcess(learnerInClass: any) {
     if (!this.isOpenDialog) {
@@ -260,9 +244,11 @@ export class StudyProcessComponent implements OnInit {
   }
 
   public deleteStudyProcess(learnerId: any) {
+    this.isOpenDialog = true;
     this.studyProcessService.delete_studyProcess_byLearnerId(this.classId, learnerId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa học viên thành công!'); });
       this.getLearnerInClass();
+      this.isOpenDialog = false;
     }, error => {
       this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, Xóa không thành công!');
     });

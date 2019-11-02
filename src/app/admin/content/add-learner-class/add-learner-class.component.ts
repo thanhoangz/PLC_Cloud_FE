@@ -24,8 +24,8 @@ export class AddLearnerClassComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public pageSizeOptions1 = [5, 10, 15, 20, 30, 50];
-  public pageSizeOptions2 = [5, 10, 15, 20, 30, 50];
+  public pageSizeOptions1 = [10, 20, 30, 50];
+  public pageSizeOptions2 = [10, 20, 30, 50];
 
   public learnerOutClass;
   public learnerInClass;
@@ -71,9 +71,8 @@ export class AddLearnerClassComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
-  @ViewChild(MatPaginator, { static: true }) paginator1: MatPaginator;
-  @ViewChild(MatPaginator, { static: true }) paginator2: MatPaginator;
-
+  @ViewChild('Paginator1', { static: true, read: MatPaginator }) paginator1: MatPaginator;
+  @ViewChild('Paginator2', { static: true, read: MatPaginator }) paginator2: MatPaginator;
   constructor(
     private learnerService: LearnerService,
     private studyProcessService: StudyProcessService,

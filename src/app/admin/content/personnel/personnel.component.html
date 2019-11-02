@@ -60,8 +60,8 @@
 
 
   <!-- Content -->
-  <div class="card card-solid">
-    <div class="card-body pb-0">
+  <div class="container-fluid">
+    <mat-card>
       <div class="row d-flex align-items-stretch">
         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch" *ngFor="let item of personnel">
           <div class="card bg-light">
@@ -118,15 +118,9 @@
 
       </div>
       <!-- /.card-body -->
-      <div class="card-footer">
-        <nav aria-label="Contacts Page Navigation">
-          <ul class="pagination justify-content-center m-0">
-            <jw-pagination [items]="items" (changePage)="onChangePage($event)" [pageSize]="6"></jw-pagination>
-          </ul>
-        </nav>
-      </div>
+      
       <!-- /.card-footer -->
-    </div>
+    </mat-card>
   </div>
 
 </section>

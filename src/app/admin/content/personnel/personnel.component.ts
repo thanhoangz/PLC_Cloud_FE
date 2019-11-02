@@ -72,7 +72,6 @@ export class PersonnelComponent implements OnInit {
     this.startProgressBar();
     this.personnelsService.getAllPersonnels().subscribe((result: any) => {
       this.personnel = result;
-      this.items = Array(this.personnel.length).fill(0).map((x, i) => (result[i]));
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
@@ -112,10 +111,13 @@ export class PersonnelComponent implements OnInit {
   }
   public searchPersonnel() {            // truyền điều kiện
     this.startProgressBar();
+    console.log(this.keyWord);
+    console.log(this.positionKeyword);
+    console.log(this.statusSelected);
     // tslint:disable-next-line: max-line-length
     this.personnelsService.getPersonnelWithCondition(this.keyWord, this.positionKeyword, this.statusSelected, this.personnel).subscribe((result: any) => {
       this.personnel = result;
-      this.items = Array(this.personnel.length).fill(0).map((x, i) => (result[i]));
+      console.log(result);
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();

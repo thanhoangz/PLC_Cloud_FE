@@ -3,7 +3,7 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { PaySlipTypeService } from 'src/app/admin/services/pay-slip-type.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-paysliptype-dialog',
   templateUrl: './add-paysliptype-dialog.component.html',
@@ -14,7 +14,7 @@ export class AddPaysliptypeDialogComponent implements OnInit {
   screenHeight: any;
   screenWidth: any;
 
-  private Paysliptype = {
+  public paysliptype = {
     name: '',
     status: null,
     note: ''
@@ -23,18 +23,27 @@ export class AddPaysliptypeDialogComponent implements OnInit {
   public status = [];
 
   public statusSelected;
-
+  public paysliptypeFormGroup: FormGroup;
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddPaysliptypeDialogComponent>,
     private paySlipTypeService: PaySlipTypeService,
     private formBuilder: FormBuilder,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private notificationService: NotificationService,
   ) { }
 
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.paysliptypeFormGroup = new FormGroup({
+      name: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
+
   ngOnInit() {
     this.getAllStatus();
+    this.initLectureForm();
   }
 
   public getAllStatus() {
@@ -51,9 +60,13 @@ export class AddPaysliptypeDialogComponent implements OnInit {
   }
 
   public create_Paysliptype() {
-    this.paySlipTypeService.postPaySlipType(this.Paysliptype).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Tạo thành công loại chi!'); });
-      this.dialogRef.close(true);
-    });
+    if (this.paysliptypeFormGroup.valid) {
+      this.paySlipTypeService.postPaySlipType(this.paysliptype).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Tạo thành công loại chi!'); });
+        this.dialogRef.close(true);
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Loai phiếu chi', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 }

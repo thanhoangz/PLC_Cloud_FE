@@ -70,57 +70,6 @@ export class ClassComponent implements OnInit {
     });
   }
 
-        // dialog
-  public createClass() {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.6 * this.screenWidth;
-      this.matDialog.open(AddClassComponent, {
-        width: `${widthMachine}px`,
-        data: {
-        },
-        disableClose: false
-      }).afterClosed().subscribe(result => {
-        this.isOpenDialog = false;
-        if (result) {
-          this.getClasses();
-        }
-      });
-    }
-  }
-
-
-  // dialog
-  public editClass(classes: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
-      this.matDialog.open(EditClassComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _class: classes }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.getClasses();
-          }
-        });
-    }
-  }
-
-  // link
-  public detailClass() {
-  }
-  public deleteClass(classId) {
-    this.languageClassesService.deleteLanguageClass(classId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa lớp học thành công!'); });
-      this.getClasses();
-    }, error => {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, xóa không thành công!');
-      this.stopProgressBar();
-    });
-  }
-
   public findClass() {
     this.startProgressBar();
     this.languageClassesService.searchLanguageClass(this.keyWord, this.courseKeyword, this.statusSelected).subscribe(result => {

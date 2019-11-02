@@ -4,7 +4,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-class',
   templateUrl: './add-class.component.html',
@@ -31,6 +31,7 @@ export class AddClassComponent implements OnInit {
   public status = [];
   public statusSelected;
 
+  public classFormGroup: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<AddClassComponent>,
@@ -41,9 +42,25 @@ export class AddClassComponent implements OnInit {
     private courseService: CourseService
   ) { }
 
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.classFormGroup = new FormGroup({
+      name: new FormControl(null, [Validators.required]),
+      courseFee: new FormControl(null, [Validators.required]),
+      monthlyFee: new FormControl(null, [Validators.required]),
+      lessonFee: new FormControl(null, [Validators.required]),
+      startDay: new FormControl(null, [Validators.required]),
+      endDay: new FormControl(null, [Validators.required]),
+      maxNumber: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      courseId: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
+
   ngOnInit() {
     this.getAllStatus();
     this.getCourses();
+    this.initLectureForm();
   }
 
   public getCourses() {
@@ -63,12 +80,16 @@ export class AddClassComponent implements OnInit {
   }
 
   public createClass() {
-    this.languageClassesService.postLanguageClass(this.Class).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Tạo thành công lớp học!'); });
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, không tạo thành công!');
-    });
+    if (this.classFormGroup.valid) {
+      this.languageClassesService.postLanguageClass(this.Class).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Tạo thành công lớp học!'); });
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, không tạo thành công!');
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 
   /*Chỉ cho phép nhập số */

@@ -40,20 +40,14 @@
                     </mat-form-field>
                 </div>
                 <!-- Tìm kiếm -->
-                <div class="col-md-1">
+                <div class="col-md-5">
                     <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
                         style="float: right; margin-right: 20px" (click)="findClass()">
                         <mat-icon>search</mat-icon>
                         Tìm kiếm
                     </button>
                 </div>
-                <div class="col-md-4">
-                    <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
-                        style="float: right; margin-right: 20px" (click)="createClass()">
-                        <mat-icon>add</mat-icon>
-                        Tạo lớp học
-                    </button>
-                </div>
+                
             </div>
         </mat-card>
     </div>
@@ -122,14 +116,14 @@
                             </div>
 
                             <div class=" row col-md-12" style="margin-top: 10px; margin-left: 4%;">
-                                <button class="col-md-6 btn btn-sm bg-orange" (click)="editClass(item)"
-                                    style="width:100%">
-                                    <i class="fas fa-edit"></i> Cập nhật
+                                <button class="col-md-6 btn btn-sm" 
+                                    style="width:100% ; background-color: green; color: white;">
+                                    <i class="fas fa-edit"></i> Điểm danh
                                 </button>
 
-                                <button class="col-md-5 btn btn-sm bg-danger" (click)="deleteClass(item.id)"
+                                <button class="col-md-5 btn btn-sm bg-danger" 
                                     style="width:100%; float: right;">
-                                    <i class="fas fa-trash-alt"></i> Xóa
+                                    <i class="fas fa-edit"></i> Điểm
                                 </button>
 
                             </div>

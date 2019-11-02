@@ -33,3 +33,8 @@ table.table-style-three tr:hover td {
 table.table-style-three tr:nth-child(even) td{
   background-color: #DAE7F7;
 }
+
+.mat-row:hover {
+  background: lightslategray;
+  opacity: 0.7;
+}

@@ -40,11 +40,11 @@ export class PaySlipComponent implements OnInit {
   public pageSizeOptions = [5, 10, 15, 20];
 
   public keyWord = '';
-  public statusSelected = null;
-  public keywordPhieuChi = null;
+  public statusSelected = -1;
+  public keywordPhieuChi = -1;
 
   // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['index', 'paySlipTypeName', 'date', 'receiver', 'total', 'status', 'controls'];
+  public displayedColumns: string[] = ['index', 'id', 'paySlipTypeName', 'date', 'receiver', 'total', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSource = new MatTableDataSource(this.paySlip);
   // tslint:disable-next-line: member-ordering
@@ -114,7 +114,7 @@ export class PaySlipComponent implements OnInit {
       },
       {
         Name: 'Tất cả',
-        code: 3
+        code: -1
       }];
 
     this.statusSelected = this.status[3].code;
@@ -163,31 +163,16 @@ export class PaySlipComponent implements OnInit {
   }
 
   public delete_PaySlip(paySlipId: number) {
-    this.startProgressBar();
-    this.paySlipServies.deletePaySlip(paySlipId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Xóa phiếu chi thành công!'); });
-      this.getPaySlips();
-    }, error => {
-      this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Xóa không thành công!');
-      this.stopProgressBar();
-    });
-  }
-
-  public openDetail_PaySlip(paySlip: any) {
-    if (!this.isOpenDialog) {
+      this.startProgressBar();
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
-      this.matDialog.open(DetailPayslipDialogComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _paySlip: paySlip }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.getPaySlips();
-          }
-        });
-    }
+      this.paySlipServies.deletePaySlip(paySlipId).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Xóa phiếu chi thành công!'); });
+        this.getPaySlips();
+        this.isOpenDialog = false;
+      }, error => {
+        this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Xóa không thành công!');
+        this.stopProgressBar();
+      });
   }
 
   public find_PaySlip() {

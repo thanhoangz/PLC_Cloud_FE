@@ -80,6 +80,11 @@
                         <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> Mã phiếu chi </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="paySlipTypeName">
                         <th mat-header-cell *matHeaderCellDef> Loại phiếu chi </th>
                         <td mat-cell *matCellDef="let element"> {{element.paySlipTypeName}} </td>
@@ -112,14 +117,9 @@
 
 
                     <ng-container matColumnDef="controls">
-                        <th mat-header-cell *matHeaderCellDef> Chức năng </th>
+                        <th mat-header-cell *matHeaderCellDef> Xóa </th>
                         <td mat-cell *matCellDef="let element">
-                            <button mat-icon-button (click)="openDetail_PaySlip(element)">
-                                <mat-icon>list_alt</mat-icon>
-                            </button>
-                            <button mat-icon-button (click)="openEdit_PaySlip(element)">
-                                <mat-icon>edit</mat-icon>
-                            </button>
+
                             <button mat-icon-button (click)="delete_PaySlip(element.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>
@@ -127,11 +127,10 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                    <tr mat-row (click)="openEdit_PaySlip(row)" *matRowDef="let row; columns: displayedColumns;">
                     </tr>
                 </table>
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                    (page)="getPaginatorData($event)" showFirstLastButtons>
+                <mat-paginator  [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
                 </mat-paginator>
             </mat-card-content>
         </mat-card>

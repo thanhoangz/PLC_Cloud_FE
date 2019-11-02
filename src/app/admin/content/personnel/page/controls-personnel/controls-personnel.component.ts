@@ -21,6 +21,7 @@ export class ControlsPersonnelComponent implements OnInit {
   public personnelFormGroup: FormGroup;
   public floatLabel = 'always';
 
+  public position;
   public status;
   public marritalStatus;
   public genderes = [
@@ -106,6 +107,7 @@ export class ControlsPersonnelComponent implements OnInit {
 
     this.getAllStatus();
     this.getAllMarritalStatus();
+    this.getAllPosition();
     this.getPersonnelId();
     this.initLectureForm();
   }
@@ -196,6 +198,27 @@ export class ControlsPersonnelComponent implements OnInit {
       {
         name: 'Nghỉ việc',
         code: 0
+      },
+    ];
+  }
+
+  public getAllPosition() {
+    this.position = [
+      {
+        name: 'Nhân viên',
+        code: 0
+      },
+      {
+        name: 'Quản lý',
+        code: 1
+      },
+      {
+        name: 'Kế toán',
+        code: 2
+      },
+      {
+        name: 'Giáo viên',
+        code: 3
       },
     ];
   }

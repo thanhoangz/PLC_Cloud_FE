@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 import { FormBuilder } from '@angular/forms';
 import { PaySlipTypeService } from 'src/app/admin/services/pay-slip-type.service';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edit-paysliptype-dialog',
   templateUrl: './edit-paysliptype-dialog.component.html',
@@ -19,6 +20,7 @@ export class EditPaysliptypeDialogComponent implements OnInit {
 
   public status = [];
 
+  public editFormGroup: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<EditPaysliptypeDialogComponent>,
@@ -38,8 +40,17 @@ export class EditPaysliptypeDialogComponent implements OnInit {
     this.paysliptype.note = this.data._paySlipType.note;
   }
 
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.editFormGroup = new FormGroup({
+      name: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
+
   ngOnInit() {
     this.getAllStatus();
+    this.initLectureForm();
   }
 
   public getAllStatus() {
@@ -56,11 +67,15 @@ export class EditPaysliptypeDialogComponent implements OnInit {
   }
 
   public update_Paysliptype() {
-    this.paySliptypeService.putPaySlipType(this.paysliptype).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Cập nhật loại chi thành công!'); });
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Cập nhật không thành công!');
-    });
+    if (this.editFormGroup.valid) {
+      this.paySliptypeService.putPaySlipType(this.paysliptype).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Cập nhật loại chi thành công!'); });
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Cập nhật không thành công!');
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Loai phiếu chi', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 }

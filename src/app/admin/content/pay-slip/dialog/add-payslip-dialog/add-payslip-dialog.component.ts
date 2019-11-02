@@ -7,8 +7,9 @@ import { PaySlipTypeService } from './../../../../services/pay-slip-type.service
 import { PaySlipService } from './../../../../services/pay-slip.service';
 import { PaySlipComponent } from '../../pay-slip.component';
 import { dateToLocalArray } from '@fullcalendar/core/datelib/marker';
-import {PersonnelsService  } from './../../../../services/personnels.service';
-
+import { PersonnelsService } from './../../../../services/personnels.service';
+import { ConstService } from 'src/app/admin/services/extension/Const.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-payslip-dialog',
   templateUrl: './add-payslip-dialog.component.html',
@@ -20,7 +21,7 @@ export class AddPayslipDialogComponent implements OnInit {
   screenWidth: any;
 
   public paySlip = {
-    id: '',
+    //    id: '',
     content: '',
     date: null,
     receiver: '',
@@ -30,16 +31,15 @@ export class AddPayslipDialogComponent implements OnInit {
     paySlipTypeId: null,
     appUserId: null,
     personnelId: '',
-    sendPersonnelId: ''
   };
 
   public paySlipType;
   public personnel;
   public status = [];
   public statusSelected;
-
+  public paySlipFormGroup: FormGroup;
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddPayslipDialogComponent>,
     private paySlipService: PaySlipService,
     private formBuilder: FormBuilder,
@@ -49,17 +49,28 @@ export class AddPayslipDialogComponent implements OnInit {
     private personnelComponent: PersonnelsService
   ) { }
 
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.paySlipFormGroup = new FormGroup({
+      personnelId: new FormControl(null, [Validators.required]),
+      paySlipTypeId: new FormControl(null, [Validators.required]),
+      date: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      receiver: new FormControl(),
+      total: new FormControl(null, [Validators.required]),
+      content: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
   ngOnInit() {
     this.getAllStatus();
     this.getPaySlipTypes();
     this.getPersonnel();
+    this.initLectureForm();
     this.paySlip.date = new Date();
-    this.paySlip.id = 'CCCC';
-    this.paySlip.appUserId = '750da7c1-d22b-4f9f-9459-08d75a840c22';
-    this.paySlip.personnelId = '7f8KNHlBL5F5Kp1qWB31wriscmgwpmNpngUFbyJZGWbfananjE';
-    this.paySlip.sendPersonnelId = '7f8KNHlBL5F5Kp1qWB31wriscmgwpmNpngUFbyJZGWbfananjE';
+    this.paySlip.appUserId = ConstService.user.id;
+
   }
-/////////////////////////
+  /////////////////////////
   public getPersonnel() {
     this.personnelComponent.getAllPersonnels().subscribe(result => {
       this.personnel = result;
@@ -91,12 +102,17 @@ export class AddPayslipDialogComponent implements OnInit {
   }
 
   public create_PaySlip() {
-    this.paySlipService.postPaySlip(this.paySlip).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Tạo thành công phiếu chi!'); });
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Tạo không thành công!');
-    });
+    if (this.paySlipFormGroup.valid) {
+      console.log(this.paySlip);
+      this.paySlipService.postPaySlip(this.paySlip).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Tạo thành công phiếu chi!'); });
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Tạo không thành công!');
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 
 }

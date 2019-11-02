@@ -150,7 +150,7 @@
                                     <tr mat-row *matRowDef="let row; columns: displayedColumnsOutClass;">
                                     </tr>
                                 </table>
-                                <mat-paginator [pageSizeOptions]="pageSizeOptions1" showFirstLastButtons>
+                                <mat-paginator #Paginator1 [pageSizeOptions]="pageSizeOptions1" showFirstLastButtons>
                                 </mat-paginator>
                             </mat-card-content>
                         </div>
@@ -210,7 +210,7 @@
                                     <tr mat-row *matRowDef="let row; columns: displayedColumnsInClass;">
                                     </tr>
                                 </table>
-                                <mat-paginator [pageSizeOptions]="pageSizeOptions2" showFirstLastButtons>
+                                <mat-paginator #Paginator2 [pageSizeOptions]="pageSizeOptions2" showFirstLastButtons>
                                 </mat-paginator>
                             </mat-card-content>
                         </div>

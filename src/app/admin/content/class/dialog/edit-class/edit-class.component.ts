@@ -4,7 +4,7 @@ import { LanguageClassesService } from 'src/app/admin/services/language-classes.
 import { FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 import { CourseService } from 'src/app/admin/services/course.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edit-class',
   templateUrl: './edit-class.component.html',
@@ -18,6 +18,7 @@ export class EditClassComponent implements OnInit {
     courseFee: null,
     monthlyFee: null,
     lessonFee: null,
+    maxNumber: null,
     startDay: null,
     endDay: null,
     status: null,
@@ -29,6 +30,7 @@ export class EditClassComponent implements OnInit {
   public status = [];
   public statusSelected;
 
+  public classFormGroup: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<EditClassComponent>,
@@ -41,9 +43,25 @@ export class EditClassComponent implements OnInit {
     this.setData();
   }
 
+  private initLectureForm() {          // bắt lỗi : edit thuộc tính
+    this.classFormGroup = new FormGroup({
+      name: new FormControl(null, [Validators.required]),
+      courseFee: new FormControl(null, [Validators.required]),
+      monthlyFee: new FormControl(null, [Validators.required]),
+      lessonFee: new FormControl(null, [Validators.required]),
+      startDay: new FormControl(null, [Validators.required]),
+      endDay: new FormControl(null, [Validators.required]),
+      maxNumber: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      courseId: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
+
   ngOnInit() {
     this.getAllStatus();
     this.getCourses();
+    this.initLectureForm();
   }
 
   public setData() {
@@ -57,6 +75,7 @@ export class EditClassComponent implements OnInit {
     this.class.status = this.data._class.status;
     this.class.note = this.data._class.note;
     this.class.courseId = this.data._class.courseId;
+    this.class.maxNumber = this.data._class.maxNumber;
   }
 
   public getCourses() {
@@ -67,12 +86,16 @@ export class EditClassComponent implements OnInit {
   }
 
   public updateClass() {
-    this.languageClassesService.putLanguageClass(this.class).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Cập nhật lớp học thành công!'); });
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, không cập nhật thành công!');
-    });
+    if (this.classFormGroup.valid) {
+      this.languageClassesService.putLanguageClass(this.class).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Cập nhật lớp học thành công!'); });
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, không cập nhật thành công!');
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 
   private getAllStatus() {

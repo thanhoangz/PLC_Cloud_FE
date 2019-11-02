@@ -41,6 +41,12 @@ searchLanguageClass(keyWord, courseKeyword, status) {
     .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&courseKeyword=${courseKeyword}&status=${status}`, null);
 }
 
+searchLanguageClass_new(keyWord, status) {
+  return this.httpClient
+    // tslint:disable-next-line: max-line-length
+    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
+}
+
 findByStatus(status) {
   return this.httpClient
     // tslint:disable-next-line: max-line-length
