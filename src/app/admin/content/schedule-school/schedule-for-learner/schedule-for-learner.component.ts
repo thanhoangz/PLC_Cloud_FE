@@ -124,6 +124,7 @@ export class ScheduleForLearnerComponent implements OnInit {
   public setCourses() {
     this.courseService.getAllCourses().subscribe(result => {
       this.courses = result;
+      this.courseSelected = result[0].id;
       this.changValueCourse(result[0].id);
     }, error => {
 
