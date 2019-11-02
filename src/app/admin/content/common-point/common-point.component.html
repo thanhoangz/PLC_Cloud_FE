@@ -34,30 +34,29 @@
                     </div>
 
                     <div class=" row col-md-12"
-                        style="background-color: #F5F5F5; border: solid 1px silver ; border-radius: 10px;">
-
+                        style="background-color: white;">                      
                         <div class="col-md-3">
                             <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
+                                <li class="list-group-item" >
                                     <b>Lớp :</b> <a class="float-right"> {{class.name}}</a>
                                 </li>
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
+                                <li class="list-group-item" >
                                     <b>Khóa học :</b> <a class="float-right"> {{class.courseName}}</a>
                                 </li>
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
+                                <li class="list-group-item">
                                     <b>Sĩ số :</b> <a class="float-right"> {{class.total + " / " + class.maxNumber}}</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-md-3" style="margin-left:5%;">
                             <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
+                                <li class="list-group-item" >
                                     <b>Ngày bắt đầu :</b> <a class="float-right"> {{class.startDay}}</a>
                                 </li>
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
+                                <li class="list-group-item" >
                                     <b>Ngày kết thúc :</b> <a class="float-right"> {{class.endDay}}</a>
                                 </li>
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
+                                <li class="list-group-item" >
                                     <b>Trạng thái :</b>
                                     <a class="float-right">
                                         <span
@@ -69,19 +68,7 @@
                             </ul>
                         </div>
 
-                        <div class="col-md-3" style="margin-left:5%;">
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
-                                    <b>Học phí :</b> <a class="float-right"> {{class.courseFee}} VNĐ</a>
-                                </li>
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
-                                    <b>Học phí theo tháng :</b> <a class="float-right"> {{class.monthlyFee}} VNĐ</a>
-                                </li>
-                                <li class="list-group-item" style="background-color: #F5F5F5;">
-                                    <b>Học phí theo buổi :</b> <a class="float-right"> {{class.lessonFee}} VNĐ</a>
-                                </li>
-
-                            </ul>
+                        <div class="col-md-6" style="margin-left:5%;">                          
                         </div>
                         <div class="col-md-10">
                             <li style="font-style: italic;">
@@ -121,12 +108,7 @@
 
                     </div>
                     <div style="padding-top: 15px;">
-                        <mat-card-content>
-                            <div class="col-md-2" style="float: left;">
-                                <mat-form-field>
-                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Tìm kiếm">
-                                </mat-form-field>
-                            </div>
+                        <mat-card-content>                           
                             <div class="col-md-2" style="float: left;">
                                 <mat-form-field>
                                     <mat-label>Tuần</mat-label>
