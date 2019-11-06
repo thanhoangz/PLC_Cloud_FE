@@ -36,5 +36,11 @@ export class ReceiptTypeService {
       .post(`${environment.PLCServicesDomain}/api/ReceiptTypes/paging?keyword=${keyWord}&pageSize=${pageSize}&pageIndex=${pageIndex}`, keyWord);
   }
 
+  searchWithCondition(keyword, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/ReceiptTypes/get-all-with-conditions?keyword=${keyword}&status=${status}`, null);
+    }
+
 
 }

@@ -80,7 +80,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-5">
-                                    
+
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Họ</mat-label>
                                         <input matInput placeholder="Nhập họ..." required
@@ -128,7 +128,7 @@
 
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Số liên lạc</mat-label>
-                                        <input matInput placeholder="09xx xxx xxx" required
+                                        <input type="number" matInput placeholder="09xx xxx xxx" required
                                             [(ngModel)]="personnel.phone" formControlName="phone">
                                     </mat-form-field>
 
@@ -159,12 +159,13 @@
                                 </div>
 
                                 <div class="col-md-5">
-                                    
+
                                     <mat-form-field>
                                         <mat-label>Chức vụ</mat-label>
-                                        <mat-select [(ngModel)]="personnel.position" required style="text-align: center;"
-                                            required formControlName="position">
-                                            <mat-option *ngFor="let item of position" [value]="item.name" style="text-align: center;">
+                                        <mat-select [(ngModel)]="personnel.position" required
+                                            style="text-align: center;" required formControlName="position">
+                                            <mat-option *ngFor="let item of position" [value]="item.name"
+                                                style="text-align: center;">
                                                 {{item.name}}
                                             </mat-option>
                                         </mat-select>
@@ -194,23 +195,23 @@
 
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Lương cơ bản</mat-label>
-                                        <input matInput placeholder="Nhập lương cơ bản"
+                                        <input type="number" matInput placeholder="Nhập lương cơ bản"
                                             [(ngModel)]="personnel.basicSalary" formControlName="basicSalary">
                                     </mat-form-field>
 
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Phụ cấp</mat-label>
-                                        <input matInput placeholder="Nhập phụ cấp" [(ngModel)]="personnel.allowance"
+                                        <input type="number" matInput placeholder="Nhập phụ cấp" [(ngModel)]="personnel.allowance"
                                             formControlName="allowance">
                                     </mat-form-field>
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Thưởng</mat-label>
-                                        <input matInput placeholder="Nhập thưởng" [(ngModel)]="personnel.bonus"
+                                        <input type="number" matInput placeholder="Nhập thưởng" [(ngModel)]="personnel.bonus"
                                             formControlName="bonus">
                                     </mat-form-field>
                                     <mat-form-field [floatLabel]='floatLabel'>
                                         <mat-label>Tiền bảo hiểm</mat-label>
-                                        <input matInput placeholder="Nhập tiền bảo hiểm"
+                                        <input type="number" matInput placeholder="Nhập tiền bảo hiểm"
                                             [(ngModel)]="personnel.insurancePremium" formControlName="insurancePremium">
                                     </mat-form-field>
 
@@ -236,8 +237,8 @@
                                     <mat-icon>add_circle</mat-icon>
                                     Thêm
                                 </button>
-                                <button type="button" mat-raised-button color="warn"  tabindex="-1"
-                                    style="margin: 1%;" (click)="back()">
+                                <button type="button" mat-raised-button color="warn" tabindex="-1" style="margin: 1%;"
+                                    (click)="back()">
                                     <mat-icon>cancel</mat-icon>
                                     Hủy
                                 </button>

@@ -92,46 +92,11 @@
                     </div>
 
 
-<<<<<<< HEAD
                     <div class="row col-md-12" style="margin-top: 50px; border-bottom: solid 1px silver;">
                         <div class="col-md-2" style="float: left;  padding-top: 8px;">
                             <mat-card-header class="card-container">
                                 <mat-card-title style="font-size: 24px; "><b>Danh sách lớp</b></mat-card-title>
                             </mat-card-header>
-=======
-                    <div class="row" style="margin-top: 50px; border-bottom: solid 1px silver;">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-2" style="float: left;  padding-top: 8px;">
-                                    <mat-card-header class="card-container">
-                                        <mat-card-title style="font-size: 24px; "><b>Danh sách lớp</b></mat-card-title>
-                                    </mat-card-header>
-                                </div>
-                                <div class="col-md-5"></div>
-                                <div class="col-md-1" style="float: left;">
-                                    <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
-                                        style="float:right; margin-right: 20px" (click)="XepLop()">
-                                        <mat-icon>add</mat-icon>
-                                        Thêm học viên
-                                    </button>
-                                </div>
-                                <div class="col-md-2" style="float: left;">
-                                    <button class="addAndSearch" mat-raised-button color="warn" tabindex="-1"
-                                        style="float:right; margin-right: 20px">
-                                        <mat-icon>add</mat-icon>
-                                        Điểm
-                                    </button>
-                                </div>
-                                <div class="col-md-2" style="float: left;">
-                                    <button class="addAndSearch" mat-raised-button color="warn" tabindex="-1"
-                                        style="float:right; margin-right: 20px">
-                                        <mat-icon>add</mat-icon>
-                                        Điểm Danh
-                                    </button>
-                                </div>
-                            </div>
-
->>>>>>> ab58e738bc51e1b719989829c5ca88ee1216f117
                         </div>
 
                     </div>
@@ -201,7 +166,7 @@
                                     <th mat-header-cell *matHeaderCellDef class="tencot"><b> Trạng thái</b></th>
                                     <td mat-cell *matCellDef="let element">
                                         <span
-                                        [class]="(element.status == 1?'badge badge-success':(element.status == 0?'badge badge-danger':'badge badge-primary'))">                                  
+                                            [class]="(element.status == 1?'badge badge-success':(element.status == 0?'badge badge-danger':'badge badge-primary'))">
                                             {{(element.status)==1?"Hoạt động":((element.status)==0?"Nghỉ":"Chuyển lớp")}}
                                         </span>
                                     </td>
@@ -221,7 +186,8 @@
 
 
                                 <tr mat-header-row *matHeaderRowDef="displayedColumnsInClass"></tr>
-                                <tr mat-row (click)="openEditStudyProcess(row)" *matRowDef="let row; columns: displayedColumnsInClass;">
+                                <tr mat-row (click)="openEditStudyProcess(row)"
+                                    *matRowDef="let row; columns: displayedColumnsInClass;">
                                 </tr>
                             </table>
                             <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>

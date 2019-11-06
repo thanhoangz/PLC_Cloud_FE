@@ -138,28 +138,13 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  public openDetailCourse(course: any) {
-    if (!this.isOpenDialog) {
-      this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-      this.matDialog.open(DetailCourseDialogComponent,
-        {
-          width: `${widthMachine}px`,
-          data: { _course: course }
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.getCourses();
-          }
-        });
-    }
-  }
-
 
   public deleteCourse(courseId: number) {
+    this.isOpenDialog = true;
     this.courseService.deleteCourse(courseId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Xóa khóa học thành công!'); });
       this.getCourses();
+      this.isOpenDialog = false;
     }, error => {
       this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không xóa thành công!');
       this.stopProgressBar();

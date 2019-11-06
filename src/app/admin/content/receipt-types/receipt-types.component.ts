@@ -1,12 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { LoginService } from './../../services/login.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddReceiptTypeComponent } from './dialog/add-receipt-type/add-receipt-type.component';
 import { EditReceiptTypeComponent } from './dialog/edit-receipt-type/edit-receipt-type.component';
-import { ReceiptTypeService } from '../../services/receipt-type.service';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
+import { ReceiptTypeService } from '../../services/receipt-type.service';
+import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-receipt-types',
   templateUrl: './receipt-types.component.html',
@@ -18,23 +21,34 @@ export class ReceiptTypesComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public receiptTypes;
-
+  public receiptType ;
   public status = [];
 
   public isOpenDialog = false;
 
+  public length = 100;
+  public pageSize = 5;
+  public pageIndex = 1;
   public pageSizeOptions = [10, 15, 20, 30];
 
   public keyWord = '';
   public statusSelected = 2;
 
+  // tslint:disable-next-line: member-ordering
+  public displayedColumns: string[] = ['index', 'name', 'status', 'note', 'controls'];
+  // tslint:disable-next-line: member-ordering
+  public dataSource = new MatTableDataSource(this.receiptType);
+  // tslint:disable-next-line: member-ordering
+  public selection = new SelectionModel(true, []);
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private receiptTypeService: ReceiptTypeService,
-    public matDialog: MatDialog,
-    private loginService: LoginService,
     private notificationService: NotificationService,
+    private toastr: ToastrService,
+    public matDialog: MatDialog,
+    private confirmService: ConfirmService,
+    private loginService: LoginService
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -42,16 +56,16 @@ export class ReceiptTypesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getReceiptTypes();
+    this.getReceiptType();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
-  public getReceiptTypes() {
+  public getReceiptType() {
     this.startProgressBar();
-    this.receiptTypeService.getAllReceiptType().subscribe((result: []) => {
+    this.receiptTypeService.getAllReceiptType().subscribe(result => {
+      this.receiptType = result;
       this.loadTables(result);
-      this.receiptTypes = result;
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
@@ -62,7 +76,8 @@ export class ReceiptTypesComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
   }
-  public getAllStatus() {
+
+  private getAllStatus() {
     this.status = [
       {
         Name: 'Hoạt động',
@@ -77,27 +92,25 @@ export class ReceiptTypesComponent implements OnInit {
         code: 2
       }];
   }
-  // tslint:disable-next-line: member-ordering
-  public displayedColumns: string[] = ['index', 'name', 'status', 'note', 'controls'];
-  // tslint:disable-next-line: member-ordering
-  public dataSource = new MatTableDataSource(this.receiptTypes);
 
-  public openCreateDialog() {
+
+  public openCreate_ReceiptType() {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
       this.matDialog.open(AddReceiptTypeComponent, {
-        width: `${widthMachine}px`,
+        width:  `${widthMachine}px`,
         data: {
         },
+        disableClose: false
       }).afterClosed().subscribe(result => {
         this.isOpenDialog = false;
-        this.getReceiptTypes();
+        this.getReceiptType();
       });
     }
   }
 
-  public openEditReceiptType(receiptType: any) {
+  public openEdit_ReceiptType(receiptType: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
@@ -108,18 +121,18 @@ export class ReceiptTypesComponent implements OnInit {
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
           if (result) {
-            this.getReceiptTypes();
+            this.getReceiptType();
           }
         });
     }
   }
 
-  public deleteReceiptType(receiptTypeId: number) {
+  public delete_receiptType(receiptTypeId: number) {
     this.startProgressBar();
     this.isOpenDialog = true;
     this.receiptTypeService.deleteReceiptType(receiptTypeId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Loại thu', 'Xóa loại thu thành công!'); });
-      this.getReceiptTypes();
+      this.getReceiptType();
       this.isOpenDialog = false;
     }, error => {
       this.notificationService.showNotification(3, 'Loại thu', 'Lỗi, Xóa không thành công!');
@@ -127,8 +140,21 @@ export class ReceiptTypesComponent implements OnInit {
     });
   }
 
+
   public find_ReceiptType() {
 
+    this.startProgressBar();
+    this.receiptTypeService.searchWithCondition(this.keyWord, this.statusSelected).subscribe(result => {
+      if (result) {
+        this.receiptType = result;
+        this.loadTables(result);
+        this.stopProgressBar();
+      }
+
+    }, error => {
+      this.notificationService.showNotification(3, 'Loại thu', 'Lỗi, tìm kiếm thất bại!');
+      this.stopProgressBar();
+    });
   }
 
   public startProgressBar() {
@@ -137,5 +163,6 @@ export class ReceiptTypesComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+
 
 }

@@ -8,13 +8,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
 import { LoginService } from 'src/app/admin/services/login.service';
 import { Router } from '@angular/router';
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
 
 @Component({
-  selector: 'app-add-page-learner',
-  templateUrl: './add-page-learner.component.html',
-  styleUrls: ['./add-page-learner.component.css']
+  selector: 'app-control-learner',
+  templateUrl: './control-learner.component.html',
+  styleUrls: ['./control-learner.component.css']
 })
-export class AddPageLearnerComponent implements OnInit {
+export class ControlLearnerComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
@@ -23,6 +24,8 @@ export class AddPageLearnerComponent implements OnInit {
   public showProgressBar = false;
   public guestTypes;
   public learner = {
+    id: null,
+    cardId: null,
     firstName: null,
     lastName: null,
     sex: null,
@@ -51,7 +54,6 @@ export class AddPageLearnerComponent implements OnInit {
   ];
 
   public status;
-
   constructor(
     private learnerService: LearnerService,
     private guestTypeService: GuestTypeService,
@@ -60,6 +62,7 @@ export class AddPageLearnerComponent implements OnInit {
     private confirmService: ConfirmService,
     private fomatDateService: FomatDateService,
     private loginService: LoginService,
+    private exchangeDataService: ExchangeDataService,
     private router: Router,
 
   ) {
@@ -75,7 +78,7 @@ export class AddPageLearnerComponent implements OnInit {
         code: 1
       },
       {
-        name: 'Nghỉ',
+        name: 'Khóa',
         code: 0
       },
       {
@@ -126,25 +129,63 @@ export class AddPageLearnerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.exchangeDataService.idSource.subscribe(message => {
+      this.learner.id = message;
+    });
+    this.getLearnerId();
     this.getAllStatus();
     this.getGuestType();
     this.initLearnerForm();
-    this.learner.sex = this.genderes[0].value;
   }
 
-  public createLearner() {
+  public getLearnerId() {
+    this.learner.birthday = this.fomatDateService.transformDate(this.learner.birthday);
+    this.startProgressBar();
+    this.learnerService.getById(this.learner.id).subscribe((result: any) => {
+      this.learner.id = result.id;
+      this.learner.cardId = result.cardId;
+      this.learner.firstName = result.firstName;
+      this.learner.lastName = result.lastName;
+      this.learner.birthday = result.birthday;
+      this.learner.address = result.address;
+      this.learner.facebook = result.facebook;
+      this.learner.phone = result.phone;
+      this.learner.email = result.email;
+      this.learner.sex = String(result.sex);
+      this.learner.parentFullName = result.parentFullName;
+      this.learner.parentPhone = result.parentPhone;
+      this.learner.image = result.image;
+      this.learner.status = result.status;
+      this.learner.guestTypeId = result.guestTypeId;
+      this.learner.status = result.status;
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
+  }
+
+  public updateLearner() {
     if (this.learnerFormGroup.valid) {
       this.learner.birthday = this.fomatDateService.transformDate(this.learner.birthday);
-      this.learnerService.postLearner(this.learner).subscribe(result => {
-        this.notificationService.showNotification(1, 'Học viên', 'Thêm học viên thành công!');
-        this.router.navigateByUrl('admin/learners');
+      this.learnerService.putLearner(this.learner).subscribe(result => {
+        this.notificationService.showNotification(1, 'Học viên', 'Update học viên thành công!');
       }, error => {
         this.stopProgressBar();
-        this.notificationService.showNotification(3, 'Học viên', 'Lỗi, thêm học viên thất bại!');
+        this.notificationService.showNotification(3, 'Học viên', 'Lỗi, Update học viên thất bại!');
       });
     } else {
       this.notificationService.showNotification(2, 'Học viên', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
     }
+  }
+
+  public delete() {
+    this.learnerService.deleteLearner(this.learner.id).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Học viên', 'Đã xóa học viên!'); });
+      this.router.navigateByUrl('admin/learners');
+    }, error => {
+      this.notificationService.showNotification(3, 'Học viên', 'Lỗi, Không xóa được!');
+      this.stopProgressBar();
+    });
   }
 
   public back() {

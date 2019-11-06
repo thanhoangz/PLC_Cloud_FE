@@ -46,6 +46,7 @@ export class PersonnelComponent implements OnInit {
   public statusSelected = 2;
   public positionKeyword = 'Tất cả';
   public position;
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private personnelsService: PersonnelsService,
@@ -72,11 +73,13 @@ export class PersonnelComponent implements OnInit {
     this.startProgressBar();
     this.personnelsService.getAllPersonnels().subscribe((result: any) => {
       this.personnel = result;
+      this.items = Array(this.personnel.length).fill(0).map((x, i) => (result[i]));
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
     });
   }
+
   onChangePage(pageOfItems: Array<any>) {
     // update current page of items
     this.pageOfItems = pageOfItems;
@@ -111,13 +114,10 @@ export class PersonnelComponent implements OnInit {
   }
   public searchPersonnel() {            // truyền điều kiện
     this.startProgressBar();
-    console.log(this.keyWord);
-    console.log(this.positionKeyword);
-    console.log(this.statusSelected);
     // tslint:disable-next-line: max-line-length
     this.personnelsService.getPersonnelWithCondition(this.keyWord, this.positionKeyword, this.statusSelected, this.personnel).subscribe((result: any) => {
       this.personnel = result;
-      console.log(result);
+      this.items = Array(this.personnel.length).fill(0).map((x, i) => (result[i]));
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();

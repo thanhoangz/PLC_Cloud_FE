@@ -52,6 +52,27 @@ export class LearnerService {
     return this.httpClient
       .delete(`${environment.PLCServicesDomain}/api/Learners/${learnerId}`);
   }
+
+  getLearnerWithCondition(keyword, status) {    // tìm kiếm theo keyword + status
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/Learners/get-all-with-conditions?keyword=${keyword}&status=${status}`, null);
+  }
+
+  getByStatus(status) {    // tìm kiếm theo status
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/Learners/get-all-with-conditions?status=${status}`, null);
+  }
+
+  getDaCoLop() {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/get-da-co-lop`);
+  }
+  getChuaCoLop() {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/get-chua-co-lop`);
+  }
 }
 
 

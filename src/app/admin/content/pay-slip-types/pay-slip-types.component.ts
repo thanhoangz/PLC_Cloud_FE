@@ -90,7 +90,7 @@ export class PaySlipTypesComponent implements OnInit {
       },
       {
         Name: 'Tất cả',
-        code: 2
+        code: -1
       }];
   }
 

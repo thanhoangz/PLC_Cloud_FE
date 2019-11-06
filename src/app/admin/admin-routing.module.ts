@@ -26,6 +26,9 @@ import { CommonPointComponent } from './content/common-point/common-point.compon
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
 import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
+import { LearnerComponent } from './content/learner/learner.component';
+import { ControlLearnerComponent } from './content/learner/pages/control-learner/control-learner.component';
+import { StatisticsComponent } from './content/statistics/statistics.component';
 
 const adminRoutes: Routes = [
   {
@@ -46,6 +49,9 @@ const adminRoutes: Routes = [
           { path: 'add-learner-class', component: AddLearnerClassComponent },
           { path: 'study-process', component: StudyProcessComponent },
           { path: 'add-learner', component: AddPageLearnerComponent },
+          { path: 'learners', component: LearnerComponent },
+          { path: 'control-learner', component: ControlLearnerComponent },
+          { path: 'statisc-learner', component:  StatisticsComponent},
           { path: 'guest-type', component: GuestTypeComponent },
           { path: 'personnels', component: PersonnelComponent },
           { path: 'add-personnel', component: AddPersonnelComponent },
@@ -57,7 +63,6 @@ const adminRoutes: Routes = [
           { path: 'commin-point', component: CommonPointComponent },
           { path: 'schedule', component: ScheduleForLearnerComponent },
           { path: 'schedule-table', component: ScheduleInTableComponent },
-
           { path: 'search-learner', component: SearchStudyprocessComponent },
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent }

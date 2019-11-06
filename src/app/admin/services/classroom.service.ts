@@ -35,4 +35,10 @@ export class ClassroomService {
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/Classrooms/paging?keyword=${keyWord}&pageSize=${pageSize}&pageIndex=${pageIndex}`, keyWord);
   }
+
+  searchWithByCondition(keyword, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/Classrooms/get-all-with-conditions?keyword=${keyword}&status=${status}`, null);
+    }
 }

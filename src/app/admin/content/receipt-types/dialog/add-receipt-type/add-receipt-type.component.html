@@ -1,31 +1,36 @@
-<h1 mat-dialog-title>Thêm mới loại thu</h1>
-<form novalidate [formGroup]="FormGroup" (ngSubmit)="createReceiptType()">
+<h1 mat-dialog-title>Thêm mới loại chi</h1>
+
+<form novalidate [formGroup]="receiptTypeFormGroup" (ngSubmit)="create_ReceiptType()">
     <div mat-dialog-content>
         <div class="row">
             <div class="col-md-12">
                 <mat-form-field>
-                    <input [(ngModel)]="recepiptType.name" formControlName="name" required matInput placeholder="Tên loại thu">
+                    <input [(ngModel)]="receiptType.name" formControlName="name" required matInput placeholder="Tên loại thu" >
                 </mat-form-field>
+
                 <mat-form-field>
                     <mat-label>Chọn trạng thái</mat-label>
-                    <mat-select [(ngModel)]="recepiptType.status" formControlName="status" required>
-                        <mat-option *ngFor="let item of status" [value]="item.value">
+                    <mat-select [(ngModel)]="receiptType.status"  formControlName="status" required style="text-align: center;">
+                        <mat-option *ngFor="let item of status" [value]="item.value" style="text-align: center;">
                             {{item.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+
                 <mat-form-field>
-                    <textarea [(ngModel)]="recepiptType.note" formControlName="note" matInput placeholder="Ghi chú"></textarea>
+                    <textarea [(ngModel)]="receiptType.note" formControlName="note" matInput placeholder="Ghi chú" name="note"
+                        cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3"></textarea>
                 </mat-form-field>
             </div>
         </div>
     </div>
 
     <mat-dialog-actions align="end">
-        <button type="submit" mat-raised-button color="primary" tabindex="-1" 
-            mat-dialog-close>
+        <button type="submit" mat-raised-button color="primary" tabindex="-1" >
             Thêm
         </button>
-        <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">Hủy</button>
+        <button mat-raised-button color="warn" mat-dialog-close tabindex="-1">
+            Hủy
+        </button>
     </mat-dialog-actions>
 </form>

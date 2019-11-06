@@ -36,7 +36,9 @@ export class LecturersComponent implements OnInit {
   public status;
   public marritalStatus;
   public genderes;
-
+  public keyWord = '';
+  public positionKeyword = 'Tất cả';
+  public position;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private lecturersService: LecturersService,
@@ -55,6 +57,7 @@ export class LecturersComponent implements OnInit {
     this.getAllStatus();
     this.getstatusGenderes();
     this.getAllMarritalStatus();
+    this.getAllPosition();
     this.getLecture();
   }
 
@@ -120,6 +123,26 @@ export class LecturersComponent implements OnInit {
     ];
   }
 
+  public getAllPosition() {
+    this.position = [
+      {
+        name: 'Tất cả',
+        code: 0
+      },
+      {
+        name: 'Giáo viên',
+        code: 1
+      },
+      {
+        name: 'Thỉnh giảng',
+        code: 2
+      },
+      {
+        name: 'Trợ giảng',
+        code: 3
+      },
+    ];
+  }
   /*Update image => success => save to learner object*/
   onFileComplete(data: any) {
     this.lecture.image = data.link;
@@ -148,7 +171,7 @@ export class LecturersComponent implements OnInit {
     this.exchangeDataService.changeId(id);
   }
 
-  public updateLecture(id) {
+  public controlLecture(id) {
     this.createExchangeId(id);
     this.router.navigateByUrl('admin/editlecturer');
   }
@@ -167,19 +190,18 @@ export class LecturersComponent implements OnInit {
 
   public searchLecture() {
     // tslint:disable-next-line: max-line-length
-    this.lecturersService.SearchLecturers(this.cardId, this.nameLecture, this.statusGenderes, this.statusSelected).subscribe(result => {
+    this.lecturersService.SearchLecturers(this.keyWord, this.positionKeyword, this.statusSelected).subscribe(result => {
       // tslint:disable-next-line: triple-equals
       if (result != 0) {
         this.lecture = result;
         this.items = Array(this.lecture.length).fill(0).map((x, i) => (result[i]));
-        console.log(this.lecture);
       }
       // tslint:disable-next-line: one-line
       else {
-        this.notificationService.showNotification(3, 'Giáo viên', 'Không tìm thấy!');
+        this.notificationService.showNotification(2, 'Giáo viên', 'Không tìm thấy giáo viên!');
       }
     }, error => {
-      this.notificationService.showNotification(3, 'Giáo viên', 'Không tìm thấy!');
+      this.notificationService.showNotification(2, 'Giáo viên', 'Không tìm thấy giáo viên!');
     });
   }
 }
