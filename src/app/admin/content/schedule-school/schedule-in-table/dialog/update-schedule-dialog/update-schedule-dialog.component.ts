@@ -1,22 +1,23 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ScheduleService } from 'src/app/admin/services/schedule.service';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LecturersService } from 'src/app/admin/services/lecturers.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
 import { ClassroomService } from 'src/app/admin/services/classroom.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-add-schedule-dialog',
-  templateUrl: './add-schedule-dialog.component.html',
-  styleUrls: ['./add-schedule-dialog.component.css']
+  selector: 'app-update-schedule-dialog',
+  templateUrl: './update-schedule-dialog.component.html',
+  styleUrls: ['./update-schedule-dialog.component.css']
 })
-export class AddScheduleDialogComponent implements OnInit {
+export class UpdateScheduleDialogComponent implements OnInit {
 
   public floatLabel = 'always';
   public schedule = {
+    id: 0,
     fromDate: '',
     toDate: '',
     timeShift: '',
@@ -41,14 +42,16 @@ export class AddScheduleDialogComponent implements OnInit {
   constructor(
     private scheduleService: ScheduleService,
     private notificationService: NotificationService,
-    @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<AddScheduleDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<UpdateScheduleDialogComponent>,
     public dialog: MatDialog,
     public lecturersService: LecturersService,
     public languageClassesService: LanguageClassesService,
     public classroomService: ClassroomService,
     public datepipe: DatePipe
-  ) { }
+  ) {
+    this.setValueForSchedule();
+  }
 
   ngOnInit() {
     this.getAllStatus();
@@ -57,7 +60,6 @@ export class AddScheduleDialogComponent implements OnInit {
     this.getAllClasses();
     this.getAllClassrooms();
   }
-
 
   public initializeForm() {
     this.learnerFormGroup = new FormGroup({
@@ -72,6 +74,21 @@ export class AddScheduleDialogComponent implements OnInit {
     });
   }
 
+  public setValueForSchedule() {
+    this.schedule.id = this.data._schedule.id;
+    this.schedule.fromDate = this.data._schedule.fromDate;
+    this.schedule.toDate = this.data._schedule.toDate;
+    this.schedule.timeShift = this.data._schedule.timeShift;
+
+    this.schedule.daysOfWeek = this.data._schedule.daysOfWeek;
+    this.schedule.status = this.data._schedule.status;
+    this.schedule.dateCreated = this.data._schedule.dateCreated;
+    this.schedule.note = this.data._schedule.note;
+    this.schedule.lecturerId = this.data._schedule.lecturerId;
+    this.schedule.classroomId = this.data._schedule.classroomId;
+    this.schedule.languageClassId = this.data._schedule.languageClassId;
+    this.schedule.content = this.data._schedule.content;
+  }
 
   private getAllStatus() {
     this.status = [
@@ -104,27 +121,15 @@ export class AddScheduleDialogComponent implements OnInit {
     });
   }
 
-  public changeFromDate(e) {
-    // console.log(e);
-    // this.schedule.fromDate = this.datepipe.transform(e, 'YYYY-MM-dd');
-  }
-
-  public changeToDate(e) {
-    // console.log(e);
-    // this.schedule.fromDate = this.datepipe.transform(e, 'YYYY-MM-dd');
-  }
-
-  public createSchedule() {
+  public updateSchedule() {
 
     if (this.learnerFormGroup.valid) {
-      this.scheduleService.postSchedule(this.schedule).subscribe(result => {
-        setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lịch', 'Tạo khung lịch thành công!'); });
+      this.scheduleService.putchedule(this.schedule).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lịch', 'Cập nhật khung lịch thành công!'); });
         this.dialogRef.close(true);
       }, error => {
-        this.notificationService.showNotification(3, 'Xếp lịch', 'Lỗi, tạo khung lịch không thành công!');
+        this.notificationService.showNotification(3, 'Xếp lịch', 'Lỗi,cập nhật xếp lịch không thành công!');
       });
     }
-
   }
 }
-

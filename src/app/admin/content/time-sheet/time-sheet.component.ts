@@ -1,3 +1,4 @@
+import { ConstService } from './../../services/extension/Const.service';
 import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -51,13 +52,15 @@ export class TimeSheetComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    this.monthSearch = (this.monthSelected + 1).toString();
+    this.yearSearch = (this.yearSelected).toString();
   }
 
   ngOnInit() {
     this.getDateOfMonth();
     this.getAllYear();
-
     this.getTimeSheet();
+
   }
 
   // tslint:disable-next-line: member-ordering
@@ -87,6 +90,8 @@ export class TimeSheetComponent implements OnInit {
     this.dateOfweek = [];
     this.getDateOfMonth();
     this.getTimeSheet();
+    this.monthSearch = (this.monthSelected + 1).toString();
+    this.yearSearch = (this.yearSelected).toString();
     console.log(this.monthSelected);
     console.log(this.yearSelected);
 
@@ -104,6 +109,8 @@ export class TimeSheetComponent implements OnInit {
     this.dateOfweek = [];
     this.getDateOfMonth();
     this.getTimeSheet();
+    this.monthSearch = (this.monthSelected + 1).toString();
+    this.yearSearch = (this.yearSelected).toString();
   }
 
   // Lấy năm
@@ -131,10 +138,14 @@ export class TimeSheetComponent implements OnInit {
   }
 
   public CreateTimeSheet() {
-    this.timeSheetService.addTimeSheetCondition(this.monthSelected, this.yearSelected).subscribe(result => {
+    this.timeSheetService.addTimeSheetCondition(this.monthSelected, this.yearSelected, ConstService.user.id).subscribe((result: any) => {
+
       this.notificationService.showNotification(1, 'Chấm Công', 'Đã tạo bảng chấm công');
       console.log('success');
       this.getTimeSheet();
+      console.log(result);
+
+
     }, error => {
       this.notificationService.showNotification(3, 'Chấm Công', 'Lỗi, Bảng công đã được tạo');
 
@@ -155,12 +166,19 @@ export class TimeSheetComponent implements OnInit {
     });
   }
 
+  public searchTimeSheet() {
+    this.monthSelected = this.monthSearch - 1;
+    this.yearSelected = this.yearSearch;
+    this.dateOfweek = [];
+    this.getDateOfMonth();
+    this.getTimeSheet();
+  }
+
   ShowColumn(date) {
     if (!date) {
       return false;
     }
     return true;
   }
-
 }
 

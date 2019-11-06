@@ -5,12 +5,12 @@
     <div class="container-fluid">
         <mat-card>
             <mat-card-header class="card-container">
-                <mat-card-title>Chấm công</mat-card-title>
-                <mat-card-subtitle>Chấm công nhân viên</mat-card-subtitle>
+                <mat-card-title style="font-size: 25px;">Chấm công</mat-card-title>
+                <mat-card-subtitle style="font-size: 16px;">Chấm công nhân viên</mat-card-subtitle>
             </mat-card-header>
             <div class="row">
-                <div class="col-md-3">
-                    <mat-form-field>
+                <div class="col-md-7">
+                    <mat-form-field class="canChinh">
                         <mat-label>Tháng</mat-label>
                         <mat-select [(ngModel)]="monthSearch" required>
                             <mat-option *ngFor="let month of months" value="{{month}}">
@@ -18,9 +18,8 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
-                <div class="col-md-3">
-                    <mat-form-field>
+
+                    <mat-form-field class="canChinh">
                         <mat-label>Năm</mat-label>
                         <mat-select [(ngModel)]="yearSearch">
                             <mat-option *ngFor="let year of years" value="{{year}}">
@@ -28,11 +27,12 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
-                <div class="col-md-5">
+                </div>              
+                <div class="col-md-4">
                 </div>
                 <div class="col-md-1">
-                    <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px">
+                    <button mat-raised-button color="primary" tabindex="-1" style="float: right; margin-right: 20px" 
+                    (click)="searchTimeSheet()">
                         <mat-icon>search</mat-icon>
                         Tìm kiếm
                     </button>

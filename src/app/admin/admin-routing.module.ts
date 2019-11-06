@@ -29,6 +29,8 @@ import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-
 import { LearnerComponent } from './content/learner/learner.component';
 import { ControlLearnerComponent } from './content/learner/pages/control-learner/control-learner.component';
 import { StatisticsComponent } from './content/statistics/statistics.component';
+import { EndingPointComponent } from './content/ending-point/ending-point.component';
+import { ReceiptComponent } from './content/receipt/receipt.component';
 
 const adminRoutes: Routes = [
   {
@@ -44,6 +46,8 @@ const adminRoutes: Routes = [
           { path: 'pay-slip', component: PaySlipComponent },
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
+          { path: 'receipt', component: ReceiptComponent },
+
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
@@ -60,7 +64,9 @@ const adminRoutes: Routes = [
           { path: 'editlecturer', component: EditPageLectureComponent },
           { path: 'lecturer', component: LecturersComponent },
           { path: 'class-list', component: ClassComponent },
-          { path: 'commin-point', component: CommonPointComponent },
+          { path: 'periodic-points', component: CommonPointComponent },
+          { path: 'ending-points', component: EndingPointComponent },
+
           { path: 'schedule', component: ScheduleForLearnerComponent },
           { path: 'schedule-table', component: ScheduleInTableComponent },
           { path: 'search-learner', component: SearchStudyprocessComponent },

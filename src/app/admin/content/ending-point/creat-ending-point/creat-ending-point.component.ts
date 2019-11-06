@@ -9,29 +9,29 @@ import { LoginService } from 'src/app/admin/services/login.service';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
 import { LecturersService } from 'src/app/admin/services/lecturers.service';
+import { EndingcoursePointDetailService } from 'src/app/admin/services/endingcourse-point-detail.service';
+import { EndingcoursePointService } from 'src/app/admin/services/endingcourse-point.service';
 
 @Component({
-  selector: 'app-creat-point',
-  templateUrl: './creat-point.component.html',
-  styleUrls: ['./creat-point.component.css']
+  selector: 'app-creat-ending-point',
+  templateUrl: './creat-ending-point.component.html',
+  styleUrls: ['./creat-ending-point.component.css']
 })
-export class CreatPointComponent implements OnInit {
-
+export class CreatEndingPointComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
-  public periodicPointFormGroup: FormGroup;
+  public endingPointFormGroup: FormGroup;
   public floatLabel = 'always';
 
-  public periodicPoint = {
+  public endingPoint = {
     examinationDate: null,
-    week: null,
     languageClassId: null,
     lecturerId: null,
     status: 1,
     note: null
   };
 
-  public periodicPointList: any;
+  public endingPoints: any;
   public classList;
 
   public lecturerList;
@@ -40,33 +40,28 @@ export class CreatPointComponent implements OnInit {
   public statusSelected;
 
   public checkExitsWeek;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<CreatPointComponent>,
+    private dialogRef: MatDialogRef<CreatEndingPointComponent>,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private notificationService: NotificationService,
-    private periodicPointDeltailService: PeriodicPointDeltailService,
-    private periodicPointService: PeriodicPointService,
+    private endingcoursePointDetailService: EndingcoursePointDetailService,
+    private endingcoursePointService: EndingcoursePointService,
     private loginService: LoginService,
     private fomatDateService: FomatDateService,
     private languageClassesService: LanguageClassesService,
     private lecturersService: LecturersService
-
-
-
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-    this.periodicPoint.languageClassId = this.data.classId;
+    this.endingPoint.languageClassId = this.data.classId;
   }
 
   private initLearnerForm() {
-    this.periodicPointFormGroup = new FormGroup({
+    this.endingPointFormGroup = new FormGroup({
       examinationDate: new FormControl(null, [Validators.required]),
-      week: new FormControl(null, [Validators.required]),
       languageClassId: new FormControl(null, [Validators.required]),
       lecturerId: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
@@ -79,7 +74,8 @@ export class CreatPointComponent implements OnInit {
     this.getAllStatus();
     this.getAllLecturers();
     this.getAllClass();
-    this.getAllPeriodicPointConditions();
+    this.getEndingPointOfClass();
+
   }
 
   public getAllClass() {
@@ -107,41 +103,37 @@ export class CreatPointComponent implements OnInit {
       }
     ];
   }
-  public getAllPeriodicPointConditions() {
-    this.periodicPointService.getPeriodicPointConditions(this.periodicPoint.languageClassId).subscribe((result: any) => {
-      this.periodicPointList = result;
-      console.log(this.periodicPointList);
+
+
+
+
+
+  public getEndingPointOfClass() {
+    this.endingcoursePointService.getEndingcoursePointConditions(this.endingPoint.languageClassId).subscribe((result: any) => {
+      this.endingPoints = result;
+      console.log(this.endingPoints);
     }, error => {
     });
   }
 
   public checkExits() {
-    // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.periodicPointList.length; i++) {
-      // tslint:disable-next-line: triple-equals
-      if (this.periodicPoint.week == this.periodicPointList[i].week) {
-        this.periodicPoint.week = null;
-        return true;
-      }
+    if (this.endingPoints != null) {
+      return true;
     }
     return false;
   }
-  public createPeriodicPoint() {
+  public createEndingPoint() {
     if (this.checkExits()) {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, bảng điểm của tuần này đã được tạo mời kiểm tra!');
-    }
-    // tslint:disable-next-line: one-line
-    else if (this.periodicPoint.week == 0) {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, mời kiểm tra lại dữ liệu nhập!');
+      this.notificationService.showNotification(3, 'Điểm cuối khóa', 'Lỗi, bảng điểm của tuần này đã được tạo mời kiểm tra!');
     }
     // tslint:disable-next-line: one-line
     else {
-      this.periodicPoint.examinationDate = this.fomatDateService.transformDate(this.periodicPoint.examinationDate);
-      this.periodicPointService.addPeriodicPoint(this.periodicPoint, ConstService.user.id).subscribe((result: any) => {
-        setTimeout(() => { this.notificationService.showNotification(1, 'Điểm định kỳ', 'Tạo thành công!'); });
+      this.endingPoint.examinationDate = this.fomatDateService.transformDate(this.endingPoint.examinationDate);
+      this.endingcoursePointService.addEndingcoursePoint(this.endingPoint, ConstService.user.id).subscribe((result: any) => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Điểm cuối khóa', 'Tạo thành công!'); });
         this.dialogRef.close(true);
       }, error => {
-        this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, mời kiểm tra lại dữ liệu nhập!');
+        this.notificationService.showNotification(3, 'Điểm cuối khóa', 'Lỗi, mời kiểm tra lại dữ liệu nhập!');
       });
     }
   }
@@ -155,5 +147,6 @@ export class CreatPointComponent implements OnInit {
     return true;
 
   }
+
 
 }

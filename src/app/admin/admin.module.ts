@@ -101,6 +101,11 @@ import { AddScheduleDialogComponent } from './content/schedule-school/schedule-i
 import { LearnerComponent } from './content/learner/learner.component';
 import { ControlLearnerComponent } from './content/learner/pages/control-learner/control-learner.component';
 import { StatisticsComponent } from './content/statistics/statistics.component';
+// tslint:disable-next-line: max-line-length
+import { UpdateScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/update-schedule-dialog/update-schedule-dialog.component';
+import { EndingPointComponent } from './content/ending-point/ending-point.component';
+import { CreatEndingPointComponent } from './content/ending-point/creat-ending-point/creat-ending-point.component';
+import { ReceiptComponent } from './content/receipt/receipt.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -207,6 +212,10 @@ import { StatisticsComponent } from './content/statistics/statistics.component';
     LearnerComponent,
     ControlLearnerComponent,
     StatisticsComponent,
+    UpdateScheduleDialogComponent,
+    EndingPointComponent,
+    CreatEndingPointComponent,
+    ReceiptComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

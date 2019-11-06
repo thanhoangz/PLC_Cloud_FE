@@ -22,39 +22,38 @@ import { startWith, map } from 'rxjs/operators';
 import { PeriodicPointDeltailService } from '../../services/periodic-point-deltail.service';
 import { PeriodicPointService } from '../../services/periodic-point.service';
 import { ToastrService } from 'ngx-toastr';
-import { CreatPointComponent } from './dialog/creat-point/creat-point.component';
-
+import { CreatEndingPointComponent } from './creat-ending-point/creat-ending-point.component';
+import { EndingcoursePointDetailService } from '../../services/endingcourse-point-detail.service';
+import { EndingcoursePointService } from '../../services/endingcourse-point.service';
 @Component({
-  selector: 'app-common-point',
-  templateUrl: './common-point.component.html',
-  styleUrls: ['./common-point.component.css']
+  selector: 'app-ending-point',
+  templateUrl: './ending-point.component.html',
+  styleUrls: ['./ending-point.component.css']
 })
-export class CommonPointComponent implements OnInit {
-
+export class EndingPointComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
   public length = 100;
   public pageSize = 20;
   public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20, 30, 50];
+  public pageSizeOptions = [5, 10, 15, 20];
 
   public isOpenDialog = false;
 
 
-  public weekSelected;
-
   public periodicPointDetail = [];
   public periodicPoint;
 
-
+  public endingPointDetail;
+  public endingPoint;
+  public endingPointId;
   public classMessageId;
 
   // public learnerId;
   public classList;
 
   // get name class and name week
-  public weekName: number;
   public lecturerName;
   public lecturerId;
 
@@ -79,9 +78,10 @@ export class CommonPointComponent implements OnInit {
   };
 
   // tslint:disable-next-line: max-line-length
-  public displayedColumns: string[] = ['index', 'learnerCardId', 'learnerName', 'learnerSex', 'learnerBriday', 'point', 'averagePoint', 'sortedByPoint', 'sortedByAveragePoint', 'note'];
+  public displayedColumns: string[] = ['index', 'learnerCardId', 'learnerName', 'learnerSex', 'learnerBriday',
+    'listeningPoint', 'sayingPoint', 'readingPoint', 'writingPoint', 'totalPoint', 'averagePoint', 'sortOrder', 'note'];
   // tslint:disable-next-line: member-ordering
-  public dataSource = new MatTableDataSource(this.periodicPointDetail);
+  public dataSource = new MatTableDataSource(this.endingPointDetail);
   // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
@@ -92,8 +92,8 @@ export class CommonPointComponent implements OnInit {
     private studyProcessService: StudyProcessService,
     private languageClassesService: LanguageClassesService,
     private courseService: CourseService,
-    private periodicPointDeltailService: PeriodicPointDeltailService,
-    private periodicPointService: PeriodicPointService,
+    private endingcoursePointDetailService: EndingcoursePointDetailService,
+    private endingcoursePointService: EndingcoursePointService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
     public matDialog: MatDialog,
@@ -112,40 +112,55 @@ export class CommonPointComponent implements OnInit {
       this.classMessageId = message;
     });
 
-    this.getPeriodicWeek();
     this.getAllClass();
     this.load_infor_Classes(this.classMessageId);
-    // this.getPeriodicDetail();
+    // this.getEdingPointDetail();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
-
-  applyFilter(filterValue: any) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
   /////////////////////////////////////////////////////////////////////////////////////////////////
-  public getPeriodicWeek() {
+
+
+  public getEndingPoint() {
     if (this.classMessageId != null) {
-      this.periodicPointService.getPeriodicPointConditions(this.classMessageId).subscribe((result: any) => {
-        this.periodicPoint = result;
-        console.log(this.periodicPoint);
+      this.endingcoursePointService.getEndingcoursePointConditions(this.classMessageId).subscribe((result: any) => {
+        if (result != null) {
+          this.endingPointId = result.id;
+          this.lecturerName = result.lecturerName;
+          this.dateOnPoint = result.dateOnPoint;
+          console.log(result);
+          this.getEdingPointDetail();
+
+        }
+        // tslint:disable-next-line: one-line
+        else {
+          this.endingPointId = 0;
+          this.getEdingPointDetail();
+
+        }
+
+
       }, error => {
       });
     }
   }
-  /// để lấy tên tuần gán ngoài html
-  public getPeriodicId() {
-    this.periodicPointService.getByPeriodicPointId(this.weekSelected).subscribe((result: any) => {
-      this.weekName = result.week;
-      this.lecturerName = result.lecturerName;
-      this.dateOnPoint = result.dateOnPoint;
-      console.log(this.weekName);
-      console.log(this.lecturerName);
-      console.log(this.dateOnPoint);
+  public getEdingPointDetail() {
+    if (this.endingPointId != null) {
+      this.endingcoursePointDetailService.getEndingcoursePointDetailConditions(this.endingPointId).subscribe((result: any) => {
+        this.loadTables(result);
+        this.endingPointDetail = result;
+        console.log(this.endingPointDetail);
 
-    }, error => {
-    });
+      }, error => {
+      });
+    }
+
   }
+
+  public loadTables(data: any) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+  }
+
   public getAllClass() {
     this.languageClassesService.getAllLanguageClasses().subscribe((result: any) => {
       this.classList = result;
@@ -155,61 +170,7 @@ export class CommonPointComponent implements OnInit {
 
   public loadClassList() {
     this.load_infor_Classes(this.classMessageId);
-    this.weekSelected = 0;
-    this.getPeriodicWeek();
-    this.getPeriodicDetail();
-    console.log(this.weekSelected);
-  }
-
-  public getPeriodicDetail() {
-    // if  (this.weekSelected != null) {
-    this.periodicPointDeltailService.getPeriodicPointDeltailConditions(this.weekSelected).subscribe((result: any) => {
-      this.loadTables(result);
-      this.periodicPointDetail = result;
-      console.log(this.periodicPointDetail);
-
-    }, error => {
-    });
-  }
-  public loadTables(data: any) {
-    this.dataSource = new MatTableDataSource(data);
-    this.dataSource.paginator = this.paginator;
-  }
-
-  // change bảng điểm định kỳ chi tiết
-  public reloadTable() {
-    this.getPeriodicDetail();
-    this.getPeriodicId();
-    console.log(this.periodicPointDetail);
-    console.log(this.weekSelected);
-
-  }
-
-  public CreatPeriodicPoint() {
-    if (!this.isOpenDialog) {
-      if (this.classMessageId == null) {
-        this.notificationService.showNotification(3, 'Điểm', 'Lỗi, Hãy chọn lớp học!');
-      }
-      // tslint:disable-next-line: one-line
-      else {
-        this.isOpenDialog = true;
-        const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
-        this.matDialog.open(CreatPointComponent, {
-          width: `${widthMachine}px`,
-          data: {
-            classId: this.classMessageId
-          },
-          disableClose: false
-        }).afterClosed().subscribe(result => {
-          this.isOpenDialog = false;
-          if (result) {
-            this.periodicPointDeltailService.addPeriodicPointDeltailCondition().subscribe(done => {
-            }, error => {
-            });
-            this.getPeriodicWeek();           }
-        });
-      }
-    }
+    this.getEndingPoint();
   }
   ////////////// Infor lớp học của thằng Phương k quan tâm
   public load_infor_Classes(classMessageId) {
@@ -235,6 +196,37 @@ export class CommonPointComponent implements OnInit {
     }
   }
 
+
+
+  public CreatEndingPoint() {
+    if (!this.isOpenDialog) {
+      if (this.classMessageId == null) {
+        this.notificationService.showNotification(3, 'Điểm', 'Lỗi, Hãy chọn lớp học!');
+      }
+      // tslint:disable-next-line: one-line
+      else {
+        this.isOpenDialog = true;
+        const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
+        this.matDialog.open(CreatEndingPointComponent, {
+          width: `${widthMachine}px`,
+          data: {
+            classId: this.classMessageId
+          },
+          disableClose: false
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          if (result) {
+            this.endingcoursePointDetailService.addEndingcoursePointDetailCondition().subscribe(done => {
+            }, error => {
+            });
+            this.getEndingPoint();
+          }
+        });
+      }
+    }
+  }
+
+
   public load_total(classId) {
     // tslint:disable-next-line: triple-equals
     this.studyProcessService.search_studyProcess(classId, '', 1).subscribe((result: any) => {
@@ -255,8 +247,8 @@ export class CommonPointComponent implements OnInit {
   createExchangeId(id) {
     this.exchangeDataService.changeId(id);
   }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// chỉ nhập số
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  // chỉ nhập số
   public numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -265,16 +257,12 @@ export class CommonPointComponent implements OnInit {
     return true;
 
   }
-// check k cho sửa tuần cũ
-  public checkWeekEdit() {
 
-  }
-  public updatePeriodicPoint(periodicDetail) {
-    this.periodicPointDeltailService.putPeriodicPointDeltail(periodicDetail, this.classMessageId).subscribe(result => {
+  public updatePeriodicPoint(endingPointDetail) {
+    this.endingcoursePointDetailService.putEndingcoursePointDetail(endingPointDetail).subscribe(result => {
       console.log('success');
-      this.getPeriodicDetail();
+      this.getEndingPoint();
     }, error => {
     });
   }
-
 }

@@ -25,10 +25,10 @@ getPeriodicPointConditions(languageClassId) {
     .post(`${environment.PLCServicesDomain}/api/PeriodicPoints/get-all-with-conditions?languageClassId=${languageClassId}`, null);
 }
 // thêm điểm định kỳ
-addPeriodicPoint(periodicPoint: any) {
+addPeriodicPoint(periodicPoint: any , userId) {
   return this.httpClient
     // tslint:disable-next-line: max-line-length
-    .post(`${environment.PLCServicesDomain}/api/PeriodicPoints`, periodicPoint);
+    .post(`${environment.PLCServicesDomain}/api/PeriodicPoints?userId=${userId}`, periodicPoint);
 }
 
 getByPeriodicPointId(periodicPointId) {

@@ -3,7 +3,10 @@
   width: 100%;
   overflow: auto;
 }
-
+.mat-row:hover {
+  background: lightslategray;
+  opacity: 0.7;
+}
 table {
   width: 100%;
   text-align: center;
@@ -29,6 +32,11 @@ select{
 .tieude{
   float: right;
 }
+
+.canChinh{
+ margin-left: 15px;
+}
+
 th.mat-column-index, td.mat-column-index {
   padding-left: 8px;
 }

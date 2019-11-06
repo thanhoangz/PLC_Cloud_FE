@@ -49,7 +49,8 @@ export class ScheduleForLearnerComponent implements OnInit {
 
 
   public getDateOfMonth() {
-
+    this.dateOfweek = [];
+    this.connectedTo = [];
     const day = new Date(this.yearSelected, this.monthSelected, 1).getDay();
     if (day === 0) {
       for (let i = 0; i < 6; i++) {
@@ -66,9 +67,24 @@ export class ScheduleForLearnerComponent implements OnInit {
     for (let i = 1; i <= numberOfMonth; i++) {
 
       const date = this.datepipe.transform(new Date(this.yearSelected, this.monthSelected, i), 'dd-MM-yyyy');
+      const schedule = [];
+
+      /* duyệt xem có lịch học trong ngày không thì gắn vào. */
+      if (this.scheduleMonth) {
+        (this.scheduleMonth.classSessions).forEach(element => {
+          const dateOfSchedule = this.datepipe.transform(element.date, 'dd-MM-yyyy');
+          if (dateOfSchedule === date) {
+            schedule.push(element.id + this.scheduleMonth.classroomName + '-' + element.fromTime.substring(0, 5) +
+              '-' + element.toTime.substring(0, 5) + ' ' + this.scheduleMonth.lecturerName);
+          }
+        });
+      }
+
+
       this.dateOfweek.push(
         {
           date,
+          schedule
         }
       );
     }
@@ -76,18 +92,23 @@ export class ScheduleForLearnerComponent implements OnInit {
 
 
     /* Xử lí để đưa các item buổi học vào từng ngày.*/
+    for (const item of this.dateOfweek) {
+      this.connectedTo.push(item.date);
+    }
+
   }
 
   public getScheduleMonthByClass(classId: any) {
     this.scheduleService.getScheduleMonthByClass(classId).subscribe(result => {
       this.scheduleMonth = result;
-      console.log(result);
+      this.getDateOfMonth();
     }, error => {
 
     });
   }
 
   public forwardMonth() {
+    console.log(this.scheduleMonth);
     if (this.monthSelected === 0) {
       this.monthSelected = 11;
       this.yearSelected = this.yearSelected - 1;
@@ -95,10 +116,13 @@ export class ScheduleForLearnerComponent implements OnInit {
       this.monthSelected = this.monthSelected - 1;
     }
     this.dateOfweek = [];
+    this.connectedTo = [];
     this.getDateOfMonth();
+
   }
 
   public nextMonth() {
+    console.log(this.scheduleMonth);
     if (this.monthSelected === 11) {
       this.monthSelected = 0;
       this.yearSelected = this.yearSelected + 1;
@@ -106,7 +130,9 @@ export class ScheduleForLearnerComponent implements OnInit {
       this.monthSelected = this.monthSelected + 1;
     }
     this.dateOfweek = [];
+    this.connectedTo = [];
     this.getDateOfMonth();
+
   }
 
 
@@ -114,11 +140,15 @@ export class ScheduleForLearnerComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(event.previousContainer);
+      console.log(event.container);
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      console.log(event.previousContainer);
+      console.log(event.container);
     }
   }
 
@@ -131,13 +161,14 @@ export class ScheduleForLearnerComponent implements OnInit {
 
     });
   }
+
   public setClasses() {
 
   }
+
   public changValueCourse(courseId) {
     this.languageClassesService.getClassByCourse(courseId).subscribe(result => {
       this.classes = result;
-      console.log(result);
     }, error => {
 
     });
@@ -145,6 +176,10 @@ export class ScheduleForLearnerComponent implements OnInit {
 
   public changValueClass(classId) {
     this.getScheduleMonthByClass(classId);
+  }
+
+  public autoCreateSchedule() {
+
   }
 }
 
