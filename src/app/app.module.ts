@@ -81,6 +81,7 @@ import { AddScheduleDialogComponent } from './admin/content/schedule-school/sche
 import { DragDropModule } from '@angular/cdk/drag-drop';
 // tslint:disable-next-line: max-line-length
 import { UpdateScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/update-schedule-dialog/update-schedule-dialog.component';
+import { CreatEndingPointComponent } from './admin/content/ending-point/creat-ending-point/creat-ending-point.component';
 
 @NgModule({
   declarations: [
@@ -171,7 +172,8 @@ import { UpdateScheduleDialogComponent } from './admin/content/schedule-school/s
     CreatPointComponent,
     DetailReceiptComponent,
     AddScheduleDialogComponent,
-    UpdateScheduleDialogComponent
+    UpdateScheduleDialogComponent,
+    CreatEndingPointComponent
   ]
 
 })
