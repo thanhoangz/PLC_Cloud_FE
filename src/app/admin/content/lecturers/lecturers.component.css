@@ -1,32 +1,26 @@
-.content {
+
+.content{
     width: 100%;
 }
-
-.card {
+.card{
     width: 100%;
     margin-left: 9px;
     margin-right: 20px;
     margin-top: 10px;
+    
 }
-
-.img-circle {
-    height: 128px;
+.img-circle{
+    height:128px; 
     width: 128px;
-    overflow: hidden;
+    overflow:hidden;
 }
-
-.btn {
+.btn{
     margin-left: 3px;
 }
-
-.row {
+.row{
     margin-top: 5px;
 }
-
-.addAndSearch {
+.addAndSearch{
     width: 150px;
 }
 
-mat-form-field {
-    width: 100%;
-}

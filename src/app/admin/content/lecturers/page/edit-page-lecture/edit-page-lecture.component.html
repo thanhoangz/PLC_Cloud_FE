@@ -80,14 +80,6 @@
               <hr>
               <div class="row">
                 <div class="col-md-5">
-                  <mat-form-field [floatLabel]='floatLabel'>
-                    <mat-label>Card ID</mat-label>
-                    <input matInput placeholder="Card ID" required [(ngModel)]="lecture.cardId"
-                      formControlName="cardId">
-                    <mat-error *ngIf="!lectureFormGroup.hasError('required')">
-                      Vui lòng nhập card id!
-                    </mat-error>
-                  </mat-form-field>
 
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Họ</mat-label>
@@ -118,8 +110,8 @@
                   </mat-form-field>
                   <label>Giới tính: </label>
                   <mat-radio-group [(ngModel)]="lecture.sex" formControlName="sex">
-                    <mat-radio-button value= "true">Nam</mat-radio-button>
-                    <mat-radio-button value= "false">Nữ</mat-radio-button>
+                    <mat-radio-button value="true">Nam</mat-radio-button>
+                    <mat-radio-button value="false">Nữ</mat-radio-button>
                   </mat-radio-group>
 
 
@@ -154,7 +146,7 @@
 
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Số liên lạc</mat-label>
-                    <input matInput placeholder="09xx xxx xxx" required [(ngModel)]="lecture.phone"
+                    <input type="number" matInput placeholder="09xx xxx xxx" required [(ngModel)]="lecture.phone"
                       formControlName="phone">
                     <mat-error
                       *ngIf="!lectureFormGroup.hasError('required') || !lectureFormGroup.hasError('minLength')">
@@ -191,15 +183,6 @@
                 </div>
 
                 <div class="col-md-5">
-                  <mat-form-field [floatLabel]='floatLabel'>
-                    <mat-label>Chức vụ giáo viên</mat-label>
-                    <input matInput placeholder="Nhập chức vụ" required [(ngModel)]="lecture.position"
-                      formControlName="position">
-                    <mat-error *ngIf="!lectureFormGroup.hasError('required')">
-                      Vui lòng nhập!
-                    </mat-error>
-                  </mat-form-field>
-
                   <mat-form-field>
                     <mat-label>Tình trạng hôn nhân</mat-label>
                     <mat-select [(ngModel)]="lecture.marritalStatus" style="text-align: center;" required
@@ -225,42 +208,54 @@
                       Vui lòng chọn trạng thái!
                     </mat-error>
                   </mat-form-field>
-                  <div>
-                    <mat-checkbox value="false" [(ngModel)]="lecture.isVisitingLecturer"
-                      formControlName="isVisitingLecturer">Giáo viên thỉnh giảng</mat-checkbox>
-                    <br>
-                    <mat-checkbox value="false" [(ngModel)]="lecture.isTutor" formControlName="isTutor">Trợ giảng
-                    </mat-checkbox>
-                  </div>
-                  <mat-form-field [floatLabel]='floatLabel'>
+
+                  <mat-form-field>
+                    <mat-label>Chức vụ</mat-label>
+                    <mat-select [(ngModel)]="selected" required (ngModelChange)="setting()" formControlName="position"
+                      style="text-align: center;">
+                      <mat-option *ngFor="let item of position" [value]="item.code" style="text-align: center;">
+                        {{item.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-checkbox value="false" [(ngModel)]="lecture.isTutor" formControlName="isTutor">Trợ giảng
+                  </mat-checkbox>
+
+                  <mat-form-field [floatLabel]='floatLabel' *ngIf="selected == 0">
                     <mat-label>Lương cơ bản</mat-label>
-                    <input matInput placeholder="Nhập lương cơ bản" [(ngModel)]="lecture.basicSalary"
+                    <input type="number" matInput placeholder="Nhập lương cơ bản" [(ngModel)]="lecture.basicSalary"
                       formControlName="basicSalary">
+                  </mat-form-field>
+
+                  <mat-form-field [floatLabel]='floatLabel' *ngIf="selected == 0">
+                    <mat-label>Tiền bảo hiểm</mat-label>
+                    <input type="number" matInput placeholder="Nhập tiền bảo hiểm"
+                      [(ngModel)]="lecture.insurancePremium" formControlName="insurancePremium">
+                  </mat-form-field>
+
+                  <mat-form-field [floatLabel]='floatLabel'>
+                    <mat-label>Thưởng</mat-label>
+                    <input type="number" matInput placeholder="Nhập thưởng" [(ngModel)]="lecture.bonus"
+                      formControlName="bonus">
                   </mat-form-field>
 
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Phụ cấp</mat-label>
-                    <input matInput placeholder="Nhập phụ cấp" [(ngModel)]="lecture.allowance"
+                    <input type="number" matInput placeholder="Nhập phụ cấp" [(ngModel)]="lecture.allowance"
                       formControlName="allowance">
                   </mat-form-field>
-                  <mat-form-field [floatLabel]='floatLabel'>
-                    <mat-label>Thưởng</mat-label>
-                    <input matInput placeholder="Nhập thưởng" [(ngModel)]="lecture.bonus" formControlName="bonus">
-                  </mat-form-field>
-                  <mat-form-field [floatLabel]='floatLabel'>
-                    <mat-label>Tiền bảo hiểm</mat-label>
-                    <input matInput placeholder="Nhập tiền bảo hiểm" [(ngModel)]="lecture.insurancePremium"
-                      formControlName="insurancePremium" >
-                  </mat-form-field>
+
                   <mat-form-field [floatLabel]='floatLabel' *ngIf="lecture.isVisitingLecturer">
                     <mat-label>Tiền công theo buổi</mat-label>
-                    <input matInput placeholder="Nhập số tiền" [(ngModel)]="lecture.wageOfLecturer"
+                    <input type="number" matInput placeholder="Nhập số tiền" [(ngModel)]="lecture.wageOfLecturer"
                       formControlName="wageOfLecturer">
                   </mat-form-field>
-                  <mat-form-field [floatLabel]='floatLabel'>
+
+                  <mat-form-field [floatLabel]='floatLabel' *ngIf="lecture.isTutor">
                     <mat-label>Tiền trợ giảng theo buổi</mat-label>
-                    <input matInput placeholder="Nhập số tiền" [(ngModel)]="lecture.wageOfTutor"
-                      formControlName="wageOfTutor" >
+                    <input type="number" matInput placeholder="Nhập số tiền" [(ngModel)]="lecture.wageOfTutor"
+                      formControlName="wageOfTutor">
                   </mat-form-field>
 
                   <mat-form-field [floatLabel]='floatLabel'>
@@ -273,18 +268,23 @@
                 </div>
 
                 <div class="col-md-1">
-
                 </div>
               </div>
               <hr>
               <mat-card-footer align="end">
                 <button type="submit" mat-raised-button color="primary" tabindex="-1" style="margin: 1%;">
-                  <mat-icon>edit_circle</mat-icon>
-                  Sửa
+                  <mat-icon>create</mat-icon>
+                  Lưu thay đổi
                 </button>
-                <button mat-raised-button color="warn" mat-dialog-close tabindex="-1" style="margin: 1%;">
+                <button type="button" mat-raised-button color="warn" tabindex="-1" style="margin: 1%;"
+                  (click)="delete()">
+                  <mat-icon>delete</mat-icon>
+                  Xóa giáo viên
+                </button>
+                <button type="button" mat-raised-button tabindex="-1"
+                  style="margin: 1%; background-color: darkgoldenrod;" (click)="back()">
                   <mat-icon>cancel</mat-icon>
-                  Hủy
+                  Quay về
                 </button>
               </mat-card-footer>
             </mat-card>

@@ -79,6 +79,9 @@ import { DetailReceiptComponent } from './admin/content/search-studyprocess/dial
 // tslint:disable-next-line: max-line-length
 import { AddScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ControlLearnerComponent } from './admin/content/learner/pages/control-learner/control-learner.component';
+// tslint:disable-next-line: max-line-length
+import { UpdateScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/update-schedule-dialog/update-schedule-dialog.component';
 import { CreatEndingPointComponent } from './admin/content/ending-point/creat-ending-point/creat-ending-point.component';
 
 @NgModule({
@@ -170,6 +173,8 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
     CreatPointComponent,
     DetailReceiptComponent,
     AddScheduleDialogComponent,
+    ControlLearnerComponent,
+    UpdateScheduleDialogComponent,
     CreatEndingPointComponent
   ]
 

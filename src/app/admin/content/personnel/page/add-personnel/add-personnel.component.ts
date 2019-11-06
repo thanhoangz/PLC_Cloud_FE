@@ -115,7 +115,7 @@ export class AddPersonnelComponent implements OnInit {
         this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, thêm nhân viên thất bại!');
       });
     } else {
-      this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+      this.notificationService.showNotification(2, 'Nhân viên', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
     }
   }
 

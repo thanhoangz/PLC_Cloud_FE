@@ -21,6 +21,7 @@ export class AdminManagementComponent implements OnInit {
 
   public avatar = '';
   public name = '';
+
   ngOnInit() {
     this.loginService.islogged();
     this.getPermissionByUser();

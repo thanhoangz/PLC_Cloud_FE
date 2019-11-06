@@ -93,12 +93,16 @@ import { SearchStudyprocessComponent } from './content/search-studyprocess/searc
 import { PermissionsForUserComponent } from './content/user-management/permissions-for-user/permissions-for-user.component';
 import { CreatPointComponent } from './content/common-point/dialog/creat-point/creat-point.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
-
 import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
 // tslint:disable-next-line: max-line-length
 import { AddScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
+import { LearnerComponent } from './content/learner/learner.component';
+import { ControlLearnerComponent } from './content/learner/pages/control-learner/control-learner.component';
+import { StatisticsComponent } from './content/statistics/statistics.component';
+// tslint:disable-next-line: max-line-length
+import { UpdateScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/update-schedule-dialog/update-schedule-dialog.component';
 import { EndingPointComponent } from './content/ending-point/ending-point.component';
 import { CreatEndingPointComponent } from './content/ending-point/creat-ending-point/creat-ending-point.component';
 import { ReceiptComponent } from './content/receipt/receipt.component';
@@ -206,6 +210,10 @@ import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/crea
     ScheduleForLearnerComponent,
     ScheduleInTableComponent,
     AddScheduleDialogComponent,
+    LearnerComponent,
+    ControlLearnerComponent,
+    StatisticsComponent,
+    UpdateScheduleDialogComponent,
     EndingPointComponent,
     CreatEndingPointComponent,
     ReceiptComponent,

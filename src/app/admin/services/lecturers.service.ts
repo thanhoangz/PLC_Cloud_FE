@@ -12,6 +12,7 @@ export class LecturersService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Lecturers`);
   }
+
   getLectureId(id) {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);
@@ -32,9 +33,9 @@ export class LecturersService {
       .delete(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);
   }
 
-  SearchLecturers(cardId, name, sex, status) {
+  SearchLecturers(keyword, position, status) {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
-      .post(`${environment.PLCServicesDomain}/api/Lecturers/get-all-with-conditions?cardId=${cardId}&name=${name}&sex=${sex}&status=${status}`, null);
+      .post(`${environment.PLCServicesDomain}/api/Lecturers/get-all-with-conditions?keyword=${keyword}&position=${position}&status=${status}`, null);
   }
 }

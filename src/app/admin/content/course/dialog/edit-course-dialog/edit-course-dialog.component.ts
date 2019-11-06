@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 import { FormBuilder } from '@angular/forms';
 import { CourseService } from 'src/app/admin/services/course.service';
 import { NotificationService } from 'src/app/admin/services/extension/notification.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-course-dialog',
@@ -14,7 +14,7 @@ export class EditCourseDialogComponent implements OnInit {
 
   public status = [];
 
-  private course = {
+  public course = {
     id: null,
     name: '',
     price: null,
@@ -24,7 +24,7 @@ export class EditCourseDialogComponent implements OnInit {
     status: null,
     note: ''
   };
-
+  public FormGroup: FormGroup;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<EditCourseDialogComponent>,
@@ -35,18 +35,34 @@ export class EditCourseDialogComponent implements OnInit {
   ) {
     this.setData();
   }
+  private initForm() {
+    this.FormGroup = new FormGroup({
+      name: new FormControl(null, [Validators.required]),
+      price: new FormControl(null, [Validators.required]),
+      traingTime: new FormControl(null, [Validators.required]),
+      numberOfSession: new FormControl(null, [Validators.required]),
+      status: new FormControl(null, [Validators.required]),
+      content: new FormControl(null, [Validators.required]),
+      note: new FormControl()
+    });
+  }
 
   ngOnInit() {
     this.getAllStatus();
+    this.initForm();
   }
 
   public updateCourse() {
-    this.courseService.putCourse(this.course).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Cập nhật khóa học thành công!'); });
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không cập nhật thành công!');
-    });
+    if (this.FormGroup.valid) {
+      this.courseService.putCourse(this.course).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Cập nhật khóa học thành công!'); });
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, Cập nhật thất bại!');
+      });
+    } else {
+      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+    }
   }
 
   public getAllStatus() {

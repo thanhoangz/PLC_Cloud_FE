@@ -5,9 +5,9 @@ import { NotificationService } from 'src/app/admin/services/extension/notificati
 import { ConfirmService } from 'src/app/admin/services/extension/confirm.service';
 import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
-import { stringify } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
+import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
+
 
 @Component({
   selector: 'app-edit-page-lecture',
@@ -22,7 +22,9 @@ export class EditPageLectureComponent implements OnInit {
   public lectureFormGroup: FormGroup;
   public floatLabel = 'always';
 
+  public check;
   public status;
+  public position;
   public marritalStatus;
   public genderes = [
     {
@@ -51,18 +53,18 @@ export class EditPageLectureComponent implements OnInit {
     position: null,
     certificate: null,
     image: '../../../../../../assets/admin/dist/img/user_def.png',
-    basicSalary: null,
-    allowance: null,
-    bonus: null,
-    insurancePremium: null,
-    wageOfLecturer: null,
-    wageOfTutor: null,
+    basicSalary: 0,
+    allowance: 0,
+    bonus: 0,
+    insurancePremium: 0,
+    wageOfLecturer: 0,
+    wageOfTutor: 0,
     isVisitingLecturer: false,
     isTutor: false,
     status: 1,
     note: null,
   };
-
+  public selected;
   constructor(
     private lecturersService: LecturersService,
     public matDialog: MatDialog,
@@ -78,7 +80,6 @@ export class EditPageLectureComponent implements OnInit {
   }
   private initLectureForm() {
     this.lectureFormGroup = new FormGroup({
-      cardId: new FormControl(null, [Validators.required]),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       sex: new FormControl(),
@@ -90,8 +91,8 @@ export class EditPageLectureComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       facebook: new FormControl(),
       phone: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.pattern(/[0-9\+\-\ ]/)]),
-      position: new FormControl(),
-      certificate: new FormControl(),
+      position: new FormControl(null, [Validators.required]),
+      certificate: new FormControl(null, [Validators.required]),
       basicSalary: new FormControl(),
       allowance: new FormControl(),
       bonus: new FormControl(),
@@ -108,15 +109,52 @@ export class EditPageLectureComponent implements OnInit {
 
     this.exchangeDataService.idSource.subscribe(message => {
       this.lecture.id = message;
-      console.log(this.lecture.id);
-
     });
-
-
+    this.getLectureId();
     this.getAllStatus();
     this.getAllMarritalStatus();
-    this.getLectureId();
+    this.getAllPosition();
     this.initLectureForm();
+  }
+
+  public setting() {
+    // tslint:disable-next-line: triple-equals
+    if (this.selected == 0) {
+      this.lecture.position = 'Giáo viên';
+      this.lecture.isVisitingLecturer = false;
+      this.lecture.wageOfLecturer = 0;
+    }
+    // tslint:disable-next-line: triple-equals
+    if (this.selected == 1) {
+      this.lecture.position = 'Thỉnh giảng';
+      this.lecture.isVisitingLecturer = true;
+      this.lecture.isTutor = false;
+      this.lecture.basicSalary = 0;
+      this.lecture.insurancePremium = 0;
+    }
+    // tslint:disable-next-line: triple-equals
+    if (this.selected == 2) {
+      this.lecture.position = 'Trợ giảng';
+      this.lecture.isTutor = true;
+      this.lecture.isVisitingLecturer = false;
+    }
+  }
+
+  public getAllPosition() {
+    this.position = [
+      {
+        name: 'Giáo viên',
+        code: 0
+      },
+      {
+        name: 'Thỉnh giảng',
+        code: 1
+      },
+      {
+        name: 'Trợ giảng',
+        code: 2
+      },
+    ];
   }
 
   private getAllStatus() {
@@ -146,10 +184,9 @@ export class EditPageLectureComponent implements OnInit {
   }
   public getLectureId() {
     this.lecture.birthday = this.fomatDateService.transformDate(this.lecture.birthday);
-    console.log(this.lecture);
     this.startProgressBar();
     this.lecturersService.getLectureId(this.lecture.id).subscribe((result: any) => {
-      this.lecture.cardId = result.cardId;
+      this.lecture.id = result.id;
       this.lecture.cardId = result.cardId;
       this.lecture.firstName = result.firstName;
       this.lecture.lastName = result.lastName;
@@ -162,7 +199,23 @@ export class EditPageLectureComponent implements OnInit {
       this.lecture.email = result.email;
       this.lecture.facebook = result.facebook;
       this.lecture.phone = result.phone;
-      this.lecture.position = result.position;
+
+      // tslint:disable-next-line: triple-equals
+      if (result.position == 'Giáo viên') {
+        this.lecture.position = result.position;
+        this.selected = 0;
+      }
+      // tslint:disable-next-line: triple-equals
+      if (result.position == 'Thỉnh giảng') {
+        this.lecture.position = result.position;
+        this.selected = 1;
+      }
+      // tslint:disable-next-line: triple-equals
+      if (result.position == 'Trợ giảng') {
+        this.lecture.position = result.position;
+        this.selected = 2;
+      }
+
       this.lecture.certificate = result.certificate;
       this.lecture.image = result.image;
       this.lecture.basicSalary = result.basicSalary;
@@ -175,7 +228,6 @@ export class EditPageLectureComponent implements OnInit {
       this.lecture.isTutor = result.isTutor;
       this.lecture.status = result.status;
       this.lecture.note = result.note;
-      console.log(this.lecture);
       this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
@@ -191,6 +243,20 @@ export class EditPageLectureComponent implements OnInit {
       this.stopProgressBar();
       this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Update giáo viên thất bại!');
     });
+  }
+
+  public delete() {
+    this.lecturersService.deleteLectureId(this.lecture.id).subscribe(result => {
+      setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
+      this.router.navigateByUrl('admin/lecture');
+    }, error => {
+      this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
+      this.stopProgressBar();
+    });
+  }
+
+  public back() {
+    this.router.navigateByUrl('admin/lecturer');
   }
 
   /*Update image => success => save to learner object*/
@@ -215,7 +281,4 @@ export class EditPageLectureComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
-
-
-
 }

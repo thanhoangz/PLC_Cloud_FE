@@ -114,9 +114,11 @@ export class GuestTypeComponent implements OnInit {
   }
 
   public deleteGuestType(guestId: number) {
+    this.isOpenDialog = true;
     this.guestTypeService.deleteGuestType(guestId).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Đối tượng', 'Xóa đối tượng thành công!'); });
       this.getGuestTypes();
+      this.isOpenDialog = false;
     }, error => {
       this.notificationService.showNotification(3, 'Đối tượng', 'Lỗi, xóa thất bại!');
       this.stopProgressBar();

@@ -1,38 +1,37 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { AdminService } from 'src/app/admin/services/admin.service';
+import { NotificationService } from './../../../../services/extension/notification.service';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ReceiptTypeService } from 'src/app/admin/services/receipt-type.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NotificationService } from './../../../../services/extension/notification.service';
 @Component({
   selector: 'app-add-receipt-type',
   templateUrl: './add-receipt-type.component.html',
   styleUrls: ['./add-receipt-type.component.css']
 })
 export class AddReceiptTypeComponent implements OnInit {
-  public recepiptType = {
+  screenHeight: any;
+  screenWidth: any;
+
+  public receiptType = {
     name: '',
-    status: 1,
-    note: '',
+    status: null,
+    note: ''
   };
 
-
   public status = [];
-  public FormGroup: FormGroup;
+
+  public statusSelected;
+  public receiptTypeFormGroup: FormGroup;
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddReceiptTypeComponent>,
     private receiptTypeService: ReceiptTypeService,
-    private formBuilder: FormBuilder,
-    public dialog: MatDialog,
-    private toastrService: ToastrService,
     private notificationService: NotificationService,
   ) { }
 
   private initLectureForm() {          // bắt lỗi : edit thuộc tính
-    this.FormGroup = new FormGroup({
+    this.receiptTypeFormGroup = new FormGroup({
       name: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       note: new FormControl()
@@ -57,15 +56,14 @@ export class AddReceiptTypeComponent implements OnInit {
     ];
   }
 
-  public createReceiptType() {
-    if (this.FormGroup.valid) {
-      this.receiptTypeService.postReceiptType(this.recepiptType).subscribe(result => {
-        setTimeout(() => { this.notificationService.showNotification(1, 'Loại thu', 'Tạo thành công loại thu!'); });
+  public create_ReceiptType() {
+    if (this.receiptTypeFormGroup.valid) {
+      this.receiptTypeService.postReceiptType(this.receiptType).subscribe(result => {
+        setTimeout(() => { this.notificationService.showNotification(1, 'Loại phiếu thu', 'Tạo thành công loại thu!'); });
         this.dialogRef.close(true);
-      }, error => {
       });
     } else {
-      this.notificationService.showNotification(3, 'Loai phiếu thu', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
+      this.notificationService.showNotification(3, 'Loại phiếu thu', 'Lỗi, Vui lòng nhập đủ thông tin bắt buộc!');
     }
   }
 }
