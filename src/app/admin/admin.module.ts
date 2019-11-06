@@ -99,6 +99,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
 // tslint:disable-next-line: max-line-length
 import { AddScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
+import { EndingPointComponent } from './content/ending-point/ending-point.component';
+import { CreatEndingPointComponent } from './content/ending-point/creat-ending-point/creat-ending-point.component';
+import { ReceiptComponent } from './content/receipt/receipt.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -202,6 +205,9 @@ import { AddScheduleDialogComponent } from './content/schedule-school/schedule-i
     ScheduleForLearnerComponent,
     ScheduleInTableComponent,
     AddScheduleDialogComponent,
+    EndingPointComponent,
+    CreatEndingPointComponent,
+    ReceiptComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

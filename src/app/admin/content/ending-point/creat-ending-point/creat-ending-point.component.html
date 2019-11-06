@@ -1,51 +1,42 @@
 <h1 mat-dialog-title>Tạo bảng điểm</h1>
+<form novalidate [formGroup]="endingPointFormGroup" (ngSubmit)="createEndingPoint()">
 
 <div mat-dialog-content>
     <div class="row">
         <div class="col-md-12">
-            <form novalidate [formGroup]="periodicPointFormGroup" (ngSubmit)="createPeriodicPoint()">
-
-                <mat-form-field [floatLabel]='floatLabel'>
-                    <mat-label>Tuần</mat-label>
-                    <input [(ngModel)]="periodicPoint.week" matInput placeholder="Nhập tuần học" required
-                        formControlName="week"  autocomplete="off" (keypress)="numberOnly($event)">
-                    <mat-error *ngIf="!periodicPointFormGroup.hasError('required')">
-                        Vui lòng nhập tuần!
-                    </mat-error>
-                </mat-form-field>
 
                 <mat-form-field [floatLabel]='floatLabel'>
                     <input matInput [matDatepicker]="picker" placeholder="Chọn ngày kiểm tra"
-                        [(ngModel)]="periodicPoint.examinationDate" required required formControlName="examinationDate" readonly>
+                        [(ngModel)]="endingPoint.examinationDate" required required formControlName="examinationDate" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker touchUi #picker></mat-datepicker>
-                    <mat-error *ngIf="!periodicPointFormGroup.hasError('required')">
+                    <mat-error *ngIf="!endingPointFormGroup.hasError('required')">
                         Vui lòng chọn ngày kiểm tra!
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Lớp</mat-label>
-                    <mat-select [(ngModel)]="periodicPoint.languageClassId" required style="text-align: left;"
+                    <mat-select [(ngModel)]="endingPoint.languageClassId" required style="text-align: left;"
                         formControlName="languageClassId" [disabled]="true">
                         <mat-option *ngFor="let item of classList" [value]="item.id" style="text-align: left; font-weight: bold;">
                             {{item.name}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="!periodicPointFormGroup.hasError('required')">
+                    <mat-error *ngIf="!endingPointFormGroup.hasError('required')">
                         Vui lòng chọn lớp!
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Giáo viên</mat-label>
-                    <mat-select [(ngModel)]="periodicPoint.lecturerId" required style="text-align: left;"
+                    <mat-select [(ngModel)]="endingPoint.lecturerId" required style="text-align: left;"
                         formControlName="lecturerId">
                         <mat-option *ngFor="let item of lecturerList" [value]="item.id" style="text-align: left;">
                             {{item.cardId+'-'+item.firstName+' '+item.lastName}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="!periodicPointFormGroup.hasError('required')">
+                    <mat-error *ngIf="!endingPointFormGroup.hasError('required')">
                         Vui lòng chọn giáo viên!
                     </mat-error>
                 </mat-form-field>
@@ -53,29 +44,28 @@
 
                 <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Trạng thái</mat-label>
-                    <mat-select [(ngModel)]="periodicPoint.status" required style="text-align: center;"
+                    <mat-select [(ngModel)]="endingPoint.status" required style="text-align: center;"
                         formControlName="status">
                         <mat-option *ngFor="let item of status" [value]="item.value" style="text-align: center;">
                             {{item.name}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="!periodicPointFormGroup.hasError('required')">
+                    <mat-error *ngIf="!endingPointFormGroup.hasError('required')">
                         Vui lòng chọn trạng thái!
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Ghi chú</mat-label>
-                    <textarea [(ngModel)]="periodicPoint.note" matInput placeholder="Nhập ghi chú" cdkTextareaAutosize
+                    <textarea [(ngModel)]="endingPoint.note" matInput placeholder="Nhập ghi chú" cdkTextareaAutosize
                         cdkAutosizeMinRows="3" cdkAutosizeMaxRows="3" formControlName="note"></textarea>                    
                 </mat-form-field>
-            </form>
         </div>
     </div>
 </div>
 
 <mat-dialog-actions align="end">
-    <button type="button" mat-raised-button color="primary" tabindex="-1" (click)="createPeriodicPoint()">
+    <button type="submit" mat-raised-button color="primary" tabindex="-1">
         <mat-icon>add_circle</mat-icon>
         Thêm
     </button>
@@ -84,3 +74,4 @@
         Hủy
     </button>
 </mat-dialog-actions>
+</form>

@@ -1,0 +1,63 @@
+
+  .mat-column-select {
+    overflow: initial;
+  }
+ .full-with{
+   margin-left: 10px;
+   width: 100%;
+ }
+ tr.mat-footer-row {
+  font-weight: bold;
+}
+.mat-footer-cell{
+  font-size: 18px;
+}
+.mat-header-cell{
+  background-color: lightseagreen;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.mat-table-sticky {
+  border-top: 1px solid #e0e0e0;
+}
+  table {
+    text-align: center !important;
+    width: 100%;
+  }
+  
+  .mat-header-cell {
+    text-align: center;
+  }
+  
+  .mat-header-cell {
+    font-size: 16px;
+    font: bold; 
+  }
+
+  #khung_thongtinlop {
+    padding-top: 20px;
+    padding-left: 15px;
+    border:solid 2px royalblue;
+    border-radius: 10px;
+  }
+
+  .tencot {
+    background-color:#2466B0;
+    color: white;
+  }
+
+
+table.table-style-three tr:hover td {
+  cursor: pointer;
+}
+table.table-style-three tr:nth-child(even) td{
+  background-color: #DAE7F7;
+}
+
+.mat-row:hover {
+  background: lightslategray;
+  opacity: 0.7;
+}

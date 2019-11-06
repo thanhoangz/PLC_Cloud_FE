@@ -26,6 +26,8 @@ import { CommonPointComponent } from './content/common-point/common-point.compon
 import { SearchStudyprocessComponent } from './content/search-studyprocess/search-studyprocess.component';
 import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
 import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
+import { EndingPointComponent } from './content/ending-point/ending-point.component';
+import { ReceiptComponent } from './content/receipt/receipt.component';
 
 const adminRoutes: Routes = [
   {
@@ -41,6 +43,8 @@ const adminRoutes: Routes = [
           { path: 'pay-slip', component: PaySlipComponent },
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
+          { path: 'receipt', component: ReceiptComponent },
+
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
@@ -55,6 +59,8 @@ const adminRoutes: Routes = [
           { path: 'lecturer', component: LecturersComponent },
           { path: 'class-list', component: ClassComponent },
           { path: 'periodic-points', component: CommonPointComponent },
+          { path: 'ending-points', component: EndingPointComponent },
+          
           { path: 'schedule', component: ScheduleForLearnerComponent },
           { path: 'schedule-table', component: ScheduleInTableComponent },
 
