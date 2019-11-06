@@ -49,7 +49,8 @@ export class ScheduleForLearnerComponent implements OnInit {
 
 
   public getDateOfMonth() {
-
+    this.dateOfweek = [];
+    this.connectedTo = [];
     const day = new Date(this.yearSelected, this.monthSelected, 1).getDay();
     if (day === 0) {
       for (let i = 0; i < 6; i++) {
@@ -100,6 +101,7 @@ export class ScheduleForLearnerComponent implements OnInit {
   public getScheduleMonthByClass(classId: any) {
     this.scheduleService.getScheduleMonthByClass(classId).subscribe(result => {
       this.scheduleMonth = result;
+      this.getDateOfMonth();
     }, error => {
 
     });
@@ -138,11 +140,15 @@ export class ScheduleForLearnerComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(event.previousContainer);
+      console.log(event.container);
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      console.log(event.previousContainer);
+      console.log(event.container);
     }
   }
 
@@ -155,9 +161,11 @@ export class ScheduleForLearnerComponent implements OnInit {
 
     });
   }
+
   public setClasses() {
 
   }
+
   public changValueCourse(courseId) {
     this.languageClassesService.getClassByCourse(courseId).subscribe(result => {
       this.classes = result;
@@ -168,6 +176,10 @@ export class ScheduleForLearnerComponent implements OnInit {
 
   public changValueClass(classId) {
     this.getScheduleMonthByClass(classId);
+  }
+
+  public autoCreateSchedule() {
+
   }
 }
 

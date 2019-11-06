@@ -12,6 +12,7 @@ export class LecturersService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Lecturers`);
   }
+
   getLectureId(id) {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Lecturers/${id}`);

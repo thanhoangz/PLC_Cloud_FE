@@ -16,7 +16,7 @@ export class AddGuestDialogComponent implements OnInit {
   screenHeight: any;
   screenWidth: any;
 
-  private guest = {
+  public guest = {
     name: '',
   };
 

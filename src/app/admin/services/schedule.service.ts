@@ -19,7 +19,7 @@ export class ScheduleService {
 
   postSchedule(schedule: any) {
     return this.httpClient
-      .post(`${environment.PLCServicesDomain}/api/TeachingSchedules`, schedule);
+      .post(`${environment.PLCServicesDomain}/api/TeachingSchedules/Add`, schedule);
   }
 
   deleteSchedule(scheduleId: any) {
