@@ -3,7 +3,7 @@
 <section class="content" style="margin-top: 1%">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-2">
 
         <mat-card>
           <mat-card-header>
@@ -30,7 +30,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-10">
         <mat-card>
 
           <mat-card-header style="width: 100%">
@@ -68,20 +68,29 @@
 
             <hr>
             <mat-grid-list cols="7" rowHeight="4:1">
-              <mat-grid-tile *ngFor="let item of daysOfWeek"><b>{{item}}</b></mat-grid-tile>
+              <mat-grid-tile *ngFor="let item of daysOfWeek">
+                <h5><b>{{item}}</b></h5>
+              </mat-grid-tile>
             </mat-grid-list>
             <hr>
             <mat-grid-list cols="7" rowHeight="1:1">
-              <mat-grid-tile *ngFor="let item of dateOfweek">{{item}}</mat-grid-tile>
+              <mat-grid-tile *ngFor="let item of dateOfweek" id="monthGridList">
+                <mat-grid-tile-header style="height: 10%;"> {{item.date|  slice:0:2}}</mat-grid-tile-header>
 
-              <!-- <div class="drag-container">
-
-                <div cdkDropList id="{{week.id}}" [cdkDropListData]="week.weeklist"
-                  [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
-                  <div class="item-box" *ngFor="let weekItem of week.weeklist" cdkDrag>Week {{week.id}} {{weekItem}}
+                <div class="drag-container">
+                  <div cdkDropList id="{{ item.date }}" [cdkDropListData]="item.schedule"
+                    [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
+                    <div class="item-box" *ngFor="let schedule of item.schedule" cdkDrag>
+                      <span>{{ schedule }}</span>
+                    </div>
                   </div>
                 </div>
-              </div> -->
+              </mat-grid-tile>
+
+
+
+
+
             </mat-grid-list>
 
           </mat-card-content>
