@@ -31,7 +31,11 @@ import { ControlLearnerComponent } from './content/learner/pages/control-learner
 import { StatisticsComponent } from './content/statistics/statistics.component';
 import { EndingPointComponent } from './content/ending-point/ending-point.component';
 import { ReceiptComponent } from './content/receipt/receipt.component';
+<<<<<<< HEAD
 import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
+=======
+import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
+>>>>>>> f00ad616f62853483f8f5738abba234849de79bc
 
 const adminRoutes: Routes = [
   {
@@ -48,7 +52,7 @@ const adminRoutes: Routes = [
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'receipt', component: ReceiptComponent },
-
+          { path: 'creat-receipt', component: CreatReceiptComponent },
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },

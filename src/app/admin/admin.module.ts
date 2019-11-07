@@ -107,6 +107,7 @@ import { EndingPointComponent } from './content/ending-point/ending-point.compon
 import { CreatEndingPointComponent } from './content/ending-point/creat-ending-point/creat-ending-point.component';
 import { ReceiptComponent } from './content/receipt/receipt.component';
 import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
+import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -218,6 +219,7 @@ import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-
     CreatEndingPointComponent,
     ReceiptComponent,
     AttendanceSheetComponent,
+    CreatReceiptComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
