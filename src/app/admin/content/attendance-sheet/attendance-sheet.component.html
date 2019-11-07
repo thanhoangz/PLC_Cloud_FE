@@ -1,0 +1,145 @@
+<mat-progress-bar mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
+
+<section class="content" style="margin-top: 1%">
+  <div class="container-fluid">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Điểm danh</mat-card-title>
+        <mat-card-subtitle>Điểm danh hằng ngày</mat-card-subtitle>
+      </mat-card-header>
+
+    </mat-card>
+    <mat-card>
+
+      <div class="row">
+        <div class="col-md-3">
+
+          <mat-form-field>
+            <mat-label>Lớp</mat-label>
+            <mat-select [(ngModel)]="currentClassId">
+              <mat-option *ngFor="let class of classes" [value]="class.id">
+                {{class.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="col-md-3">
+
+          <mat-form-field [floatLabel]='floatLabel'>
+            <input matInput [matDatepicker]="picker1" placeholder="Ngày" [(ngModel)]="currentDate"
+              (dateChange)="changeCurrentDate($event.value)">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker1></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-2">
+          <button mat-raised-button color="primary" tabindex="-1" (click)="createAttendanceDialog()">
+            <mat-icon>how_to_reg</mat-icon>
+            Tạo điểm danh
+          </button>
+
+        </div>
+      </div>
+
+
+      <hr>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-male"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Học viên nam</span>
+                <span class="info-box-number">11</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-female"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Học viên nữ</span>
+                <span class="info-box-number">21</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-4">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Tổng số thành viên</span>
+                <span class="info-box-number">32</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+
+        <hr>
+
+        <table mat-table [dataSource]="learnersSource" class="mat-elevation-z8">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="fullName">
+            <th mat-header-cell *matHeaderCellDef> Họ và tên </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName + " " + element.lastName}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="birthYear">
+            <th mat-header-cell *matHeaderCellDef> Năm sinh </th>
+            <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef> Weight </th>
+            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+          </tr>
+        </table>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
