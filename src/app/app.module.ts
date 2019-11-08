@@ -83,6 +83,8 @@ import { ControlLearnerComponent } from './admin/content/learner/pages/control-l
 // tslint:disable-next-line: max-line-length
 import { UpdateScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/update-schedule-dialog/update-schedule-dialog.component';
 import { CreatEndingPointComponent } from './admin/content/ending-point/creat-ending-point/creat-ending-point.component';
+// tslint:disable-next-line: max-line-length
+import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 
 @NgModule({
   declarations: [
@@ -175,7 +177,8 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
     AddScheduleDialogComponent,
     ControlLearnerComponent,
     UpdateScheduleDialogComponent,
-    CreatEndingPointComponent
+    CreatEndingPointComponent,
+    AddAttendanceDialogComponent
   ]
 
 })

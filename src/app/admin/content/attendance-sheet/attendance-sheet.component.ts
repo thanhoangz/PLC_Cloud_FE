@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { LoginService } from './../../services/login.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from '../../services/extension/notification.service';
+import { ConfirmService } from '../../services/extension/confirm.service';
+import { LearnerService } from '../../services/learner.service';
+import { LanguageClassesService } from '../../services/language-classes.service';
+import { MatSelectionList } from '@angular/material/list';
+import { AddAttendanceDialogComponent } from './dialog/add-attendance-dialog/add-attendance-dialog.component';
 
 @Component({
   selector: 'app-attendance-sheet',
@@ -9,52 +17,147 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class AttendanceSheetComponent implements OnInit {
   showProgressBar = false;
-  public floatLabel = 'always';
 
+  @ViewChild('learners', { static: true, read: MatSelectionList }) learners: MatSelectionList;
+  public floatLabel = 'always';
+  public isOpenDialog = false;
+  public iconMale = '../../../../assets/admin/dist/img/gender/boy.png';
+  public iconFemale = '../../../../assets/admin/dist/img/gender/girl.png';
   public currentClassId;
-  public currentDate;
+  public currentDate = new Date();
 
   public classes;
 
   public learnersSource;
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<any>(this.learnersSource);
-  selection = new SelectionModel<any>(true, []);
+  public inforClass = {
+    maleNumber: 0,
+    femaleNumber: 0,
+    totalNumber: 0
+  };
 
-  constructor() { }
+  public checkedLearners = [];
+  public checkedAll = false;
+  constructor(
+    public learnerService: LearnerService,
+    public languageClassesService: LanguageClassesService,
+
+    public matDialog: MatDialog,
+    private notificationService: NotificationService,
+    private confirmService: ConfirmService,
+    private loginService: LoginService
+  ) {
+    this.loginService.islogged();
+  }
 
   ngOnInit() {
+    this.getAllClasses();
   }
 
   public createAttendanceDialog() {
 
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const dialogRef = this.matDialog.open(AddAttendanceDialogComponent, {
+        width: `50vh`,
+        data: {
+        },
+      });
+      dialogRef.backdropClick().subscribe(_ => {
+        // Close the dialog
+        dialogRef.close();
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+
+        }
+
+      });
+    }
   }
 
   public changeCurrentDate(date) {
 
   }
 
+  public getAllLearnerInClass(classId) {
+    this.learnerService.getFullLearningByClass(classId).subscribe((result: any[]) => {
+      this.learnersSource = result;
+      console.log(result);
+      this.getInfoClass(result);
+    }, error => {
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    });
+
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+  public getAllClasses() {
+    this.languageClassesService.getAllLanguageClasses().subscribe(result => {
+      this.classes = result;
+      this.currentClassId = result[0].Id;
+    }, error => {
+
+    });
   }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: any): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  public getInfoClass(learners: any[]) {
+    this.inforClass = {
+      maleNumber: 0,
+      femaleNumber: 0,
+      totalNumber: 0
+    };
+    this.inforClass.totalNumber = learners.length;
+    learners.forEach(element => {
+      if (element.sex === true) {
+        this.inforClass.maleNumber++;
+      } else {
+        this.inforClass.maleNumber++;
+      }
+    });
+  }
+
+  public changeClass(classId) {
+    console.log(classId);
+    this.getAllLearnerInClass(classId);
+  }
+
+  public getYear(date: Date) {
+    return date.getFullYear();
+  }
+
+  public getIconGender(gender: boolean) {
+    if (gender === true) {
+      return 'fas fa-mars fa-2x';
+    } else {
+      return 'fas fa-venus fa-2x';
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  public selectionChange(event, selectedOptions) {
+    this.checkedLearners = [];
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < selectedOptions.length; i++) {
+      if ('allSelection' === selectedOptions[i].value) {
+        continue;
+      }
+      this.checkedLearners.push(selectedOptions[i].value);
+    }
+  }
+
+  public changeAllSelection() {
+    this.checkedAll = !this.checkedAll;
+    if (this.checkedAll === true) {
+      this.learners.selectAll();
+      this.checkedLearners = [];
+
+      this.learnersSource.forEach(element => {
+        this.checkedLearners.push(element.ID);
+      });
+    } else {
+      this.learners.deselectAll();
+      this.checkedLearners = [];
+    }
   }
 }
