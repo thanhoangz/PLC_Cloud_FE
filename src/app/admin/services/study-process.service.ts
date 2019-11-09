@@ -58,4 +58,9 @@ export class StudyProcessService {
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-by-classId?classId=${ClassId}&status=${status}`, null);
   }
 
+  update_Status(studyProcessId, status) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/StudyProcesses/update-status?studyProcessId=${studyProcessId}&status=${status}`, null);
+  }
+
 }

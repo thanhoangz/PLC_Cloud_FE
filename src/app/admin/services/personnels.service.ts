@@ -40,4 +40,9 @@ export class PersonnelsService {
       .post(`${environment.PLCServicesDomain}/api/Personnels/get-all-with-conditions?keyword=${keyword}&position=${position}&status=${status}`, personnel);
   }
 
+  getPersonnelByCardId(cardId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Personnels/get-by-cardid/${cardId}`);
+  }
+
 }

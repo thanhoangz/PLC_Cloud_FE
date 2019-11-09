@@ -67,30 +67,22 @@
 
                   <div class="row">
                       <div class="col-md-5" id="row_row">
-                          <span><b>Đã đóng</b></span>
+                          <span><b>Thời gian học</b></span>
                       </div>
                       <div class="col-md-7" id="row_row">
-                          <span [class]="'badge badge-warning'"> xxx </span>
+                          <span [class]="'badge badge-warning'"> {{oldCourse.traingTime}} </span>
                       </div>
                   </div>
 
 
                   <div class="row" style="background-color:whitesmoke">
                       <div class="col-md-5" id="row_row">
-                          <span><b>Đã học</b></span>
+                          <span><b>Ngày bắt đầu</b></span>
                       </div>
                       <div class="col-md-7" id="row_row">
-                          <span [class]="'badge badge-warning'"> xxx </span>
+                          <span [class]="'badge badge-warning'"> {{oldClass.startDay | date:'dd-MM-yyyy'}} </span>
                       </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-5" id="row_row">
-                          <span><b>Phí còn lại</b></span>
-                      </div>
-                      <div class="col-md-7" id="row_row">
-                          <span [class]="'badge badge-danger'"> xxx </span>
-                      </div>
-                  </div>
+                  </div>                
 
               </div>
 
@@ -188,15 +180,6 @@
                       </div>
                   </div>
 
-                  <div class="row">
-                      <div class="col-md-5" id="row_row">
-                          <span><b>Còn phải đóng</b></span>
-                      </div>
-                      <div class="col-md-7" id="row_row">
-                          <span [class]="'badge badge-danger'"> xxxx VNĐ </span>
-                      </div>
-                  </div>
-
               </div>
           </div>
       </div>
@@ -204,7 +187,7 @@
 
 </mat-card>
 <mat-dialog-actions align="end">
-  <button type="button" mat-raised-button color="primary" tabindex="-1" (click) = "ChuyenLop()" >
+  <button type="button" mat-raised-button color="primary" tabindex="-1" (click) = "ChuyenLop()" *ngIf="show">
       <mat-icon>check</mat-icon>
       Chuyển lớp
   </button>

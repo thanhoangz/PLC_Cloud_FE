@@ -94,8 +94,12 @@ export class LearnerComponent implements OnInit {
         code: 1
       },
       {
-        name: 'Nghỉ học',
+        name: 'Khóa',
         code: 0
+      },
+      {
+        name: 'Hẹn đi học',
+        code: 2
       },
       {
         name: 'Tất cả',

@@ -36,4 +36,9 @@ export class ScheduleService {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/TeachingSchedules/getbyclass/${classId}`, classId);
   }
+
+  getScheduleByClass(classId: any) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/TeachingSchedules/getbyclass/${classId}`, null);
+  }
 }

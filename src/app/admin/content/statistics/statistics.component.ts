@@ -13,6 +13,7 @@ import { LogStudyProcessService } from '../../services/logStudyProcess.service';
 import { ReceiptsService } from '../../services/receipts.service';
 import { DetailReceiptComponent } from '../search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 import { ReceiptDetailService } from 'src/app/admin/services/Receipt-Detail.service';
+import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
@@ -27,6 +28,7 @@ export class StatisticsComponent implements OnInit {
   public show = false;
   panelOpenState = false;
 
+  public class;
   public receipts;
   public receiptDetails ;
   public logStudyProcess;
@@ -72,6 +74,12 @@ export class StatisticsComponent implements OnInit {
   public displayedColumnsReceiptsDetail: string[] = ['index', 'languageClassName', 'month', 'tuition', 'fundMoney', 'infrastructureMoney', 'otherMoney', 'totalMoney'];
   // tslint:disable-next-line: member-ordering
   public dataSourceReceiptsDetail = new MatTableDataSource(this.receiptDetails);
+
+  // tslint:disable-next-line: max-line-length
+  public displayedColumnsClass: string[] = ['index', 'className', 'startDay', 'endDay', 'status', 'controls'];
+  // tslint:disable-next-line: member-ordering
+  public dataSourceClass = new MatTableDataSource(this.class);
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
     private learnerService: LearnerService,
@@ -84,6 +92,7 @@ export class StatisticsComponent implements OnInit {
     private logStudyProcessService: LogStudyProcessService,
     private receiptsService: ReceiptsService,
     public receiptDetailService: ReceiptDetailService,
+    public languageClassesService: LanguageClassesService,
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
@@ -173,7 +182,10 @@ export class StatisticsComponent implements OnInit {
       this.inforlearner.note = result.note;
       this.inforlearner.guestTypeName = result.guestTypeName;
       this.inforlearner.lastName = result.lastName;
-      this.getReceiptsByLearnerId(result.id);   // gọi thông tin phiếu thu theo id
+      // gọi thông tin phiếu thu theo id
+      this.getReceiptsByLearnerId(result.id);
+      // gọi thông tin lớp đã học theo id học viên
+      this.getClassStudied(result.id);
     }, error => {
       this.notificationService.showNotification(3, 'Tra cứu', 'Không tìm thấy mã sinh viên!');
     });
@@ -196,7 +208,6 @@ export class StatisticsComponent implements OnInit {
     this.receiptsService.getReceiptsByLearnerId(id).subscribe((result2: any) => {
       this.receipts = result2;
     }, error => {
-      this.notificationService.showNotification(3, 'Tra cứu', 'Không tìm thấy mã sinh viên!');
     });
   }
       // chi tiết đóng họ
@@ -211,6 +222,17 @@ public loadTablesReceiptsDetail(data3: any) {
   this.dataSourceReceiptsDetail = new MatTableDataSource(data3);
 }
 
+// Lớp đã học
+public getClassStudied(id) {
+  this.languageClassesService.getLopDaHoc(id).subscribe((result4: any) => {
+    this.class = result4;
+    this.loadTablesClass(result4);
+  }, error => {
+  });
+}
+public loadTablesClass(data3: any) {
+  this.dataSourceClass = new MatTableDataSource(data3);
+}
 
   // hàm ném dữ liệu
   createExchangeId(id) {
@@ -226,6 +248,13 @@ public loadTablesReceiptsDetail(data3: any) {
   public deleteLeaerner() {
 
   }
+  public moveStudyProcessWithClassId(id) {
+    this.createExchangeId(id);  // truyền
+    this.router.navigateByUrl('admin/study-process');
+  }
+
+
+
 
   public startProgressBar() {
     this.showProgressBar = true;
