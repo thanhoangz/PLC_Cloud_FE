@@ -42,4 +42,9 @@ export class LecturersService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Lecturers/get-by-cardid/${cardId}`);
   }
+
+  getAllTutors() {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Lecturers/getalltutor`);
+  }
 }

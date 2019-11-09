@@ -32,6 +32,8 @@ import { StatisticsComponent } from './content/statistics/statistics.component';
 import { EndingPointComponent } from './content/ending-point/ending-point.component';
 import { ReceiptComponent } from './content/receipt/receipt.component';
 import { DashboardComponent } from './content/dashboard/dashboard.component';
+import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
+import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 
 const adminRoutes: Routes = [
   {
@@ -48,7 +50,7 @@ const adminRoutes: Routes = [
           { path: 'classroom', component: ClassRoomComponent },
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'receipt', component: ReceiptComponent },
-
+          { path: 'creat-receipt', component: CreatReceiptComponent },
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
@@ -69,6 +71,7 @@ const adminRoutes: Routes = [
           { path: 'ending-points', component: EndingPointComponent },
 
           { path: 'schedule', component: ScheduleForLearnerComponent },
+          { path: 'attendance-sheet', component: AttendanceSheetComponent },
           { path: 'schedule-table', component: ScheduleInTableComponent },
           { path: 'search-learner', component: SearchStudyprocessComponent },
           { path: '', component: HomeComponent },

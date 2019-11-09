@@ -73,6 +73,12 @@ export class LearnerService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Learners/get-chua-co-lop`);
   }
+
+
+  getFullLearningByClass(classId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Learners/getlearninginclass/${classId}`);
+  }
 }
 
 
