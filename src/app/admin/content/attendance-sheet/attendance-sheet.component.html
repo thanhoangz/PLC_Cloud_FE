@@ -92,29 +92,49 @@
         </div>
 
         <hr>
-
+        Tình trạng: {{ (statusOfCurrentAttendance) }}
+        <hr>
         <mat-selection-list #learners (selectionChange)="selectionChange($event, learners.selectedOptions.selected)">
           <mat-list-option class="learner-options" value="allSelection" (click)="changeAllSelection()">
             <div class="row">
+              <div class="col-md-3"> <b>Mã học viên</b></div>
+              <div class="col-md-3"> <b>Họ và tên</b></div>
+              <div class="col-md-3"> <b>Năm sinh</b></div>
+              <div class="col-md-3"> <b>Hình ảnh</b></div>
 
-              <div class="col-md-6"> <b>Họ và tên</b></div>
-              <div class="col-md-6"> <b>Hình ảnh</b>
-              </div>
             </div>
 
+
           </mat-list-option>
-          <mat-list-option *ngFor="let learner of learnersSource" class="learner-options" [value]="learner.Id">
+          <mat-list-option *ngFor="let learner of learnersSource" class="learner-options" [value]="learner.id" [selected]="isChecked(learner.id)">
             <div class="row">
-              <div class="col-md-6" style="left: 0; top: 0; right: 0; bottom: 0; margin: auto;">
+              <div class="col-md-3" style="left: 0; top: 0; right: 0; bottom: 0; margin: auto;">
+                {{ learner.cardId }}
+              </div>
+
+              <div class="col-md-3" style="left: 0; top: 0; right: 0; bottom: 0; margin: auto;">
                 {{ learner.firstName + " " + learner.lastName }}
               </div>
-              <div class="col-md-6">
+
+              <div class="col-md-3" style="left: 0; top: 0; right: 0; bottom: 0; margin: auto;">
+                {{ learner.birthday | date: 'yyyy' }}
+              </div>
+
+              <div class="col-md-3">
                 <img [src]="learner.sex === true? iconMale: iconFemale" class="learner-images">
               </div>
             </div>
 
           </mat-list-option>
+
+
+
         </mat-selection-list>
+        <hr>
+        <button mat-raised-button color="primary" tabindex="-1" (click)="updateAttendance()">
+          <mat-icon>done_outline</mat-icon>
+          Cập nhật
+        </button>
 
       </mat-card-content>
     </mat-card>

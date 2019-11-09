@@ -14,4 +14,9 @@ export class AttendanceSheetService {
       .post(`${environment.PLCServicesDomain}/api/AttendanceSheets`, attendance);
   }
 
+
+  getByDateClass(classId, date) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/AttendanceSheets/getByDate?classId=${classId}&date=${date}`);
+  }
 }

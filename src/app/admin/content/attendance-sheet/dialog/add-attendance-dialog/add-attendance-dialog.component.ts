@@ -30,6 +30,7 @@ export class AddAttendanceDialogComponent implements OnInit {
   public classes;
   public lecturers;
   public tutors;
+  public user;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<AddAttendanceDialogComponent>,
@@ -42,7 +43,10 @@ export class AddAttendanceDialogComponent implements OnInit {
     public attendanceSheetService: AttendanceSheetService,
     public lecturersService: LecturersService,
     public datepipe: DatePipe
-  ) { }
+  ) {
+    this.user = this.data._user;
+    this.attendanceSheet.appUserId = this.data._user.id;
+  }
 
   ngOnInit() {
     this.getAllClasses();
@@ -53,8 +57,10 @@ export class AddAttendanceDialogComponent implements OnInit {
 
 
   public createAttendance() {
+    console.log(this.attendanceSheet);
     this.attendanceSheetService.postAttendance(this.attendanceSheet).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, '', 'Tạo thành công điểm danh!'); });
+      this.dialogRef.close(true);
     }, error => {
       this.notificationService.showNotification(3, '', 'Lỗi, Vui lòng thử lại sau!');
     });
@@ -86,7 +92,8 @@ export class AddAttendanceDialogComponent implements OnInit {
   }
 
   public changDate(e) {
-    this.attendanceSheet.date = this.datepipe.transform(e, 'YYYY-MM-dd');
+    this.attendanceSheet.date = this.datepipe.transform(e, 'yyyy-MM-dd');
     this.attendanceSheet.date = new Date(this.attendanceSheet.date);
+
   }
 }

@@ -33,12 +33,17 @@ export class InterceptorService implements HttpInterceptor {
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
+
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
+
         }
         return event;
+      }, (error: any) => {
+        if (error instanceof HttpResponse) {
+
+        }
       }));
   }
 }
