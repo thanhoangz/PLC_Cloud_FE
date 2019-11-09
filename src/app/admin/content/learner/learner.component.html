@@ -65,8 +65,8 @@
                   <p class="text-muted text-sm"><b>Đối tượng: </b> {{item.guestTypeName}} </p>
                   <p class="text-muted text-sm"><b>Giới tính: </b> {{(item.sex)==true?"Nam":"Nữ"}} </p>
                   <p class="text-muted text-sm"><b>Trạng thái: </b><span
-                      [class]="(item.status == 1?'badge badge-success':'badge badge-danger')">
-                      {{(item.status)==1?"Hoạt động":"Nghỉ học"}}
+                    [class]="(item.status == 1?'badge badge-success':(item.status == 0?'badge badge-danger':'badge badge-warning'))">
+                      {{(item.status)==1?"Hoạt động":((item.status)==0?"Khóa":"Hẹn đi học")}}
                     </span></p>
                 </div>
                 <div class="col-5 text-center">

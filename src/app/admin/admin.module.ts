@@ -106,6 +106,7 @@ import { UpdateScheduleDialogComponent } from './content/schedule-school/schedul
 import { EndingPointComponent } from './content/ending-point/ending-point.component';
 import { CreatEndingPointComponent } from './content/ending-point/creat-ending-point/creat-ending-point.component';
 import { ReceiptComponent } from './content/receipt/receipt.component';
+import { DashboardComponent } from './content/dashboard/dashboard.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -216,6 +217,7 @@ import { ReceiptComponent } from './content/receipt/receipt.component';
     EndingPointComponent,
     CreatEndingPointComponent,
     ReceiptComponent,
+    DashboardComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

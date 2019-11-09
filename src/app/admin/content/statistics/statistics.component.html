@@ -1,7 +1,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        <mat-card style="height: 770px;">
+        <mat-card style="height: 80%;">
             <mat-card-header class="card-container">
                 <mat-card-title style="color: blue; font-size: 20px;"><b>Danh sách học viên </b></mat-card-title>
             </mat-card-header>
@@ -175,7 +175,54 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <!--nội dung bên trong ở đây-->
-                <p>I'm visible because I am open</p>
+                <p></p>
+                <mat-card-content>
+                    <div class="col-md-12" style="margin-top: 20px;"></div>
+                    <table mat-table [dataSource]="dataSourceClass" class="table-style-three"
+                        style="border: 1px solid silver; border-radius: 10px; ">
+
+                        <ng-container matColumnDef="index">
+                            <th mat-header-cell *matHeaderCellDef style="width: 5%;" class="tencot"> STT</th>
+                            <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="className">
+                            <th mat-header-cell *matHeaderCellDef class="tencot"> Lớp học</th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="startDay">
+                            <th mat-header-cell *matHeaderCellDef class="tencot"> Ngày bắt đầu</th>
+                            <td mat-cell *matCellDef="let element">{{element.startDay | date: 'dd-MM-yyyy'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="endDay">
+                            <th mat-header-cell *matHeaderCellDef class="tencot"> Ngày kết thúc</th>
+                            <td mat-cell *matCellDef="let element">{{element.endDay | date: 'dd-MM-yyyy'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef class="tencot"> Trạng thái </th>
+                            <td mat-cell *matCellDef="let element">
+                                <span [class]="(element.status == 0?'badge badge-danger':'badge badge-success')">
+                                    {{(element.status == 0)?"Kết thúc":"Đang học"}}
+                                </span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="controls">
+                            <th mat-header-cell *matHeaderCellDef class="tencot"> Thao tác </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1" (click)="moveStudyProcessWithClassId(element.id)">
+                                    <mat-icon>add</mat-icon>
+                                    Xem lớp
+                                </button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsClass"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsClass;">
+                        </tr>
+                    </table>
+                </mat-card-content>
             </mat-expansion-panel>
         </mat-accordion>
         <mat-accordion>

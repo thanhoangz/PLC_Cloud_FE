@@ -38,4 +38,8 @@ export class LecturersService {
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/Lecturers/get-all-with-conditions?keyword=${keyword}&position=${position}&status=${status}`, null);
   }
+  getLectureByCardId(cardId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Lecturers/get-by-cardid/${cardId}`);
+  }
 }

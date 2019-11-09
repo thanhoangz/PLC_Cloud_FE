@@ -67,4 +67,9 @@ findByStatus(status) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/LanguageClasses/getallbycourse/${courseId}`, null);
   }
+
+  getLopDaHoc(learnerId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-studied-with-learnerid/${learnerId}`);
+  }
 }
