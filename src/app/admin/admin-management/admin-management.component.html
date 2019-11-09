@@ -17,20 +17,6 @@
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon>notifications_none</mat-icon>
           </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>assignment_ind</mat-icon>
-              <span>Thông tin cá nhân</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>security</mat-icon>
-              <span>Đổi mật khẩu</span>
-            </button>
-            <button mat-menu-item (click)="logout()">
-              <mat-icon>subdirectory_arrow_right</mat-icon>
-              <span>Đăng xuất</span>
-            </button>
-          </mat-menu>
         </li>
 
         <li class="nav-item">
@@ -84,7 +70,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a outerLink="dashboard" routerLinkActive="active" class="nav-link">
+              <a routerLink="dashboard" routerLinkActive="active" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Trang chủ
