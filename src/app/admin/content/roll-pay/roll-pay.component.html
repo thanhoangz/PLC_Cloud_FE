@@ -1,0 +1,66 @@
+<mat-tab-group animationDuration="0ms">
+  <div *ngFor="let month of months">
+    <mat-tab [label]="month">
+      <div class="head-row">
+        <mat-card class="head-column">
+          <mat-card-content>
+            <div class="row">
+              <div class="col-m5-5">
+                <img mat-card-md-image src="../../../../assets/admin/dist/img/credit/money.png">
+              </div>
+              <div class="col-m5-7">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3>Bảng lương</h3>
+                  </div>
+                  <div class="col-md-12">
+                    <span>31 ngày</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ribbon-wrapper ribbon-sm">
+                <div class="ribbon bg-secondary">
+                  Tháng 11
+                </div>
+              </div>
+            </div>
+
+
+          </mat-card-content>
+
+          <mat-card-footer>
+
+          </mat-card-footer>
+        </mat-card>
+        <mat-card class="head-column">
+          <mat-card-content>
+            <img mat-card-md-image src="../../../../assets/admin/dist/img/staff/salesman.png">
+          </mat-card-content>
+
+          <mat-card-footer>
+
+          </mat-card-footer>
+        </mat-card>
+
+        <mat-card class="head-column">
+          <mat-card-content>
+            <img mat-card-md-image src="../../../../assets/admin/dist/img/teacher/teacher.png">
+          </mat-card-content>
+
+          <mat-card-footer>
+
+          </mat-card-footer>
+        </mat-card>
+
+
+      </div>
+
+      <div class="body-row">
+
+      </div>
+      <hr>
+
+    </mat-tab>
+  </div>
+
+</mat-tab-group>

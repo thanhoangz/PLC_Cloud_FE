@@ -111,7 +111,8 @@ import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 import { AddAttendanceDialogComponent } from './content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/delete-confirm.component';
-
+import { RollPayComponent } from './content/roll-pay/roll-pay.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   imports: [
     CommonModule,
@@ -153,7 +154,8 @@ import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/del
     ReactiveFormsModule,
     BrowserModule,
     DragDropModule,
-    MatChipsModule
+    MatChipsModule,
+    FlexLayoutModule
 
 
   ],
@@ -227,7 +229,8 @@ import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/del
     AttendanceSheetComponent,
     CreatReceiptComponent,
     AddAttendanceDialogComponent,
-    DeleteConfirmComponent
+    DeleteConfirmComponent,
+    RollPayComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
