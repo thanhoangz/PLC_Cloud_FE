@@ -7,7 +7,7 @@ import { FomatDateService } from '../../services/extension/FomatDate.service';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
+
 
 @Component({
   selector: 'app-personnel',
@@ -56,7 +56,6 @@ export class PersonnelComponent implements OnInit {
     private fomatDateService: FomatDateService,
     private router: Router,
     private exchangeDataService: ExchangeDataService,
-    private confirmDialogService: ConfirmationDialogService
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);

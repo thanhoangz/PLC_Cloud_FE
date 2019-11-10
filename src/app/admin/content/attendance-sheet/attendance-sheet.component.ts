@@ -57,7 +57,7 @@ export class AttendanceSheetComponent implements OnInit {
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
     private loginService: LoginService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
   ) {
     this.loginService.islogged();
   }
@@ -93,7 +93,9 @@ export class AttendanceSheetComponent implements OnInit {
   }
 
   public changeCurrentDate(date) {
-    this.resetAll();
+    const dateSelected = this.datepipe.transform(date, 'yyyy-MM-dd');
+    this.checkCreatedAttendance(this.currentClassId, dateSelected);
+
 
 
   }
@@ -101,7 +103,6 @@ export class AttendanceSheetComponent implements OnInit {
   public getAllLearnerInClass(classId) {
     this.learnerService.getFullLearningByClass(classId).subscribe((result: any[]) => {
       this.learnersSource = result;
-
       this.getInfoClass(result);
     }, error => {
 
@@ -113,6 +114,8 @@ export class AttendanceSheetComponent implements OnInit {
     this.languageClassesService.getAllLanguageClasses().subscribe(result => {
       this.classes = result;
       this.currentClassId = result[0].id;
+      const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
+      this.checkCreatedAttendance(result[0].id, dateSelected);
     }, error => {
 
     });
@@ -136,8 +139,8 @@ export class AttendanceSheetComponent implements OnInit {
 
   public changeClass(classId) {
 
-    this.resetAll();
-
+    const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
+    this.checkCreatedAttendance(classId, dateSelected);
 
   }
 
@@ -207,8 +210,6 @@ export class AttendanceSheetComponent implements OnInit {
       });
     });
 
-    console.log(this.checkedLearners);
-    console.log(this.notCheckedLearners);
     this.attendanceSheetDetailService.postAttendanceDetail(this.checkedLearners).subscribe(result => {
 
     }, error => { });
@@ -222,8 +223,7 @@ export class AttendanceSheetComponent implements OnInit {
     this.attendanceSheetService.getByDateClass(classId, date).subscribe((result: any) => {
       if (result) {
         this.currentAttendance = result;
-        console.log(this.currentAttendance.id);
-        this.getAllAttendanceDetails(this.currentAttendance.id);
+        this.getAllAttendanceDetails(result.id);
         this.statusOfCurrentAttendance = 'Đã có phiếu điểm danh';
       } else {
         this.statusOfCurrentAttendance = 'Chưa có phiếu điểm danh';
@@ -231,6 +231,7 @@ export class AttendanceSheetComponent implements OnInit {
 
     }, error => {
       this.statusOfCurrentAttendance = 'Chưa có phiếu điểm danh';
+      this.getAllAttendanceDetails(this);
     });
   }
 
@@ -256,8 +257,7 @@ export class AttendanceSheetComponent implements OnInit {
 
 
   public resetAll() {
-    const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
-    this.checkCreatedAttendance(this.currentClassId, dateSelected);
+
 
     this.learnersSource = [];
     this.inforClass = {
@@ -269,5 +269,10 @@ export class AttendanceSheetComponent implements OnInit {
     this.statusOfCurrentAttendance = 'Chưa có phiếu điểm danh';
     this.currentAttendance = null;
     this.attendanceSheetDetails = [];
+  }
+
+  /* Điểm danh ké cho học viên lớp khác */
+  public rollCallOutClass() {
+    this.confirmService.openDeleteConfirmDialog();
   }
 }

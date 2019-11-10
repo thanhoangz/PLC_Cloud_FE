@@ -12,8 +12,7 @@
     <mat-card>
 
       <div class="row">
-        <div class="col-md-3">
-
+        <div class="col-12 col-sm-6 col-md-2">
           <mat-form-field>
             <mat-label>Lớp</mat-label>
             <mat-select [(ngModel)]="currentClassId" (valueChange)="changeClass($event)">
@@ -24,7 +23,7 @@
           </mat-form-field>
 
         </div>
-        <div class="col-md-3">
+        <div class="col-12 col-sm-6 col-md-3">
 
           <mat-form-field [floatLabel]='floatLabel'>
             <input matInput [matDatepicker]="picker1" placeholder="Ngày" [(ngModel)]="currentDate"
@@ -34,14 +33,17 @@
           </mat-form-field>
 
         </div>
-        <div class="col-md-4">
+        <div class="col-12 col-sm-6 col-md-2">
 
         </div>
-        <div class="col-md-2">
-          <button mat-raised-button color="primary" tabindex="-1" (click)="createAttendanceDialog()">
-            <mat-icon>how_to_reg</mat-icon>
-            Tạo điểm danh
-          </button>
+        <div class="col-12 col-sm-6 col-md-5">
+          <mat-chip-list aria-label="Fish selection">
+            <mat-chip>One fish</mat-chip>
+            <mat-chip>Two fish</mat-chip>
+            <mat-chip color="primary" selected (click)="createAttendanceDialog()">Tạo điểm danh</mat-chip>
+            <mat-chip color="accent" selected (click)="rollCallOutClass()"> Điểm danh ngoài</mat-chip>
+          </mat-chip-list>
+
 
         </div>
       </div>
@@ -92,7 +94,22 @@
         </div>
 
         <hr>
-        Tình trạng: {{ (statusOfCurrentAttendance) }}
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4">
+            <b>Tình trạng:</b> <span>{{ (statusOfCurrentAttendance) }}</span>
+          </div>
+          <div class="col-12 col-sm-6 col-md-4">
+            <b>Sĩ số điểm danh:</b> <span>23/44</span>
+          </div>
+          <div class="col-12 col-sm-6 col-md-4">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">check_box</mat-icon>
+            Đã điểm danh
+            <mat-icon aria-hidden="false" aria-label="Example home icon">check_box_outline_blank</mat-icon>
+            <span>Chưa điểm danh</span>
+          </div>
+        </div>
+
+
         <hr>
         <mat-selection-list #learners (selectionChange)="selectionChange($event, learners.selectedOptions.selected)">
           <mat-list-option class="learner-options" value="allSelection" (click)="changeAllSelection()">
@@ -103,10 +120,9 @@
               <div class="col-md-3"> <b>Hình ảnh</b></div>
 
             </div>
-
-
           </mat-list-option>
-          <mat-list-option *ngFor="let learner of learnersSource" class="learner-options" [value]="learner.id" [selected]="isChecked(learner.id)">
+          <mat-list-option *ngFor="let learner of learnersSource" class="learner-options" [value]="learner.id"
+            [selected]="isChecked(learner.id)">
             <div class="row">
               <div class="col-md-3" style="left: 0; top: 0; right: 0; bottom: 0; margin: auto;">
                 {{ learner.cardId }}
@@ -131,10 +147,16 @@
 
         </mat-selection-list>
         <hr>
-        <button mat-raised-button color="primary" tabindex="-1" (click)="updateAttendance()">
-          <mat-icon>done_outline</mat-icon>
-          Cập nhật
-        </button>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-12">
+            <button mat-raised-button color="primary" tabindex="-1" (click)="updateAttendance()" style="float: right;">
+              <mat-icon>done_outline</mat-icon>
+              Cập nhật
+            </button>
+          </div>
+        </div>
+
+
 
       </mat-card-content>
     </mat-card>
