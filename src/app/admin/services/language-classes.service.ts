@@ -72,4 +72,9 @@ findByStatus(status) {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-studied-with-learnerid/${learnerId}`);
   }
+
+  getLopHoatDong() {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-action`);
+  }
 }
