@@ -111,6 +111,7 @@ import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 import { AddAttendanceDialogComponent } from './content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/delete-confirm.component';
+import { PrivateInfoComponent } from './content/private-info/private-info.component';
 
 @NgModule({
   imports: [
@@ -227,7 +228,8 @@ import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/del
     AttendanceSheetComponent,
     CreatReceiptComponent,
     AddAttendanceDialogComponent,
-    DeleteConfirmComponent
+    DeleteConfirmComponent,
+    PrivateInfoComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
