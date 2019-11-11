@@ -12,67 +12,66 @@ import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
-
-
-
 import { LoginService } from '../../services/login.service';
-export interface Transaction {
-  item: string;
-  cost: number;
-}
+import { ReceiptTypeService } from '../../services/receipt-type.service';
+import { ReceiptsService } from '../../services/receipts.service';
+import { ReceiptDetailService } from '../../services/Receipt-Detail.service';
+import { PersonnelsService } from '../../services/personnels.service';
+import { FomatDateService } from '../../services/extension/FomatDate.service';
+
 @Component({
   selector: 'app-receipt',
   templateUrl: './receipt.component.html',
   styleUrls: ['./receipt.component.css']
 })
 export class ReceiptComponent implements OnInit {
-  displayedColumns = ['item', 'cost'];
-  transactions: Transaction[] = [
-    {item: 'Beach ball', cost: 4},
-    {item: 'Towel', cost: 5},
-    {item: 'Frisbee', cost: 2},
-    {item: 'Sunscreen', cost: 4},
-    {item: 'Cooler', cost: 25},
-    {item: 'Swim suit', cost: 15},
-  ];
 
-  /** Gets the total cost of all transactions. */
-  getTotalCost() {
-    return this.transactions.map(t => t.cost).reduce((acc, value) => acc + value, 0);
-  }
-  public showProgressBar = true;
   public screenHeight: any;
   public screenWidth: any;
-
-  public length = 100;
-  public pageSize = 20;
-  public pageIndex = 1;
-  public pageSizeOptions = [20, 30, 50];
+  public pageSizeOptions = [5, 10, 15, 20];
 
   public isOpenDialog = false;
 
-  public receiptDetal;
+  // phiếu thu
+  public receipts;
 
-  // tslint:disable-next-line: member-ordering
-  public displayedColumnsInClass: string[] = ['index', 'dateCreated', 'cardId', 'name', 'birthday', 'month',
-    'tuition', 'fundMoney', 'infrastructureMoney', 'otherMoney', 'totalMoney', 'languageClassId', 'controls'];
-  // tslint:disable-next-line: member-ordering
-  public dataSourceInClass = new MatTableDataSource(this.receiptDetal);
-  // tslint:disable-next-line: member-ordering
+  public dataSource = new MatTableDataSource(this.receipts);
   public selection = new SelectionModel(true, []);
 
+
+  displayedColumns1 = ['index', 'id', 'receiptTypeId', 'collectionDate', 'learnerId', 'nameOfPaymentApplicant',
+    'personnelId', 'totalAmount', 'status', 'note', 'control'];
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  public loadTables(data: any) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+
+  }
+
+  // get all phiếu thu
+  public getAllReceipt() {
+    this.receiptsService.getAllReceipts().subscribe((result: any) => {
+      this.receipts = result;
+      this.loadTables(result);
+    }, error => {
+    });
+  }
   constructor(
+    private receiptTypeService: ReceiptTypeService,
+    private receiptsService: ReceiptsService,
+    private receiptDetailService: ReceiptDetailService,
     private learnerService: LearnerService,
+    private personnelsService: PersonnelsService,
     private studyProcessService: StudyProcessService,
     private languageClassesService: LanguageClassesService,
-    private courseService: CourseService,
     private datePipe: DatePipe,
     private notificationService: NotificationService,
     public matDialog: MatDialog,
     private loginService: LoginService,
-
     private exchangeDataService: ExchangeDataService,
+    private fomatDateService: FomatDateService,
     private router: Router,
   ) {
     this.loginService.islogged();
@@ -82,6 +81,7 @@ export class ReceiptComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAllReceipt();
 
   }
 

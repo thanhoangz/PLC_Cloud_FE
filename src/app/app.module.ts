@@ -86,6 +86,7 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
 // tslint:disable-next-line: max-line-length
 import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
+import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,7 @@ import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confi
     MatNativeDateModule,
     CKEditorModule,
     BlockUIModule.forRoot(),
-    DragDropModule
+    DragDropModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -180,7 +181,8 @@ import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confi
     UpdateScheduleDialogComponent,
     CreatEndingPointComponent,
     AddAttendanceDialogComponent,
-    DeleteConfirmComponent
+    DeleteConfirmComponent,
+    DeleteCourseDialogComponent
   ]
 
 })

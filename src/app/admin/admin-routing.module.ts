@@ -12,7 +12,7 @@ import { TimeSheetComponent } from './content/time-sheet/time-sheet.component';
 import { LanguageClassesComponent } from './content/language-classes/language-classes.component';
 import { StudyProcessComponent } from './content/study-process/study-process.component';
 import { AddPageLearnerComponent } from './content/learner/pages/add-page-learner/add-page-learner.component';
-import { AddLearnerClassComponent  } from './content/add-learner-class/add-learner-class.component';
+import { AddLearnerClassComponent } from './content/add-learner-class/add-learner-class.component';
 import { GuestTypeComponent } from './content/guest-type/guest-type.component';
 import { HomeComponent } from './content/home/home.component';
 import { AddPageLectureComponent } from './content/lecturers/page/add-page-lecture/add-page-lecture.component';
@@ -35,6 +35,8 @@ import { DashboardComponent } from './content/dashboard/dashboard.component';
 import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 import { PrivateInfoComponent } from './content/private-info/private-info.component';
+import { RollPayComponent } from './content/roll-pay/roll-pay.component';
+
 const adminRoutes: Routes = [
   {
     path: 'admin',
@@ -58,7 +60,7 @@ const adminRoutes: Routes = [
           { path: 'add-learner', component: AddPageLearnerComponent },
           { path: 'learners', component: LearnerComponent },
           { path: 'control-learner', component: ControlLearnerComponent },
-          { path: 'statisc-learner', component:  StatisticsComponent},
+          { path: 'statisc-learner', component: StatisticsComponent },
           { path: 'guest-type', component: GuestTypeComponent },
           { path: 'personnels', component: PersonnelComponent },
           { path: 'add-personnel', component: AddPersonnelComponent },
@@ -69,7 +71,7 @@ const adminRoutes: Routes = [
           { path: 'class-list', component: ClassComponent },
           { path: 'periodic-points', component: CommonPointComponent },
           { path: 'ending-points', component: EndingPointComponent },
-
+          { path: 'roll-pay', component: RollPayComponent },
           { path: 'schedule', component: ScheduleForLearnerComponent },
           { path: 'attendance-sheet', component: AttendanceSheetComponent },
           { path: 'schedule-table', component: ScheduleInTableComponent },

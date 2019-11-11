@@ -113,6 +113,7 @@ import { AddAttendanceDialogComponent } from './content/attendance-sheet/dialog/
 import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/delete-confirm.component';
 import { PrivateInfoComponent } from './content/private-info/private-info.component';
 
+import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -154,7 +155,7 @@ import { PrivateInfoComponent } from './content/private-info/private-info.compon
     ReactiveFormsModule,
     BrowserModule,
     DragDropModule,
-    MatChipsModule
+    MatChipsModule,
 
 
   ],
@@ -229,7 +230,8 @@ import { PrivateInfoComponent } from './content/private-info/private-info.compon
     CreatReceiptComponent,
     AddAttendanceDialogComponent,
     DeleteConfirmComponent,
-    PrivateInfoComponent
+    PrivateInfoComponent,
+    RollPayComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

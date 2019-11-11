@@ -2,24 +2,41 @@
   .mat-column-select {
     overflow: initial;
   }
- .full-with{
-   margin-left: 10px;
-   width: 100%;
- }
+  .example-container {
+    overflow: auto;
+  }
+
  tr.mat-footer-row {
   font-weight: bold;
 }
 .mat-footer-cell{
   font-size: 18px;
 }
+.mat-form-field{
+  width: 100%;
+}
 .mat-header-cell{
   background-color: lightseagreen;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
 }
-
-
+.control{
+  margin-left: 50px;
+}
+fieldset {
+  margin: 8px;
+  border: 3px solid gray;
+  padding: 8px;    
+  border-radius: 5px;
+  background-color: white;
+}
+legend{
+  font-weight: bold;
+  font-size: 18px;
+  padding: 2px;    
+}
 .mat-table-sticky {
   border-top: 1px solid #e0e0e0;
 }
@@ -27,28 +44,6 @@
     text-align: center !important;
     width: 100%;
   }
-  
-  .mat-header-cell {
-    text-align: center;
-  }
-  
-  .mat-header-cell {
-    font-size: 16px;
-    font: bold; 
-  }
-
-  #khung_thongtinlop {
-    padding-top: 20px;
-    padding-left: 15px;
-    border:solid 2px royalblue;
-    border-radius: 10px;
-  }
-
-  .tencot {
-    background-color:#2466B0;
-    color: white;
-  }
-
 
 table.table-style-three tr:hover td {
   cursor: pointer;
