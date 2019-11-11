@@ -10,6 +10,7 @@ import { CourseService } from '../../services/course.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { ConfirmService } from '../../services/extension/confirm.service';
 import { LoginService } from '../../services/login.service';
+import { DeleteCourseDialogComponent } from './dialog/delete-course-dialog/delete-course-dialog.component';
 
 @Component({
   selector: 'app-course',
@@ -140,15 +141,31 @@ export class CourseComponent implements OnInit {
 
 
   public deleteCourse(courseId: number) {
-    this.isOpenDialog = true;
-    this.courseService.deleteCourse(courseId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Xóa khóa học thành công!'); });
-      this.getCourses();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không xóa thành công!');
-      this.stopProgressBar();
-    });
+
+
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteCourseDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+          message: 'xóa khóa học'
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+
+          this.courseService.deleteCourse(courseId).subscribe(data => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Khóa học', 'Xóa khóa học thành công!'); });
+            this.getCourses();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Khóa học', 'Lỗi, không xóa thành công!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
 

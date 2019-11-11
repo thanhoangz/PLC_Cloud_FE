@@ -87,6 +87,7 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
 import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -182,7 +183,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     UpdateScheduleDialogComponent,
     CreatEndingPointComponent,
     AddAttendanceDialogComponent,
-    DeleteConfirmComponent
+    DeleteConfirmComponent,
+    DeleteCourseDialogComponent
   ]
 
 })
