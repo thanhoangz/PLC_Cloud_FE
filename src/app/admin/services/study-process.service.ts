@@ -58,4 +58,10 @@ export class StudyProcessService {
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-by-classId?classId=${ClassId}&status=${status}`, null);
   }
 
+  getLanguageClassOfLearner(learnerId) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-language-class-of-learner?learnerId=${learnerId}`, null);
+  }
+
 }

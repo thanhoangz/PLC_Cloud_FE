@@ -14,9 +14,9 @@ getAllReceipts() {
     .get(`${environment.PLCServicesDomain}/api/Receipts`);
 }
 
-postReceipt(PaySlip: any) {
+postReceipt(receipt: any, userId) {
   return this.httpClient
-    .post(`${environment.PLCServicesDomain}/api/Receipts`, PaySlip);
+    .post(`${environment.PLCServicesDomain}/api/Receipts?userId=${userId}`, receipt);
 }
 
 putReceipt(PaySlip: any) {
