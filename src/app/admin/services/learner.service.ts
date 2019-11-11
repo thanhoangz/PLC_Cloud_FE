@@ -74,16 +74,13 @@ export class LearnerService {
       .get(`${environment.PLCServicesDomain}/api/Learners/get-chua-co-lop`);
   }
 
-<<<<<<< HEAD
   getLearnerCardIdReceipt(cardId) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/Learners/get-learner-cardId?cardId=${cardId}`, null);
-=======
-
+  }
   getFullLearningByClass(classId) {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Learners/getlearninginclass/${classId}`);
->>>>>>> ec5f20908d3e585bcdfee020ff2eeca07df23226
   }
 }
 
