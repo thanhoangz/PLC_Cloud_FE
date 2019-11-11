@@ -1,0 +1,165 @@
+<section class="content" style="margin-top: 1%">
+  <div class="container-fluid">
+    <mat-tab-group animationDuration="0ms" color="primary" backgroundColor="primary" [selectedIndex]="monthSelected">
+
+      <div *ngFor="let month of months">
+        <mat-tab [label]="month">
+          <mat-card>
+            <div class="head-row">
+              <mat-card class="head-column">
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-m5-6">
+                      <img mat-card-sm-image src="../../../../assets/admin/dist/img/credit/money.png">
+                    </div>
+                    <div class="col-m5-6">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h3>Bảng lương</h3>
+                        </div>
+                        <div class="col-md-12">
+                          <span>{{ overviewRollPay.totalOfMonth }} ngày</span>
+                        </div>
+                        <div class="col-md-12">
+                          <span>Tổng: {{ overviewRollPay.totalSalaries | currency:'JPY':''  }} đ</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ribbon-wrapper ribbon-sm">
+                      <div class="ribbon bg-secondary">
+                        Tháng {{ (monthSelected + 1)}}
+                      </div>
+                    </div>
+                  </div>
+
+
+                </mat-card-content>
+
+                <mat-card-footer>
+
+                </mat-card-footer>
+              </mat-card>
+              <mat-card class="head-column">
+                <mat-card-content>
+
+                  <div class="row">
+                    <div class="col-m5-5">
+                      <img mat-card-sm-image src="../../../../assets/admin/dist/img/staff/salesman.png">
+                    </div>
+                    <div class="col-m5-7">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h3>Tổng số nhân viên</h3>
+                        </div>
+                        <div class="col-md-12">
+                          <span>{{ overviewRollPay.totalOfStaffs }} người</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ribbon-wrapper ribbon-sm">
+                      <div class="ribbon bg-secondary">
+                        Tháng {{ (monthSelected + 1)}}
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+
+                <mat-card-footer>
+
+                </mat-card-footer>
+              </mat-card>
+
+              <mat-card class="head-column">
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-m5-5">
+                      <img mat-card-sm-image src="../../../../assets/admin/dist/img/teacher/teacher.png">
+                    </div>
+                    <div class="col-m5-7">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h3>Tổng số giáo viên</h3>
+                        </div>
+                        <div class="col-md-12">
+                          <span>{{ overviewRollPay.totalOfLecturers }} người</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ribbon-wrapper ribbon-sm">
+                      <div class="ribbon bg-secondary">
+                        Tháng {{ (monthSelected + 1)}}
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+
+                <mat-card-footer>
+
+                </mat-card-footer>
+              </mat-card>
+
+            </div>
+
+            <div class="body-row">
+              <div class="row" style="width: fit-content;">
+                <div class="col-md-12">
+                  <mat-chip-list style="margin-left: 5%;">
+
+                    <mat-chip color="primary" selected>Xét duyệt lương</mat-chip>
+                    <mat-chip color="accent" selected>Xem bảng chấm công</mat-chip>
+                    <mat-chip color="accent" selected>Xem bảng chấm công</mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+
+            </div>
+            <div class="body-row">
+              <mat-tab-group mat-align-tabs="center" color="warn" backgroundColor="warn">
+                <mat-tab label="Giáo viên">
+
+                </mat-tab>
+                <mat-tab label="Nhân viên">
+
+                </mat-tab>
+
+              </mat-tab-group>
+            </div>
+
+
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+
+              <ng-container matColumnDef="index">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> STT </th>
+                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="weight">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="rollPayColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: rollPayColumns;"></tr>
+            </table>
+
+          </mat-card>
+        </mat-tab>
+      </div>
+
+    </mat-tab-group>
+  </div>
+</section>

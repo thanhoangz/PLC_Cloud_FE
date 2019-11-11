@@ -58,10 +58,16 @@ export class StudyProcessService {
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-by-classId?classId=${ClassId}&status=${status}`, null);
   }
 
+<<<<<<< HEAD
   getLanguageClassOfLearner(learnerId) {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-language-class-of-learner?learnerId=${learnerId}`, null);
+=======
+  update_Status(studyProcessId, status) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/StudyProcesses/update-status?studyProcessId=${studyProcessId}&status=${status}`, null);
+>>>>>>> ec5f20908d3e585bcdfee020ff2eeca07df23226
   }
 
 }

@@ -20,6 +20,8 @@ export class ChangeClassComponent implements OnInit {
   public newCourse;         // khóa học mới
   public tempClassId;       // id lớp để chuyển
   public courseId: any;
+
+  public show = false;
   // no hope
   public receiptsDetail;           // find list by classId and learnerId   : lấy tổng số tiền đã đóng
   public tienConLai;
@@ -34,7 +36,7 @@ export class ChangeClassComponent implements OnInit {
     languageClassId: null,
     learnerId: null,
   };
-  public studyProcessUpdate;
+
   public oldstudyProcess = {    // dùng update status
     id: null,
     status: 2,
@@ -53,8 +55,6 @@ export class ChangeClassComponent implements OnInit {
   ) {
     this.studyProcess = JSON.stringify(this.data._learnerInClass);
     this.studyProcess = JSON.parse(this.studyProcess);
-    this.studyProcessUpdate = JSON.stringify(this.data._learnerInClass);
-    this.studyProcessUpdate = JSON.parse(this.studyProcessUpdate);
   }
 
   ngOnInit() {
@@ -91,6 +91,7 @@ export class ChangeClassComponent implements OnInit {
   }
 
   public inforNewClass() {
+    this.show = true;
     this.findNewClass();
     this.tempDisable = true;          // = true thì ms chuyển lớp
     this.newstudyProcess.languageClassId = this.tempClassId;
@@ -100,8 +101,7 @@ export class ChangeClassComponent implements OnInit {
   public findNewClass() {
     this.languageClassesService.getById(this.tempClassId).subscribe((result: any) => {
       this.newClass = result;
-    //  this.studyProcessUpdate.note = result.name;
-      this.studyProcessUpdate.status = 2;
+      //  this.studyProcessUpdate.note = result.name;
       this.findNewCourse();
     });
   }
@@ -113,20 +113,16 @@ export class ChangeClassComponent implements OnInit {
   }
 
   public ChuyenLop() {
-    console.log(this.newstudyProcess);
-    console.log('bên trên là add, bên dưới là edit');
-    // tạo 1 study process mới ( cần learnerId và classId)
-    this.studyProcessService.post_studyProcess(this.newstudyProcess).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Chuyển lớp', 'Chuyển lớp thành công!'); });
-    }, error => {
-      this.notificationService.showNotification(3, 'Chuyển lớp', 'Lỗi, chuyển lớp không thành công!');
-    });
+    //  console.log(this.newstudyProcess);
+    //  console.log('bên trên là add, bên dưới là edit');
+    // tạo 1 study process mới ( cần learnerId và classId)  => done
     console.log(this.oldstudyProcess.id);
-    console.log(this.oldstudyProcess.status);
-    console.log(this.studyProcessUpdate);
     // thay đổi trạng thái status thành chuyển lớp ( = 2)
-    this.studyProcessService.put_studyProcess(this.studyProcessUpdate).subscribe(result => {
+    this.studyProcessService.update_Status(this.oldstudyProcess.id, 2).subscribe(result => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Chuyển lớp', 'Chuyển lớp thành công!'); });
+      this.studyProcessService.post_studyProcess(this.newstudyProcess).subscribe(result1 => {
+      }, error => {
+      });
       this.dialogRef.close(true);
     }, error => {
       this.notificationService.showNotification(3, 'Chuyển lớp', 'Lỗi, chuyển lớp không thành công!');

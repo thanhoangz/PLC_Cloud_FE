@@ -82,7 +82,7 @@ import { EditPageLectureComponent } from './content/lecturers/page/edit-page-lec
 
 import { BrowserModule } from '@angular/platform-browser';
 import { JwPaginationComponent } from 'jw-angular-pagination';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+
 import { ClassComponent } from './content/class/class.component';
 import { AddClassComponent } from './content/class/dialog/add-class/add-class.component';
 import { EditClassComponent } from './content/class/dialog/edit-class/edit-class.component';
@@ -94,7 +94,7 @@ import { PermissionsForUserComponent } from './content/user-management/permissio
 import { CreatPointComponent } from './content/common-point/dialog/creat-point/creat-point.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 import { ScheduleForLearnerComponent } from './content/schedule-school/schedule-for-learner/schedule-for-learner.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScheduleInTableComponent } from './content/schedule-school/schedule-in-table/schedule-in-table.component';
 // tslint:disable-next-line: max-line-length
 import { AddScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/add-schedule-dialog/add-schedule-dialog.component';
@@ -106,7 +106,13 @@ import { UpdateScheduleDialogComponent } from './content/schedule-school/schedul
 import { EndingPointComponent } from './content/ending-point/ending-point.component';
 import { CreatEndingPointComponent } from './content/ending-point/creat-ending-point/creat-ending-point.component';
 import { ReceiptComponent } from './content/receipt/receipt.component';
+import { DashboardComponent } from './content/dashboard/dashboard.component';
+import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
+import { AddAttendanceDialogComponent } from './content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
+import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/delete-confirm.component';
+import { RollPayComponent } from './content/roll-pay/roll-pay.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   imports: [
     CommonModule,
@@ -147,7 +153,10 @@ import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/crea
     CKEditorModule,
     ReactiveFormsModule,
     BrowserModule,
-    DragDropModule
+    DragDropModule,
+    MatChipsModule,
+    FlexLayoutModule
+
 
   ],
   declarations: [
@@ -191,7 +200,6 @@ import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/crea
     AddPageLectureComponent,
     DetailStudyprocessComponent,
     EditPageLectureComponent,
-    ConfirmationDialogComponent,
     EditStudyprocessComponent,
     ChangeClassComponent,
     AddPersonnelComponent,
@@ -217,7 +225,12 @@ import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/crea
     EndingPointComponent,
     CreatEndingPointComponent,
     ReceiptComponent,
+    DashboardComponent,
+    AttendanceSheetComponent,
     CreatReceiptComponent,
+    AddAttendanceDialogComponent,
+    DeleteConfirmComponent,
+    RollPayComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

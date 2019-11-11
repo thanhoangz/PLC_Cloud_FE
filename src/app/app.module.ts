@@ -83,6 +83,11 @@ import { ControlLearnerComponent } from './admin/content/learner/pages/control-l
 // tslint:disable-next-line: max-line-length
 import { UpdateScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/update-schedule-dialog/update-schedule-dialog.component';
 import { CreatEndingPointComponent } from './admin/content/ending-point/creat-ending-point/creat-ending-point.component';
+// tslint:disable-next-line: max-line-length
+import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
+import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -133,7 +138,8 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
     MatNativeDateModule,
     CKEditorModule,
     BlockUIModule.forRoot(),
-    DragDropModule
+    DragDropModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -175,16 +181,16 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
     AddScheduleDialogComponent,
     ControlLearnerComponent,
     UpdateScheduleDialogComponent,
-    CreatEndingPointComponent
+    CreatEndingPointComponent,
+    AddAttendanceDialogComponent,
+    DeleteConfirmComponent,
+    DeleteCourseDialogComponent
   ]
 
 })
 export class AppModule {
-  // Diagnostic only: inspect router configuration
-  constructor(router: Router) {
-    // Use a custom replacer to display function names in the route configs
-    // const replacer = (key, value) => (typeof value === 'function') ? value.name : value;
 
-    // console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  constructor(router: Router) {
+
   }
 }

@@ -6,7 +6,7 @@ import { FomatDateService } from '../../services/extension/FomatDate.service';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { ConfirmationDialogService } from '../../confirmation-dialog/confirmation-dialog.service';
+
 
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { AddClassComponent } from './dialog/add-class/add-class.component';
@@ -40,7 +40,6 @@ export class ClassComponent implements OnInit {
     private fomatDateService: FomatDateService,
     private router: Router,
     private exchangeDataService: ExchangeDataService,
-    private confirmDialogService: ConfirmationDialogService,
     private courseService: CourseService ,
   ) {
     this.screenWidth = (window.screen.width);

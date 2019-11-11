@@ -16,9 +16,10 @@ import { StudyProcessService } from '../../services/study-process.service';
 import { DetailStudyprocessComponent } from './dialog/detail-studyprocess/detail-studyprocess.component';
 import { EditStudyprocessComponent } from './dialog/edit-studyprocess/edit-studyprocess.component';
 import { ChangeClassComponent } from './dialog/change-class/change-class.component';
-
+import { ScheduleService } from '../../services/schedule.service';
 
 import { LoginService } from '../../services/login.service';
+
 @Component({
   selector: 'app-study-process',
   templateUrl: './study-process.component.html',
@@ -35,6 +36,7 @@ export class StudyProcessComponent implements OnInit {
   public pageIndex = 1;
   public pageSizeOptions = [20, 30, 50];
 
+  public showChuyenLop = false;
   public isOpenDialog = false;
 
   public status = [];
@@ -46,6 +48,7 @@ export class StudyProcessComponent implements OnInit {
   public class = {
     id: null,
     name: null,
+    lecturerName: null,
     courseFee: null,
     monthlyFee: null,
     lessonFee: null,
@@ -76,7 +79,7 @@ export class StudyProcessComponent implements OnInit {
     private notificationService: NotificationService,
     public matDialog: MatDialog,
     private loginService: LoginService,
-
+    private scheduleService: ScheduleService,
     private exchangeDataService: ExchangeDataService,
     private router: Router,
   ) {
@@ -98,11 +101,8 @@ export class StudyProcessComponent implements OnInit {
     this.getAllClass();
     this.getLearnerInClass();
     this.load_infor_Classes(this.classId);  //
+    this.loadLectureName(this.classId);  //
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
-  }
-
-  applyFilter(filterValue: any) {
-    this.dataSourceInClass.filter = filterValue.trim().toLowerCase();
   }
 
   public getAllClass() {
@@ -134,6 +134,7 @@ export class StudyProcessComponent implements OnInit {
     this.getAllStatus();
     this.getLearnerInClass();
     this.load_infor_Classes(this.classId);
+    this.loadLectureName(this.classId);
   }
 
   private getAllStatus() {
@@ -178,6 +179,13 @@ export class StudyProcessComponent implements OnInit {
       this.class.maxNumber = result.maxNumber;
       this.load_total(classId);
       this.load_CourseName(result.courseId);
+    }, error => {
+    });
+  }
+  // lấy tên giáo viên theo mã lớp
+  public loadLectureName( classId) {
+    this.scheduleService.getScheduleByClass(classId).subscribe((result: any) => {
+      this.class.lecturerName = result.lecturerName;
     }, error => {
     });
   }

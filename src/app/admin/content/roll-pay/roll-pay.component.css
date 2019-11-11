@@ -1,0 +1,25 @@
+.head-row{
+  width: 100%;
+  float: left;
+}
+
+.head-column{
+  margin: 20px;
+  width: 30%;
+  float: left;
+}
+
+.head-image{
+  width: 100%;
+}
+
+
+.body-row{
+  width: 100%;
+  float: left;
+}
+
+
+table{
+  width: 100%;
+}
