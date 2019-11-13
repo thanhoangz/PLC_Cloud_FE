@@ -35,6 +35,8 @@ import { DashboardComponent } from './content/dashboard/dashboard.component';
 import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
+import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
+import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 
 const adminRoutes: Routes = [
   {
@@ -52,6 +54,7 @@ const adminRoutes: Routes = [
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'receipt', component: ReceiptComponent },
           { path: 'creat-receipt', component: CreatReceiptComponent },
+          //{ path: 'detail-receipt', component: DetailReceiptBoComponent},
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },

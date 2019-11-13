@@ -19,14 +19,14 @@ postReceipt(receipt: any, userId) {
     .post(`${environment.PLCServicesDomain}/api/Receipts?userId=${userId}`, receipt);
 }
 
-putReceipt(PaySlip: any) {
+putReceipt(receipt: any) {
   return this.httpClient
-    .put(`${environment.PLCServicesDomain}/api/Receipts/${PaySlip.id}`, PaySlip);
+    .put(`${environment.PLCServicesDomain}/api/Receipts/${receipt.id}`, receipt);
 }
 
-deleteReceipt(PaySlipId: number) {
+deleteReceipt(receiptId: number) {
   return this.httpClient
-    .delete(`${environment.PLCServicesDomain}/api/Receipts/${PaySlipId}`);
+    .delete(`${environment.PLCServicesDomain}/api/Receipts/${receiptId}`);
 }
 
 pagingReceipts(keyWord, status, pageSize, pageIndex) {
@@ -39,5 +39,11 @@ pagingReceipts(keyWord, status, pageSize, pageIndex) {
   getReceiptsByLearnerId(learnerId) {
     return this.httpClient
     .post(`${environment.PLCServicesDomain}/api/Receipts/get-all-with-conditions?learnerId=${learnerId}`, null);
+  }
+
+  // search phiếu thu
+  searchReceipt(keyword) {
+    return this.httpClient
+    .post(`${environment.PLCServicesDomain}/api/Receipts/search-receipt?keyword=${keyword}`, null);
   }
 }

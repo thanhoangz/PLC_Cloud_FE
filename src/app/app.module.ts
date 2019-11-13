@@ -86,8 +86,9 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
 // tslint:disable-next-line: max-line-length
 import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
+import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
+import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,6 @@ import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delet
     CKEditorModule,
     BlockUIModule.forRoot(),
     DragDropModule,
-    FlexLayoutModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -184,7 +184,9 @@ import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delet
     CreatEndingPointComponent,
     AddAttendanceDialogComponent,
     DeleteConfirmComponent,
-    DeleteCourseDialogComponent
+    DeleteCourseDialogComponent,
+    DetailReceiptBoComponent,
+    DeleteReceiptComponent
   ]
 
 })
