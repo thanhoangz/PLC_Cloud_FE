@@ -4,6 +4,8 @@ import { DatePipe } from '@angular/common';
 import { ScheduleService } from 'src/app/admin/services/schedule.service';
 import { CourseService } from 'src/app/admin/services/course.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PickClassComponent } from '../schedule-in-table/dialog/pick-class/pick-class.component';
 
 @Component({
   selector: 'app-schedule-for-learner',
@@ -12,6 +14,7 @@ import { LanguageClassesService } from 'src/app/admin/services/language-classes.
 })
 export class ScheduleForLearnerComponent implements OnInit {
 
+  isOpenDialog = false;
   public courses;
   public classes;
   public courseSelected;
@@ -29,12 +32,13 @@ export class ScheduleForLearnerComponent implements OnInit {
   public scheduleMonth;
 
   public daysOfWeek = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
-  public showProgressBar = true;
+  public showProgressBar = false;
   constructor(
     public datepipe: DatePipe,
     public scheduleService: ScheduleService,
     public courseService: CourseService,
     public languageClassesService: LanguageClassesService,
+    public matDialog: MatDialog,
 
   ) {
     this.getDateOfMonth();
@@ -101,6 +105,7 @@ export class ScheduleForLearnerComponent implements OnInit {
   public getScheduleMonthByClass(classId: any) {
     this.scheduleService.getScheduleMonthByClass(classId).subscribe(result => {
       this.scheduleMonth = result;
+      console.log(this.scheduleMonth);
       this.getDateOfMonth();
     }, error => {
 
@@ -179,6 +184,22 @@ export class ScheduleForLearnerComponent implements OnInit {
   }
 
   public autoCreateSchedule() {
+    console.log(this.courseSelected);
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      this.matDialog.open(PickClassComponent, {
+        width: '100vh',
+        data: {
+          courseSelected: this.courseSelected
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+
+        }
+
+      });
+    }
 
   }
 }

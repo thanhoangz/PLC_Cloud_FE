@@ -87,6 +87,7 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
 import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
 import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
+import { PickClassComponent } from './admin/content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
 
 @NgModule({
   declarations: [
@@ -182,7 +183,8 @@ import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delet
     CreatEndingPointComponent,
     AddAttendanceDialogComponent,
     DeleteConfirmComponent,
-    DeleteCourseDialogComponent
+    DeleteCourseDialogComponent,
+    PickClassComponent
   ]
 
 })
