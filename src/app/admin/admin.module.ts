@@ -111,6 +111,8 @@ import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
 import { AddAttendanceDialogComponent } from './content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/delete-confirm.component';
+import { PrivateInfoComponent } from './content/private-info/private-info.component';
+
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/delete-receipt.component';
@@ -232,6 +234,7 @@ import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/
     CreatReceiptComponent,
     AddAttendanceDialogComponent,
     DeleteConfirmComponent,
+    PrivateInfoComponent,
     RollPayComponent,
     DetailReceiptBoComponent,
     DeleteReceiptComponent,

@@ -34,6 +34,7 @@ import { ReceiptComponent } from './content/receipt/receipt.component';
 import { DashboardComponent } from './content/dashboard/dashboard.component';
 import { AttendanceSheetComponent } from './content/attendance-sheet/attendance-sheet.component';
 import { CreatReceiptComponent } from './content/receipt/page/creat-receipt/creat-receipt.component';
+import { PrivateInfoComponent } from './content/private-info/private-info.component';
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
@@ -80,6 +81,7 @@ const adminRoutes: Routes = [
           { path: 'search-learner', component: SearchStudyprocessComponent },
           { path: '', component: HomeComponent },
           { path: 'home', component: HomeComponent },
+          { path: 'private-info', component: PrivateInfoComponent },
           { path: 'dashboard', component: DashboardComponent },
         ]
       }

@@ -105,8 +105,8 @@ export class StudyProcessComponent implements OnInit {
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
-  public getAllClass() {
-    this.languageClassesService.getAllLanguageClasses().subscribe((result: any) => {
+  public getAllClass() {  //  lấy danh sách lớp có status = 1, 2
+    this.languageClassesService.getLopHoatDong().subscribe((result: any) => {
       this.classList = result;
     }, error => {
     });
