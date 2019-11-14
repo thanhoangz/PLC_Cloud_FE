@@ -7,7 +7,7 @@ import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.ser
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
-
+import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-edit-page-lecture',
@@ -18,6 +18,7 @@ export class EditPageLectureComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
+  public isOpenDialog = false;
 
   public lectureFormGroup: FormGroup;
   public floatLabel = 'always';
@@ -246,13 +247,26 @@ export class EditPageLectureComponent implements OnInit {
   }
 
   public delete() {
-    this.lecturersService.deleteLectureId(this.lecture.id).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
-      this.router.navigateByUrl('admin/lecture');
-    }, error => {
-      this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.lecturersService.deleteLectureId(this.lecture.id).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
+            this.router.navigateByUrl('admin/lecture');
+          }, error => {
+            this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
   public back() {

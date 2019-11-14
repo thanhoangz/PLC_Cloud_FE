@@ -87,7 +87,7 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
 import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
 import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
-
+import { DeleteDialogComponent } from './admin/content/delete-dialog/delete-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -182,7 +182,8 @@ import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delet
     CreatEndingPointComponent,
     AddAttendanceDialogComponent,
     DeleteConfirmComponent,
-    DeleteCourseDialogComponent
+    DeleteCourseDialogComponent,
+    DeleteDialogComponent,
   ]
 
 })

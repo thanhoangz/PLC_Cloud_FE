@@ -17,7 +17,7 @@ import { DetailStudyprocessComponent } from './dialog/detail-studyprocess/detail
 import { EditStudyprocessComponent } from './dialog/edit-studyprocess/edit-studyprocess.component';
 import { ChangeClassComponent } from './dialog/change-class/change-class.component';
 import { ScheduleService } from '../../services/schedule.service';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -183,7 +183,7 @@ export class StudyProcessComponent implements OnInit {
     });
   }
   // lấy tên giáo viên theo mã lớp
-  public loadLectureName( classId) {
+  public loadLectureName(classId) {
     this.scheduleService.getScheduleByClass(classId).subscribe((result: any) => {
       this.class.lecturerName = result.lecturerName;
     }, error => {
@@ -252,14 +252,26 @@ export class StudyProcessComponent implements OnInit {
   }
 
   public deleteStudyProcess(learnerId: any) {
-    this.isOpenDialog = true;
-    this.studyProcessService.delete_studyProcess_byLearnerId(this.classId, learnerId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa học viên thành công!'); });
-      this.getLearnerInClass();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, Xóa không thành công!');
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.studyProcessService.delete_studyProcess_byLearnerId(this.classId, learnerId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa học viên thành công!'); });
+            this.getLearnerInClass();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, Xóa không thành công!');
+          });
+        }
+      });
+    }
   }
 
   public startProgressBar() {

@@ -6,13 +6,13 @@ import { NotificationService } from '../../services/extension/notification.servi
 import { DatePipe } from '@angular/common';
 import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
 import { Router } from '@angular/router';
-
+import { MatDialog } from '@angular/material/dialog';
 import { CourseService } from '../../services/course.service';
 import { LanguageClassesService } from '../../services/language-classes.service';
 import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
 import { LoginService } from '../../services/login.service';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-add-learner-class',
   templateUrl: './add-learner-class.component.html',
@@ -23,7 +23,7 @@ export class AddLearnerClassComponent implements OnInit {
   public showProgressBar = true;
   public screenHeight: any;
   public screenWidth: any;
-
+  public isOpenDialog = false;
   public pageSizeOptions1 = [10, 20, 30, 50];
   public pageSizeOptions2 = [10, 20, 30, 50];
 
@@ -83,6 +83,7 @@ export class AddLearnerClassComponent implements OnInit {
     private loginService: LoginService,
     private exchangeDataService: ExchangeDataService,
     private router: Router,
+    public matDialog: MatDialog,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -166,15 +167,28 @@ export class AddLearnerClassComponent implements OnInit {
   }
 
   public deleteStudyProcess(learnerId: any) { // cập nhật tình trạng lớp nếu k full
-    this.studyProcessService.delete_studyProcess_byLearnerId(this.studyProcess.languageClassId, learnerId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Xóa học viên thành công!'); });
-      this.getLearnerOutClass();
-      this.getLearnerInClass();
-      this.load_infor_languageClasses(this.classId);
-    }, error => {
-      this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Xóa không thành công!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.studyProcessService.delete_studyProcess_byLearnerId(this.studyProcess.languageClassId, learnerId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Xếp lớp', 'Xóa học viên thành công!'); });
+            this.getLearnerOutClass();
+            this.getLearnerInClass();
+            this.load_infor_languageClasses(this.classId);
+          }, error => {
+            this.notificationService.showNotification(3, 'Xếp lớp', 'Lỗi, Xóa không thành công!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
   /*

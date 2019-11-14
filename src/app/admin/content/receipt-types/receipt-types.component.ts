@@ -10,6 +10,7 @@ import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { ReceiptTypeService } from '../../services/receipt-type.service';
 import { LoginService } from '../../services/login.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-receipt-types',
   templateUrl: './receipt-types.component.html',
@@ -21,7 +22,7 @@ export class ReceiptTypesComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public receiptType ;
+  public receiptType;
   public status = [];
 
   public isOpenDialog = false;
@@ -99,7 +100,7 @@ export class ReceiptTypesComponent implements OnInit {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
       this.matDialog.open(AddReceiptTypeComponent, {
-        width:  `${widthMachine}px`,
+        width: `${widthMachine}px`,
         data: {
         },
         disableClose: false
@@ -128,16 +129,27 @@ export class ReceiptTypesComponent implements OnInit {
   }
 
   public delete_receiptType(receiptTypeId: number) {
-    this.startProgressBar();
-    this.isOpenDialog = true;
-    this.receiptTypeService.deleteReceiptType(receiptTypeId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Loại thu', 'Xóa loại thu thành công!'); });
-      this.getReceiptType();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Loại thu', 'Lỗi, Xóa không thành công!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.receiptTypeService.deleteReceiptType(receiptTypeId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Loại thu', 'Xóa loại thu thành công!'); });
+            this.getReceiptType();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Loại thu', 'Lỗi, Xóa không thành công!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
 

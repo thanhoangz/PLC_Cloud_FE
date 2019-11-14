@@ -114,6 +114,7 @@ import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/del
 import { PrivateInfoComponent } from './content/private-info/private-info.component';
 
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
+import { DeleteDialogComponent } from './content/delete-dialog/delete-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -232,6 +233,7 @@ import { RollPayComponent } from './content/roll-pay/roll-pay.component';
     DeleteConfirmComponent,
     PrivateInfoComponent,
     RollPayComponent,
+    DeleteDialogComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

@@ -13,7 +13,8 @@ import { EditLanguageClassComponent } from './dialog/edit-language-class/edit-la
 import { DetailLanguageClassComponent } from './dialog/detail-language-class/detail-language-class.component';
 import { EditClassComponent } from '../class/dialog/edit-class/edit-class.component';
 import { AddClassComponent } from '../class/dialog/add-class/add-class.component';
-import { CourseService} from '../../services/course.service';
+import { CourseService } from '../../services/course.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-language-classes',
   templateUrl: './language-classes.component.html',
@@ -56,7 +57,7 @@ export class LanguageClassesComponent implements OnInit {
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
     private loginService: LoginService,
-    private courseService: CourseService ,
+    private courseService: CourseService,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -150,15 +151,27 @@ export class LanguageClassesComponent implements OnInit {
   }
 
   public deleteLanguageClass(languageClassId: number) {
-    this.isOpenDialog = true;
-    this.languageClassesService.deleteLanguageClass(languageClassId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa lớp học thành công!'); });
-      this.getLanguageClass();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, xóa không thành công!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.languageClassesService.deleteLanguageClass(languageClassId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Lớp học', 'Xóa lớp học thành công!'); });
+            this.getLanguageClass();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Lớp học', 'Lỗi, xóa không thành công!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
   public findClass() {

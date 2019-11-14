@@ -14,6 +14,7 @@ import { ReceiptsService } from '../../services/receipts.service';
 import { DetailReceiptComponent } from '../search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 import { ReceiptDetailService } from 'src/app/admin/services/Receipt-Detail.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
@@ -246,7 +247,26 @@ public loadTablesClass(data3: any) {
     this.router.navigateByUrl('admin/control-learner');
   }
   public deleteLeaerner() {
-
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.learnerService.deleteLearner(this.inforlearner.id).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Học viên', 'Đã xóa học viên!'); });
+            this.getLearnerWithCondition(4);
+          }, error => {
+            this.notificationService.showNotification(3, 'Học viên', 'Lỗi, Không xóa được!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
   public moveStudyProcessWithClassId(id) {
     this.createExchangeId(id);  // truyền
