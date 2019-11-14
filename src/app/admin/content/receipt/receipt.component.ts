@@ -18,6 +18,8 @@ import { ReceiptsService } from '../../services/receipts.service';
 import { ReceiptDetailService } from '../../services/Receipt-Detail.service';
 import { PersonnelsService } from '../../services/personnels.service';
 import { FomatDateService } from '../../services/extension/FomatDate.service';
+import { DetailReceiptBoComponent } from './page/detail-receipt-bo/detail-receipt-bo.component';
+import { DeleteReceiptComponent } from './dialog/delete-receipt/delete-receipt.component';
 
 @Component({
   selector: 'app-receipt',
@@ -28,10 +30,12 @@ export class ReceiptComponent implements OnInit {
 
   public screenHeight: any;
   public screenWidth: any;
-  public pageSizeOptions = [5, 10, 15, 20];
+  public pageSizeOptions = [10, 15, 20];
 
   public isOpenDialog = false;
 
+  // keyword để tìm kiếm
+  public keyWord;
   // phiếu thu
   public receipts;
 
@@ -85,6 +89,63 @@ export class ReceiptComponent implements OnInit {
 
   }
 
+  public openDetailReceipt(receipt: any) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.9 * this.screenWidth;
+      this.matDialog.open(DetailReceiptBoComponent,
+        {
+          width: `${widthMachine}px`,
+          data: { _receipt: receipt }
+        }).afterClosed().subscribe(result => {
+          this.isOpenDialog = false;
+          this.SearchReceipt();
+        });
+    }
+  }
+  public deleteReceipt(receiptId: number) {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteReceiptComponent, {
+        width: `${widthMachine}px`,
+        data: {
+          message: 'xóa khóa học'
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+
+          this.receiptsService.deleteReceipt(receiptId).subscribe(data => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu thu', 'Đã xóa!'); });
+            this.getAllReceipt();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Phiếu thu', 'Lỗi, xóa không thành công!');
+          });
+        }
+      });
+    }
+  }
+
+  public CreatReceipt() {
+    this.router.navigateByUrl('admin/creat-receipt');
+
+  }
+
+  public SearchReceipt() {
+    if (this.keyWord !== '') {
+      this.receiptsService.searchReceipt(this.keyWord).subscribe((result: any) => {
+        this.receipts = result;
+        this.loadTables(result);
+      }, error => {
+      });
+    }
+    // tslint:disable-next-line: one-line
+    else{
+      this.getAllReceipt();
+    }
+  }
 
 
 }

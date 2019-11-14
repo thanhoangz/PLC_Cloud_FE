@@ -63,6 +63,7 @@ export class StudyProcessService {
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-language-class-of-learner?learnerId=${learnerId}`, null);
   }
+
   update_Status(studyProcessId, status) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/update-status?studyProcessId=${studyProcessId}&status=${status}`, null);

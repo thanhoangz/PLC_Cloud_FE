@@ -115,6 +115,10 @@ import { PrivateInfoComponent } from './content/private-info/private-info.compon
 
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { DeleteDialogComponent } from './content/delete-dialog/delete-dialog.component';
+import { PickClassComponent } from './content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
+import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
+import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/delete-receipt.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -157,6 +161,7 @@ import { DeleteDialogComponent } from './content/delete-dialog/delete-dialog.com
     BrowserModule,
     DragDropModule,
     MatChipsModule,
+
 
 
   ],
@@ -234,6 +239,9 @@ import { DeleteDialogComponent } from './content/delete-dialog/delete-dialog.com
     PrivateInfoComponent,
     RollPayComponent,
     DeleteDialogComponent,
+    PickClassComponent,
+    DetailReceiptBoComponent,
+    DeleteReceiptComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
