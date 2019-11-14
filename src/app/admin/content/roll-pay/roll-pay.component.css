@@ -1,10 +1,14 @@
 .head-row{
   width: 100%;
-  float: left;
+ 
 }
 
+
 .head-column{
-  margin: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
   width: 30%;
   float: left;
 }
@@ -16,7 +20,6 @@
 
 .body-row{
   width: 100%;
-  float: left;
 }
 
 
