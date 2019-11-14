@@ -115,6 +115,9 @@ import { PrivateInfoComponent } from './content/private-info/private-info.compon
 
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { PickClassComponent } from './content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
+import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
+import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/delete-receipt.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -157,6 +160,7 @@ import { PickClassComponent } from './content/schedule-school/schedule-in-table/
     BrowserModule,
     DragDropModule,
     MatChipsModule,
+
 
 
   ],
@@ -233,7 +237,9 @@ import { PickClassComponent } from './content/schedule-school/schedule-in-table/
     DeleteConfirmComponent,
     PrivateInfoComponent,
     RollPayComponent,
-    PickClassComponent
+    PickClassComponent,
+    DetailReceiptBoComponent,
+    DeleteReceiptComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

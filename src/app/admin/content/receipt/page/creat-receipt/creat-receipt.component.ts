@@ -358,6 +358,7 @@ export class CreatReceiptComponent implements OnInit {
       this.receiptsService.postReceipt(this.receipt, ConstService.user.id).subscribe((result: any) => {
         this.CreatReceiptDetail();
         this.notificationService.showNotification(1, 'Phiếu thu', 'Đã cập nhật phiếu thu');
+        this.router.navigateByUrl('admin/receipt');
 
       }, error => {
       });

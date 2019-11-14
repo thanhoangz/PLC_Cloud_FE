@@ -18,4 +18,9 @@ AddListReceiptDetail(receiptDetail) {
   return this.httpClient
     .post(`${environment.PLCServicesDomain}/api/ReceiptDetails/add-list-receiptDetail`, receiptDetail);
 }
+
+getReceiptsDetailForReceipt(receiptId) {
+  return this.httpClient
+  .post(`${environment.PLCServicesDomain}/api/ReceiptDetails/get-receipt-detail-for-receipt?receiptId=${receiptId}`, null);
+}
 }
