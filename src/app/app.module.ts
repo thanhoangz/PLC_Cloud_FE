@@ -91,7 +91,9 @@ import { DeleteDialogComponent } from './admin/content/delete-dialog/delete-dial
 import { PickClassComponent } from './admin/content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
 import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
-
+// tslint:disable-next-line: max-line-length
+import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -142,6 +144,7 @@ import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-re
     CKEditorModule,
     BlockUIModule.forRoot(),
     DragDropModule,
+    NgxMaterialTimepickerModule.setLocale('ar-AE')
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -190,7 +193,8 @@ import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-re
     DeleteDialogComponent,
     PickClassComponent,
     DetailReceiptBoComponent,
-    DeleteReceiptComponent
+    DeleteReceiptComponent,
+    CreateClassSecDialogComponent
   ]
 
 })

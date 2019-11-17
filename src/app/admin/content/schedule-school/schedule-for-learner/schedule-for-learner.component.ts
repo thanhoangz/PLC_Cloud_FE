@@ -6,6 +6,7 @@ import { CourseService } from 'src/app/admin/services/course.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PickClassComponent } from '../schedule-in-table/dialog/pick-class/pick-class.component';
+import { CreateClassSecDialogComponent } from './dialog/create-class-sec-dialog/create-class-sec-dialog.component';
 
 @Component({
   selector: 'app-schedule-for-learner',
@@ -78,8 +79,11 @@ export class ScheduleForLearnerComponent implements OnInit {
         (this.scheduleMonth.classSessions).forEach(element => {
           const dateOfSchedule = this.datepipe.transform(element.date, 'dd-MM-yyyy');
           if (dateOfSchedule === date) {
-            schedule.push(element.id + this.scheduleMonth.classroomName + '-' + element.fromTime.substring(0, 5) +
-              '-' + element.toTime.substring(0, 5) + ' ' + this.scheduleMonth.lecturerName);
+            schedule.push({
+              classSession: element,
+              content: this.scheduleMonth.classroomName + ' - ' + element.fromTime.substring(0, 5) +
+                '-' + element.toTime.substring(0, 5) + ' GV: ' + this.scheduleMonth.lecturerName
+            });
           }
         });
       }
@@ -108,6 +112,7 @@ export class ScheduleForLearnerComponent implements OnInit {
       console.log(this.scheduleMonth);
       this.getDateOfMonth();
     }, error => {
+      this.getDateOfMonth();
 
     });
   }
@@ -174,6 +179,8 @@ export class ScheduleForLearnerComponent implements OnInit {
   public changValueCourse(courseId) {
     this.languageClassesService.getClassByCourse(courseId).subscribe(result => {
       this.classes = result;
+      this.classSelected = result[0].id;
+      this.getScheduleMonthByClass(this.classSelected);
     }, error => {
 
     });
@@ -200,7 +207,26 @@ export class ScheduleForLearnerComponent implements OnInit {
 
       });
     }
+  }
 
+
+  public openCreateClassSection() {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      this.matDialog.open(CreateClassSecDialogComponent, {
+        width: '100vh',
+        data: {
+          classSelected: this.classSelected,
+          courseSelected: this.courseSelected
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+          this.getScheduleMonthByClass(this.classSelected);
+        }
+
+      });
+    }
   }
 }
 
