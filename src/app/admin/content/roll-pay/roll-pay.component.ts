@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class RollPayComponent implements OnInit {
   public showProgressBar = true;
 
-
+  public timeSheets = [];
   // để tìm kiếm
   public monthSearch;
   public yearSearch;
@@ -25,10 +25,18 @@ export class RollPayComponent implements OnInit {
   public chamcong;
 
   public overviewRollPay = {
-    totalOfMonth: 24,
-    totalOfStaffs: 20,
-    totalOfLecturers: 10,
-    totalSalaries: 30000000,
+    totalOfMonth: 25,
+    totalOfStaffsPaid: 0,
+    totalOfStaffsNotPaid: 0,
+    totalOfLecturersPaid: 0,
+    totalOfLecturersNotPaid: 0,
+    totalMoney: 0,
+    totalMoneyPersonel: 0,
+    totalMoneyPersonelPaid: 0,
+    totalMoneyPersonelNotPaid: 0,
+    totalMoneyLecture: 0,
+    totalMoneyLecturePaid: 0,
+    totalMoneyLectureNotPaid: 0,
   };
 
   public payRollForPersonnel; // Bảng lương cho NV chưa xét duyệt
@@ -65,10 +73,10 @@ export class RollPayComponent implements OnInit {
     this.yearSearch = new Date().getFullYear();
     this.getAllYear();
     this.getPersonnelChuaXetDuyet();
-    console.log(this.isBangLuong);
+    this.getPersonnelDaXetDuyet();
   }
 
-
+  //#region Checkbox
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.XetDuyetNhanVienDataSource.data.length;
@@ -81,17 +89,9 @@ export class RollPayComponent implements OnInit {
       this.selection.clear() :
       this.XetDuyetNhanVienDataSource.data.forEach(row => this.selection.select(row));
   }
+  //#endregion
 
-  /*
-    checkboxLabel(row?: XetDuyetNhanVienColumns): string {
-      if (!row) {
-        return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-      }
-      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.index + 1}`;
-    }
-  */
-
-  // update chấm công khi sửa thưởng và phụ cấp.  id chấm công
+  //#region update chấm công khi sửa thưởng và phụ cấp.  id chấm công
   public updatePeriodicPoint(chamcongId, phucap, thuong) {
     this.timeSheetService.getById(chamcongId).subscribe(result => {
       this.chamcong = result;
@@ -108,20 +108,18 @@ export class RollPayComponent implements OnInit {
     }, error => {
     });
   }
+  //#endregion
 
-  // Xem chấm công
-  XemChamCong() {
-    this.router.navigateByUrl('admin/time-sheet');
-  }
+  //#region Click button
 
-  // click tab đã xét duyệt
+  // click nút đã xét duyệt
   public ClickDaXetDuyet() {
     this.isBangLuong = true;
-    console.log(this.isBangLuong);
     this.getPersonnelDaXetDuyet();
     this.getLectureDaXetDuyet();
   }
-  // click tab chưa xét duyệt
+
+  // click nút chưa xét duyệt
   public ClickChuaXetDuyet() {
     this.isBangLuong = false;
     console.log(this.isBangLuong);
@@ -129,19 +127,42 @@ export class RollPayComponent implements OnInit {
     this.getLectureChuaXetDuyet();
   }
 
-  // click chấm công NV
-  public ClickChamCongNV() {
-  }
-  // click chấm công GV
-  public ClickChamCongGV() {
+  public TimKiem() {
+    this.getPersonnelChuaXetDuyet();
+    this.getPersonnelDaXetDuyet();
+    this.getLectureChuaXetDuyet();
+    this.getLectureDaXetDuyet();
   }
 
+  // Cạp nhật list xét duyệt vào bảng
+  public updateSalaryPaied() {
+    this.timeSheets = [];
+    // tslint:disable-next-line: no-shadowed-variable
+    this.selection.selected.forEach((element: any) => {
+      this.timeSheets.push(element.salary.id);
+    });
+    this.salaryRollpayService.PostRollPay(this.timeSheets).subscribe(result => {
+      this.getPersonnelChuaXetDuyet();
+    }, error => {
+    });
+  }
 
-  //#region Lấy danh sách Đã-Chưa xét duyệt lương Nhân viên
+  // Xem chấm công
+  XemChamCong() {
+    this.router.navigateByUrl('admin/time-sheet');
+  }
+  //#endregion
+
+  //#region Lấy danh sách  lương Nhân viên
   // DS nhân viên chưa xét duyệt
   public getPersonnelChuaXetDuyet() {
-    this.salaryRollpayService.ListChuaXetDuyet(this.monthSearch, this.yearSearch).subscribe(result => {
+    this.salaryRollpayService.ListChuaXetDuyet(this.monthSearch, this.yearSearch).subscribe((result: any) => {
       this.payRollForPersonnel = result;
+      this.overviewRollPay.totalOfStaffsNotPaid = result.length; // tổng nhân viên
+      this.overviewRollPay.totalMoneyPersonelNotPaid = 0;        // tổng tiền bla bla
+      result.forEach(item => {
+        this.overviewRollPay.totalMoneyPersonelNotPaid = this.overviewRollPay.totalMoneyPersonelNotPaid + item.salary.totalRealityAmount;
+      });
       this.loadTablePersonnel(result);
       this.stopProgressBar();
     }, error => {
@@ -151,8 +172,13 @@ export class RollPayComponent implements OnInit {
 
   // DS nhân viên đã xét duyệt
   public getPersonnelDaXetDuyet() {
-    this.salaryRollpayService.ListDaXetDuyet(this.monthSearch, this.yearSearch).subscribe(result => {
+    this.salaryRollpayService.ListDaXetDuyet(this.monthSearch, this.yearSearch).subscribe((result: any) => {
       this.payRollForPersonnelOK = result;
+      this.overviewRollPay.totalOfStaffsPaid = result.length; // tổng nhân viên
+      this.overviewRollPay.totalMoneyPersonelPaid = 0;        // tổng tiền bla bla
+      result.forEach(item => {
+        this.overviewRollPay.totalMoneyPersonelPaid = this.overviewRollPay.totalMoneyPersonelPaid + item.salary.totalRealityAmount;
+      });
       this.loadTablePersonnelOK(result);
       this.stopProgressBar();
     }, error => {
@@ -170,7 +196,7 @@ export class RollPayComponent implements OnInit {
   }
   //#endregion
 
-  //#region Lấy danh sách Đã-Chưa xét duyệt lương Giáo viên
+  //#region Lấy danh sách  lương Giáo viên - Chưa làm
   public getLectureChuaXetDuyet() {
   }
 
@@ -185,15 +211,7 @@ export class RollPayComponent implements OnInit {
   }
   //#endregion
 
-
-
-  public TimKiem() {
-    this.getPersonnelChuaXetDuyet();
-    this.getPersonnelDaXetDuyet();
-    this.getLectureChuaXetDuyet();
-    this.getLectureDaXetDuyet();
-  }
-
+  //#region Linh tinh
   // Lấy năm
   public getAllYear() {
     for (let i = 2018; i <= 2030; i++) {
@@ -207,4 +225,7 @@ export class RollPayComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+  //#endregion
+
+
 }
