@@ -93,7 +93,6 @@ import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-re
 import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
 // tslint:disable-next-line: max-line-length
 import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -144,7 +143,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     CKEditorModule,
     BlockUIModule.forRoot(),
     DragDropModule,
-    NgxMaterialTimepickerModule.setLocale('ar-AE')
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
