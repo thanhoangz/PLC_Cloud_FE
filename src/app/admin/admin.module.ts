@@ -118,6 +118,8 @@ import { DeleteDialogComponent } from './content/delete-dialog/delete-dialog.com
 import { PickClassComponent } from './content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/delete-receipt.component';
+// tslint:disable-next-line: max-line-length
+import { CreateClassSecDialogComponent } from './content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
 
 @NgModule({
   imports: [
@@ -242,6 +244,7 @@ import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/
     PickClassComponent,
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
+    CreateClassSecDialogComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

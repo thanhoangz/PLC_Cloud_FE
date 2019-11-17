@@ -26,8 +26,9 @@
               </mat-select>
             </mat-form-field>
 
-            <button mat-icon-button (click)="autoCreateSchedule()">
+            <button mat-icon-button (click)="openCreateClassSection()">
               <mat-icon>extension</mat-icon>
+              Tạo lịch
             </button>
 
           </mat-card-content>
@@ -42,7 +43,6 @@
                 <b>Tháng {{ monthSelected +1 }} - Năm {{ yearSelected }}</b>
               </div>
             </div>
-
           </mat-card-header>
 
           <hr>
@@ -84,16 +84,11 @@
                   <div cdkDropList id="{{ item.date }}" [cdkDropListData]="item.schedule"
                     [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
                     <div class="item-box" *ngFor="let schedule of item.schedule" cdkDrag>
-                      <span>{{ schedule }}</span>
+                      <span>{{ schedule.content }}</span>
                     </div>
                   </div>
                 </div>
               </mat-grid-tile>
-
-
-
-
-
             </mat-grid-list>
 
           </mat-card-content>
