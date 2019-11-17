@@ -112,6 +112,7 @@ export class AddPayslipDialogComponent implements OnInit {
   public create_PaySlip() {
     if (this.paySlipFormGroup.valid) {
       if (this.checkma) {
+        console.log(this.paySlip.receivePersonnelId);
         this.paySlipService.postPaySlip(this.paySlip).subscribe(result => {
           setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Tạo thành công phiếu chi!'); });
           this.dialogRef.close(true);

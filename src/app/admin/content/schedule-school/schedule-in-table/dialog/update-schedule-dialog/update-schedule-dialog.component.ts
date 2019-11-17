@@ -93,12 +93,12 @@ export class UpdateScheduleDialogComponent implements OnInit {
   private getAllStatus() {
     this.status = [
       {
-        Name: 'Hoạt động',
-        code: 1
+        Name: 'Chờ xếp lịch',
+        code: 2
       },
       {
-        Name: 'Khóa',
-        code: 0
+        Name: 'Đã xếp lịch',
+        code: 1
       }];
   }
 

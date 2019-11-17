@@ -30,6 +30,11 @@ export class TimeSheetService {
       .post(`${environment.PLCServicesDomain}/api/Timesheets/post-timesheet-conditions?month=${month}&year=${year}&userId=${userId}`, null);
   }
 
+  getById(id) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/Timesheets/${id}`);
+  }
+
 }
 
 

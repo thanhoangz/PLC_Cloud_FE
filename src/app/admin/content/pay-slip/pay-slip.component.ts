@@ -14,7 +14,7 @@ import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { PaySlipTypeService } from '../../services/pay-slip-type.service';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-pay-slip',
@@ -163,16 +163,27 @@ export class PaySlipComponent implements OnInit {
   }
 
   public delete_PaySlip(paySlipId: number) {
-      this.startProgressBar();
+    if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      this.paySlipServies.deletePaySlip(paySlipId).subscribe(result => {
-        setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Xóa phiếu chi thành công!'); });
-        this.getPaySlips();
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
         this.isOpenDialog = false;
-      }, error => {
-        this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Xóa không thành công!');
-        this.stopProgressBar();
+        if (result === true) {
+          this.paySlipServies.deletePaySlip(paySlipId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Phiếu chi', 'Xóa phiếu chi thành công!'); });
+            this.getPaySlips();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Phiếu chi', 'Lỗi, Xóa không thành công!');
+            this.stopProgressBar();
+          });
+        }
       });
+    }
   }
 
   public find_PaySlip() {

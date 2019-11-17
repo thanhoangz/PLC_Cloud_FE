@@ -10,7 +10,7 @@ import { ConfirmService } from '../../services/extension/confirm.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { PaySlipTypeService } from '../../services/pay-slip-type.service';
 import { LoginService } from '../../services/login.service';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-pay-slip-types',
   templateUrl: './pay-slip-types.component.html',
@@ -22,7 +22,7 @@ export class PaySlipTypesComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
 
-  public paySlipType ;
+  public paySlipType;
   public status = [];
 
   public isOpenDialog = false;
@@ -101,7 +101,7 @@ export class PaySlipTypesComponent implements OnInit {
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
       console.log(widthMachine);
       this.matDialog.open(AddPaysliptypeDialogComponent, {
-        width:  `${widthMachine}px`,
+        width: `${widthMachine}px`,
         data: {
         },
         disableClose: false
@@ -130,16 +130,27 @@ export class PaySlipTypesComponent implements OnInit {
   }
 
   public delete_PaySlipType(paySlipTypeId: number) {
-    this.startProgressBar();
-    this.isOpenDialog = true;
-    this.paySlipTypesServies.deletePaySlipType(paySlipTypeId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Xóa loại chi thành công!'); });
-      this.getPaySlipTypes();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.paySlipTypesServies.deletePaySlipType(paySlipTypeId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Loại chi', 'Xóa loại chi thành công!'); });
+            this.getPaySlipTypes();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
 

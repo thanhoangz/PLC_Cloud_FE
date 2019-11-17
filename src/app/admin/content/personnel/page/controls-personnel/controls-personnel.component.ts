@@ -7,6 +7,7 @@ import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.ser
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
 import { Router } from '@angular/router';
+import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-controls-personnel',
@@ -20,6 +21,7 @@ export class ControlsPersonnelComponent implements OnInit {
 
   public personnelFormGroup: FormGroup;
   public floatLabel = 'always';
+  public isOpenDialog = false;
 
   public position;
   public status;
@@ -162,7 +164,17 @@ export class ControlsPersonnelComponent implements OnInit {
   }
 
   public delete() {
-    this.personnelsService.deletePersonnel(this.personnel.id).subscribe(result => {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+    this.personnelsService.deletePersonnel(this.personnel.id).subscribe(result1 => {
       setTimeout(() => { this.notificationService.showNotification(1, 'Nhân viên', 'Đã xóa nhân viên!'); });
       this.router.navigateByUrl('admin/personnels');
     }, error => {
@@ -170,6 +182,10 @@ export class ControlsPersonnelComponent implements OnInit {
       this.stopProgressBar();
     });
   }
+});
+}
+  }
+
   public back() {
     this.router.navigateByUrl('admin/personnels');
   }

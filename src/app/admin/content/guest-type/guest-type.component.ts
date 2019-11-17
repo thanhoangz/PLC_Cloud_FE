@@ -8,7 +8,7 @@ import { NotificationService } from '../../services/extension/notification.servi
 import { GuestTypeService } from '../../services/guest-type.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { LoginService } from '../../services/login.service';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-guest-type',
   templateUrl: './guest-type.component.html',
@@ -114,15 +114,27 @@ export class GuestTypeComponent implements OnInit {
   }
 
   public deleteGuestType(guestId: number) {
-    this.isOpenDialog = true;
-    this.guestTypeService.deleteGuestType(guestId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Đối tượng', 'Xóa đối tượng thành công!'); });
-      this.getGuestTypes();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Đối tượng', 'Lỗi, xóa thất bại!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.guestTypeService.deleteGuestType(guestId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Đối tượng', 'Xóa đối tượng thành công!'); });
+            this.getGuestTypes();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Đối tượng', 'Lỗi, xóa thất bại!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
   public searchGuestType() {

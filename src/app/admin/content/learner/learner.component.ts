@@ -7,6 +7,7 @@ import { FomatDateService } from '../../services/extension/FomatDate.service';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class LearnerComponent implements OnInit {
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
+  public isOpenDialog = false;
   // dùng để tìm kiếm
   public statusSelected = 1;
   public keyWord = '';
@@ -143,14 +145,28 @@ export class LearnerComponent implements OnInit {
     this.router.navigateByUrl('admin/control-learner');
   }
   public deleteLearner(id) {
-    this.learnerService.deleteLearner(id).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Học viên', 'Đã xóa học viên!'); });
-      this.getLearner();
-    }, error => {
-      this.notificationService.showNotification(3, 'Học viên', 'Lỗi, Không xóa được!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.learnerService.deleteLearner(id).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Học viên', 'Đã xóa học viên!'); });
+            this.getLearner();
+          }, error => {
+            this.notificationService.showNotification(3, 'Học viên', 'Lỗi, Không xóa được!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
+
   creatLearner() {
     this.router.navigateByUrl('admin/add-learner');
   }

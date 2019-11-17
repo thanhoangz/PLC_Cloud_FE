@@ -7,7 +7,7 @@ import { FomatDateService } from '../../services/extension/FomatDate.service';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-lecturers',
   templateUrl: './lecturers.component.html',
@@ -22,7 +22,8 @@ export class LecturersComponent implements OnInit {
   public nameLecture = '';
   public statusGenderes = '';
   public statusSelected = -1;
-
+  public isOpenDialog = false;
+  
   public lecture;
 
   public length = 100;
@@ -175,13 +176,26 @@ export class LecturersComponent implements OnInit {
     this.router.navigateByUrl('admin/editlecturer');
   }
   public deleteLecture(id) {
-    this.lecturersService.deleteLectureId(id).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
-      this.getLecture();
-    }, error => {
-      this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.lecturersService.deleteLectureId(id).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Giáo viên', 'Đã xóa giáo viên!'); });
+            this.getLecture();
+          }, error => {
+            this.notificationService.showNotification(3, 'Giáo viên', 'Lỗi, Không xóa được!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
   creatLecture() {
     this.router.navigateByUrl('admin/addlecturer');

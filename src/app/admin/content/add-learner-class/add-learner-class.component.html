@@ -71,13 +71,13 @@
                     <div class="col-md-3" style="margin-left:5%;">
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item" style="background-color: #F5F5F5;">
-                                <b>Học phí :</b> <a class="float-right"> {{class.courseFee}} VNĐ</a>
+                                <b>Học phí :</b> <a class="float-right"> {{class.courseFee | currency:'VND':''}} VNĐ</a>
                             </li>
                             <li class="list-group-item" style="background-color: #F5F5F5;">
-                                <b>Học phí theo tháng :</b> <a class="float-right"> {{class.monthlyFee}} VNĐ</a>
+                                <b>Học phí theo tháng :</b> <a class="float-right"> {{class.monthlyFee | currency:'VND':''}} VNĐ</a>
                             </li>
                             <li class="list-group-item" style="background-color: #F5F5F5;">
-                                <b>Học phí theo buổi :</b> <a class="float-right"> {{class.lessonFee}} VNĐ</a>
+                                <b>Học phí theo buổi :</b> <a class="float-right"> {{class.lessonFee | currency:'VND':''}} VNĐ</a>
                             </li>
 
                         </ul>

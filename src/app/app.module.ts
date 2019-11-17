@@ -87,9 +87,12 @@ import { CreatEndingPointComponent } from './admin/content/ending-point/creat-en
 import { AddAttendanceDialogComponent } from './admin/content/attendance-sheet/dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { DeleteConfirmComponent } from './admin/confirmation-dialog/delete-confirm/delete-confirm.component';
 import { DeleteCourseDialogComponent } from './admin/content/course/dialog/delete-course-dialog/delete-course-dialog.component';
+import { DeleteDialogComponent } from './admin/content/delete-dialog/delete-dialog.component';
+import { PickClassComponent } from './admin/content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
 import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
-
+// tslint:disable-next-line: max-line-length
+import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -185,8 +188,11 @@ import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-re
     AddAttendanceDialogComponent,
     DeleteConfirmComponent,
     DeleteCourseDialogComponent,
+    DeleteDialogComponent,
+    PickClassComponent,
     DetailReceiptBoComponent,
-    DeleteReceiptComponent
+    DeleteReceiptComponent,
+    CreateClassSecDialogComponent
   ]
 
 })

@@ -141,8 +141,6 @@ export class CourseComponent implements OnInit {
 
 
   public deleteCourse(courseId: number) {
-
-
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;

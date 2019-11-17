@@ -7,7 +7,7 @@ import { FomatDateService } from '../../services/extension/FomatDate.service';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
-
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-personnel',
@@ -29,6 +29,7 @@ export class PersonnelComponent implements OnInit {
 
   public personnel;
 
+  public isOpenDialog = false;
   public status;
   public marritalStatus;
   public genderes = [
@@ -83,7 +84,7 @@ export class PersonnelComponent implements OnInit {
     // update current page of items
     this.pageOfItems = pageOfItems;
   }
-/*Update image => success => save to learner object*/
+  /*Update image => success => save to learner object*/
   onFileComplete(data: any) {
     this.personnel.image = data.link;
   }
@@ -103,14 +104,28 @@ export class PersonnelComponent implements OnInit {
   }
 
   public deletePersonnel(id) {
-    this.personnelsService.deletePersonnel(id).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Nhân viên', 'Đã xóa nhân viên!'); });
-      this.getPersonnels();
-    }, error => {
-      this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Không xóa được!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.personnelsService.deletePersonnel(id).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Nhân viên', 'Đã xóa nhân viên!'); });
+            this.getPersonnels();
+          }, error => {
+            this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Không xóa được!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
+
   public searchPersonnel() {            // truyền điều kiện
     this.startProgressBar();
     // tslint:disable-next-line: max-line-length

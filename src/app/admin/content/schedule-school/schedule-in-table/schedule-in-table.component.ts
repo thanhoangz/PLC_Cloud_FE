@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/admin/services/extension/notificati
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateScheduleDialogComponent } from './dialog/update-schedule-dialog/update-schedule-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule-in-table',
@@ -33,6 +34,7 @@ export class ScheduleInTableComponent implements OnInit {
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
+    public router: Router,
   ) {
     this.loginService.islogged();
   }
@@ -104,7 +106,7 @@ export class ScheduleInTableComponent implements OnInit {
         if (result) {
 
         }
-
+        this.getAllSchedule();
       });
     }
   }
@@ -129,8 +131,13 @@ export class ScheduleInTableComponent implements OnInit {
         if (result) {
 
         }
-
+        this.getAllSchedule();
       });
     }
   }
+
+  public gotoSchedule() {
+    this.router.navigateByUrl('admin/schedule');
+  }
+
 }

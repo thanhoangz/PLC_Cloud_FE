@@ -4,6 +4,9 @@ import { DatePipe } from '@angular/common';
 import { ScheduleService } from 'src/app/admin/services/schedule.service';
 import { CourseService } from 'src/app/admin/services/course.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PickClassComponent } from '../schedule-in-table/dialog/pick-class/pick-class.component';
+import { CreateClassSecDialogComponent } from './dialog/create-class-sec-dialog/create-class-sec-dialog.component';
 
 @Component({
   selector: 'app-schedule-for-learner',
@@ -12,6 +15,7 @@ import { LanguageClassesService } from 'src/app/admin/services/language-classes.
 })
 export class ScheduleForLearnerComponent implements OnInit {
 
+  isOpenDialog = false;
   public courses;
   public classes;
   public courseSelected;
@@ -29,12 +33,13 @@ export class ScheduleForLearnerComponent implements OnInit {
   public scheduleMonth;
 
   public daysOfWeek = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
-  public showProgressBar = true;
+  public showProgressBar = false;
   constructor(
     public datepipe: DatePipe,
     public scheduleService: ScheduleService,
     public courseService: CourseService,
     public languageClassesService: LanguageClassesService,
+    public matDialog: MatDialog,
 
   ) {
     this.getDateOfMonth();
@@ -74,8 +79,11 @@ export class ScheduleForLearnerComponent implements OnInit {
         (this.scheduleMonth.classSessions).forEach(element => {
           const dateOfSchedule = this.datepipe.transform(element.date, 'dd-MM-yyyy');
           if (dateOfSchedule === date) {
-            schedule.push(element.id + this.scheduleMonth.classroomName + '-' + element.fromTime.substring(0, 5) +
-              '-' + element.toTime.substring(0, 5) + ' ' + this.scheduleMonth.lecturerName);
+            schedule.push({
+              classSession: element,
+              content: this.scheduleMonth.classroomName + ' - ' + element.fromTime.substring(0, 5) +
+                '-' + element.toTime.substring(0, 5) + ' GV: ' + this.scheduleMonth.lecturerName
+            });
           }
         });
       }
@@ -101,8 +109,10 @@ export class ScheduleForLearnerComponent implements OnInit {
   public getScheduleMonthByClass(classId: any) {
     this.scheduleService.getScheduleMonthByClass(classId).subscribe(result => {
       this.scheduleMonth = result;
+      console.log(this.scheduleMonth);
       this.getDateOfMonth();
     }, error => {
+      this.getDateOfMonth();
 
     });
   }
@@ -169,6 +179,8 @@ export class ScheduleForLearnerComponent implements OnInit {
   public changValueCourse(courseId) {
     this.languageClassesService.getClassByCourse(courseId).subscribe(result => {
       this.classes = result;
+      this.classSelected = result[0].id;
+      this.getScheduleMonthByClass(this.classSelected);
     }, error => {
 
     });
@@ -179,7 +191,42 @@ export class ScheduleForLearnerComponent implements OnInit {
   }
 
   public autoCreateSchedule() {
+    console.log(this.courseSelected);
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      this.matDialog.open(PickClassComponent, {
+        width: '100vh',
+        data: {
+          courseSelected: this.courseSelected
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
 
+        }
+
+      });
+    }
+  }
+
+
+  public openCreateClassSection() {
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      this.matDialog.open(CreateClassSecDialogComponent, {
+        width: '100vh',
+        data: {
+          classSelected: this.classSelected,
+          courseSelected: this.courseSelected
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+          this.getScheduleMonthByClass(this.classSelected);
+        }
+
+      });
+    }
   }
 }
 

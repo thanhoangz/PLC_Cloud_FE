@@ -8,6 +8,7 @@ import { LoginService } from '../../services/login.service';
 import { NotificationService } from '../../services/extension/notification.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-class-room',
   templateUrl: './class-room.component.html',
@@ -91,7 +92,7 @@ export class ClassRoomComponent implements OnInit {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
       this.matDialog.open(AddClassRoomComponent, {
-        width:  `${widthMachine}px`,
+        width: `${widthMachine}px`,
         data: {
         },
         disableClose: false
@@ -120,16 +121,27 @@ export class ClassRoomComponent implements OnInit {
   }
 
   public deleteClassRoom(classRoomId: number) {
-    this.startProgressBar();
-    this.isOpenDialog = true;
-    this.classroomService.deleteClassRoom(classRoomId).subscribe(result => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Phòng học', 'Xóa phòng học thành công!'); });
-      this.getClassRooms();
-      this.isOpenDialog = false;
-    }, error => {
-      this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
-      this.stopProgressBar();
-    });
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.2 * this.screenWidth;
+      this.matDialog.open(DeleteDialogComponent, {
+        width: `${widthMachine}px`,
+        data: {
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result === true) {
+          this.classroomService.deleteClassRoom(classRoomId).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Phòng học', 'Xóa phòng học thành công!'); });
+            this.getClassRooms();
+            this.isOpenDialog = false;
+          }, error => {
+            this.notificationService.showNotification(3, 'Loại chi', 'Lỗi, Xóa không thành công!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
   public find_PaySlipType() {

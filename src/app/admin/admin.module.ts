@@ -114,9 +114,13 @@ import { DeleteConfirmComponent } from './confirmation-dialog/delete-confirm/del
 import { PrivateInfoComponent } from './content/private-info/private-info.component';
 
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
+import { DeleteDialogComponent } from './content/delete-dialog/delete-dialog.component';
+import { PickClassComponent } from './content/schedule-school/schedule-in-table/dialog/pick-class/pick-class.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/delete-receipt.component';
 import { TestReportComponent } from './content/test-report/test-report.component';
+// tslint:disable-next-line: max-line-length
+import { CreateClassSecDialogComponent } from './content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
 
 @NgModule({
   imports: [
@@ -237,9 +241,12 @@ import { TestReportComponent } from './content/test-report/test-report.component
     DeleteConfirmComponent,
     PrivateInfoComponent,
     RollPayComponent,
+    DeleteDialogComponent,
+    PickClassComponent,
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
     TestReportComponent,
+    CreateClassSecDialogComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
