@@ -6,6 +6,7 @@ import { ConfirmService } from 'src/app/admin/services/extension/confirm.service
 import { LoginService } from 'src/app/admin/services/login.service';
 
 import { PermissionService } from 'src/app/admin/services/permission.service';
+import { UserService } from 'src/app/admin/services/user.service';
 @Component({
   selector: 'app-permissions-for-user',
   templateUrl: './permissions-for-user.component.html',
@@ -15,8 +16,8 @@ export class PermissionsForUserComponent implements OnInit {
   panelOpenState = false;
   step = 0;
   groupFunctions;
-
-  userId = 'ec0d77ab-918a-4b45-8cac-08d75ac91ff8';
+  public listUser;
+  userId = '72ce1231-9441-4072-0989-08d769e162d7';
   numberPer = 0;
   permissionsForUser;
   permissionList = {
@@ -33,6 +34,7 @@ export class PermissionsForUserComponent implements OnInit {
   constructor(
     private functionService: FunctionService,
     private permissionService: PermissionService,
+    private userService: UserService,
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
@@ -43,9 +45,32 @@ export class PermissionsForUserComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllGroupFunctions();
+    this.getAllUser();
+    this.getPermissionByBo();
+  }
+
+  // bò
+  public getPermissionByBo() {
+    this.permissionService.getPermissionByBoForUser(this.userId).subscribe(result => {
+      this.permissionsForUser = result;
+    }, error => {
+
+    });
 
   }
+
+  public getAllUser() {
+    this.userService.getAllUser().subscribe(result => {
+      this.listUser = result;
+    }, error => {
+    });
+  }
+
+  public ChangeUser() {
+    this.getPermissionByBo();
+  }
+
+  // kết thúc bò
 
   setStep(index: number) {
     this.step = index;
@@ -58,79 +83,36 @@ export class PermissionsForUserComponent implements OnInit {
   prevStep() {
     this.step--;
   }
-
-  public getPermissForUser(userId) {
-    this.permissionService.getPermissionForUser(userId).subscribe(result => {
-      this.permissionsForUser = result;
-      console.log(result);
+  public changeAdd(childItem) {
+    this.permissionService.putPermission(childItem).subscribe(result => {
+      console.log('cặc');
     }, error => {
-
     });
   }
-  public getAllGroupFunctions() {
-    this.functionService.getAllFunctionsByGroup().subscribe((result: [any]) => {
-      this.groupFunctions = result;
-      result.forEach(element => {
-        this.numberPer += element.childFunctionViewModels.length;
-      });
-      this.getPermissForUser(this.userId);
-
-    }, errror => {
-
+  public changeUpdate(childItem) {
+    this.permissionService.putPermission(childItem).subscribe(result => {
+      console.log('cặc');
+    }, error => {
     });
   }
-
-  public changeAdd(isChecked: boolean, funct: any) {
-    this.permissionsForUser.forEach(element => {
-      if (element.functionId === funct.id) {
-        element.canCreate = isChecked;
-        this.permissionService.putPermission(element).subscribe(result => {
-          return;
-        }, error => {
-          return;
-        });
-        return;
-      }
-    });
-  }
-  public changeUpdate(isChecked: boolean, funct: any) {
-    this.permissionsForUser.forEach(element => {
-      if (element.functionId === funct.id) {
-        element.canUpdate = isChecked;
-        this.permissionService.putPermission(element).subscribe(result => {
-          return;
-        }, error => {
-          return;
-        });
-        return;
-      }
-    });
-  }
-  public changeDelete(isChecked: boolean, funct: any) {
-    this.permissionsForUser.forEach(element => {
-      if (element.functionId === funct.id) {
-        element.canDelete = isChecked;
-        this.permissionService.putPermission(element).subscribe(result => {
-          return;
-        }, error => {
-          return;
-        });
-        return;
-      }
-    });
-  }
-  public changeRead(isChecked: boolean, funct: any) {
-    this.permissionsForUser.forEach(element => {
-      if (element.functionId === funct.id) {
-        element.canRead = isChecked;
-        this.permissionService.putPermission(element).subscribe(result => {
-          return;
-        }, error => {
-          return;
-        });
-        return;
-      }
+  public changeDelete(childItem) {
+    this.permissionService.putPermission(childItem).subscribe(result => {
+      console.log('cặc');
+    }, error => {
     });
   }
 
+  public changeRead(childItem) {
+    this.permissionService.putPermission(childItem).subscribe(result => {
+      console.log('cặc');
+    }, error => {
+    });
+  }
+
+  public changeStatus(childItem) {
+    this.permissionService.putPermission(childItem).subscribe(result => {
+      console.log('cặc');
+    }, error => {
+    });
+  }
 }

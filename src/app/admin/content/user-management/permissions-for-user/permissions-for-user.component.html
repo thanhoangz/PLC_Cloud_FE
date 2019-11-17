@@ -1,79 +1,64 @@
 <mat-card>
   <mat-card-content>
+    <div class="row">
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>Chọn người dùng</mat-label>
+          <mat-select [(ngModel)]="userId" (selectionChange)="ChangeUser()" required style="text-align: center;">
+            <mat-option *ngFor="let user of listUser" value="{{user.id}}">
+              {{user.userName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
     <mat-accordion class="example-headers-align">
-      <mat-expansion-panel
-        [expanded]="step === i"
-        (opened)="setStep(i)"
-        *ngFor="let item of groupFunctions; let i = index"
-        hideToggle
-      >
+      <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)"
+        *ngFor="let item of permissionsForUser; let i = index" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{ item.name }}
+            {{ item.functionName}}
           </mat-panel-title>
           <mat-panel-description>
             <mat-icon>account_circle</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
-
-        <mat-card
-          *ngFor="
-            let childItem of item.childFunctionViewModels;
-            let x;
-            of: permissionsForUser
-          "
-          class="mat-elevation-z8"
-          style="margin-top: 0.5%;"
-        >
+        <mat-card *ngFor="let childItem of item.childFunctionViewModels" class="mat-elevation-z8"
+          style="margin-top: 0.5%;">
           <div class="row">
             <div class="col-md-3">
-              <label>{{ childItem.name }}</label>
+              <label>{{ childItem.functionName }}</label>
             </div>
             <div class="col-md-2">
-              <mat-checkbox
-                class="permission-margin"
-                labelPosition="after"
-                [(ngModel)]="x.canCreate"
-                (change)="changeAdd($event.checked, childItem)"
-                [disabled]="item.status == 1 ? false : true"
-              >
+              <mat-checkbox class="permission-margin" labelPosition="after" [(ngModel)]="childItem.canCreate"
+                (change)="changeAdd(childItem)" [disabled]="childItem.status == 1 ? false : true">
                 Thêm
               </mat-checkbox>
             </div>
             <div class="col-md-2">
-              <mat-checkbox
-                class="permission-margin"
-                labelPosition="after"
-                (change)="changeUpdate($event.checked, childItem)"
-                [disabled]="item.status == 1 ? false : true"
-              >
+              <mat-checkbox class="permission-margin" labelPosition="after" [(ngModel)]="childItem.canUpdate"
+                (change)="changeUpdate(childItem)" [disabled]="childItem.status == 1 ? false : true">
                 Cập nhật
               </mat-checkbox>
             </div>
             <div class="col-md-2">
-              <mat-checkbox
-                class="permission-margin"
-                labelPosition="after"
-                (change)="changeDelete($event.checked, childItem)"
-                [disabled]="item.status == 1 ? false : true"
-              >
+              <mat-checkbox class="permission-margin" labelPosition="after" [(ngModel)]="childItem.canDelete"
+                (change)="changeDelete(childItem)" [disabled]="childItem.status == 1 ? false : true">
                 Xóa
               </mat-checkbox>
             </div>
 
             <div class="col-md-2">
-              <mat-checkbox
-                class="permission-margin"
-                labelPosition="after"
-                (change)="changeRead($event.checked, childItem)"
-                [disabled]="item.status == 1 ? false : true"
-              >
+              <mat-checkbox class="permission-margin" labelPosition="after" [(ngModel)]="childItem.canRead"
+                (change)="changeRead(childItem)" [disabled]="childItem.status == 1 ? false : true">
                 Tìm kiếm/ đọc
               </mat-checkbox>
             </div>
 
             <div class="col-md-1">
-              <mat-slide-toggle></mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="childItem.status" (change)="changeStatus(childItem)">
+
+              </mat-slide-toggle>
             </div>
           </div>
         </mat-card>

@@ -18,4 +18,14 @@ export class PermissionService {
     return this.httpClient
       .put(`${environment.PLCServicesDomain}/api/Permissions/${permission.id}`, permission);
   }
+
+  getPermissionByBoForUser(userId) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Permissions/get-permission-by-bo-user?userId=${userId}`, null);
+  }
+
+  createFunctionInPermission() {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Permissions/add-all-function-permission`, null);
+  }
 }

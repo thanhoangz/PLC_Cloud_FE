@@ -2,7 +2,7 @@
 
 <section class="content" style="margin-top: 1%">
     <div class="container-fluid">
-        <mat-tab-group color="primary" backgroundColor="primary">
+        <mat-tab-group color="primary" backgroundColor="primary"  (selectedTabChange)="onTabChanged($event)">
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon>supervised_user_circle</mat-icon>
@@ -72,7 +72,6 @@
                     <mat-icon>control_camera</mat-icon>
                     Phân quyền
                 </ng-template>
-
                 <app-permissions-for-user></app-permissions-for-user>
             </mat-tab>
         </mat-tab-group>

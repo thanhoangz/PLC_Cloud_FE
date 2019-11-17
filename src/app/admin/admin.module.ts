@@ -116,6 +116,7 @@ import { PrivateInfoComponent } from './content/private-info/private-info.compon
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/delete-receipt.component';
+import { TestReportComponent } from './content/test-report/test-report.component';
 
 @NgModule({
   imports: [
@@ -238,6 +239,7 @@ import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/
     RollPayComponent,
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
+    TestReportComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

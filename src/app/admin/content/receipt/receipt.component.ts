@@ -99,7 +99,7 @@ export class ReceiptComponent implements OnInit {
           data: { _receipt: receipt }
         }).afterClosed().subscribe(result => {
           this.isOpenDialog = false;
-          this.SearchReceipt();
+          this.getAllReceipt();
         });
     }
   }

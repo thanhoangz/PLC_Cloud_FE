@@ -38,6 +38,7 @@ import { PrivateInfoComponent } from './content/private-info/private-info.compon
 import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
+import { TestReportComponent } from './content/test-report/test-report.component';
 
 const adminRoutes: Routes = [
   {
@@ -55,7 +56,6 @@ const adminRoutes: Routes = [
           { path: 'receipt-type', component: ReceiptTypesComponent },
           { path: 'receipt', component: ReceiptComponent },
           { path: 'creat-receipt', component: CreatReceiptComponent },
-          //{ path: 'detail-receipt', component: DetailReceiptBoComponent},
           { path: 'time-sheet', component: TimeSheetComponent },
           { path: 'language-classes', component: LanguageClassesComponent },
           { path: 'add-learner-class', component: AddLearnerClassComponent },
@@ -83,6 +83,7 @@ const adminRoutes: Routes = [
           { path: 'home', component: HomeComponent },
           { path: 'private-info', component: PrivateInfoComponent },
           { path: 'dashboard', component: DashboardComponent },
+          { path: 'report', component: TestReportComponent },
         ]
       }
     ]

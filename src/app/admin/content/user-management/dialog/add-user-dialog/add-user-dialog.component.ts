@@ -5,6 +5,7 @@ import { ConfirmService } from 'src/app/admin/services/extension/confirm.service
 import { LoginService } from 'src/app/admin/services/login.service';
 import { UserService } from 'src/app/admin/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PermissionService } from 'src/app/admin/services/permission.service';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -40,7 +41,8 @@ export class AddUserDialogComponent implements OnInit {
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private permissionService: PermissionService,
   ) { }
 
   ngOnInit() {
@@ -77,11 +79,19 @@ export class AddUserDialogComponent implements OnInit {
   public createAccount() {
     if (this.accountFormGroup.valid) {
       this.userService.postUser(this.user).subscribe(result => {
+        this.createFunctionInPermission();
         setTimeout(() => { this.notificationService.showNotification(1, 'Tài khoản', 'Tạo thành công tài khoản mới!'); });
         this.dialogRef.close(true);
       }, error => {
         this.notificationService.showNotification(3, 'Tài khoản', 'Lỗi, tạo mới thất bại!');
       });
     }
+  }
+
+  public createFunctionInPermission() {
+    this.permissionService.createFunctionInPermission().subscribe(result => {
+    }, error => {
+
+    });
   }
 }

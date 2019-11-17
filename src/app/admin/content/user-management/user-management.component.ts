@@ -9,7 +9,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddUserDialogComponent } from './dialog/add-user-dialog/add-user-dialog.component';
 import { UpdateUserDialogComponent } from './dialog/update-user-dialog/update-user-dialog.component';
-
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { PermissionsForUserComponent } from './permissions-for-user/permissions-for-user.component';
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -31,6 +32,8 @@ export class UserManagementComponent implements OnInit {
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(PermissionsForUserComponent, { static: true }) private permissionsForUserComponent: PermissionsForUserComponent;
+
   public showProgressBar = true;
 
   public screenHeight: any;
@@ -42,7 +45,7 @@ export class UserManagementComponent implements OnInit {
     public matDialog: MatDialog,
     private notificationService: NotificationService,
     private confirmService: ConfirmService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
@@ -133,5 +136,13 @@ export class UserManagementComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+  onTabChanged(event: MatTabChangeEvent) {
+    // tslint:disable-next-line: triple-equals
+    if (event.index != 0) {
+      this.permissionsForUserComponent.getAllUser();
+    }
+
+  }
+
 }
 
