@@ -24,7 +24,7 @@ export class ClassSessionService {
 
   putList(list) {
     return this.httpClient
-      .put(`${environment.PLCServicesDomain}/api/ClassSessions/put-list}`, list);
+      .put(`${environment.PLCServicesDomain}/api/ClassSessions/put-list`, list);
   }
 
 }
