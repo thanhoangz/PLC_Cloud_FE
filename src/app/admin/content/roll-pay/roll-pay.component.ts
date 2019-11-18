@@ -241,12 +241,13 @@ export class RollPayComponent implements OnInit {
       this.loadTableLecture(result);
       this.stopProgressBar();
     }, error => {
-      this.stopProgressBar();
+      this.stopProgressBar(); 
     });
   }
 
   // DS giáo viên đã xét duyệt
   public getLectureDaXetDuyet() {
+    // log
     this.salaryRollpayService.ListDaXetDuyetGiaoVien(this.monthSearch, this.yearSearch).subscribe((result: any) => {
       this.payRollForLectureOK = result;
       this.SoNguoi();
