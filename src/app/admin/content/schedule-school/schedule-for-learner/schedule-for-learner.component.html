@@ -83,7 +83,8 @@
                 <div class="drag-container">
                   <div cdkDropList id="{{ item.date }}" [cdkDropListData]="item.schedule"
                     [cdkDropListConnectedTo]="connectedTo" class="item-list" (cdkDropListDropped)="drop($event)">
-                    <div class="item-box" *ngFor="let schedule of item.schedule" cdkDrag>
+                    <div class="item-box" *ngFor="let schedule of item.schedule" cdkDrag
+                      (cdkDragStarted)="dragStarted($event)" (cdkDragEnded)="dragEnded($event)">
                       <span>{{ schedule.content }}</span>
                     </div>
                   </div>

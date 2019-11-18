@@ -1,5 +1,6 @@
+import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDragEnd, CdkDragStart } from '@angular/cdk/drag-drop';
 import { DatePipe } from '@angular/common';
 import { ScheduleService } from 'src/app/admin/services/schedule.service';
 import { CourseService } from 'src/app/admin/services/course.service';
@@ -7,6 +8,9 @@ import { LanguageClassesService } from 'src/app/admin/services/language-classes.
 import { MatDialog } from '@angular/material/dialog';
 import { PickClassComponent } from '../schedule-in-table/dialog/pick-class/pick-class.component';
 import { CreateClassSecDialogComponent } from './dialog/create-class-sec-dialog/create-class-sec-dialog.component';
+import { ConfirmTranferComponent } from './dialog/confirm-tranfer/confirm-tranfer.component';
+import { ClassSessionService } from 'src/app/admin/services/class-session.service';
+import { NotificationService } from 'src/app/admin/services/extension/notification.service';
 
 @Component({
   selector: 'app-schedule-for-learner',
@@ -30,6 +34,7 @@ export class ScheduleForLearnerComponent implements OnInit {
   public firstDayOfMonth;
 
   public dateOfweek = [];
+  public oldDateOfweek;
   public scheduleMonth;
 
   public daysOfWeek = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
@@ -40,6 +45,8 @@ export class ScheduleForLearnerComponent implements OnInit {
     public courseService: CourseService,
     public languageClassesService: LanguageClassesService,
     public matDialog: MatDialog,
+    public classSessionService: ClassSessionService,
+    public notificationService: NotificationService,
 
   ) {
     this.getDateOfMonth();
@@ -97,7 +104,8 @@ export class ScheduleForLearnerComponent implements OnInit {
       );
     }
     console.log(this.dateOfweek);
-
+    this.oldDateOfweek = JSON.stringify(this.dateOfweek);
+    this.oldDateOfweek = JSON.parse(this.oldDateOfweek);
 
     /* Xử lí để đưa các item buổi học vào từng ngày.*/
     for (const item of this.dateOfweek) {
@@ -148,18 +156,59 @@ export class ScheduleForLearnerComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<string[]>) {
+
+    // this.matDialog.open(ConfirmTranferComponent, {
+    //   width: '30vh',
+    //   data: {
+    //     classSession: event.container.data
+    //   },
+    // }).afterClosed().subscribe(result => {
+    //   this.isOpenDialog = false;
+    //   if (result) {
+
+    //   }
+
+    // });
+
+
+
+
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(event.previousContainer);
-      console.log(event.container);
     } else {
+
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-      console.log(event.previousContainer);
-      console.log(event.container);
+
     }
+
+
+    console.log(event.container);
+    let stringDate = event.container.id;
+    console.log(stringDate.substring(0, 2));
+    console.log(stringDate.substring(3, 5));
+    console.log(stringDate.substring(6, 10));
+    stringDate = stringDate.substring(6, 10) + '/' + stringDate.substring(3, 5) + '/' + stringDate.substring(0, 2);
+
+    let date = new Date(stringDate);
+
+    // tslint:disable-next-line: no-shadowed-variable
+    event.container.data.forEach((element: any) => {
+      element.classSession.date = date;
+    });
+
+    this.classSessionService.putList(event.container.data).subscribe(result => {
+      this.notificationService.showNotification(1, '', 'Cập nhật thành công!');
+    }, error => {
+
+    });
+
+
+
+
+
   }
 
   public setCourses() {
@@ -228,5 +277,15 @@ export class ScheduleForLearnerComponent implements OnInit {
       });
     }
   }
+
+  dragStarted(event: CdkDragStart) {
+    console.log(event);
+  }
+  dragEnded(event: CdkDragEnd) {
+    console.log(event);
+  }
+
+
+
 }
 

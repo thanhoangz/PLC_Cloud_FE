@@ -93,6 +93,8 @@ import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-re
 import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
 // tslint:disable-next-line: max-line-length
 import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
+// tslint:disable-next-line: max-line-length
+import { ConfirmTranferComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -192,7 +194,8 @@ import { CreateClassSecDialogComponent } from './admin/content/schedule-school/s
     PickClassComponent,
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
-    CreateClassSecDialogComponent
+    CreateClassSecDialogComponent,
+    ConfirmTranferComponent
   ]
 
 })
