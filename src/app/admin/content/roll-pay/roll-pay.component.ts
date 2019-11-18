@@ -6,6 +6,7 @@ import { SalaryRollpayService } from '../../services/salary-rollpay.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TimeSheetService } from '../../services/time-sheet.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../services/extension/notification.service';
 @Component({
   selector: 'app-roll-pay',
   templateUrl: './roll-pay.component.html',
@@ -15,6 +16,7 @@ export class RollPayComponent implements OnInit {
   public showProgressBar = true;
 
   public timeSheets = [];
+  public salaryLecturerPaied = [];
   // để tìm kiếm
   public monthSearch;
   public yearSearch;
@@ -53,19 +55,21 @@ export class RollPayComponent implements OnInit {
   XetDuyetNhanVienDataSource = new MatTableDataSource(this.payRollForPersonnel);
 
   // tslint:disable-next-line: max-line-length
-  BangLuongGiaoVienColumns: string[] = ['index', 'name', 'salaryLecture', 'salaryTutor', 'allowance', 'bonus', 'insurancePremiums', 'totalWorkdaysGV', 'totalWorkdaysTG', 'totalSalary', 'advancePayment', 'totalActualSalary'];
-  BangLuongGiaoVienDataSource = new MatTableDataSource(this.payRollForLecture);
+  BangLuongGiaoVienColumns: string[] = ['index', 'name', 'allowance', 'bonus', 'insurancePremiums', 'totalWorkdays', 'totalGiangday', 'totalSalary', 'advancePayment', 'totalActualSalary'];
+  BangLuongGiaoVienDataSource = new MatTableDataSource(this.payRollForLectureOK);
 
   // tslint:disable-next-line: max-line-length
-  XetDuyetGiaoVienColumns: string[] = ['index', 'name', 'salaryLecture', 'salaryTutor', 'allowance', 'bonus', 'insurancePremiums', 'totalWorkdaysGV', 'totalWorkdaysTG', 'totalSalary', 'advancePayment', 'totalActualSalary', 'select'];
+  XetDuyetGiaoVienColumns: string[] = ['index', 'name', 'allowance', 'bonus', 'insurancePremiums', 'totalWorkdays', 'totalGiangday', 'totalSalary', 'advancePayment', 'totalActualSalary', 'select'];
   XetDuyetGiaoVienDataSource = new MatTableDataSource(this.payRollForLecture);
 
   public selection = new SelectionModel(true, []);
+  public selectionGV = new SelectionModel(true, []);
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   constructor(
     private salaryRollpayService: SalaryRollpayService,
     private timeSheetService: TimeSheetService,
     private router: Router,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -74,6 +78,8 @@ export class RollPayComponent implements OnInit {
     this.getAllYear();
     this.getPersonnelChuaXetDuyet();
     this.getPersonnelDaXetDuyet();
+    this.getLectureChuaXetDuyet();
+    this.getLectureDaXetDuyet();
   }
 
   //#region Checkbox
@@ -89,9 +95,22 @@ export class RollPayComponent implements OnInit {
       this.selection.clear() :
       this.XetDuyetNhanVienDataSource.data.forEach(row => this.selection.select(row));
   }
+
+  isAllSelectedGV() { // giáo viên
+    const numSelected = this.selectionGV.selected.length;
+    const numRows = this.XetDuyetGiaoVienDataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggleGV() {  // giáo viên
+    this.isAllSelectedGV() ?
+      this.selectionGV.clear() :
+      this.XetDuyetGiaoVienDataSource.data.forEach(row => this.selectionGV.select(row));
+  }
   //#endregion
 
-  //#region update chấm công khi sửa thưởng và phụ cấp.  id chấm công
+  //#region update chấm công khi sửa thưởng và phụ cấp.  id chấm công nhân viên, update luong giáo viên
   public updatePeriodicPoint(chamcongId, phucap, thuong) {
     this.timeSheetService.getById(chamcongId).subscribe(result => {
       this.chamcong = result;
@@ -108,6 +127,13 @@ export class RollPayComponent implements OnInit {
     }, error => {
     });
   }
+
+  public updateLuong(bien) {
+    bien.salary.totalTheoreticalAmount = bien.salary.totalAllowance + bien.salary.totalBonus + bien.salary.totalGiangday;
+    bien.salary.totalInsurancePremium = bien.salary.totalTheoreticalAmount * 0.08;
+    // tslint:disable-next-line: max-line-length
+    bien.salary.totalRealityAmount = bien.salary.totalTheoreticalAmount - bien.salary.totalInsurancePremium - bien.salary.totalAdvancePayment;
+  }
   //#endregion
 
   //#region Click button
@@ -122,7 +148,6 @@ export class RollPayComponent implements OnInit {
   // click nút chưa xét duyệt
   public ClickChuaXetDuyet() {
     this.isBangLuong = false;
-    console.log(this.isBangLuong);
     this.getPersonnelChuaXetDuyet();
     this.getLectureChuaXetDuyet();
   }
@@ -134,7 +159,7 @@ export class RollPayComponent implements OnInit {
     this.getLectureDaXetDuyet();
   }
 
-  // Cạp nhật list xét duyệt vào bảng
+  // Cập nhật list xét duyệt vào bảng nhân viên
   public updateSalaryPaied() {
     this.timeSheets = [];
     // tslint:disable-next-line: no-shadowed-variable
@@ -143,7 +168,27 @@ export class RollPayComponent implements OnInit {
     });
     this.salaryRollpayService.PostRollPay(this.timeSheets).subscribe(result => {
       this.getPersonnelChuaXetDuyet();
+      this.selection.clear();
+      setTimeout(() => { this.notificationService.showNotification(1, 'Xét duyệt', 'Xét duyệt lương thành công!'); });
     }, error => {
+      this.notificationService.showNotification(3, 'Xét duyệt', 'Xét duyệt lương không thành công!');
+    });
+  }
+
+  // Cập nhật list xét duyệt vào bảng giáo viên
+  public updateLecturePaied() {
+    this.salaryLecturerPaied = [];
+    console.log(this.selectionGV.selected);
+    // tslint:disable-next-line: no-shadowed-variable
+    this.selectionGV.selected.forEach((element: any) => {
+      this.salaryLecturerPaied.push(element.salary);
+    });
+    this.salaryRollpayService.PostRollPayLecturers(this.salaryLecturerPaied).subscribe(result => {
+      this.getLectureChuaXetDuyet();
+      this.selectionGV.clear();
+      setTimeout(() => { this.notificationService.showNotification(1, 'Xét duyệt', 'Xét duyệt lương thành công!'); });
+    }, error => {
+      this.notificationService.showNotification(3, 'Xét duyệt', 'Xét duyệt lương không thành công!');
     });
   }
 
@@ -158,11 +203,7 @@ export class RollPayComponent implements OnInit {
   public getPersonnelChuaXetDuyet() {
     this.salaryRollpayService.ListChuaXetDuyet(this.monthSearch, this.yearSearch).subscribe((result: any) => {
       this.payRollForPersonnel = result;
-      this.overviewRollPay.totalOfStaffsNotPaid = result.length; // tổng nhân viên
-      this.overviewRollPay.totalMoneyPersonelNotPaid = 0;        // tổng tiền bla bla
-      result.forEach(item => {
-        this.overviewRollPay.totalMoneyPersonelNotPaid = this.overviewRollPay.totalMoneyPersonelNotPaid + item.salary.totalRealityAmount;
-      });
+      this.SoNguoi();
       this.loadTablePersonnel(result);
       this.stopProgressBar();
     }, error => {
@@ -174,11 +215,7 @@ export class RollPayComponent implements OnInit {
   public getPersonnelDaXetDuyet() {
     this.salaryRollpayService.ListDaXetDuyet(this.monthSearch, this.yearSearch).subscribe((result: any) => {
       this.payRollForPersonnelOK = result;
-      this.overviewRollPay.totalOfStaffsPaid = result.length; // tổng nhân viên
-      this.overviewRollPay.totalMoneyPersonelPaid = 0;        // tổng tiền bla bla
-      result.forEach(item => {
-        this.overviewRollPay.totalMoneyPersonelPaid = this.overviewRollPay.totalMoneyPersonelPaid + item.salary.totalRealityAmount;
-      });
+      this.SoNguoi();
       this.loadTablePersonnelOK(result);
       this.stopProgressBar();
     }, error => {
@@ -196,17 +233,72 @@ export class RollPayComponent implements OnInit {
   }
   //#endregion
 
-  //#region Lấy danh sách  lương Giáo viên - Chưa làm
+  //#region Lấy danh sách  lương Giáo viên -
   public getLectureChuaXetDuyet() {
+    this.salaryRollpayService.ListChuaXetDuyetGiaoVien(this.monthSearch, this.yearSearch).subscribe((result: any) => {
+      this.payRollForLecture = result;
+      this.SoNguoi();
+      this.loadTableLecture(result);
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
   }
 
   // DS giáo viên đã xét duyệt
   public getLectureDaXetDuyet() {
-
+    this.salaryRollpayService.ListDaXetDuyetGiaoVien(this.monthSearch, this.yearSearch).subscribe((result: any) => {
+      this.payRollForLectureOK = result;
+      this.SoNguoi();
+      this.loadTableLectureOK(result);
+      this.stopProgressBar();
+    }, error => {
+      this.stopProgressBar();
+    });
   }
 
-  // load data giáo viên
+  // load data giáo viên chưa xét duyệt
   public loadTableLecture(data: any) {
+    this.XetDuyetGiaoVienDataSource = new MatTableDataSource(data);
+  }
+
+  // load data giáo viên đã xét duyệt
+  public loadTableLectureOK(data: any) {
+    this.BangLuongGiaoVienDataSource = new MatTableDataSource(data);
+  }
+
+  public SoNguoi() {
+    this.salaryRollpayService.ListChuaXetDuyet(this.monthSearch, this.yearSearch).subscribe((result: any) => {
+      this.overviewRollPay.totalOfStaffsNotPaid = result.length;
+      this.overviewRollPay.totalMoneyPersonelNotPaid = 0;
+      // tslint:disable-next-line: prefer-for-of
+      result.forEach( item => {
+        this.overviewRollPay.totalMoneyPersonelNotPaid += item.salary.totalRealityAmount;
+      });
+    }); // tổng nhân viên chưa xét duyệt
+    this.salaryRollpayService.ListDaXetDuyet(this.monthSearch, this.yearSearch).subscribe((result: any) => {
+      this.overviewRollPay.totalOfStaffsPaid = result.length;
+      this.overviewRollPay.totalMoneyPersonelPaid = 0;
+      result.forEach(item => {
+        this.overviewRollPay.totalMoneyPersonelPaid += item.salary.totalRealityAmount;
+      });
+    }); // tổng nhân viên đã xét duyệt
+
+    this.salaryRollpayService.ListChuaXetDuyetGiaoVien(this.monthSearch, this.yearSearch).subscribe((result: any) => {
+      this.overviewRollPay.totalOfLecturersNotPaid = result.length;
+      this.overviewRollPay.totalMoneyLectureNotPaid = 0;
+      result.forEach(item => {
+        this.overviewRollPay.totalMoneyLectureNotPaid += item.salary.totalRealityAmount;
+      });
+    }); // tổng giáo viên chưa xét duyệt
+
+    this.salaryRollpayService.ListDaXetDuyetGiaoVien(this.monthSearch, this.yearSearch).subscribe((result: any) => {
+      this.overviewRollPay.totalOfLecturersPaid = result.length;
+      this.overviewRollPay.totalMoneyLecturePaid = 0;
+      result.forEach(item => {
+        this.overviewRollPay.totalMoneyLecturePaid += item.salary.totalRealityAmount;
+      });
+    }); // tổng giáo viên đã xét duyệt
 
   }
   //#endregion
