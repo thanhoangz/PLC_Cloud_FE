@@ -126,6 +126,7 @@ import { ReportPeriodicPointComponent } from './content/report-periodic-point/re
 import { ReportEndingPointComponent } from './content/report-ending-point/report-ending-point.component';
 import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
 import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition/report-not-paid-tuition.component';
+import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
 
 @NgModule({
   imports: [
@@ -256,7 +257,8 @@ import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition
     ReportPeriodicPointComponent,
     ReportEndingPointComponent,
     ReportTuitionLearningComponent,
-    ReportNotPaidTuitionComponent
+    ReportNotPaidTuitionComponent,
+    ConfirmTranferComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

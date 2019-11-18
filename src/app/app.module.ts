@@ -95,6 +95,8 @@ import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-re
 import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
 import {NgxPrintModule} from 'ngx-print';
 
+// tslint:disable-next-line: max-line-length
+import { ConfirmTranferComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -195,7 +197,8 @@ import {NgxPrintModule} from 'ngx-print';
     PickClassComponent,
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
-    CreateClassSecDialogComponent
+    CreateClassSecDialogComponent,
+    ConfirmTranferComponent
   ]
 
 })
