@@ -121,6 +121,11 @@ import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/
 import { TestReportComponent } from './content/test-report/test-report.component';
 // tslint:disable-next-line: max-line-length
 import { CreateClassSecDialogComponent } from './content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
+import {NgxPrintModule} from 'ngx-print';
+import { ReportPeriodicPointComponent } from './content/report-periodic-point/report-periodic-point.component';
+import { ReportEndingPointComponent } from './content/report-ending-point/report-ending-point.component';
+import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
+import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition/report-not-paid-tuition.component';
 
 @NgModule({
   imports: [
@@ -164,6 +169,7 @@ import { CreateClassSecDialogComponent } from './content/schedule-school/schedul
     BrowserModule,
     DragDropModule,
     MatChipsModule,
+    NgxPrintModule
 
 
 
@@ -246,7 +252,11 @@ import { CreateClassSecDialogComponent } from './content/schedule-school/schedul
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
     TestReportComponent,
-    CreateClassSecDialogComponent
+    CreateClassSecDialogComponent,
+    ReportPeriodicPointComponent,
+    ReportEndingPointComponent,
+    ReportTuitionLearningComponent,
+    ReportNotPaidTuitionComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

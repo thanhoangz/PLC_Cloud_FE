@@ -93,6 +93,8 @@ import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-re
 import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
 // tslint:disable-next-line: max-line-length
 import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
+import {NgxPrintModule} from 'ngx-print';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,6 +145,7 @@ import { CreateClassSecDialogComponent } from './admin/content/schedule-school/s
     CKEditorModule,
     BlockUIModule.forRoot(),
     DragDropModule,
+    NgxPrintModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
