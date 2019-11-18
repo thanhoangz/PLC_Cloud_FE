@@ -39,6 +39,7 @@ import { RollPayComponent } from './content/roll-pay/roll-pay.component';
 import { DetailReceiptComponent } from './content/search-studyprocess/dialog/detail-receipt/detail-receipt.component';
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { TestReportComponent } from './content/test-report/test-report.component';
+import { ReportPeriodicPointComponent } from './content/report-periodic-point/report-periodic-point.component';
 
 const adminRoutes: Routes = [
   {
@@ -84,6 +85,7 @@ const adminRoutes: Routes = [
           { path: 'private-info', component: PrivateInfoComponent },
           { path: 'dashboard', component: DashboardComponent },
           { path: 'report', component: TestReportComponent },
+          { path: 'report-periodic', component: ReportPeriodicPointComponent },
         ]
       }
     ]

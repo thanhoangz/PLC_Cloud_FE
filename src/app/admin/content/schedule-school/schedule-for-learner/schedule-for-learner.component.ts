@@ -185,21 +185,23 @@ export class ScheduleForLearnerComponent implements OnInit {
     }
 
 
-    console.log(event.container);
     let stringDate = event.container.id;
-    console.log(stringDate.substring(0, 2));
-    console.log(stringDate.substring(3, 5));
-    console.log(stringDate.substring(6, 10));
+
     stringDate = stringDate.substring(6, 10) + '/' + stringDate.substring(3, 5) + '/' + stringDate.substring(0, 2);
 
     let date = new Date(stringDate);
 
+    const temp = this.datepipe.transform(date, 'yyyy-MM-dd');
+
+    let updateList = [];
     // tslint:disable-next-line: no-shadowed-variable
     event.container.data.forEach((element: any) => {
-      element.classSession.date = date;
+      element.classSession.date = temp;
+      updateList.push(element.classSession);
     });
 
-    this.classSessionService.putList(event.container.data).subscribe(result => {
+    console.log(updateList);
+    this.classSessionService.putList(updateList).subscribe(result => {
       this.notificationService.showNotification(1, '', 'Cập nhật thành công!');
     }, error => {
 
