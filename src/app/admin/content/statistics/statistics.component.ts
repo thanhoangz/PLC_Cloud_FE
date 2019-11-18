@@ -62,10 +62,7 @@ export class StatisticsComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   public selection = new SelectionModel(true, []);
 
-  // tslint:disable-next-line: member-ordering
-  public displayedColumnsStudyProcess: string[] = ['index', 'date', 'classId', 'courseName', 'className', 'manipulation', 'note'];
-  // tslint:disable-next-line: member-ordering
-  public dataSourceStudyProcess = new MatTableDataSource(this.logStudyProcess);
+
   public displayedColumnsReceipts: string[] = ['index', 'collectionDate', 'totalAmount', 'nameOfPaymentApplicant'];
   // tslint:disable-next-line: member-ordering
   public dataSourceReceipts = new MatTableDataSource(this.receipts);
@@ -156,12 +153,10 @@ export class StatisticsComponent implements OnInit {
   // tìm kiếm khi click row
   public inforLearner(cardId) {
     this.getByCardId(cardId);
-    this.getInforStudyProcess(cardId);
   }
   // tìm kiếm theo card Id
   public Find() {
     this.getByCardId(this.keyWord);
-    this.getInforStudyProcess(this.keyWord);
   }
   // thông tin học viên
   public getByCardId(cardId) {
@@ -192,17 +187,7 @@ export class StatisticsComponent implements OnInit {
     });
   }
 
-  // quá trình học tập
-  public getInforStudyProcess(cardId) {
-    this.logStudyProcessService.getLogStudyProcess(cardId, this.logStudyProcess).subscribe((result1: any) => {
-      this.logStudyProcess = result1;
-      this.loadTablesStudyProcess(result1);
-    }, error => {
-    });
-  }
-  public loadTablesStudyProcess(data: any) {
-    this.dataSourceStudyProcess = new MatTableDataSource(data);
-  }
+
 
   // quá trình đóng họ
   public getReceiptsByLearnerId(id) {
