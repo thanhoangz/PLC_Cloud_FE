@@ -128,8 +128,6 @@ import { ReportTuitionLearningComponent } from './content/report-tuition-learnin
 import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition/report-not-paid-tuition.component';
 import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
 import { TestReportNgcssComponent } from './content/test-report-ngcss/test-report-ngcss.component';
-import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
-import { FlexmonsterPivotModule } from 'ng-flexmonster';
 import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({

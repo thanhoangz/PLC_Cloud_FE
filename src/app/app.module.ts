@@ -98,10 +98,7 @@ import { NgxPrintModule } from 'ngx-print';
 // tslint:disable-next-line: max-line-length
 import { ConfirmTranferComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
-import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
-import { EJAngular2Module } from 'ej-angular2';
 
-import { FlexmonsterPivotModule } from 'ng-flexmonster';
 
 @NgModule({
   declarations: [
