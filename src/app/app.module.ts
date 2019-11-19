@@ -97,7 +97,7 @@ import { NgxPrintModule } from 'ngx-print';
 
 // tslint:disable-next-line: max-line-length
 import { ConfirmTranferComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
+
 
 
 @NgModule({
@@ -202,8 +202,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
     DeleteReceiptComponent,
     CreateClassSecDialogComponent,
     ConfirmTranferComponent
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  ]
 
 })
 export class AppModule {
