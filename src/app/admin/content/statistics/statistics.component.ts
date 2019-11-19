@@ -29,6 +29,7 @@ export class StatisticsComponent implements OnInit {
   public show = false;
   panelOpenState = false;
 
+  public Diem;
   public class;
   public receipts;
   public receiptDetails ;
@@ -77,6 +78,12 @@ export class StatisticsComponent implements OnInit {
   public displayedColumnsClass: string[] = ['index', 'className', 'startDay', 'endDay', 'status', 'controls'];
   // tslint:disable-next-line: member-ordering
   public dataSourceClass = new MatTableDataSource(this.class);
+
+  // tslint:disable-next-line: max-line-length
+  public displayedColumnsDiemDinhKi: string[] = ['index', 'week', 'point', 'averagePoint', 'sortedByPoint', 'sortedByAveragePoint'];
+
+
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   constructor(
@@ -182,6 +189,8 @@ export class StatisticsComponent implements OnInit {
       this.getReceiptsByLearnerId(result.id);
       // gọi thông tin lớp đã học theo id học viên
       this.getClassStudied(result.id);
+      // gọi thông tin điểm theo lớp đã học
+      this.getDiemTheoLopDaHoc(result.id);
     }, error => {
       this.notificationService.showNotification(3, 'Tra cứu', 'Không tìm thấy mã sinh viên!');
     });
@@ -219,6 +228,15 @@ public getClassStudied(id) {
 public loadTablesClass(data3: any) {
   this.dataSourceClass = new MatTableDataSource(data3);
 }
+
+// Điểm theo lớp đã học
+public getDiemTheoLopDaHoc(id) {
+  this.learnerService.getDiem(id).subscribe((result4: any) => {
+    this.Diem = result4;
+  }, error => {
+  });
+}
+
 
   // hàm ném dữ liệu
   createExchangeId(id) {

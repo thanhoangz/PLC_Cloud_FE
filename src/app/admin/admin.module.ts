@@ -122,7 +122,6 @@ import { DeleteReceiptComponent } from './content/receipt/dialog/delete-receipt/
 import { TestReportComponent } from './content/test-report/test-report.component';
 // tslint:disable-next-line: max-line-length
 import { CreateClassSecDialogComponent } from './content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
-import {NgxPrintModule} from 'ngx-print';
 import { ReportPeriodicPointComponent } from './content/report-periodic-point/report-periodic-point.component';
 import { ReportEndingPointComponent } from './content/report-ending-point/report-ending-point.component';
 import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
@@ -131,6 +130,7 @@ import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-
 import { TestReportNgcssComponent } from './content/test-report-ngcss/test-report-ngcss.component';
 import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
 import { FlexmonsterPivotModule } from 'ng-flexmonster';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   imports: [
@@ -174,9 +174,7 @@ import { FlexmonsterPivotModule } from 'ng-flexmonster';
     BrowserModule,
     DragDropModule,
     MatChipsModule,
-    NgxPrintModule,
-    ReportViewerModule,
-    FlexmonsterPivotModule
+    NgxPrintModule
 
 
 

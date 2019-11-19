@@ -154,9 +154,6 @@ import { FlexmonsterPivotModule } from 'ng-flexmonster';
     BlockUIModule.forRoot(),
     DragDropModule,
     NgxPrintModule,
-    ReportViewerModule,
-    EJAngular2Module.forRoot(),
-    FlexmonsterPivotModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

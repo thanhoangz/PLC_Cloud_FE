@@ -23,7 +23,9 @@ export class EditClassComponent implements OnInit {
     endDay: null,
     status: null,
     note: '',
-    courseId: null
+    courseId: null,
+    wageOfTutor: 0,
+    wageOfLecturer: 0,
   };
 
   public courses;
@@ -54,7 +56,9 @@ export class EditClassComponent implements OnInit {
       maxNumber: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       courseId: new FormControl(null, [Validators.required]),
-      note: new FormControl()
+      note: new FormControl(),
+      wageOfLecturer: new FormControl(),
+      wageOfTutor: new FormControl()
     });
   }
 
@@ -76,6 +80,8 @@ export class EditClassComponent implements OnInit {
     this.class.note = this.data._class.note;
     this.class.courseId = this.data._class.courseId;
     this.class.maxNumber = this.data._class.maxNumber;
+    this.class.wageOfLecturer = this.data._class.wageOfLecturer;
+    this.class.wageOfTutor = this.data._class.wageOfTutor;
   }
 
   public getCourses() {
