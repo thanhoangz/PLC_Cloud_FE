@@ -93,10 +93,16 @@ import { DetailReceiptBoComponent } from './admin/content/receipt/page/detail-re
 import { DeleteReceiptComponent } from './admin/content/receipt/dialog/delete-receipt/delete-receipt.component';
 // tslint:disable-next-line: max-line-length
 import { CreateClassSecDialogComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/create-class-sec-dialog/create-class-sec-dialog.component';
-import {NgxPrintModule} from 'ngx-print';
+import { NgxPrintModule } from 'ngx-print';
 
 // tslint:disable-next-line: max-line-length
 import { ConfirmTranferComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
+import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
+import { EJAngular2Module } from 'ej-angular2';
+
+import { FlexmonsterPivotModule } from 'ng-flexmonster';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,7 +153,10 @@ import { ConfirmTranferComponent } from './admin/content/schedule-school/schedul
     CKEditorModule,
     BlockUIModule.forRoot(),
     DragDropModule,
-    NgxPrintModule
+    NgxPrintModule,
+    ReportViewerModule,
+    EJAngular2Module.forRoot(),
+    FlexmonsterPivotModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
@@ -199,7 +208,8 @@ import { ConfirmTranferComponent } from './admin/content/schedule-school/schedul
     DeleteReceiptComponent,
     CreateClassSecDialogComponent,
     ConfirmTranferComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class AppModule {

@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
 import { AddGuestDialogComponent } from './content/guest-type/dialog/add-guest-dialog/add-guest-dialog.component';
 import { CKEditorModule } from 'ngx-ckeditor';
 import { EditLanguageClassComponent } from './content/language-classes/dialog/edit-language-class/edit-language-class.component';
@@ -127,6 +128,9 @@ import { ReportEndingPointComponent } from './content/report-ending-point/report
 import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
 import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition/report-not-paid-tuition.component';
 import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
+import { TestReportNgcssComponent } from './content/test-report-ngcss/test-report-ngcss.component';
+import { ReportViewerModule } from 'ngx-ssrs-reportviewer';
+import { FlexmonsterPivotModule } from 'ng-flexmonster';
 
 @NgModule({
   imports: [
@@ -170,7 +174,9 @@ import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-
     BrowserModule,
     DragDropModule,
     MatChipsModule,
-    NgxPrintModule
+    NgxPrintModule,
+    ReportViewerModule,
+    FlexmonsterPivotModule
 
 
 
@@ -258,8 +264,10 @@ import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-
     ReportEndingPointComponent,
     ReportTuitionLearningComponent,
     ReportNotPaidTuitionComponent,
-    ConfirmTranferComponent
+    ConfirmTranferComponent,
+    TestReportNgcssComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
     DatePipe,
