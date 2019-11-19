@@ -82,6 +82,10 @@ export class LearnerService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/Learners/getlearninginclass/${classId}`);
   }
+  getDiem(id) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Learners/get-score-by-learner?id=${id}`, null);
+  }
 }
 
 

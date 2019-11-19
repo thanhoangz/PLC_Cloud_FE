@@ -241,7 +241,7 @@ export class RollPayComponent implements OnInit {
       this.loadTableLecture(result);
       this.stopProgressBar();
     }, error => {
-      this.stopProgressBar(); 
+      this.stopProgressBar();
     });
   }
 
@@ -273,7 +273,7 @@ export class RollPayComponent implements OnInit {
       this.overviewRollPay.totalOfStaffsNotPaid = result.length;
       this.overviewRollPay.totalMoneyPersonelNotPaid = 0;
       // tslint:disable-next-line: prefer-for-of
-      result.forEach( item => {
+      result.forEach(item => {
         this.overviewRollPay.totalMoneyPersonelNotPaid += item.salary.totalRealityAmount;
       });
     }); // tổng nhân viên chưa xét duyệt

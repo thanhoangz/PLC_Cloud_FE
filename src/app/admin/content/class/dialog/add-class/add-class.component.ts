@@ -24,7 +24,9 @@ export class AddClassComponent implements OnInit {
     endDay: null,
     status: null,
     note: '',
-    courseId: null
+    courseId: null,
+    wageOfTutor: 0,
+    wageOfLecturer: 0,
   };
 
   public courses;
@@ -53,7 +55,9 @@ export class AddClassComponent implements OnInit {
       maxNumber: new FormControl(null, [Validators.required]),
       status: new FormControl(null, [Validators.required]),
       courseId: new FormControl(null, [Validators.required]),
-      note: new FormControl()
+      note: new FormControl(),
+      wageOfLecturer: new FormControl(),
+      wageOfTutor: new FormControl()
     });
   }
 
