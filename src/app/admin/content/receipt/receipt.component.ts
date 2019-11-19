@@ -59,6 +59,7 @@ export class ReceiptComponent implements OnInit {
     this.receiptsService.getAllReceipts().subscribe((result: any) => {
       this.receipts = result;
       this.loadTables(result);
+      console.log(this.receipts);
     }, error => {
     });
   }
@@ -92,7 +93,7 @@ export class ReceiptComponent implements OnInit {
   public openDetailReceipt(receipt: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.6 * this.screenWidth;
+      const widthMachine = (this.screenWidth < 500) ? 0.1 * this.screenWidth : 0.8 * this.screenWidth;
       this.matDialog.open(DetailReceiptBoComponent,
         {
           width: `${widthMachine}px`,

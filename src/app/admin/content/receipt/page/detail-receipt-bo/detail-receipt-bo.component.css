@@ -56,3 +56,15 @@ table.table-style-three tr:nth-child(even) td{
   background: lightslategray;
   opacity: 0.7;
 }
+@media print{
+  .testprint{display:none !important;}
+}
+
+@media print {
+  .page-break {
+    height: 0;
+    page-break-before: always;
+    margin: 0;
+    border-top: none;
+  }
+}

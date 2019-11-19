@@ -26,5 +26,7 @@ export class TestReportComponent implements OnInit {
     }, error => {
     });
   }
-
+  public testClick() {
+    window.print();
+  }
 }

@@ -124,7 +124,7 @@ export class CreatEndingPointComponent implements OnInit {
   }
   public createEndingPoint() {
     if (this.checkExits()) {
-      this.notificationService.showNotification(3, 'Điểm cuối khóa', 'Lỗi, bảng điểm của tuần này đã được tạo mời kiểm tra!');
+      this.notificationService.showNotification(3, 'Điểm cuối khóa', 'Lỗi, bảng điểm đã được tạo mời kiểm tra!');
     }
     // tslint:disable-next-line: one-line
     else {

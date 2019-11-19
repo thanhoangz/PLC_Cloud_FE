@@ -19,6 +19,7 @@ import { FomatDateService } from 'src/app/admin/services/extension/FomatDate.ser
 import { ConstService } from 'src/app/admin/services/extension/Const.service';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { stringify } from 'querystring';
+import { TestReportComponent } from '../../../test-report/test-report.component';
 
 @Component({
   selector: 'app-detail-receipt-bo',
@@ -65,7 +66,10 @@ export class DetailReceiptBoComponent implements OnInit {
     receiptTypeId: null,
     personnelId: null,
     learnerId: null,
-    appUserId: null
+    appUserId: null,
+    learnerName: null,
+    personnelName: null,
+    learnerPhone: null
   };
 
   public receiptDetail;
@@ -128,6 +132,9 @@ export class DetailReceiptBoComponent implements OnInit {
       }
     ];
   }
+
+  // tslint:disable-next-line: member-ordering
+  @ViewChild(TestReportComponent, { static: true }) private testReportComponent: TestReportComponent;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private receiptTypeService: ReceiptTypeService,
@@ -166,12 +173,14 @@ export class DetailReceiptBoComponent implements OnInit {
     this.receipt.receiptTypeId = String(this.data._receipt.receiptTypeId);
     this.receipt.personnelId = this.data._receipt.personnelId;
     this.receipt.learnerId = this.data._receipt.learnerId;
-    this.receipt.status =   String(this.data._receipt.status) ;
+    this.receipt.status = String(this.data._receipt.status);
     this.receipt.note = this.data._receipt.note;
     this.cardId = this.data._receipt.learnerCardId;
     this.address = this.data._receipt.learnerAdress;
     this.receipt.appUserId = ConstService.user.id;
-
+    this.receipt.learnerName = this.data._receipt.learnerName;
+    this.receipt.personnelName = this.data._receipt.personnelName;
+    this.receipt.learnerPhone = this.data._receipt.learnerPhone;
     console.log(this.receipt.receiptTypeId);
     console.log(this.receipt.status);
     console.log(this.receipt.learnerId);
@@ -190,5 +199,8 @@ export class DetailReceiptBoComponent implements OnInit {
       this.notificationService.showNotification(1, 'Phiếu thu', 'Đã cập nhật');
     }, error => {
     });
+  }
+
+  public PrintReceipt() {
   }
 }

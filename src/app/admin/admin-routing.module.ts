@@ -40,6 +40,8 @@ import { DetailReceiptComponent } from './content/search-studyprocess/dialog/det
 import { DetailReceiptBoComponent } from './content/receipt/page/detail-receipt-bo/detail-receipt-bo.component';
 import { TestReportComponent } from './content/test-report/test-report.component';
 import { ReportPeriodicPointComponent } from './content/report-periodic-point/report-periodic-point.component';
+import { ReportEndingPointComponent } from './content/report-ending-point/report-ending-point.component';
+import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
 
 const adminRoutes: Routes = [
   {
@@ -86,6 +88,8 @@ const adminRoutes: Routes = [
           { path: 'dashboard', component: DashboardComponent },
           { path: 'report', component: TestReportComponent },
           { path: 'report-periodic', component: ReportPeriodicPointComponent },
+          { path: 'report-ending', component: ReportEndingPointComponent },
+          { path: 'report-tuition', component: ReportTuitionLearningComponent },
         ]
       }
     ]

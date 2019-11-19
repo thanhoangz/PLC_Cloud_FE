@@ -137,8 +137,6 @@ export class EndingPointComponent implements OnInit {
           this.getEdingPointDetail();
 
         }
-
-
       }, error => {
       });
     }
