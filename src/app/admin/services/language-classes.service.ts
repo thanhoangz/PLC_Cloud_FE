@@ -82,4 +82,9 @@ export class LanguageClassesService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-class-schedule/${courseId}`);
   }
+
+  getInfoClass(classId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-info-class/${classId}`);
+  }
 }

@@ -39,6 +39,17 @@ export class ScheduleForLearnerComponent implements OnInit {
 
   public daysOfWeek = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'];
   public showProgressBar = false;
+
+
+  public infoClass = {
+    name: 'Vui lòng chọn lớp',
+    status: 'Vui lòng chọn lớp',
+    scheduleStatus: 'Vui lòng chọn lớp',
+    nameOfLecturer: 'Vui lòng chọn lớp',
+    numberOfPeople: 0,
+    time: 'Vui lòng chọn lớp',
+  };
+
   constructor(
     public datepipe: DatePipe,
     public scheduleService: ScheduleService,
@@ -53,12 +64,17 @@ export class ScheduleForLearnerComponent implements OnInit {
   }
 
 
-
-
   ngOnInit() {
     this.setCourses();
   }
 
+  public getInfoClass(classId) {
+    this.languageClassesService.getInfoClass(classId).subscribe((result: any) => {
+      this.infoClass = result;
+    }, error => {
+
+    });
+  }
 
   public getDateOfMonth() {
     this.dateOfweek = [];
@@ -235,6 +251,7 @@ export class ScheduleForLearnerComponent implements OnInit {
       this.classes = result;
       this.classSelected = result[0].id;
       this.getScheduleMonthByClass(this.classSelected);
+      this.getInfoClass(this.classSelected);
     }, error => {
 
     });
