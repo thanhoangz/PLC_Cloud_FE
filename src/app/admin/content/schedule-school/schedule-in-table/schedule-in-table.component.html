@@ -43,6 +43,7 @@
               <mat-chip-list>
                 <mat-chip color="primary" selected (click)="openCreateDialog()">Tạo khung lích</mat-chip>
                 <mat-chip color="accent" selected (click)="gotoSchedule()">Xếp buổi học</mat-chip>
+                <mat-chip color="warn" selected (click)="turnOnDelete()">Xóa</mat-chip>
               </mat-chip-list>
 
             </div>
@@ -110,6 +111,16 @@
                 {{ element.languageClass.name }}
               </td>
             </ng-container>
+
+            <ng-container matColumnDef="controls">
+              <th mat-header-cell *matHeaderCellDef>Xóa</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="deleteSchedule(element.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="scheduledColumns"></tr>
             <tr mat-row (click)="openUpdateDialog(row)" *matRowDef="let row; columns: scheduledColumns"></tr>
           </table>

@@ -41,23 +41,19 @@ export class AdminManagementComponent implements OnInit {
     {
       Name: 'Phòng học',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Đối tượng ',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Khóa học',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Loại phiếu thu',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Loại phiếu chi',
       Value: false
@@ -169,7 +165,8 @@ export class AdminManagementComponent implements OnInit {
     {
       Name: 'Chưa đóng học phí',
       Value: false
-    }
+    },
+
 
 
   ];
@@ -224,7 +221,7 @@ export class AdminManagementComponent implements OnInit {
   }
 
   public checkAdmin() {
-    if (this.user.userName !== 'admin') {
+    if (this.user && this.user.userName !== 'admin') {
       return false;
     } else {
       return true;

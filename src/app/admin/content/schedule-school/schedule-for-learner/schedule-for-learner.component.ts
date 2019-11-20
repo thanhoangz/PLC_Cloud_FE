@@ -83,16 +83,19 @@ export class ScheduleForLearnerComponent implements OnInit {
 
       /* duyệt xem có lịch học trong ngày không thì gắn vào. */
       if (this.scheduleMonth) {
-        (this.scheduleMonth.classSessions).forEach(element => {
-          const dateOfSchedule = this.datepipe.transform(element.date, 'dd-MM-yyyy');
-          if (dateOfSchedule === date) {
-            schedule.push({
-              classSession: element,
-              content: this.scheduleMonth.classroomName + ' - ' + element.fromTime.substring(0, 5) +
-                '-' + element.toTime.substring(0, 5) + ' GV: ' + this.scheduleMonth.lecturerName
-            });
-          }
-        });
+        if (this.scheduleMonth.classSessions) {
+          (this.scheduleMonth.classSessions).forEach(classSecssion => {
+            const dateOfSchedule = this.datepipe.transform(classSecssion.date, 'dd-MM-yyyy');
+            if (dateOfSchedule === date) {
+              schedule.push({
+                classSession: classSecssion,
+                content: this.scheduleMonth.classroomName + ' - ' + classSecssion.fromTime.substring(0, 5) +
+                  '-' + classSecssion.toTime.substring(0, 5) + ' GV: ' + this.scheduleMonth.lecturerName
+              });
+            }
+          });
+        }
+
       }
 
 
@@ -189,11 +192,11 @@ export class ScheduleForLearnerComponent implements OnInit {
 
     stringDate = stringDate.substring(6, 10) + '/' + stringDate.substring(3, 5) + '/' + stringDate.substring(0, 2);
 
-    let date = new Date(stringDate);
+    const date = new Date(stringDate);
 
     const temp = this.datepipe.transform(date, 'yyyy-MM-dd');
 
-    let updateList = [];
+    const updateList = [];
     // tslint:disable-next-line: no-shadowed-variable
     event.container.data.forEach((element: any) => {
       element.classSession.date = temp;
@@ -265,10 +268,10 @@ export class ScheduleForLearnerComponent implements OnInit {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       this.matDialog.open(CreateClassSecDialogComponent, {
-        width: '100vh',
+        width: '80vh',
         data: {
+          courseSelected: this.courseSelected,
           classSelected: this.classSelected,
-          courseSelected: this.courseSelected
         },
       }).afterClosed().subscribe(result => {
         this.isOpenDialog = false;

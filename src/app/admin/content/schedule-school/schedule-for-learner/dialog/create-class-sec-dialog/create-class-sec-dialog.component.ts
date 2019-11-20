@@ -45,22 +45,16 @@ export class CreateClassSecDialogComponent implements OnInit {
     public classSessionService: ClassSessionService
 
   ) {
+    this.courseSelected = this.data.courseSelected;
+    this.classSelected = this.data.classSelected;
     this.getAllCourse();
     this.getAllTimeShift();
-
-
-
   }
 
 
 
 
   ngOnInit() {
-    console.log(this.data.classSelected);
-    console.log(this.data.courseSelected);
-
-    this.courseSelected = this.data.courseSelected;
-    this.classSelected = this.data.classSelected;
     this.initScheduleForm();
   }
 
@@ -68,16 +62,27 @@ export class CreateClassSecDialogComponent implements OnInit {
   getAllCourse() {
     this.courseService.getAllCourses().subscribe(result => {
       this.courses = result;
-      this.courseSelected = result[0].id;
+      if (this.data.courseSelected) {
+        this.courseSelected = this.data.courseSelected;
+        this.getAllClassesByCourse(this.courseSelected);
+      } else {
+        this.courseSelected = result[0].id;
+      }
+
     }, error => {
 
     });
   }
 
   getAllClassesByCourse(courseId) {
-    this.languageClassesService.getClassByCourse(courseId).subscribe(result => {
+    this.languageClassesService.getAllClassOfSchedule(courseId).subscribe(result => {
       this.classes = result;
-      this.courseSelected = result[0].id;
+      if (this.classSelected) {
+        this.classSelected = this.data.classSelected;
+      } else {
+        this.classSelected = result[0].id;
+      }
+
     }, error => {
 
     });
@@ -95,19 +100,23 @@ export class CreateClassSecDialogComponent implements OnInit {
 
 
   createSchedule() {
+
     const days = [];
     this.learnDayList.forEach(element => {
       days.push(element.value);
     });
-    this.classSessionService.postClassSessions(
-      this.classSelected, this.timeShiftSelected, days
-    ).subscribe(result => {
-      this.notificationService.showNotification(1, '', 'Tạo thành công lịch học!');
-      this.dialogRef.close(true);
-    }, error => {
-      this.notificationService.showNotification(2, '', error);
-      console.log(error);
-    });
+    if (this.ScheduleGroup.invalid && days.length !== 0) {
+      this.classSessionService.postClassSessions(
+        this.classSelected, this.timeShiftSelected, days
+      ).subscribe(result => {
+        this.notificationService.showNotification(1, '', 'Tạo thành công lịch học!');
+        this.dialogRef.close(true);
+      }, error => {
+        this.notificationService.showNotification(2, '', error);
+        console.log(error);
+      });
+    }
+
   }
 
   changeCourse(e) {

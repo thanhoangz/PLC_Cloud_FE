@@ -3,38 +3,101 @@
 <section class="content" style="margin-top: 1%">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-card>
+              <mat-card-header>
+                <b>Danh sách lớp</b>
+              </mat-card-header>
+              <hr>
+              <mat-card-content>
 
-        <mat-card>
-          <mat-card-header>
-            <b>Danh sách lớp</b>
-          </mat-card-header>
-          <hr>
-          <mat-card-content>
+                <mat-form-field>
+                  <mat-label>Chọn khóa học</mat-label>
+                  <mat-select [(ngModel)]="courseSelected" (valueChange)="changValueCourse($event)">
+                    <mat-option *ngFor="let item of courses" [value]="item.id">{{ item.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-            <mat-form-field>
-              <mat-label>Chọn khóa học</mat-label>
-              <mat-select [(ngModel)]="courseSelected" (valueChange)="changValueCourse($event)">
-                <mat-option *ngFor="let item of courses" [value]="item.id">{{ item.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Chọn lớp học</mat-label>
+                  <mat-select [(ngModel)]="classSelected" (valueChange)="changValueClass($event)">
+                    <mat-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-            <mat-form-field>
-              <mat-label>Chọn lớp học</mat-label>
-              <mat-select [(ngModel)]="classSelected" (valueChange)="changValueClass($event)">
-                <mat-option *ngFor="let item of classes" [value]="item.id">{{ item.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+                <button mat-icon-button (click)="openCreateClassSection()">
+                  <mat-icon>extension</mat-icon>
+                  Tạo lịch
+                </button>
 
-            <button mat-icon-button (click)="openCreateClassSection()">
-              <mat-icon>extension</mat-icon>
-              Tạo lịch
-            </button>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-md-12" style="margin-top: 2%;">
+            <mat-card>
+              <mat-card-header>
+                <b>Thông tin chi tiết</b>
+              </mat-card-header>
+              <hr>
+              <mat-card-content>
 
-          </mat-card-content>
-        </mat-card>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <b> Tên lớp:</b>
+                      </div>
+                      <div class="col-md-12">
+                        <b>Giáo viên:</b>
+                      </div>
+                      <div class="col-md-12">
+                        <b>Trạng thái:</b>
+                      </div>
+                      <div class="col-md-12">
+                        <b>Tiến trình lịch</b>
+                      </div>
+                      <div class="col-md-12">
+                        <b> Sĩ số: </b>
+                      </div>
+                      <div class="col-md-12">
+                        <b> Thời gian học: </b>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <span class="badge badge-secondary">Toiec</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="badge badge-info">Aris</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="badge badge-primary">Hoạt động</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="badge badge-warning">Chưa tạo khung lịch</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="badge badge-secondary">20</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="badge badge-primary">20/11/2019 - 11/1/2020</span>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
         <mat-card>
 
           <mat-card-header style="width: 100%">
