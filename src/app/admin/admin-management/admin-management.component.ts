@@ -41,23 +41,19 @@ export class AdminManagementComponent implements OnInit {
     {
       Name: 'Phòng học',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Đối tượng ',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Khóa học',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Loại phiếu thu',
       Value: false
-    }
-    ,
+    },
     {
       Name: 'Loại phiếu chi',
       Value: false
@@ -151,7 +147,7 @@ export class AdminManagementComponent implements OnInit {
       Value: false
     },
     {
-      Name: 'Báo cáo điểm định kì',
+      Name: 'Báo cáo điểm đình kỳ',
       Value: false
     },
     {
@@ -163,13 +159,14 @@ export class AdminManagementComponent implements OnInit {
       Value: false
     },
     {
-      Name: 'Thống kê danh sách lớp',
+      Name: 'Báo cáo danh sách lớp',
       Value: false
     },
     {
-      Name: 'Chưa đóng học phí',
+      Name: 'Báo cáo chưa đóng học phí',
       Value: false
-    }
+    },
+
 
 
   ];
@@ -224,12 +221,10 @@ export class AdminManagementComponent implements OnInit {
   }
 
   public checkAdmin() {
-    if (this.user) {
-      if (this.user.userName !== 'admin') {
-        return false;
-      } else {
-        return true;
-      }
+    if (this.user && this.user.userName !== 'admin') {
+      return false;
+    } else {
+      return true;
     }
 
   }

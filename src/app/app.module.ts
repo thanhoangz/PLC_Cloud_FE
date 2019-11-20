@@ -97,6 +97,8 @@ import { NgxPrintModule } from 'ngx-print';
 
 // tslint:disable-next-line: max-line-length
 import { ConfirmTranferComponent } from './admin/content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
+// tslint:disable-next-line: max-line-length
+import { DeleteScheduleDialogComponent } from './admin/content/schedule-school/schedule-in-table/dialog/delete-schedule-dialog/delete-schedule-dialog.component';
 
 
 
@@ -201,7 +203,8 @@ import { ConfirmTranferComponent } from './admin/content/schedule-school/schedul
     DetailReceiptBoComponent,
     DeleteReceiptComponent,
     CreateClassSecDialogComponent,
-    ConfirmTranferComponent
+    ConfirmTranferComponent,
+    DeleteScheduleDialogComponent
   ]
 
 })

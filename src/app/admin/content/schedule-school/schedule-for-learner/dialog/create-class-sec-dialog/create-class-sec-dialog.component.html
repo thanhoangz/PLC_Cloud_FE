@@ -7,7 +7,7 @@
         <mat-form-field>
           <mat-label>Chọn khóa học</mat-label>
           <mat-select [(ngModel)]="courseSelected" (valueChange)="changeCourse($event)" formControlName="course">
-            <mat-option *ngFor="let s of courses" value="{{ s.id }}">
+            <mat-option *ngFor="let s of courses" [value]="s.id">
               {{ s.name }}
             </mat-option>
           </mat-select>
@@ -16,7 +16,7 @@
         <mat-form-field>
           <mat-label>Chọn Lớp học</mat-label>
           <mat-select [(ngModel)]="classSelected" formControlName="class">
-            <mat-option *ngFor="let s of classes" value="{{ s.id }}">
+            <mat-option *ngFor="let s of classes" [value]="s.id">
               {{ s.name }}
             </mat-option>
           </mat-select>
@@ -25,7 +25,7 @@
         <mat-form-field>
           <mat-label>Chọn ca học</mat-label>
           <mat-select [(ngModel)]="timeShiftSelected" formControlName="timeShift">
-            <mat-option *ngFor="let s of timeShifts" value="{{ s.id }}">
+            <mat-option *ngFor="let s of timeShifts" [value]="s.id">
               {{ s.name + ": " + s.fromTime + "-" + s.toTime}}
             </mat-option>
           </mat-select>
