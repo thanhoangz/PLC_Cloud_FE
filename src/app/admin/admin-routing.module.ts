@@ -42,6 +42,7 @@ import { TestReportComponent } from './content/test-report/test-report.component
 import { ReportPeriodicPointComponent } from './content/report-periodic-point/report-periodic-point.component';
 import { ReportEndingPointComponent } from './content/report-ending-point/report-ending-point.component';
 import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
+import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition/report-not-paid-tuition.component';
 
 const adminRoutes: Routes = [
   {
@@ -90,6 +91,8 @@ const adminRoutes: Routes = [
           { path: 'report-periodic', component: ReportPeriodicPointComponent },
           { path: 'report-ending', component: ReportEndingPointComponent },
           { path: 'report-tuition', component: ReportTuitionLearningComponent },
+          { path: 'report-not-tuition', component: ReportNotPaidTuitionComponent },
+
         ]
       }
     ]

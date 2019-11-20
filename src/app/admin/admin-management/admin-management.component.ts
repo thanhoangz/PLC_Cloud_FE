@@ -16,7 +16,7 @@ import { ConstService } from '../services/extension/Const.service';
 export class AdminManagementComponent implements OnInit {
 
   constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) {
-
+    this.getPermissionByUser();
   }
 
   public user;
@@ -179,7 +179,7 @@ export class AdminManagementComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.islogged();
-    this.getPermissionByUser();
+
   }
 
   public getPermissionByUser() {
@@ -224,11 +224,14 @@ export class AdminManagementComponent implements OnInit {
   }
 
   public checkAdmin() {
-    if (this.user.userName !== 'admin') {
-      return false;
-    } else {
-      return true;
+    if (this.user) {
+      if (this.user.userName !== 'admin') {
+        return false;
+      } else {
+        return true;
+      }
     }
+
   }
 
 
