@@ -63,7 +63,7 @@ export class LanguageClassesService {
       .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-chuyen-lop?classId=${classId}&courseId=${courseId}`, null);
   }
 
-  getClassByCourse(courseId) {
+  getClassByCourse(courseId) {  // tìm lớp theo status = 1
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/LanguageClasses/getallbycourse/${courseId}`, null);
   }
@@ -76,6 +76,11 @@ export class LanguageClassesService {
   getLopHoatDong() {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-class-action`);
+  }
+
+  getAllClassByCourse(courseId) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/LanguageClasses/getall-status-bycourse/${courseId}`, null);
   }
 
   getAllClassOfSchedule(courseId) {

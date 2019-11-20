@@ -42,6 +42,9 @@ import { TestReportComponent } from './content/test-report/test-report.component
 import { ReportPeriodicPointComponent } from './content/report-periodic-point/report-periodic-point.component';
 import { ReportEndingPointComponent } from './content/report-ending-point/report-ending-point.component';
 import { ReportTuitionLearningComponent } from './content/report-tuition-learning/report-tuition-learning.component';
+import { ReportListlearnerClassComponent } from './content/report-listlearner-class/report-listlearner-class.component';
+import { ReportRollpayLecturersComponent } from './content/report-rollpay-lecturers/report-rollpay-lecturers.component';
+import { ReportRollpayPersonnelComponent } from './content/report-rollpay-personnel/report-rollpay-personnel.component';
 
 const adminRoutes: Routes = [
   {
@@ -90,6 +93,9 @@ const adminRoutes: Routes = [
           { path: 'report-periodic', component: ReportPeriodicPointComponent },
           { path: 'report-ending', component: ReportEndingPointComponent },
           { path: 'report-tuition', component: ReportTuitionLearningComponent },
+          { path: 'report-listlearner-class', component: ReportListlearnerClassComponent },
+          { path: 'report-rollpay-lecturers', component: ReportRollpayLecturersComponent },
+          { path: 'report-rollpay-personnels', component: ReportRollpayPersonnelComponent },
         ]
       }
     ]
