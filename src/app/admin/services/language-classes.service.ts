@@ -41,17 +41,17 @@ export class LanguageClassesService {
       .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&courseKeyword=${courseKeyword}&status=${status}`, null);
   }
 
-searchLanguageClass_new(keyWord, status) {
-  return this.httpClient
-    // tslint:disable-next-line: max-line-length
-    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
-}
+  searchLanguageClass_new(keyWord, status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
+  }
 
-findByStatus(status) {
-  return this.httpClient
-    // tslint:disable-next-line: max-line-length
-    .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?status=${status}`, null);
-}
+  findByStatus(status) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-with-conditions?status=${status}`, null);
+  }
 
   getById(id) {
     return this.httpClient
@@ -81,5 +81,15 @@ findByStatus(status) {
   getAllClassByCourse(courseId) {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/LanguageClasses/getall-status-bycourse/${courseId}`, null);
+  }
+
+  getAllClassOfSchedule(courseId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-all-class-schedule/${courseId}`);
+  }
+
+  getInfoClass(classId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-info-class/${classId}`);
   }
 }

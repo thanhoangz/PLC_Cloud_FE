@@ -132,6 +132,8 @@ import { NgxPrintModule } from 'ngx-print';
 import { ReportListlearnerClassComponent } from './content/report-listlearner-class/report-listlearner-class.component';
 import { ReportRollpayPersonnelComponent } from './content/report-rollpay-personnel/report-rollpay-personnel.component';
 import { ReportRollpayLecturersComponent } from './content/report-rollpay-lecturers/report-rollpay-lecturers.component';
+// tslint:disable-next-line: max-line-length
+import { DeleteScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/delete-schedule-dialog/delete-schedule-dialog.component';
 
 @NgModule({
   imports: [
@@ -267,7 +269,8 @@ import { ReportRollpayLecturersComponent } from './content/report-rollpay-lectur
     TestReportNgcssComponent,
     ReportListlearnerClassComponent,
     ReportRollpayPersonnelComponent,
-    ReportRollpayLecturersComponent
+    ReportRollpayLecturersComponent,
+    DeleteScheduleDialogComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
