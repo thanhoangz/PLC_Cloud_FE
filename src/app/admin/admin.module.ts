@@ -129,6 +129,9 @@ import { ReportNotPaidTuitionComponent } from './content/report-not-paid-tuition
 import { ConfirmTranferComponent } from './content/schedule-school/schedule-for-learner/dialog/confirm-tranfer/confirm-tranfer.component';
 import { TestReportNgcssComponent } from './content/test-report-ngcss/test-report-ngcss.component';
 import { NgxPrintModule } from 'ngx-print';
+import { ReportListlearnerClassComponent } from './content/report-listlearner-class/report-listlearner-class.component';
+import { ReportRollpayPersonnelComponent } from './content/report-rollpay-personnel/report-rollpay-personnel.component';
+import { ReportRollpayLecturersComponent } from './content/report-rollpay-lecturers/report-rollpay-lecturers.component';
 
 @NgModule({
   imports: [
@@ -261,7 +264,10 @@ import { NgxPrintModule } from 'ngx-print';
     ReportTuitionLearningComponent,
     ReportNotPaidTuitionComponent,
     ConfirmTranferComponent,
-    TestReportNgcssComponent
+    TestReportNgcssComponent,
+    ReportListlearnerClassComponent,
+    ReportRollpayPersonnelComponent,
+    ReportRollpayLecturersComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
