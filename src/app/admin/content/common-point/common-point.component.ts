@@ -117,7 +117,7 @@ export class CommonPointComponent implements OnInit {
 
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
 
   ngOnInit() {

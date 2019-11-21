@@ -62,7 +62,7 @@ export class LecturersComponent implements OnInit {
     this.screenHeight = (window.screen.height);
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
   ngOnInit() {
     this.getAllStatus();

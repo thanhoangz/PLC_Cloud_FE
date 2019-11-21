@@ -55,7 +55,7 @@ export class ScheduleInTableComponent implements OnInit {
     this.turnOnDelete();
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
 
 

@@ -116,7 +116,7 @@ export class EndingPointComponent implements OnInit {
 
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
 
   ngOnInit() {

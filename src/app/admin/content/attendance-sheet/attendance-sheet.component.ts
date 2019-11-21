@@ -67,7 +67,7 @@ export class AttendanceSheetComponent implements OnInit {
     this.loginService.islogged();
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
 
   ngOnInit() {
