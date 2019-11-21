@@ -105,7 +105,7 @@ export class CreateClassSecDialogComponent implements OnInit {
     this.learnDayList.forEach(element => {
       days.push(element.value);
     });
-    if (this.ScheduleGroup.invalid && days.length !== 0) {
+    if (days.length !== 0) {
       this.classSessionService.postClassSessions(
         this.classSelected, this.timeShiftSelected, days
       ).subscribe(result => {

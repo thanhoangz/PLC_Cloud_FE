@@ -188,6 +188,7 @@ export class AdminManagementComponent implements OnInit {
       this.user = result.user;
       this.permissions = result.permission;
 
+      console.log(this.permissions);
       this.permissionsOfUser.forEach(per => {
         this.permissions.forEach(p => {
           if (per.Name === p.functionName) {
