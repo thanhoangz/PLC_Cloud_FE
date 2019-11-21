@@ -76,7 +76,6 @@ export class ReportEndingPointComponent implements OnInit {
 
   public ViewReport() {
     if (this.classMessageId != null) {
-      this.checkview = true;
       this.load_infor_Classes(this.classMessageId);
       this.getEndingPoint();
     }
@@ -101,6 +100,8 @@ export class ReportEndingPointComponent implements OnInit {
           this.lecturerName = result.lecturerName;
           this.dateOnPoint = result.dateOnPoint;
           this.getEdingPointDetail();
+          this.checkview = true;
+
         }
         // tslint:disable-next-line: one-line
         else {
@@ -110,6 +111,8 @@ export class ReportEndingPointComponent implements OnInit {
           this.notificationService.showNotification(2, 'Báo cáo', 'Lớp chưa có điểm cuối khóa');
         }
       }, error => {
+        this.checkview = false;
+        this.notificationService.showNotification(3, 'Báo cáo', 'Lỗi');
       });
     }
   }

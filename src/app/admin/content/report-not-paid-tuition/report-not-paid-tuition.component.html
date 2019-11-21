@@ -10,7 +10,7 @@
             <div class="col-md-2">
                 <mat-form-field>
                     <mat-label>Chọn lớp</mat-label>
-                    <mat-select [(ngModel)]="classSelected">
+                    <mat-select [(ngModel)]="classSelected" required>
                         <mat-option *ngFor="let class of classList" value={{class.id}}>
                             {{class.name}}
                         </mat-option>
@@ -20,7 +20,7 @@
             <div class="col-md-2">
                 <mat-form-field>
                     <mat-label>Chọn tháng</mat-label>
-                    <mat-select [(ngModel)]="monthSelected">
+                    <mat-select [(ngModel)]="monthSelected" required>
                         <mat-option *ngFor="let month of months" value={{month}}>
                             {{month}}
                         </mat-option>
@@ -30,7 +30,7 @@
             <div class="col-md-2">
                 <mat-form-field>
                     <mat-label>Chọn năm</mat-label>
-                    <mat-select [(ngModel)]="yearSelected">
+                    <mat-select [(ngModel)]="yearSelected" required>
                         <mat-option *ngFor="let year of years" value={{year}}>
                             {{year}}
                         </mat-option>
@@ -56,7 +56,7 @@
         </div>
     </mat-card>
 </div>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="checkView">
     <mat-card style="margin-top: 5px; margin-bottom: 10px;" id="testprint">
         <div style='width: 100%; float: left;'>
             <div style='width: 50%;float: left;'>

@@ -92,10 +92,12 @@ export class ReportNotPaidTuitionComponent implements OnInit {
       console.log(this.receiptDetail);
       // tslint:disable-next-line: triple-equals
       if (this.receiptDetail.length != 0) {
+        this.checkView = true;
         this.PrintClick();
       }
       // tslint:disable-next-line: one-line
       else{
+        this.checkView = false;
         this.notificationService.showNotification(3, 'Báo cáo', 'Lỗi, không tìm thấy danh sách');
 
       }

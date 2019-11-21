@@ -78,14 +78,19 @@ export class ReportPeriodicPointComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getPeriodicWeek();
+    // this.getPeriodicWeek();
     this.getAllClass();
-    this.load_infor_Classes(this.classMessageId);
+    // this.load_infor_Classes(this.classMessageId);
   }
   public getPeriodicWeek() {
     if (this.classMessageId != null) {
       this.periodicPointService.getPeriodicPointConditions(this.classMessageId).subscribe((result: any) => {
         this.periodicPoint = result;
+        // tslint:disable-next-line: triple-equals
+        if (this.periodicPoint.length == 0) {
+          this.notificationService.showNotification(2, 'Báo cáo', 'Lớp chưa có điểm định kỳ');
+          this.checkview = false;
+        }
         console.log(this.periodicPoint);
       }, error => {
       });
