@@ -45,6 +45,8 @@ import { ReportTuitionLearningComponent } from './content/report-tuition-learnin
 import { ReportListlearnerClassComponent } from './content/report-listlearner-class/report-listlearner-class.component';
 import { ReportRollpayLecturersComponent } from './content/report-rollpay-lecturers/report-rollpay-lecturers.component';
 import { ReportRollpayPersonnelComponent } from './content/report-rollpay-personnel/report-rollpay-personnel.component';
+import { ReportTimesheetLectureComponent } from './content/report-timesheet-lecture/report-timesheet-lecture.component';
+import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-personnels/report-timesheet-personnels.component';
 
 const adminRoutes: Routes = [
   {
@@ -96,6 +98,8 @@ const adminRoutes: Routes = [
           { path: 'report-listlearner-class', component: ReportListlearnerClassComponent },
           { path: 'report-rollpay-lecturers', component: ReportRollpayLecturersComponent },
           { path: 'report-rollpay-personnels', component: ReportRollpayPersonnelComponent },
+          { path: 'report-timesheet-lecturers', component: ReportTimesheetLectureComponent },
+          { path: 'report-timesheet-personnels', component: ReportTimesheetPersonnelsComponent },
         ]
       }
     ]

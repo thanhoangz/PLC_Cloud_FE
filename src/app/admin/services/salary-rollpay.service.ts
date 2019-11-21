@@ -43,4 +43,10 @@ export class SalaryRollpayService {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/Salary/add-lecturer-payroll`, listGV);
   }
+
+  // add list gáo viên
+  TimeSheetLecturers(month, year) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/Salary/time-sheet-of-lecturer?month=${month}&year=${year}`, null);
+  }
 }

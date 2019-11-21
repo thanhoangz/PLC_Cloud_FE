@@ -134,6 +134,8 @@ import { ReportRollpayPersonnelComponent } from './content/report-rollpay-person
 import { ReportRollpayLecturersComponent } from './content/report-rollpay-lecturers/report-rollpay-lecturers.component';
 // tslint:disable-next-line: max-line-length
 import { DeleteScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/delete-schedule-dialog/delete-schedule-dialog.component';
+import { ReportTimesheetLectureComponent } from './content/report-timesheet-lecture/report-timesheet-lecture.component';
+import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-personnels/report-timesheet-personnels.component';
 
 @NgModule({
   imports: [
@@ -270,7 +272,9 @@ import { DeleteScheduleDialogComponent } from './content/schedule-school/schedul
     ReportListlearnerClassComponent,
     ReportRollpayPersonnelComponent,
     ReportRollpayLecturersComponent,
-    DeleteScheduleDialogComponent
+    DeleteScheduleDialogComponent,
+    ReportTimesheetLectureComponent,
+    ReportTimesheetPersonnelsComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
