@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  PLCServicesDomain: 'http://10.35.20.189:5000',
+  PLCServicesDomain: 'http://192.168.1.5:5000',
 };
