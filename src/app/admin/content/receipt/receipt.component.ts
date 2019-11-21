@@ -20,6 +20,7 @@ import { PersonnelsService } from '../../services/personnels.service';
 import { FomatDateService } from '../../services/extension/FomatDate.service';
 import { DetailReceiptBoComponent } from './page/detail-receipt-bo/detail-receipt-bo.component';
 import { DeleteReceiptComponent } from './dialog/delete-receipt/delete-receipt.component';
+import { ConstService } from '../../services/extension/Const.service';
 
 @Component({
   selector: 'app-receipt',
@@ -27,6 +28,13 @@ import { DeleteReceiptComponent } from './dialog/delete-receipt/delete-receipt.c
   styleUrls: ['./receipt.component.css']
 })
 export class ReceiptComponent implements OnInit {
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
 
   public screenHeight: any;
   public screenWidth: any;
@@ -82,6 +90,10 @@ export class ReceiptComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1000);
+    this.turnOnControls();
 
   }
 
@@ -143,10 +155,39 @@ export class ReceiptComponent implements OnInit {
       });
     }
     // tslint:disable-next-line: one-line
-    else{
+    else {
       this.getAllReceipt();
     }
   }
 
+  public turnOnControls() {
+    if (this.displayedColumns1.indexOf('control') > -1) {
+      this.displayedColumns1.pop();
+    } else {
+      this.displayedColumns1.push('control');
+    }
+  }
 
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Phiếu thu')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
+  }
 }

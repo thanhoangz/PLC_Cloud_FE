@@ -14,6 +14,13 @@ import { TimeSheetService } from '../../services/time-sheet.service';
   styleUrls: ['./time-sheet.component.css']
 })
 export class TimeSheetComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
   public showProgressBar = true;
 
   public screenHeight: any;
@@ -54,6 +61,10 @@ export class TimeSheetComponent implements OnInit {
     this.screenHeight = (window.screen.height);
     this.monthSearch = (this.monthSelected + 1).toString();
     this.yearSearch = (this.yearSelected).toString();
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1000);
+
   }
 
   ngOnInit() {
@@ -180,5 +191,26 @@ export class TimeSheetComponent implements OnInit {
     }
     return true;
   }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Chấm công nhân viên')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+
+  }
+
+
+
+
 }
 

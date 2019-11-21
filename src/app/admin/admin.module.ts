@@ -136,6 +136,7 @@ import { ReportRollpayLecturersComponent } from './content/report-rollpay-lectur
 import { DeleteScheduleDialogComponent } from './content/schedule-school/schedule-in-table/dialog/delete-schedule-dialog/delete-schedule-dialog.component';
 import { ReportTimesheetLectureComponent } from './content/report-timesheet-lecture/report-timesheet-lecture.component';
 import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-personnels/report-timesheet-personnels.component';
+import { ReportAttendanceSheetComponent } from './content/report-attendance-sheet/report-attendance-sheet.component';
 
 @NgModule({
   imports: [
@@ -274,7 +275,8 @@ import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-p
     ReportRollpayLecturersComponent,
     DeleteScheduleDialogComponent,
     ReportTimesheetLectureComponent,
-    ReportTimesheetPersonnelsComponent
+    ReportTimesheetPersonnelsComponent,
+    ReportAttendanceSheetComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

@@ -96,7 +96,7 @@ export class StudyProcessComponent implements OnInit {
     this.screenHeight = (window.screen.height);
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
   /////////////////////// trạng thái của bảng là của studyProcess : 1.đang học : nghỉ :  tạm nghỉ : chuyển lớp : kết thúc
   ngOnInit() {

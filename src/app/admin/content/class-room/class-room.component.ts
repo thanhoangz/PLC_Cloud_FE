@@ -58,7 +58,7 @@ export class ClassRoomComponent implements OnInit {
     this.turnOnControls();
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1500);
+    }, 1000);
   }
 
   ngOnInit() {

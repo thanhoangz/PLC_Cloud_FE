@@ -48,6 +48,7 @@ import { ReportRollpayLecturersComponent } from './content/report-rollpay-lectur
 import { ReportRollpayPersonnelComponent } from './content/report-rollpay-personnel/report-rollpay-personnel.component';
 import { ReportTimesheetLectureComponent } from './content/report-timesheet-lecture/report-timesheet-lecture.component';
 import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-personnels/report-timesheet-personnels.component';
+import { ReportAttendanceSheetComponent } from './content/report-attendance-sheet/report-attendance-sheet.component';
 
 const adminRoutes: Routes = [
   {
@@ -103,6 +104,7 @@ const adminRoutes: Routes = [
           { path: 'report-rollpay-personnels', component: ReportRollpayPersonnelComponent },
           { path: 'report-timesheet-lecturers', component: ReportTimesheetLectureComponent },
           { path: 'report-timesheet-personnels', component: ReportTimesheetPersonnelsComponent },
+          { path: 'report-attendance-sheet', component: ReportAttendanceSheetComponent },
         ]
       }
     ]
