@@ -16,7 +16,7 @@ import { ConstService } from '../services/extension/Const.service';
 export class AdminManagementComponent implements OnInit {
 
   constructor(private loginService: LoginService, private router: Router, private notificationService: NotificationService) {
-
+    this.getPermissionByUser();
   }
 
   public user;
@@ -147,7 +147,7 @@ export class AdminManagementComponent implements OnInit {
       Value: false
     },
     {
-      Name: 'Báo cáo điểm định kì',
+      Name: 'Báo cáo điểm đình kỳ',
       Value: false
     },
     {
@@ -159,11 +159,11 @@ export class AdminManagementComponent implements OnInit {
       Value: false
     },
     {
-      Name: 'Thống kê danh sách lớp',
+      Name: 'Báo cáo danh sách lớp',
       Value: false
     },
     {
-      Name: 'Chưa đóng học phí',
+      Name: 'Báo cáo chưa đóng học phí',
       Value: false
     },
 
@@ -176,7 +176,7 @@ export class AdminManagementComponent implements OnInit {
 
   ngOnInit() {
     this.loginService.islogged();
-    this.getPermissionByUser();
+
   }
 
   public getPermissionByUser() {
@@ -226,6 +226,7 @@ export class AdminManagementComponent implements OnInit {
     } else {
       return true;
     }
+
   }
 
 

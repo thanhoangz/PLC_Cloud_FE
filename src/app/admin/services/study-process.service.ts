@@ -69,4 +69,10 @@ export class StudyProcessService {
       .post(`${environment.PLCServicesDomain}/api/StudyProcesses/update-status?studyProcessId=${studyProcessId}&status=${status}`, null);
   }
 
+  getLearnerNotTution(month, year, classId) {
+    return this.httpClient
+      // tslint:disable-next-line: max-line-length
+      .post(`${environment.PLCServicesDomain}/api/StudyProcesses/get-learner-not-paid-tuition?month=${month}&year=${year}&classId=${classId}`, null);
+  }
+
 }

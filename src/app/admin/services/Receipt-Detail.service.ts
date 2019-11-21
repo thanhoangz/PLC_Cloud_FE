@@ -23,4 +23,9 @@ getReceiptsDetailForReceipt(receiptId) {
   return this.httpClient
   .post(`${environment.PLCServicesDomain}/api/ReceiptDetails/get-receipt-detail-for-receipt?receiptId=${receiptId}`, null);
 }
+
+getReceiptsDetailForReport(month, year) {
+  return this.httpClient
+  .post(`${environment.PLCServicesDomain}/api/ReceiptDetails/get-receipt-detail-for-report?month=${month}&year=${year}`, null);
+}
 }
