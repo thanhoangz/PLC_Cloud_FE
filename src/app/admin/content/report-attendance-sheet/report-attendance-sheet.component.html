@@ -1,10 +1,20 @@
 <div class="container-fluid">
     <mat-card>
         <mat-card-header class="card-container">
-            <mat-card-title style="font-size: 24px;"><b>Báo cáo chấm công giáo viên</b></mat-card-title>
+            <mat-card-title style="font-size: 24px;"><b>Danh sách điểm danh học viên</b></mat-card-title>
         </mat-card-header>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
+                <mat-form-field>
+                    <mat-label>Chọn lớp học</mat-label>
+                    <mat-select [(ngModel)]="classSelectedId">
+                        <mat-option *ngFor="let item of classList" value="{{item.id}}">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
                 <mat-form-field>
                     <mat-label>Chọn tháng</mat-label>
                     <mat-select [(ngModel)]="monthSelectedId">
@@ -14,7 +24,7 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <mat-form-field>
                     <mat-label>Chọn năm</mat-label>
                     <mat-select [(ngModel)]="yearSelectedId">
@@ -26,8 +36,8 @@
             </div>
 
             <div class="col-md-6">
-                <button ngxPrint  [useExistingCss]="true" printSectionId="testprint" mat-raised-button color="primary" tabindex="-1"
-                    style="float: right; margin-right: 20px">
+                <button ngxPrint [useExistingCss]="true" printSectionId="testprint" mat-raised-button color="primary"
+                    tabindex="-1" style="float: right; margin-right: 20px">
                     <mat-icon>print</mat-icon>
                     In báo cáo
                 </button>
@@ -59,12 +69,17 @@
         </div>
         <br><br><br>
         <div style=' width: 100%; text-align: center; margin-bottom: 30px; margin-top: 30px;'>
-            <h2>BẢNG CHẤM CÔNG GIÁO VIÊN</h2>
-            <p style="font-size: 16px;">(Bảng chấm công tháng {{this.monthSelectedId}} năm {{this.yearSelectedId}})</p>
+            <h2>BẢNG ĐIỂM DANH LỚP {{class.name | uppercase}}</h2>
+            <p style="font-size: 16px;">(Bảng điểm danh tháng {{this.monthSelectedId}} năm {{this.yearSelectedId}})</p>
         </div>
 
         <div class="row">
             <div class="col-12">
+                <div class="row" style="margin-bottom: 15px; font-style: italic;">
+                    <div style="margin-left: 30px;">
+                        <span><b> Giáo viên:</b> {{class.lecturerName}}</span>
+                    </div>
+                </div>
                 <table id="tableTimesheet">
                     <tr>
                         <th scope='col' style="text-align: center; vertical-align:top; width: 2%;">STT</th>
@@ -100,11 +115,11 @@
                         <th scope='col' style="text-align: center; vertical-align:top; width: 2.3%;">29</th>
                         <th scope='col' style="vertical-align:top; text-align: center; width: 2.3%;">30</th>
                         <th scope='col' style="vertical-align:top; text-align: center; width: 2.3%;">31</th>
-                        <th scope='col' style="vertical-align:top; text-align: center; width: 7%;">Tổng công</th>
+                        <th scope='col' style="vertical-align:top; text-align: center; width: 7%;">Ghi chú</th>
                     </tr>
-                    <tr style="font-size: 15px;" *ngFor="let item of timeSheet; let i = index">
+                    <tr style="font-size: 15px;" *ngFor="let item of diemDanh; let i = index">
                         <th style="text-align: center;">{{i+1}}</th>
-                        <td style="padding-left: 10px;">{{item.lecturerName}}</td>
+                        <td style="padding-left: 10px;">{{item.fullName}}</td>
                         <td style="text-align: center;">{{item.days[0]}}</td>
                         <td style="text-align: center;">{{item.days[1]}}</td>
                         <td style="text-align: center;">{{item.days[2]}}</td>
@@ -136,7 +151,7 @@
                         <td style="text-align: center;">{{item.days[28]}}</td>
                         <td style="text-align: center;">{{item.days[29]}}</td>
                         <td style="text-align: center;">{{item.days[30]}}</td>
-                        <td style="text-align: center;">{{item.total}}</td>
+                        <td style="text-align: center;"></td>
                     </tr>
                 </table>
 
