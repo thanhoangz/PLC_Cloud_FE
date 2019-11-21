@@ -2,6 +2,7 @@ import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ConstService } from './extension/Const.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,16 @@ export class LoginService {
    */
   islogged() {
     if (localStorage.getItem('token') == null) {
+      this.getPermissionByUser();
       this.router.navigateByUrl('login');
     }
   }
 
+  public getPermissionByUser() {
+    this.getProfile().subscribe((result: any) => {
+      ConstService.user = result.user;
+      ConstService.permissions = result.permission;
+    }, error => {
+    });
+  }
 }

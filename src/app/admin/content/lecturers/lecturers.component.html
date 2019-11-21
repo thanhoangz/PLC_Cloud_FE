@@ -50,7 +50,7 @@
         </div>
         <div class="col-md-3">
           <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
-            style="float: right; margin-right: 20px" (click)="creatLecture()">
+            style="float: right; margin-right: 20px" (click)="creatLecture()" *ngIf="permissionOfFunction.canCreate">
             <mat-icon>add</mat-icon>
             Tạo hồ sơ
           </button>
@@ -101,7 +101,7 @@
                 <a (click)="controlLecture(item.id)" class="btn btn-sm bg-teal">
                   <i class="fas fa-edit"></i> Xem chi tiết
                 </a>
-                <a (click)="deleteLecture(item.id)" class="btn btn-sm bg-danger">
+                <a (click)="deleteLecture(item.id)" class="btn btn-sm bg-danger" *ngIf="permissionOfFunction.canDelete">
                   <i class="fas fa-trash-alt"></i> Xóa
                 </a>
               </div>

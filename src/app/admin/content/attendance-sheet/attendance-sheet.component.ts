@@ -21,7 +21,12 @@ import { DatePipe } from '@angular/common';
 })
 export class AttendanceSheetComponent implements OnInit {
   showProgressBar = false;
-
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
   @ViewChild('learners', { static: true, read: MatSelectionList }) learners: MatSelectionList;
   public floatLabel = 'always';
   public isOpenDialog = false;
@@ -60,6 +65,9 @@ export class AttendanceSheetComponent implements OnInit {
     public datepipe: DatePipe,
   ) {
     this.loginService.islogged();
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -274,5 +282,23 @@ export class AttendanceSheetComponent implements OnInit {
   /* Điểm danh ké cho học viên lớp khác */
   public rollCallOutClass() {
     this.confirmService.openDeleteConfirmDialog();
+  }
+
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Điểm danh')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
   }
 }

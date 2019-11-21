@@ -15,12 +15,19 @@ import { DetailReceiptComponent } from '../search-studyprocess/dialog/detail-rec
 import { ReceiptDetailService } from 'src/app/admin/services/Receipt-Detail.service';
 import { LanguageClassesService } from 'src/app/admin/services/language-classes.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
   public showProgressBar = true;
   public screenHeight: any;
   public screenWidth: any;
@@ -32,7 +39,7 @@ export class StatisticsComponent implements OnInit {
   public Diem;
   public class;
   public receipts;
-  public receiptDetails ;
+  public receiptDetails;
   public logStudyProcess;
   public learner;
   public inforlearner = {
@@ -68,7 +75,7 @@ export class StatisticsComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   public dataSourceReceipts = new MatTableDataSource(this.receipts);
 
-     // tslint:disable-next-line: member-ordering
+  // tslint:disable-next-line: member-ordering
   // tslint:disable-next-line: max-line-length
   public displayedColumnsReceiptsDetail: string[] = ['index', 'languageClassName', 'month', 'tuition', 'fundMoney', 'infrastructureMoney', 'otherMoney', 'totalMoney'];
   // tslint:disable-next-line: member-ordering
@@ -101,6 +108,9 @@ export class StatisticsComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -205,37 +215,37 @@ export class StatisticsComponent implements OnInit {
     }, error => {
     });
   }
-      // chi tiết đóng họ
-public getReceiptDetailsByReceiptId(id) {
-  this.receiptDetailService.getReceiptsDetailById(id).subscribe((result: any) => {
-   this.receiptDetails = result;
-   this.loadTablesReceiptsDetail(result);
-  }, error => {
-  });
-}
-public loadTablesReceiptsDetail(data3: any) {
-  this.dataSourceReceiptsDetail = new MatTableDataSource(data3);
-}
+  // chi tiết đóng họ
+  public getReceiptDetailsByReceiptId(id) {
+    this.receiptDetailService.getReceiptsDetailById(id).subscribe((result: any) => {
+      this.receiptDetails = result;
+      this.loadTablesReceiptsDetail(result);
+    }, error => {
+    });
+  }
+  public loadTablesReceiptsDetail(data3: any) {
+    this.dataSourceReceiptsDetail = new MatTableDataSource(data3);
+  }
 
-// Lớp đã học
-public getClassStudied(id) {
-  this.languageClassesService.getLopDaHoc(id).subscribe((result4: any) => {
-    this.class = result4;
-    this.loadTablesClass(result4);
-  }, error => {
-  });
-}
-public loadTablesClass(data3: any) {
-  this.dataSourceClass = new MatTableDataSource(data3);
-}
+  // Lớp đã học
+  public getClassStudied(id) {
+    this.languageClassesService.getLopDaHoc(id).subscribe((result4: any) => {
+      this.class = result4;
+      this.loadTablesClass(result4);
+    }, error => {
+    });
+  }
+  public loadTablesClass(data3: any) {
+    this.dataSourceClass = new MatTableDataSource(data3);
+  }
 
-// Điểm theo lớp đã học
-public getDiemTheoLopDaHoc(id) {
-  this.learnerService.getDiem(id).subscribe((result4: any) => {
-    this.Diem = result4;
-  }, error => {
-  });
-}
+  // Điểm theo lớp đã học
+  public getDiemTheoLopDaHoc(id) {
+    this.learnerService.getDiem(id).subscribe((result4: any) => {
+      this.Diem = result4;
+    }, error => {
+    });
+  }
 
 
   // hàm ném dữ liệu
@@ -284,5 +294,24 @@ public getDiemTheoLopDaHoc(id) {
   }
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Học viên')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+
+
   }
 }

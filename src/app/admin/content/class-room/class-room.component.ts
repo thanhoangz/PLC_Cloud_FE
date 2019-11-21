@@ -9,12 +9,20 @@ import { NotificationService } from '../../services/extension/notification.servi
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-class-room',
   templateUrl: './class-room.component.html',
   styleUrls: ['./class-room.component.css']
 })
 export class ClassRoomComponent implements OnInit {
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
 
   public showProgressBar = true;
 
@@ -43,9 +51,14 @@ export class ClassRoomComponent implements OnInit {
     public matDialog: MatDialog,
     private loginService: LoginService
   ) {
+    this.turnOnControls();
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    this.turnOnControls();
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -53,6 +66,8 @@ export class ClassRoomComponent implements OnInit {
     this.getClassRooms();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
+
+
   }
   public getClassRooms() {
     this.startProgressBar();
@@ -104,6 +119,9 @@ export class ClassRoomComponent implements OnInit {
   }
 
   public openEditClassRoom(classRoom: any) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.4 * this.screenWidth;
@@ -165,4 +183,37 @@ export class ClassRoomComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+
+
+  public turnOnControls() {
+    if (this.displayedColumns.indexOf('controls') > -1) {
+      this.displayedColumns.pop();
+    } else {
+      this.displayedColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Phòng học')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
+  }
+
 }

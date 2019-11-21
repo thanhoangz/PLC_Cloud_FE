@@ -41,9 +41,12 @@
           <div class="row">
             <div class="col-md-12">
               <mat-chip-list>
-                <mat-chip color="primary" selected (click)="openCreateDialog()">Tạo khung lích</mat-chip>
-                <mat-chip color="accent" selected (click)="gotoSchedule()">Xếp buổi học</mat-chip>
-                <mat-chip color="warn" selected (click)="turnOnDelete()">Xóa</mat-chip>
+                <mat-chip color="primary" selected (click)="openCreateDialog()" *ngIf="permissionOfFunction.canCreate">
+                  Tạo khung lích</mat-chip>
+                <mat-chip color="accent" selected (click)="gotoSchedule()" *ngIf="permissionOfFunction.canUpdate">Xếp
+                  buổi học</mat-chip>
+                <mat-chip color="warn" selected (click)="turnOnDelete()" *ngIf="permissionOfFunction.canDelete">Xóa
+                </mat-chip>
               </mat-chip-list>
 
             </div>

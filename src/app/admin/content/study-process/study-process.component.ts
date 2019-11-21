@@ -19,6 +19,7 @@ import { ChangeClassComponent } from './dialog/change-class/change-class.compone
 import { ScheduleService } from '../../services/schedule.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { LoginService } from '../../services/login.service';
+import { ConstService } from '../../services/extension/Const.service';
 
 @Component({
   selector: 'app-study-process',
@@ -26,6 +27,13 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./study-process.component.css']
 })
 export class StudyProcessComponent implements OnInit {
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
 
   public showProgressBar = true;
   public screenHeight: any;
@@ -86,7 +94,9 @@ export class StudyProcessComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
-
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
   /////////////////////// trạng thái của bảng là của studyProcess : 1.đang học : nghỉ :  tạm nghỉ : chuyển lớp : kết thúc
   ngOnInit() {
@@ -279,5 +289,23 @@ export class StudyProcessComponent implements OnInit {
   }
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Quá trình học tập')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
   }
 }
