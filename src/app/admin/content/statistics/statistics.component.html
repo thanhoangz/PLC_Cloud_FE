@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-3">
               <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
-                style="float: right; margin-right: 20px" (click)="addLearner()">
+                style="float: right; margin-right: 20px" (click)="addLearner()" *ngIf="permissionOfFunction.canCreate">
                 <mat-icon>add</mat-icon>
                 Tạo hồ sơ
               </button>
@@ -143,11 +143,11 @@
               <!-- controls-->
               <div class="card-footer" style="background-color:lightgrey;">
                 <div class="text-right">
-                  <a (click)="editLeaerner()" class="btn btn-sm bg-teal">
+                  <a (click)="editLeaerner()" class="btn btn-sm bg-teal" *ngIf="permissionOfFunction.canUpdate">
                     <i class="fas fa-edit"></i> Cập nhật thông tin
                   </a>
 
-                  <a (click)="deleteLeaerner()" class="btn btn-sm bg-danger">
+                  <a (click)="deleteLeaerner()" class="btn btn-sm bg-danger" *ngIf="permissionOfFunction.canDelete">
                     <i class="fas fa-trash-alt"></i> Xóa
                   </a>
                 </div>

@@ -49,7 +49,7 @@
         </div>
         <div class="col-md-3">
           <button class="addAndSearch" mat-raised-button color="primary" tabindex="-1"
-            style="float: right; margin-right: 20px" (click)="creatPersonnel()">
+            style="float: right; margin-right: 20px" (click)="creatPersonnel()" *ngIf="permissionOfFunction.canCreate">
             <mat-icon>add</mat-icon>
             Tạo hồ sơ
           </button>
@@ -107,7 +107,8 @@
                   <i class="fas fa-edit"></i> Xem chi tiết
                 </a>
 
-                <a (click)="deletePersonnel(item.id)" class="btn btn-sm bg-danger">
+                <a (click)="deletePersonnel(item.id)" class="btn btn-sm bg-danger"
+                  *ngIf="permissionOfFunction.canDelete">
                   <i class="fas fa-trash-alt"></i> Xóa
                 </a>
               </div>
@@ -117,8 +118,8 @@
 
 
       </div>
-       <!-- /.card-body -->
-       <div class="card-footer">
+      <!-- /.card-body -->
+      <div class="card-footer">
         <nav aria-label="Contacts Page Navigation">
           <ul class="pagination justify-content-center m-0">
             <jw-pagination [items]="items" (changePage)="onChangePage($event)" [pageSize]="6"></jw-pagination>

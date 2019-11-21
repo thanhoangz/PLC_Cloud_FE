@@ -9,12 +9,20 @@ import { GuestTypeService } from '../../services/guest-type.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { LoginService } from '../../services/login.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-guest-type',
   templateUrl: './guest-type.component.html',
   styleUrls: ['./guest-type.component.css']
 })
 export class GuestTypeComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = true;
@@ -42,8 +50,13 @@ export class GuestTypeComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.loginService.islogged();
+    this.turnOnControls();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1000);
+
   }
 
   private getAllStatus() {
@@ -97,6 +110,10 @@ export class GuestTypeComponent implements OnInit {
   }
 
   public openEditGuestType(guest: any) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
+
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
@@ -165,4 +182,38 @@ export class GuestTypeComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+
+
+
+  public turnOnControls() {
+    if (this.displayedColumns.indexOf('controls') > -1) {
+      this.displayedColumns.pop();
+    } else {
+      this.displayedColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Đối tượng')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
+  }
+
 }

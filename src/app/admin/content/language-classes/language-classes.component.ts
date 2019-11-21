@@ -15,12 +15,19 @@ import { EditClassComponent } from '../class/dialog/edit-class/edit-class.compon
 import { AddClassComponent } from '../class/dialog/add-class/add-class.component';
 import { CourseService } from '../../services/course.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-language-classes',
   templateUrl: './language-classes.component.html',
   styleUrls: ['./language-classes.component.css']
 })
 export class LanguageClassesComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
 
   public showProgressBar = true;
 
@@ -60,8 +67,12 @@ export class LanguageClassesComponent implements OnInit {
     private courseService: CourseService,
   ) {
     this.loginService.islogged();
+    this.turnOnControls();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -69,6 +80,7 @@ export class LanguageClassesComponent implements OnInit {
     this.getAllStatus();
     this.getAllCourse();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
+
   }
 
   public getLanguageClass() {
@@ -134,6 +146,9 @@ export class LanguageClassesComponent implements OnInit {
   }
 
   public editClass(classes: any) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
@@ -200,6 +215,38 @@ export class LanguageClassesComponent implements OnInit {
   }
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+
+
+  public turnOnControls() {
+    if (this.displayedColumns.indexOf('controls') > -1) {
+      this.displayedColumns.pop();
+    } else {
+      this.displayedColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Lớp học')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
   }
 
 }

@@ -79,7 +79,15 @@ export class ReportTuitionLearningComponent implements OnInit {
     this.receiptDetailService.getReceiptsDetailForReport(this.monthSelected, this.yearSelected).subscribe((result: any) => {
       this.receiptDetail = result;
       this.getTotal();
-      this.PrintClick();
+      // tslint:disable-next-line: triple-equals
+      if (this.receiptDetail.length != 0) {
+        this.PrintClick();
+      }
+      // tslint:disable-next-line: one-line
+      else{
+        this.notificationService.showNotification(3, 'Báo cáo', 'Lỗi, không tìm thấy danh sách');
+
+      }
       this.stopProgressBar();
 
       console.log(this.receiptDetail);

@@ -23,6 +23,7 @@ import { PeriodicPointDeltailService } from '../../services/periodic-point-delta
 import { PeriodicPointService } from '../../services/periodic-point.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreatPointComponent } from './dialog/creat-point/creat-point.component';
+import { ConstService } from '../../services/extension/Const.service';
 
 @Component({
   selector: 'app-common-point',
@@ -30,6 +31,14 @@ import { CreatPointComponent } from './dialog/creat-point/creat-point.component'
   styleUrls: ['./common-point.component.css']
 })
 export class CommonPointComponent implements OnInit {
+
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
 
   public screenHeight: any;
   public screenWidth: any;
@@ -105,6 +114,10 @@ export class CommonPointComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -206,7 +219,8 @@ export class CommonPointComponent implements OnInit {
             this.periodicPointDeltailService.addPeriodicPointDeltailCondition().subscribe(done => {
             }, error => {
             });
-            this.getPeriodicWeek();           }
+            this.getPeriodicWeek();
+          }
         });
       }
     }
@@ -255,8 +269,8 @@ export class CommonPointComponent implements OnInit {
   createExchangeId(id) {
     this.exchangeDataService.changeId(id);
   }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// chỉ nhập số
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  // chỉ nhập số
   public numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -265,7 +279,7 @@ export class CommonPointComponent implements OnInit {
     return true;
 
   }
-// check k cho sửa tuần cũ
+  // check k cho sửa tuần cũ
   public checkWeekEdit() {
 
   }
@@ -276,5 +290,26 @@ export class CommonPointComponent implements OnInit {
     }, error => {
     });
   }
+
+
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Quản lý điểm định kỳ')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+
+  }
+
 
 }

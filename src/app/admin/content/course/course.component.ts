@@ -1,3 +1,4 @@
+import { ConstService } from './../../services/extension/Const.service';
 import { DetailCourseDialogComponent } from './dialog/detail-course-dialog/detail-course-dialog.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -19,6 +20,14 @@ import { DeleteCourseDialogComponent } from './dialog/delete-course-dialog/delet
 })
 
 export class CourseComponent implements OnInit {
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
 
   public showProgressBar = true;
 
@@ -57,13 +66,20 @@ export class CourseComponent implements OnInit {
     if (this.screenWidth > 500) {
       this.showTrainingTime = true;
     }
+    this.turnOnControls();
     this.loginService.islogged();
+    console.log(ConstService.permissions);
+
   }
 
   ngOnInit() {
     this.getCourses();
     this.getAllStatus();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1000);
+
   }
 
   private getAllStatus() {
@@ -123,6 +139,9 @@ export class CourseComponent implements OnInit {
   }
 
   public openEditCourse(course: any) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
@@ -190,4 +209,37 @@ export class CourseComponent implements OnInit {
   public stopProgressBar() {
     this.showProgressBar = false;
   }
+
+  public turnOnControls() {
+    if (this.displayedColumns.indexOf('controls') > -1) {
+      this.displayedColumns.pop();
+    } else {
+      this.displayedColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Đối tượng')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
+  }
+
+
 }

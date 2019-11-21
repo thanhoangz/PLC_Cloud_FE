@@ -74,24 +74,32 @@ export class ReportNotPaidTuitionComponent implements OnInit {
   }
 
   public ViewPrint() {
-    this.startProgressBar();
     if (this.classSelected != null && this.monthSelected != null && this.yearSelected != null) {
       this.load_infor_Classes();
       this.getReceiptDetailReport();
-      this.PrintClick();
       this.stopProgressBar();
     }
     // tslint:disable-next-line: one-line
     else {
       this.notificationService.showNotification(2, 'Báo cáo', 'Chọn đầy đủ thông tin');
-      this.stopProgressBar();
 
     }
   }
   public getReceiptDetailReport() {
+    this.startProgressBar();
     this.studyProcessService.getLearnerNotTution(this.monthSelected, this.yearSelected, this.classSelected).subscribe((result: any) => {
       this.receiptDetail = result;
       console.log(this.receiptDetail);
+      // tslint:disable-next-line: triple-equals
+      if (this.receiptDetail.length != 0) {
+        this.PrintClick();
+      }
+      // tslint:disable-next-line: one-line
+      else{
+        this.notificationService.showNotification(3, 'Báo cáo', 'Lỗi, không tìm thấy danh sách');
+
+      }
+      this.stopProgressBar();
     }, error => {
       this.stopProgressBar();
     });

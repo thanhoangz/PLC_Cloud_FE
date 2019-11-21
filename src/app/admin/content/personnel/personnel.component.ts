@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 
 @Component({
   selector: 'app-personnel',
@@ -15,6 +16,12 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   styleUrls: ['./personnel.component.css']
 })
 export class PersonnelComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
@@ -60,6 +67,9 @@ export class PersonnelComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -210,5 +220,22 @@ export class PersonnelComponent implements OnInit {
 
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Nhân viên')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
   }
 }

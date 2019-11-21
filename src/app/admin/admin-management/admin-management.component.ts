@@ -43,7 +43,7 @@ export class AdminManagementComponent implements OnInit {
       Value: false
     },
     {
-      Name: 'Đối tượng ',
+      Name: 'Đối tượng',
       Value: false
     },
     {

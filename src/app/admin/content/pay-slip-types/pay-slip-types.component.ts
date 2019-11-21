@@ -11,12 +11,20 @@ import { NotificationService } from '../../services/extension/notification.servi
 import { PaySlipTypeService } from '../../services/pay-slip-type.service';
 import { LoginService } from '../../services/login.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-pay-slip-types',
   templateUrl: './pay-slip-types.component.html',
   styleUrls: ['./pay-slip-types.component.css']
 })
 export class PaySlipTypesComponent implements OnInit {
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
 
   public showProgressBar = true;
   public screenHeight: any;
@@ -54,6 +62,10 @@ export class PaySlipTypesComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    this.turnOnControls();
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -113,6 +125,9 @@ export class PaySlipTypesComponent implements OnInit {
   }
 
   public openEdit_PaySlipType(paySlipType: any) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.3 * this.screenWidth;
@@ -178,4 +193,34 @@ export class PaySlipTypesComponent implements OnInit {
   }
 
 
+  public turnOnControls() {
+    if (this.displayedColumns.indexOf('controls') > -1) {
+      this.displayedColumns.pop();
+    } else {
+      this.displayedColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Loại phiếu chi')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
+  }
 }

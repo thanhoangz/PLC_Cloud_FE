@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
+import { ConstService } from 'src/app/admin/services/extension/Const.service';
 
 @Component({
   selector: 'app-edit-page-lecture',
@@ -15,6 +16,12 @@ import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.comp
   styleUrls: ['./edit-page-lecture.component.css']
 })
 export class EditPageLectureComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
@@ -78,6 +85,9 @@ export class EditPageLectureComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
   private initLectureForm() {
     this.lectureFormGroup = new FormGroup({
@@ -294,5 +304,21 @@ export class EditPageLectureComponent implements OnInit {
 
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Giáo viên')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
   }
 }

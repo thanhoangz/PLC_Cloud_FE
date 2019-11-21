@@ -290,9 +290,27 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a class="nav-link" *ngIf="permissionsOfUser[27].Value">
+                  <a class="nav-link" routerLink="report-timesheet-personnels" *ngIf="permissionsOfUser[27].Value">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo chấm công</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="report-timesheet-lecturers" *ngIf="permissionsOfUser[27].Value">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Báo cáo chấm công GV</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="report-rollpay-lecturers" *ngIf="permissionsOfUser[27].Value">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Báo cáo lương GV</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="report-rollpay-personnels" *ngIf="permissionsOfUser[27].Value">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Báo cáo lương NV</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -313,28 +331,23 @@
                     <p>Báo cáo thu học phí</p>
                   </a>
                 </li>
+
                 <li class="nav-item">
-                  <a routerLink="report-not-tuition" class="nav-link" *ngIf="permissionsOfUser[30].Value">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Báo cáo chưa đóng học phí</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" *ngIf="permissionsOfUser[31].Value">
+                  <a class="nav-link" routerLink="report-listlearner-class" *ngIf="permissionsOfUser[31].Value">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo điểm danh</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" *ngIf="permissionsOfUser[32].Value">
+                  <a class="nav-link" routerLink="report-listlearner-class" *ngIf="permissionsOfUser[32].Value">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Báo cáo danh sách lớp</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" *ngIf="permissionsOfUser[33].Value">
+                  <a class="nav-link" routerLink="report-not-tuition" *ngIf="permissionsOfUser[33].Value">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Chưa đóng học phí</p>
+                    <p>Báo cáo chưa đóng phí</p>
                   </a>
                 </li>
               </ul>
