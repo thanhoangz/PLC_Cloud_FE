@@ -38,7 +38,8 @@
     <mat-card style="margin-top: 0.5%">
       <mat-card-header style="float: right;">
         <mat-card-title>
-          <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()">
+          <button mat-raised-button color="primary" tabindex="-1" (click)="openCreateDialog()"
+            *ngIf="permissionOfFunction.canCreate">
             <mat-icon>add</mat-icon>
             Thêm khóa học
           </button>
@@ -90,7 +91,7 @@
           <ng-container matColumnDef="controls">
             <th mat-header-cell *matHeaderCellDef>Xóa</th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button (click)="deleteCourse(element.id)">
+              <button mat-icon-button (click)="deleteCourse(element.id)" *ngIf="permissionOfFunction.canDelete">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>

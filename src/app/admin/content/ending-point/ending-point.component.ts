@@ -25,12 +25,20 @@ import { ToastrService } from 'ngx-toastr';
 import { CreatEndingPointComponent } from './creat-ending-point/creat-ending-point.component';
 import { EndingcoursePointDetailService } from '../../services/endingcourse-point-detail.service';
 import { EndingcoursePointService } from '../../services/endingcourse-point.service';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-ending-point',
   templateUrl: './ending-point.component.html',
   styleUrls: ['./ending-point.component.css']
 })
 export class EndingPointComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
   public screenHeight: any;
   public screenWidth: any;
 
@@ -105,6 +113,10 @@ export class EndingPointComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -258,9 +270,28 @@ export class EndingPointComponent implements OnInit {
 
   public updatePeriodicPoint(endingPointDetail) {
     this.endingcoursePointDetailService.putEndingcoursePointDetail(endingPointDetail).subscribe(result => {
-      console.log('success');
       this.getEndingPoint();
     }, error => {
     });
+  }
+
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Quản lý điểm cuối khóa')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+
+
   }
 }

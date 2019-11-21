@@ -13,13 +13,19 @@ import { LearnerService } from '../../services/learner.service';
 import { StudyProcessService } from '../../services/study-process.service';
 import { LoginService } from '../../services/login.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-add-learner-class',
   templateUrl: './add-learner-class.component.html',
   styleUrls: ['./add-learner-class.component.css']
 })
 export class AddLearnerClassComponent implements OnInit {
-
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
   public showProgressBar = true;
   public screenHeight: any;
   public screenWidth: any;
@@ -88,6 +94,9 @@ export class AddLearnerClassComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   ngOnInit() {
@@ -289,5 +298,25 @@ export class AddLearnerClassComponent implements OnInit {
   }
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Thêm học viên mới')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+
+
   }
 }

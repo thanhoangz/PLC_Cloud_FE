@@ -39,8 +39,10 @@
         <div class="col-12 col-sm-6 col-md-5">
           <mat-chip-list aria-label="Fish selection">
 
-            <mat-chip color="primary" selected (click)="createAttendanceDialog()">Tạo điểm danh</mat-chip>
-            <mat-chip color="accent" selected (click)="rollCallOutClass()"> Điểm danh ngoài</mat-chip>
+            <mat-chip color="primary" selected (click)="createAttendanceDialog()"
+              *ngIf="permissionOfFunction.canCreate">Tạo điểm danh</mat-chip>
+            <mat-chip color="accent" selected (click)="rollCallOutClass()" *ngIf="permissionOfFunction.canCreate"> Điểm
+              danh ngoài</mat-chip>
           </mat-chip-list>
 
 
@@ -111,7 +113,8 @@
 
         <hr>
         <mat-selection-list #learners (selectionChange)="selectionChange($event, learners.selectedOptions.selected)">
-          <mat-list-option class="learner-options" value="allSelection" (click)="changeAllSelection()">
+          <mat-list-option class="learner-options" value="allSelection" (click)="changeAllSelection()"
+            [disabled]="!permissionOfFunction.canUpdate">
             <div class="row">
               <div class="col-md-3"> <b>Mã học viên</b></div>
               <div class="col-md-3"> <b>Họ và tên</b></div>
@@ -121,7 +124,7 @@
             </div>
           </mat-list-option>
           <mat-list-option *ngFor="let learner of learnersSource" class="learner-options" [value]="learner.id"
-            [selected]="isChecked(learner.id)">
+            [selected]="isChecked(learner.id)" [disabled]="!permissionOfFunction.canUpdate">
             <div class="row">
               <div class="col-md-3" style="left: 0; top: 0; right: 0; bottom: 0; margin: auto;">
                 {{ learner.cardId }}
@@ -148,7 +151,8 @@
         <hr>
         <div class="row">
           <div class="col-12 col-sm-6 col-md-12">
-            <button mat-raised-button color="primary" tabindex="-1" (click)="updateAttendance()" style="float: right;">
+            <button mat-raised-button color="primary" tabindex="-1" (click)="updateAttendance()" style="float: right;"
+              *ngIf="permissionOfFunction.canUpdate">
               <mat-icon>done_outline</mat-icon>
               Cập nhật
             </button>

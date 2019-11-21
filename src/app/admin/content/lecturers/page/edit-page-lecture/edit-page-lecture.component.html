@@ -68,7 +68,8 @@
 
         <!-- Column 2: phần thông tin -->
         <div class="col-md-10">
-          <form novalidate [formGroup]="lectureFormGroup" (ngSubmit)="updateLecture()">
+          <form novalidate [formGroup]="lectureFormGroup" (ngSubmit)="updateLecture()"
+            *ngIf="permissionOfFunction.canUpdate">
             <mat-card>
               <mat-card-header>
                 <mat-card-title align="start">
@@ -84,7 +85,7 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Họ</mat-label>
                     <input matInput placeholder="Nhập họ..." required [(ngModel)]="lecture.firstName"
-                      formControlName="firstName">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="firstName">
                     <mat-error *ngIf="!lectureFormGroup.hasError('required')">
                       Vui lòng nhập họ!
                     </mat-error>
@@ -93,7 +94,7 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Tên</mat-label>
                     <input matInput placeholder="Nhập tên..." required [(ngModel)]="lecture.lastName"
-                      formControlName="lastName">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="lastName">
                     <mat-error *ngIf="!lectureFormGroup.hasError('required')">
                       Vui lòng nhập tên!
                     </mat-error>
@@ -101,7 +102,7 @@
 
                   <mat-form-field [floatLabel]='floatLabel'>
                     <input matInput [matDatepicker]="picker" placeholder="Chọn ngày sinh" [(ngModel)]="lecture.birthday"
-                      required required formControlName="birthday">
+                      [disabled]="!permissionOfFunction.canUpdate" required required formControlName="birthday">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker touchUi #picker></mat-datepicker>
                     <mat-error *ngIf="!lectureFormGroup.hasError('required')">
@@ -110,8 +111,8 @@
                   </mat-form-field>
                   <label>Giới tính: </label>
                   <mat-radio-group [(ngModel)]="lecture.sex" formControlName="sex">
-                    <mat-radio-button value="true">Nam</mat-radio-button>
-                    <mat-radio-button value="false">Nữ</mat-radio-button>
+                    <mat-radio-button value="true" [disabled]="!permissionOfFunction.canUpdate">Nam</mat-radio-button>
+                    <mat-radio-button value="false" [disabled]="!permissionOfFunction.canUpdate">Nữ</mat-radio-button>
                   </mat-radio-group>
 
 
@@ -120,7 +121,7 @@
                     <mat-label>Địa chỉ</mat-label>
                     <textarea matInput placeholder="Nhập địa chỉ..." cdkTextareaAutosize cdkAutosizeMinRows="3"
                       cdkAutosizeMaxRows="3" required [(ngModel)]="lecture.address"
-                      formControlName="address"></textarea>
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="address"></textarea>
                     <mat-error *ngIf="!lectureFormGroup.hasError('required')">
                       Vui lòng nhập địa chỉ!
                     </mat-error>
@@ -129,7 +130,7 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Quốc gia</mat-label>
                     <input matInput placeholder="Nhập quốc gia..." required [(ngModel)]="lecture.nationality"
-                      formControlName="nationality">
+                      formControlName="nationality" [disabled]="!permissionOfFunction.canUpdate">
                     <mat-error *ngIf="!lectureFormGroup.hasError('required')">
                       Vui lòng nhập tên quốc gia!
                     </mat-error>
@@ -138,7 +139,7 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Email</mat-label>
                     <input matInput placeholder="plc@vimaru.edu.vn" [(ngModel)]="lecture.email" required
-                      [(ngModel)]="lecture.email" formControlName="email">
+                      [disabled]="!permissionOfFunction.canUpdate" [(ngModel)]="lecture.email" formControlName="email">
                     <mat-error *ngIf="!lectureFormGroup.hasError('email') || !lectureFormGroup.hasError('required')">
                       Vui lòng nhập email, có dạng "abc@xyz.com"!
                     </mat-error>
@@ -147,7 +148,7 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Số liên lạc</mat-label>
                     <input type="number" matInput placeholder="09xx xxx xxx" required [(ngModel)]="lecture.phone"
-                      formControlName="phone">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="phone">
                     <mat-error
                       *ngIf="!lectureFormGroup.hasError('required') || !lectureFormGroup.hasError('minLength')">
                       Vui lòng nhập số điện thoại !
@@ -157,13 +158,14 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Facebook</mat-label>
                     <input matInput placeholder="https://www.facebook.com/plc-center || plc-center"
-                      [(ngModel)]="lecture.facebook" formControlName="facebook">
+                      [(ngModel)]="lecture.facebook" formControlName="facebook"
+                      [disabled]="!permissionOfFunction.canUpdate">
                   </mat-form-field>
 
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Chứng chỉ</mat-label>
                     <input matInput placeholder="Nhập chứng chỉ" required [(ngModel)]="lecture.certificate"
-                      formControlName="certificate">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="certificate">
                     <mat-error *ngIf="!lectureFormGroup.hasError('required')">
                       Vui lòng nhập chứng chỉ!
                     </mat-error>
@@ -172,8 +174,8 @@
                   <mat-form-field [floatLabel]='floatLabel'>
                     <mat-label>Kinh nghiệm làm việc</mat-label>
                     <textarea matInput placeholder="Nhập kinh nghiệm làm việc..." cdkTextareaAutosize
-                      cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" [(ngModel)]="lecture.experienceRecord"
-                      formControlName="experienceRecord"></textarea>
+                      [disabled]="!permissionOfFunction.canUpdate" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5"
+                      [(ngModel)]="lecture.experienceRecord" formControlName="experienceRecord"></textarea>
                   </mat-form-field>
                 </div>
 
@@ -186,8 +188,9 @@
                   <mat-form-field>
                     <mat-label>Tình trạng hôn nhân</mat-label>
                     <mat-select [(ngModel)]="lecture.marritalStatus" style="text-align: center;" required
-                      formControlName="marritalStatus">
-                      <mat-option *ngFor="let item of marritalStatus" [value]="item.code" style="text-align: center;">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="marritalStatus">
+                      <mat-option *ngFor="let item of marritalStatus" [value]="item.code" style="text-align: center;"
+                        [disabled]="!permissionOfFunction.canUpdate">
                         {{item.name}}
                       </mat-option>
                     </mat-select>
@@ -199,8 +202,9 @@
                   <mat-form-field>
                     <mat-label>Trạng thái</mat-label>
                     <mat-select [(ngModel)]="lecture.status" required style="text-align: center;" required
-                      formControlName="status">
-                      <mat-option *ngFor="let item of status" [value]="item.code" style="text-align: center;">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="status">
+                      <mat-option *ngFor="let item of status" [value]="item.code" style="text-align: center;"
+                        [disabled]="!permissionOfFunction.canUpdate">
                         {{item.name}}
                       </mat-option>
                     </mat-select>
@@ -212,20 +216,21 @@
                   <mat-form-field>
                     <mat-label>Chức vụ</mat-label>
                     <mat-select [(ngModel)]="selected" required (ngModelChange)="setting()" formControlName="position"
-                      style="text-align: center;">
+                      [disabled]="!permissionOfFunction.canUpdate" style="text-align: center;">
                       <mat-option *ngFor="let item of position" [value]="item.code" style="text-align: center;">
                         {{item.name}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
 
-                  <mat-checkbox value="false" [(ngModel)]="lecture.isTutor" formControlName="isTutor">Trợ giảng
+                  <mat-checkbox value="false" [(ngModel)]="lecture.isTutor" formControlName="isTutor"
+                    [disabled]="!permissionOfFunction.canUpdate">Trợ giảng
                   </mat-checkbox>
 
                   <mat-form-field [floatLabel]='floatLabel' *ngIf="selected == 0">
                     <mat-label>Lương cơ bản</mat-label>
                     <input type="number" matInput placeholder="Nhập lương cơ bản" [(ngModel)]="lecture.basicSalary"
-                      formControlName="basicSalary">
+                      [disabled]="!permissionOfFunction.canUpdate" formControlName="basicSalary">
                   </mat-form-field>
 
                   <mat-form-field [floatLabel]='floatLabel' *ngIf="selected == 0">
@@ -272,12 +277,13 @@
               </div>
               <hr>
               <mat-card-footer align="end">
-                <button type="submit" mat-raised-button color="primary" tabindex="-1" style="margin: 1%;">
+                <button type="submit" mat-raised-button color="primary" tabindex="-1" style="margin: 1%;"
+                  *ngIf="permissionOfFunction.canUpdate">
                   <mat-icon>create</mat-icon>
                   Lưu thay đổi
                 </button>
                 <button type="button" mat-raised-button color="warn" tabindex="-1" style="margin: 1%;"
-                  (click)="delete()">
+                  (click)="delete()" *ngIf="permissionOfFunction.canDelete">
                   <mat-icon>delete</mat-icon>
                   Xóa giáo viên
                 </button>

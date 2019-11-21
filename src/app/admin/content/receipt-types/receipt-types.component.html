@@ -40,7 +40,7 @@
         <mat-card style="margin-top: 0.5%">
             <mat-card-header style="float: right;">
                 <mat-card-title>
-                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_ReceiptType()">
+                    <button mat-raised-button color="primary" tabindex="-1" (click)="openCreate_ReceiptType()" *ngIf="permissionOfFunction.canCreate" >
                         <mat-icon>add</mat-icon>
                         Thêm loại thu
                     </button>
@@ -67,7 +67,7 @@
                             </span>
                         </td>
                     </ng-container>
-                   
+
                     <ng-container matColumnDef="note">
                         <th mat-header-cell *matHeaderCellDef width="22%"> Ghi chú </th>
                         <td mat-cell *matCellDef="let element"> {{element.note}} </td>
@@ -75,7 +75,7 @@
 
                     <ng-container matColumnDef="controls">
                         <th mat-header-cell *matHeaderCellDef> Xóa </th>
-                        <td mat-cell *matCellDef="let element">                                 
+                        <td mat-cell *matCellDef="let element">
                             <button mat-icon-button (click)="delete_receiptType(element.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>

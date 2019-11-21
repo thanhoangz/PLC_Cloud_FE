@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateScheduleDialogComponent } from './dialog/update-schedule-dialog/update-schedule-dialog.component';
 import { Router } from '@angular/router';
 import { DeleteScheduleDialogComponent } from './dialog/delete-schedule-dialog/delete-schedule-dialog.component';
+import { ConstService } from 'src/app/admin/services/extension/Const.service';
 
 @Component({
   selector: 'app-schedule-in-table',
@@ -17,6 +18,15 @@ import { DeleteScheduleDialogComponent } from './dialog/delete-schedule-dialog/d
   styleUrls: ['./schedule-in-table.component.css']
 })
 export class ScheduleInTableComponent implements OnInit {
+
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
   public screenHeight: any;
   public screenWidth: any;
 
@@ -42,6 +52,10 @@ export class ScheduleInTableComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    this.turnOnDelete();
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
 
@@ -49,7 +63,7 @@ export class ScheduleInTableComponent implements OnInit {
     this.getAllStatus();
     this.getAllSchedule();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
-    this.turnOnDelete();
+
   }
 
 
@@ -119,6 +133,9 @@ export class ScheduleInTableComponent implements OnInit {
 
 
   public openUpdateDialog(schedule) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const dialogRef = this.dialog.open(UpdateScheduleDialogComponent, {
@@ -181,4 +198,36 @@ export class ScheduleInTableComponent implements OnInit {
       });
     }
   }
+
+
+  public turnOnControls() {
+    if (this.scheduledColumns.indexOf('controls') > -1) {
+      this.scheduledColumns.pop();
+    } else {
+      this.scheduledColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Xếp lịch')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+  }
+
 }

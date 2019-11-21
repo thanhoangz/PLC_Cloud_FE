@@ -8,12 +8,20 @@ import { Router } from '@angular/router';
 import { ExchangeDataService } from '../../services/extension/exchange-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 @Component({
   selector: 'app-lecturers',
   templateUrl: './lecturers.component.html',
   styleUrls: ['./lecturers.component.css']
 })
 export class LecturersComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
@@ -23,7 +31,7 @@ export class LecturersComponent implements OnInit {
   public statusGenderes = '';
   public statusSelected = -1;
   public isOpenDialog = false;
-  
+
   public lecture;
 
   public length = 100;
@@ -52,6 +60,9 @@ export class LecturersComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
   ngOnInit() {
     this.getAllStatus();
@@ -216,5 +227,23 @@ export class LecturersComponent implements OnInit {
     }, error => {
       this.notificationService.showNotification(2, 'Giáo viên', 'Không tìm thấy giáo viên!');
     });
+  }
+
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Giáo viên')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
   }
 }
