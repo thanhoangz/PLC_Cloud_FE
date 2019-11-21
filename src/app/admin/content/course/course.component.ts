@@ -230,7 +230,7 @@ export class CourseComponent implements OnInit {
       }
       return;
     }
-    const temp = ConstService.permissions.filter(y => y.functionName === 'Khóa học')[0];
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Đối tượng')[0];
     this.permissionOfFunction.canCreate = temp.canCreate;
     this.permissionOfFunction.canDelete = temp.canDelete;
     this.permissionOfFunction.canRead = temp.canRead;

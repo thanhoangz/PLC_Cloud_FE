@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { PaySlipTypeService } from '../../services/pay-slip-type.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { ConstService } from '../../services/extension/Const.service';
 
 @Component({
   selector: 'app-pay-slip',
@@ -22,6 +23,14 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   styleUrls: ['./pay-slip.component.css']
 })
 export class PaySlipComponent implements OnInit {
+
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
+
   public startDate;
   public endDate;
   public showProgressBar = true;
@@ -64,6 +73,10 @@ export class PaySlipComponent implements OnInit {
     this.loginService.islogged();
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    this.turnOnControls();
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1000);
   }
 
   ngOnInit() {
@@ -146,6 +159,10 @@ export class PaySlipComponent implements OnInit {
   }
 
   public openEdit_PaySlip(paySlip: any) {
+    if (this.permissionOfFunction.canUpdate === false) {
+      return;
+    }
+
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const widthMachine = (this.screenWidth < 500) ? 0.8 * this.screenWidth : 0.5 * this.screenWidth;
@@ -218,4 +235,37 @@ export class PaySlipComponent implements OnInit {
       return 'badge badge-warning';
     }
   }
+
+
+  public turnOnControls() {
+    if (this.displayedColumns.indexOf('controls') > -1) {
+      this.displayedColumns.pop();
+    } else {
+      this.displayedColumns.push('controls');
+    }
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+      if (this.permissionOfFunction.canDelete === true) {
+        this.turnOnControls();
+      }
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Đối tượng')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
+    if (this.permissionOfFunction.canDelete === true) {
+      this.turnOnControls();
+    }
+
+  }
+
 }
