@@ -115,7 +115,6 @@ export class ReportPeriodicPointComponent implements OnInit {
   public loadClassList() {
     this.weekSelected = null;
     this.getPeriodicWeek();
-    console.log(this.weekSelected);
   }
 
   public getPeriodicDetail() {
@@ -128,8 +127,6 @@ export class ReportPeriodicPointComponent implements OnInit {
 
   // change bảng điểm định kỳ chi tiết
   public reloadTable() {
-    console.log(this.periodicPointDetail);
-    console.log(this.weekSelected);
 
   }
 
