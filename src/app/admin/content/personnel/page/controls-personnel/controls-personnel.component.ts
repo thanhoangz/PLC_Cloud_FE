@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ExchangeDataService } from 'src/app/admin/services/extension/exchange-data.service';
 import { Router } from '@angular/router';
 import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.component';
+import { ConstService } from 'src/app/admin/services/extension/Const.service';
 
 @Component({
   selector: 'app-controls-personnel',
@@ -15,6 +16,12 @@ import { DeleteDialogComponent } from '../../../delete-dialog/delete-dialog.comp
   styleUrls: ['./controls-personnel.component.css']
 })
 export class ControlsPersonnelComponent implements OnInit {
+  public permissionOfFunction = {
+    canCreate: false,
+    canUpdate: false,
+    canDelete: false,
+    canRead: false
+  };
   public screenHeight: any;
   public screenWidth: any;
   public showProgressBar = false;
@@ -72,6 +79,9 @@ export class ControlsPersonnelComponent implements OnInit {
   ) {
     this.screenWidth = (window.screen.width);
     this.screenHeight = (window.screen.height);
+    setTimeout(() => {
+      this.openPermissionOfFuncition();
+    }, 1500);
   }
 
   private initLectureForm() {          // bắt lỗi : edit thuộc tính
@@ -174,16 +184,16 @@ export class ControlsPersonnelComponent implements OnInit {
       }).afterClosed().subscribe(result => {
         this.isOpenDialog = false;
         if (result === true) {
-    this.personnelsService.deletePersonnel(this.personnel.id).subscribe(result1 => {
-      setTimeout(() => { this.notificationService.showNotification(1, 'Nhân viên', 'Đã xóa nhân viên!'); });
-      this.router.navigateByUrl('admin/personnels');
-    }, error => {
-      this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Không xóa được!');
-      this.stopProgressBar();
-    });
-  }
-});
-}
+          this.personnelsService.deletePersonnel(this.personnel.id).subscribe(result1 => {
+            setTimeout(() => { this.notificationService.showNotification(1, 'Nhân viên', 'Đã xóa nhân viên!'); });
+            this.router.navigateByUrl('admin/personnels');
+          }, error => {
+            this.notificationService.showNotification(3, 'Nhân viên', 'Lỗi, Không xóa được!');
+            this.stopProgressBar();
+          });
+        }
+      });
+    }
   }
 
   public back() {
@@ -258,5 +268,22 @@ export class ControlsPersonnelComponent implements OnInit {
 
   public stopProgressBar() {
     this.showProgressBar = false;
+  }
+
+  public openPermissionOfFuncition() {
+
+    if (ConstService.user.userName === 'admin') {
+      this.permissionOfFunction.canCreate = true;
+      this.permissionOfFunction.canDelete = true;
+      this.permissionOfFunction.canRead = true;
+      this.permissionOfFunction.canUpdate = true;
+
+      return;
+    }
+    const temp = ConstService.permissions.filter(y => y.functionName === 'Nhân viên')[0];
+    this.permissionOfFunction.canCreate = temp.canCreate;
+    this.permissionOfFunction.canDelete = temp.canDelete;
+    this.permissionOfFunction.canRead = temp.canRead;
+    this.permissionOfFunction.canUpdate = temp.canUpdate;
   }
 }

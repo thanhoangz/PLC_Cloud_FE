@@ -313,12 +313,7 @@
                     <p>Báo cáo thu học phí</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a routerLink="report-not-tuition" class="nav-link" *ngIf="permissionsOfUser[30].Value">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Báo cáo chưa đóng học phí</p>
-                  </a>
-                </li>
+
                 <li class="nav-item">
                   <a class="nav-link" *ngIf="permissionsOfUser[31].Value">
                     <i class="far fa-circle nav-icon"></i>
@@ -332,9 +327,9 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" *ngIf="permissionsOfUser[33].Value">
+                  <a class="nav-link" routerLink="report-not-tuition" *ngIf="permissionsOfUser[33].Value">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Chưa đóng học phí</p>
+                    <p>Báo cáo chưa đóng phí</p>
                   </a>
                 </li>
               </ul>
