@@ -44,7 +44,7 @@
         </div>
     </mat-card>
 </div>
-<div class="container-fluid" >
+<div class="container-fluid" *ngIf="checkView">
     <mat-card style="margin-top: 5px; margin-bottom: 10px;" id="testprint">
         <div style='width: 100%; float: left;'>
             <div style='width: 50%;float: left;'>
@@ -95,7 +95,7 @@
                             <td style="text-align: center;">{{item.totalMoney}}</td>
                         </tr>                       
                     </tbody>
-                    <tfoot style="font-size: 20px; font-weight: bold;">
+                    <tfoot style="font-weight: bold;">
                         <tr>
                             <th scope='row' style="text-align: center;">#</th>
                             <td style="font-size: 16px; font-weight: bold;">Tổng tiền:</td>

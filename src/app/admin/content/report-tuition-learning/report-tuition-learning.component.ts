@@ -81,15 +81,16 @@ export class ReportTuitionLearningComponent implements OnInit {
       this.getTotal();
       // tslint:disable-next-line: triple-equals
       if (this.receiptDetail.length != 0) {
+        this.checkView = true;
         this.PrintClick();
       }
       // tslint:disable-next-line: one-line
       else{
+        this.checkView = false;
         this.notificationService.showNotification(3, 'Báo cáo', 'Lỗi, không tìm thấy danh sách');
 
       }
       this.stopProgressBar();
-
       console.log(this.receiptDetail);
     }, error => {
       this.stopProgressBar();
