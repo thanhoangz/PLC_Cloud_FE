@@ -18,7 +18,7 @@ import { EditStudyprocessComponent } from '../study-process/dialog/edit-studypro
 import { ChangeClassComponent } from '../study-process/dialog/change-class/change-class.component';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, max } from 'rxjs/operators';
 import { PeriodicPointDeltailService } from '../../services/periodic-point-deltail.service';
 import { PeriodicPointService } from '../../services/periodic-point.service';
 import { ToastrService } from 'ngx-toastr';
@@ -50,9 +50,10 @@ export class CommonPointComponent implements OnInit {
 
   public isOpenDialog = false;
 
-
+  // để thực hiện với tuần
   public weekSelected;
-
+  public maxWeek;
+  /////////////////
   public periodicPointDetail = [];
   public periodicPoint;
 
@@ -124,11 +125,8 @@ export class CommonPointComponent implements OnInit {
     this.exchangeDataService.idSource.subscribe(message => {
       this.classMessageId = message;
     });
-
-    this.getPeriodicWeek();
     this.getAllClass();
     this.load_infor_Classes(this.classMessageId);
-    // this.getPeriodicDetail();
     this.paginator._intl.itemsPerPageLabel = 'Kích thước trang';
   }
 
@@ -141,6 +139,18 @@ export class CommonPointComponent implements OnInit {
     if (this.classMessageId != null) {
       this.periodicPointService.getPeriodicPointConditions(this.classMessageId).subscribe((result: any) => {
         this.periodicPoint = result;
+        // get tuần lớn nhất
+        // tslint:disable-next-line: only-arrow-functions
+        this.maxWeek = Math.max.apply(Math, result.map(function(weekMax) {
+          return weekMax.week;
+        }));
+        console.log(this.maxWeek);
+
+        // tslint:disable-next-line: triple-equals
+        if (result.length == 0) {
+          this.notificationService.showNotification(2, 'Điểm', 'Lớp chưa có bảng điểm định kỳ nào!');
+
+        }
         console.log(this.periodicPoint);
       }, error => {
       });
@@ -155,7 +165,6 @@ export class CommonPointComponent implements OnInit {
       console.log(this.weekName);
       console.log(this.lecturerName);
       console.log(this.dateOnPoint);
-
     }, error => {
     });
   }
@@ -171,6 +180,9 @@ export class CommonPointComponent implements OnInit {
     this.weekSelected = 0;
     this.getPeriodicWeek();
     this.getPeriodicDetail();
+    this.weekName = null;
+    this.lecturerName = null;
+    this.dateOnPoint = null;
     console.log(this.weekSelected);
   }
 
@@ -193,9 +205,6 @@ export class CommonPointComponent implements OnInit {
   public reloadTable() {
     this.getPeriodicDetail();
     this.getPeriodicId();
-    console.log(this.periodicPointDetail);
-    console.log(this.weekSelected);
-
   }
 
   public CreatPeriodicPoint() {
@@ -277,10 +286,6 @@ export class CommonPointComponent implements OnInit {
       return false;
     }
     return true;
-
-  }
-  // check k cho sửa tuần cũ
-  public checkWeekEdit() {
 
   }
   public updatePeriodicPoint(periodicDetail) {
