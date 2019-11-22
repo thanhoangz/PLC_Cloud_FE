@@ -13,6 +13,7 @@ import { MatSelectionList } from '@angular/material/list';
 import { AddAttendanceDialogComponent } from './dialog/add-attendance-dialog/add-attendance-dialog.component';
 import { AttendanceSheetDetailService } from '../../services/attendance-sheet-detail.service';
 import { DatePipe } from '@angular/common';
+import { AddOutAttendanceComponent } from './dialog/add-attendance-dialog/add-out-attendance/add-out-attendance.component';
 
 @Component({
   selector: 'app-attendance-sheet',
@@ -45,6 +46,9 @@ export class AttendanceSheetComponent implements OnInit {
     totalNumber: 0
   };
 
+  public numberAttendance = 0;
+  public numberNotAttendace = 0;
+
   public checkedLearners = [];
   public notCheckedLearners = [];
   public checkedAll = false;
@@ -67,7 +71,7 @@ export class AttendanceSheetComponent implements OnInit {
     this.loginService.islogged();
     setTimeout(() => {
       this.openPermissionOfFuncition();
-    }, 1000);
+    }, 1500);
   }
 
   ngOnInit() {
@@ -75,8 +79,6 @@ export class AttendanceSheetComponent implements OnInit {
   }
 
   public createAttendanceDialog() {
-
-
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
       const dialogRef = this.matDialog.open(AddAttendanceDialogComponent, {
@@ -84,28 +86,29 @@ export class AttendanceSheetComponent implements OnInit {
         data: {
           _user: ConstService.user
         },
-      });
-      dialogRef.backdropClick().subscribe(_ => {
-        // Close the dialog
-        dialogRef.close();
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
+      }).afterClosed().subscribe(result => {
         this.isOpenDialog = false;
         if (result) {
-
+          this.getAllClasses();
         }
 
       });
     }
   }
 
+
+
+
+
   public changeCurrentDate(date) {
     const dateSelected = this.datepipe.transform(date, 'yyyy-MM-dd');
     this.checkCreatedAttendance(this.currentClassId, dateSelected);
 
+  }
 
-
+  public changeClass(classId) {
+    const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
+    this.checkCreatedAttendance(classId, dateSelected);
   }
 
   public getAllLearnerInClass(classId) {
@@ -140,17 +143,12 @@ export class AttendanceSheetComponent implements OnInit {
       if (element.sex === true) {
         this.inforClass.maleNumber++;
       } else {
-        this.inforClass.maleNumber++;
+        this.inforClass.femaleNumber++;
       }
     });
   }
 
-  public changeClass(classId) {
 
-    const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
-    this.checkCreatedAttendance(classId, dateSelected);
-
-  }
 
   public getYear(date: Date) {
     return date.getFullYear();
@@ -196,6 +194,7 @@ export class AttendanceSheetComponent implements OnInit {
     } else {
       this.learners.deselectAll();
       this.checkedLearners = [];
+
     }
   }
 
@@ -224,6 +223,8 @@ export class AttendanceSheetComponent implements OnInit {
 
     this.attendanceSheetDetailService.deleteAttendanceDetails(this.notCheckedLearners).subscribe(data => {
       this.notificationService.showNotification(1, '', 'Cập nhật thành công!');
+      const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
+      this.checkCreatedAttendance(this.currentClassId, dateSelected);
     }, error => { this.notificationService.showNotification(3, '', 'Vui lòng thử lại sau!'); });
   }
 
@@ -239,7 +240,7 @@ export class AttendanceSheetComponent implements OnInit {
 
     }, error => {
       this.statusOfCurrentAttendance = 'Chưa có phiếu điểm danh';
-      this.getAllAttendanceDetails(this);
+      this.resetAll();
     });
   }
 
@@ -247,9 +248,12 @@ export class AttendanceSheetComponent implements OnInit {
   public getAllAttendanceDetails(attendanceId) {
     this.attendanceSheetDetailService.getAttendanceDetailsByAttendance(attendanceId).subscribe((result: any[]) => {
       this.attendanceSheetDetails = result;
+      this.numberAttendance = result.length;
       console.log(result);
       this.getAllLearnerInClass(this.currentClassId);
-    }, error => { });
+    }, error => {
+
+    });
 
   }
 
@@ -265,9 +269,9 @@ export class AttendanceSheetComponent implements OnInit {
 
 
   public resetAll() {
-
-
     this.learnersSource = [];
+    this.numberAttendance = 0;
+    this.numberNotAttendace = 0;
     this.inforClass = {
       maleNumber: 0,
       femaleNumber: 0,
@@ -281,7 +285,22 @@ export class AttendanceSheetComponent implements OnInit {
 
   /* Điểm danh ké cho học viên lớp khác */
   public rollCallOutClass() {
-    this.confirmService.openDeleteConfirmDialog();
+    if (!this.isOpenDialog) {
+      this.isOpenDialog = true;
+      const dialogRef = this.matDialog.open(AddOutAttendanceComponent, {
+        width: `50vh`,
+        data: {
+          classSelected: this.currentClassId,
+          dateSelected: this.currentDate,
+        },
+      }).afterClosed().subscribe(result => {
+        this.isOpenDialog = false;
+        if (result) {
+          this.getAllClasses();
+        }
+
+      });
+    }
   }
 
 

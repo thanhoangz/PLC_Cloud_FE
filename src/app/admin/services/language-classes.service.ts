@@ -92,4 +92,14 @@ export class LanguageClassesService {
     return this.httpClient
       .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-info-class/${classId}`);
   }
+
+
+  getSameClass(classId) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/LanguageClasses/get-same-class/${classId}`);
+  }
 }
+
+
+
+

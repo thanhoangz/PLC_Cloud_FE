@@ -9,7 +9,7 @@
       </mat-card-header>
 
     </mat-card>
-    <mat-card>
+    <mat-card style="margin-top: 0.5%;">
 
       <div class="row">
         <div class="col-12 col-sm-6 col-md-2">
@@ -97,22 +97,24 @@
         <hr>
         <div class="row">
           <div class="col-12 col-sm-6 col-md-4">
-            <b>Tình trạng:</b> <span>{{ (statusOfCurrentAttendance) }}</span>
+            <b>Tình trạng:</b> <span class="badge badge-warning">{{ (statusOfCurrentAttendance) }}</span>
           </div>
           <div class="col-12 col-sm-6 col-md-4">
-            <b>Sĩ số điểm danh:</b> <span>23/44</span>
+            <b>Sĩ số điểm danh:</b> <span>{{ numberAttendance }}/{{ inforClass.totalNumber }}</span>
           </div>
           <div class="col-12 col-sm-6 col-md-4">
-            <mat-icon aria-hidden="false" aria-label="Example home icon">check_box</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="display: inline-block;">check_box
+            </mat-icon>
             Đã điểm danh
-            <mat-icon aria-hidden="false" aria-label="Example home icon">check_box_outline_blank</mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Example home icon" style="display: inline-block;">
+              check_box_outline_blank</mat-icon>
             <span>Chưa điểm danh</span>
           </div>
         </div>
 
 
         <hr>
-        <mat-selection-list #learners (selectionChange)="selectionChange($event, learners.selectedOptions.selected)">
+        <mat-selection-list #learners (selectionChange)=" selectionChange($event, learners.selectedOptions.selected)">
           <mat-list-option class="learner-options" value="allSelection" (click)="changeAllSelection()"
             [disabled]="!permissionOfFunction.canUpdate">
             <div class="row">
