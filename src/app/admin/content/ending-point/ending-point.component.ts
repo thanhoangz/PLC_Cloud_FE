@@ -147,6 +147,11 @@ export class EndingPointComponent implements OnInit {
         else {
           this.endingPointId = 0;
           this.getEdingPointDetail();
+          this.endingPointId = null;
+          this.lecturerName = null;
+          this.dateOnPoint = null;
+          this.notificationService.showNotification(2, 'Điểm', 'Lớp học chưa có bảng điểm cuối khóa!');
+
 
         }
       }, error => {
