@@ -259,6 +259,7 @@ export class ScheduleForLearnerComponent implements OnInit {
 
   public changValueClass(classId) {
     this.getScheduleMonthByClass(classId);
+    this.getInfoClass(classId);
   }
 
   public autoCreateSchedule() {

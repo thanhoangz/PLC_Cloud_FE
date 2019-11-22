@@ -139,6 +139,7 @@ import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-p
 import { ReportAttendanceSheetComponent } from './content/report-attendance-sheet/report-attendance-sheet.component';
 // tslint:disable-next-line: max-line-length
 import { AddOutAttendanceComponent } from './content/attendance-sheet/dialog/add-attendance-dialog/add-out-attendance/add-out-attendance.component';
+import { ReportPayslipsComponent } from './content/report-payslips/report-payslips.component';
 
 @NgModule({
   imports: [
@@ -279,7 +280,8 @@ import { AddOutAttendanceComponent } from './content/attendance-sheet/dialog/add
     ReportTimesheetLectureComponent,
     ReportTimesheetPersonnelsComponent,
     ReportAttendanceSheetComponent,
-    AddOutAttendanceComponent
+    AddOutAttendanceComponent,
+    ReportPayslipsComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

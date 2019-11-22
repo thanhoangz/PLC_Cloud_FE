@@ -32,6 +32,8 @@ export class EditPayslipDialogComponent implements OnInit {
     personnelId: '',
     sendPersonnelId: ''
   };
+  public tenloaichi;
+  public tennhanvien;
   public personnel;
   public paySlipType;
   public status = [];
@@ -68,8 +70,23 @@ export class EditPayslipDialogComponent implements OnInit {
     this.getPaySlipTypes();
     this.getPersonnel();
     this.initLectureForm();
+    this.getLoaichi();
+    this.getNhanVienChi();
   }
 
+  public getLoaichi() {
+    this.paySlipTypeService.getById(this.paySlip.paySlipTypeId).subscribe((result: any) => {
+      this.tenloaichi = result.name;
+    }, error => {
+    });
+  }
+
+  public getNhanVienChi() {
+    this.personnelComponent.getPersonnelId(this.paySlip.personnelId).subscribe((result: any) => {
+      this.tennhanvien = result.firstName + result.lastName;
+    }, error => {
+    });
+  }
   public getAllStatus() {
     this.status = [
       {

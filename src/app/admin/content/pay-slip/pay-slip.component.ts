@@ -43,10 +43,7 @@ export class PaySlipComponent implements OnInit {
 
   public isOpenDialog = false;
 
-  public length = 100;
-  public pageSize = 5;
-  public pageIndex = 1;
-  public pageSizeOptions = [5, 10, 15, 20];
+  public pageSizeOptions = [10, 15, 20];
 
   public keyWord = '';
   public statusSelected = -1;
