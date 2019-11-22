@@ -137,6 +137,9 @@ import { DeleteScheduleDialogComponent } from './content/schedule-school/schedul
 import { ReportTimesheetLectureComponent } from './content/report-timesheet-lecture/report-timesheet-lecture.component';
 import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-personnels/report-timesheet-personnels.component';
 import { ReportAttendanceSheetComponent } from './content/report-attendance-sheet/report-attendance-sheet.component';
+// tslint:disable-next-line: max-line-length
+import { AddOutAttendanceComponent } from './content/attendance-sheet/dialog/add-attendance-dialog/add-out-attendance/add-out-attendance.component';
+import { ReportPayslipsComponent } from './content/report-payslips/report-payslips.component';
 
 @NgModule({
   imports: [
@@ -276,7 +279,9 @@ import { ReportAttendanceSheetComponent } from './content/report-attendance-shee
     DeleteScheduleDialogComponent,
     ReportTimesheetLectureComponent,
     ReportTimesheetPersonnelsComponent,
-    ReportAttendanceSheetComponent
+    ReportAttendanceSheetComponent,
+    AddOutAttendanceComponent,
+    ReportPayslipsComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },

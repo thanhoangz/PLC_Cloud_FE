@@ -49,4 +49,9 @@ export class PaySlipService {
     }
   }
 
+
+  paySlipByreport(month, year) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/PaySlips/get-all-with-conditions-report?month=${month}&year=${year}`, null);
+  }
 }

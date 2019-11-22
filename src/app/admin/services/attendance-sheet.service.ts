@@ -24,4 +24,12 @@ export class AttendanceSheetService {
     return this.httpClient
       .post(`${environment.PLCServicesDomain}/api/TeachingSchedules/get-all-class-and-full-info?courseId=${courseId}`, null);
   }
+
+
+  getAttendanceByClassAndDate(classId, date) {
+    console.log(classId);
+    console.log(date);
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/AttendanceSheets/attendance/${classId}?date=${date}`);
+  }
 }

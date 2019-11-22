@@ -42,6 +42,10 @@ export class PaySlipTypeService {
     return this.httpClient
       // tslint:disable-next-line: max-line-length
       .post(`${environment.PLCServicesDomain}/api/PaySlipTypes/get-all-with-conditions?keyword=${keyWord}&status=${status}`, null);
-    }
+  }
 
+  getById(id) {
+    return this.httpClient
+      .get(`${environment.PLCServicesDomain}/api/PaySlipTypes/${id}`);
+  }
 }

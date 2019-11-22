@@ -14,6 +14,10 @@ export class AttendanceSheetDetailService {
       .post(`${environment.PLCServicesDomain}/api/AttendanceSheetDetails/attendance-list`, attendanceDetails);
   }
 
+  _postAttendanceDetail(attendanceDetails) {
+    return this.httpClient
+      .post(`${environment.PLCServicesDomain}/api/AttendanceSheetDetails`, attendanceDetails);
+  }
 
   deleteAttendanceDetails(attendanceDetails: any[]) {
     return this.httpClient

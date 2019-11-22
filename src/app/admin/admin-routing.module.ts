@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { AdminManagementComponent } from './admin-management/admin-management.component';
 import { UserManagementComponent } from './content/user-management/user-management.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -49,6 +48,7 @@ import { ReportRollpayPersonnelComponent } from './content/report-rollpay-person
 import { ReportTimesheetLectureComponent } from './content/report-timesheet-lecture/report-timesheet-lecture.component';
 import { ReportTimesheetPersonnelsComponent } from './content/report-timesheet-personnels/report-timesheet-personnels.component';
 import { ReportAttendanceSheetComponent } from './content/report-attendance-sheet/report-attendance-sheet.component';
+import { ReportPayslipsComponent } from './content/report-payslips/report-payslips.component';
 
 const adminRoutes: Routes = [
   {
@@ -105,6 +105,7 @@ const adminRoutes: Routes = [
           { path: 'report-timesheet-lecturers', component: ReportTimesheetLectureComponent },
           { path: 'report-timesheet-personnels', component: ReportTimesheetPersonnelsComponent },
           { path: 'report-attendance-sheet', component: ReportAttendanceSheetComponent },
+          { path: 'report-payslips', component: ReportPayslipsComponent },
         ]
       }
     ]
