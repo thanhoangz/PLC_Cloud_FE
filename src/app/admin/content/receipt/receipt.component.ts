@@ -105,7 +105,7 @@ export class ReceiptComponent implements OnInit {
   public openDetailReceipt(receipt: any) {
     if (!this.isOpenDialog) {
       this.isOpenDialog = true;
-      const widthMachine = (this.screenWidth < 500) ? 0.1 * this.screenWidth : 0.8 * this.screenWidth;
+      const widthMachine = (this.screenWidth < 500) ? 0.1 * this.screenWidth : 0.50 * this.screenWidth;
       this.matDialog.open(DetailReceiptBoComponent,
         {
           width: `${widthMachine}px`,

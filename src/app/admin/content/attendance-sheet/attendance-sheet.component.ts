@@ -107,6 +107,8 @@ export class AttendanceSheetComponent implements OnInit {
   }
 
   public changeClass(classId) {
+    this.checkedLearners = [];
+    this.notCheckedLearners = [];
     const dateSelected = this.datepipe.transform(this.currentDate, 'yyyy-MM-dd');
     this.checkCreatedAttendance(classId, dateSelected);
   }

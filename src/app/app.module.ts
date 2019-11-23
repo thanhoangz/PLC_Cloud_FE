@@ -155,6 +155,8 @@ import { AddOutAttendanceComponent } from './admin/content/attendance-sheet/dial
     BlockUIModule.forRoot(),
     DragDropModule,
     NgxPrintModule,
+
+
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, direction: 'ltr' } },
